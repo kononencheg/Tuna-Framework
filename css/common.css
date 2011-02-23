@@ -1,0 +1,16 @@
+*
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+.Console
+{
+	height: 500px;
+	overflow: scroll;
+
+	border: 1px gray solid;
+	background: #CCCCCC;
+
+	margin: 10px;
+}

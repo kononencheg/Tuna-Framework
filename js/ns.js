@@ -1,0 +1,2 @@
+tuna.debug = {};
+tuna.tmpl = {};
