@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:tuna="http://localhost/">
+	<head>
+		<meta charset="UTF-8" />
+		
+		<title>TUNA TEMPLATES</title>
+		
+		<link href="../../css/templates.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="../../js/tuna.js"></script>
+		<script src="../../js/namespaces.js"></script>
+		
+		<script type="text/javascript">
+			var data = {
+				"menu": [{
+					"id": "1",
+					"name": "Item 1",
+					"children": [{
+						"id": "1_1",
+						"name": "Item 1.1"
+					},{
+						"id": "1_2",
+						"name": "Item 1.2",
+						"children": [{
+							"id": "1_2_1",
+							"name": "Item 1.2.1"
+						},{
+							"id": "1_2_2",
+							"name": "Item 1.2.2"
+						}]
+					}]
+			 	}, {
+					"id": "2",
+					"name": "Item 2"
+				}, {
+					"id": "3",
+					"name": "Item 3",
+					"children": [{
+						"id": "3_1",
+						"name": "Item 3.1"
+					}]
+				}, {
+					"id": "4",
+					"name": "Item 4"
+				}, {
+					"id": "5",
+					"name": "Item 5"
+				}, {
+					"id": "6",
+					"name": "Item 6"
+				}]
+			};
+		</script>
+	</head>
+
+	<body>
+		<div class="hidden">
+			<!--------------------------- RENDERER --------------------------->
+			
+			<ol>
+				<li id="menu_item_renderer">
+					<span class="t-item-name"></span>
+					<ol class="t-sub-menu"></ol>
+				</li>
+			</ol>
+			
+			<!--------------------------- TEMPLATES -------------------------->
+			
+			<tuna:template id="menu_item_template">
+				<tuna:spot tuna:class="t-item-name" tuna:path="name" />
+				
+				<tuna:list tuna:class="t-sub-menu" 
+						   tuna:path="children"
+						   tuna:item-renderer-id="menu_item_renderer"
+						   tuna:item-template-id="menu_item_template"
+						   tuna:key-path="id" />
+			</tuna:template>
+		
+			<tuna:template id="menu_template">			
+				<tuna:list tuna:class="t-menu-list" 
+						   tuna:path="menu"
+						   tuna:item-renderer-id="menu_item_renderer"
+						   tuna:item-template-id="menu_item_template"
+						   tuna:key-path="id" />
+			</tuna:template>			
+		</div>
+	
+		
+		<button onclick="data.menu.pop(); 
+						 transformer.applyTransform(data);">
+			Delete last item!
+		</button>
+		
+		<button onclick="data.menu[0].children[0].children.push({
+							'id': Math.random(),
+							'name': 'Item'
+						});
+		
+						transformer.applyTransform(data);">
+			Insert item!
+		</button>
+		
+		<div id="main_menu">
+			Menu
+			<ol class="t-menu-list">
+				<li class="t-menu-list:1">
+					<span class="t-item-name">Item 1</span>
+					<ol class="t-sub-menu"></ol>
+				</li>
+				<li class="t-menu-list:2">
+					<span class="t-item-name">Item 2</span>
+					<ol class="t-sub-menu"></ol>
+				</li>
+			</ol>
+		</div>
+		
+		
+		<script src="../../js/tuna/dom.js"></script>
+		
+		<script src="../../js/tuna/transform/ITransformer.js"></script>
+		<script src="../../js/tuna/tmpl/ITemplateCompiler.js"></script>
+		
+		<script src="../../js/tuna/tmpl/Spot.js"></script>
+		<script src="../../js/tuna/tmpl/List.js"></script>
+		<script src="../../js/tuna/tmpl/Template.js"></script>
+		
+		<script src="../../js/tuna/tmpl/DataNode.js"></script>
+		
+		<script src="../../js/tuna/tmpl/PathEvaluator.js"></script>
+
+		<script src="../../js/tuna/tmpl/ICompiledUnit.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledTemplate.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledSpot.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledList.js"></script>
+
+		<script src="../../js/tuna/tmpl/MarkupTemplateBuilder.js"></script>
+		<script src="../../js/tuna/tmpl/TemplateCompiler.js"></script>
+		<script src="../../js/tuna/tmpl/TemplateTransformer.js"></script>
+	
+		<script>
+			function $(id) {
+				return document.getElementById(id);
+			}
+			
+			var templateBuilder = new tuna.tmpl.MarkupTemplateBuilder();
+			var template = templateBuilder.buildTemplate('menu_template');
+			
+			var tepmplateCompiler = new tuna.tmpl.TemplateCompiler();
+			var transformer = tepmplateCompiler.makeTransformer(template, $('main_menu'))
+			
+			transformer.applyTransform(data);
+		</script>
+		
+		
+	</body>
+</html>
+   

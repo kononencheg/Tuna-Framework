@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ya="http://yatalant.ru/namespace">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<title>TUNA SANDBOX</title>
+
+		<!--script type="text/javascript" src="../js/tuna.js"></script>
+		<script type="text/javascript" src="../js/tuna/dom.js"></script>
+		<script type="text/javascript" src="../js/tuna/act/DragEngine.js"></script>
+		<script type="text/javascript" src="../js/tuna/geom/Point.js"></script>
+		<script type="text/javascript" src="../js/tuna/geom/Layout.js"></script-->
+
+		<link href="../css/common.css" rel="stylesheet" type="text/css"/>
+	</head>
+	
+	<body>
+		
+		<div id="drag_list" onmousedown="startDrag(event);">
+			<div class="list-item">1000<div>1010</div></div>
+			<div class="list-item">2000</div>
+			<div class="list-item">3000</div>
+			<div class="list-item">4000</div>
+			<div class="list-item">5000</div>
+		</div>
+		
+		<div id="drop_shadow" style="display: none;">----</div>
+		
+		<div id="console"></div>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+		
+			function $(id)
+			{
+				return document.getElementById(id);
+			}
+			
+			var engine = new tuna.act.DragEngine
+			({
+				handleDrag: function(engine, event)
+				{
+					var mousePos = tuna.geom.Layout.getMousePosition(event);
+					var target = tuna.geom.Layout.getChildUnderThePoint($("drag_list"), mousePos);
+					var elemPos = tuna.geom.Layout.getElementPosition(target);
+					var node = engine.getShadow();
+					
+					if (target && target != engine.getShadow())
+					{
+						var halfSize = target.offsetHeight * 0.5;
+						
+						if (mousePos.y > elemPos.y + halfSize)
+						{
+							if (target.nextSibling == null)
+								target.parentNode.appendChild(node);
+							else target.parentNode.insertBefore(node, target.nextSibling);
+						}
+						else target.parentNode.insertBefore(node, target);
+					}
+				},
+				
+				handleDrop: function(engine, event)
+				{
+					engine.getDragTarget().style.display = '';
+					engine.getShadow().parentNode.insertBefore
+						(engine.getDragTarget(), engine.getShadow());
+				},
+				
+				handleStart: function(engine, event)
+				{
+					engine.getDragTarget().style.display = 'none';
+					engine.getShadow().style.display = '';
+					
+					var node = engine.getShadow();
+					var target = engine.getDragTarget();
+					target.parentNode.insertBefore(node, target);
+				}
+			});
+			
+			function startDrag(event)
+			{
+				var target = event.target ? event.target : event.srcElement;
+				
+				target = tuna.dom.getParentWithClass(target, 'list-item');
+				
+				engine.startDrag(target, target.cloneNode(true), $('drop_shadow').cloneNode(true), event);
+			}
+		//]]>
+		</script>
+	</body>
+</html>

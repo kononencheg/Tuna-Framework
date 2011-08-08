@@ -1,0 +1,9 @@
+
+class TunaClass {
+
+	+ Array.<boolean> publicMethod(!number i, =string s);
+	# void protectedMethod1(a, s);
+	- void privateMethod1(a, s);
+	
+	* number staticMethod();
+}

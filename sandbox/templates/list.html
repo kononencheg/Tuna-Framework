@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:tuna="http://localhost/">
+	<head>
+		<meta charset="UTF-8" />
+		
+		<title>TUNA TEMPLATES</title>
+		
+		<link href="../../css/templates.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="../../js/tuna.js"></script>
+		<script src="../../js/namespaces.js"></script>
+	</head>
+
+	<body>
+		<div class="hidden">
+			<!--------------------------- RENDERER --------------------------->
+			
+			<table>
+				<tbody>
+					<tr id="user_row_renderer">
+						<td><span class="t-first-name"></span></td>
+						<td><span class="t-last-name"></span></td>
+						<td>
+							<span class="t-user-index"></span> /
+							<span class="t-users-count"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!--------------------------- TEMPLATES -------------------------->
+			
+			<tuna:template id="row_template">
+				<tuna:spot tuna:class="t-user-index" tuna:path="id" />
+				<tuna:spot tuna:class="t-users-count" tuna:path="../2/first_name" />
+				<tuna:spot tuna:class="t-first-name" tuna:path="first_name" />
+				<tuna:spot tuna:class="t-last-name" tuna:path="last_name" />
+			</tuna:template>
+		
+			<tuna:template id="list_template">
+				<tuna:spot tuna:class="t-users-count" 
+						   tuna:path="users/length" />
+				
+				<tuna:spot tuna:class="t-first-user-name" 
+						   tuna:path="users/0/first_name" />
+				
+				<tuna:list tuna:class="t-users-list" tuna:path="users"
+						   tuna:item-renderer-id="user_row_renderer"
+						   tuna:item-template-id="row_template"
+						   tuna:key-path="id" />
+			</tuna:template>			
+		</div>
+
+		<script type="text/javascript">
+			var data = {
+				"users": [{
+					"id": 1, 
+			 	 	"first_name": "Sergey",	
+			 	 	"last_name": "Kononenko"
+			 	 }, {
+			 		"id": 2,
+			 		"first_name": "Marina",
+				 	"last_name": "Teodori"
+				 },	{
+					"id": 3,
+				 	"first_name": "Zina",
+				 	"last_name": "Kononenko"
+				 }],
+				"page": 1,
+				"total": 10
+			};
+		</script>
+	
+		<div id="users_info">
+			<p> Users count: <span class="t-users-count"></span> </p>
+			<p> First user name: <span class="t-first-user-name"></span> </p>
+			
+			<table>
+				<tbody id="g" class="t-users-list">
+					<tr class="t-users-list:2">
+						<td><span class="t-first-name">.</span></td>
+						<td><span class="t-last-name">.</span></td>
+						<td>
+							<span class="t-user-index">.</span> /
+							<span class="t-users-count">.</span>
+						</td>
+					</tr>
+					<tr class="t-users-list:1">
+						<td><span class="t-first-name">.</span></td>
+						<td><span class="t-last-name">.</span></td>
+						<td>
+							<span class="t-user-index">.</span> /
+							<span class="t-users-count">.</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		
+		<script src="../../js/tuna/dom.js"></script>
+		
+		<script src="../../js/tuna/transform/ITransformer.js"></script>
+		<script src="../../js/tuna/tmpl/ITemplateCompiler.js"></script>
+		
+		<script src="../../js/tuna/tmpl/Spot.js"></script>
+		<script src="../../js/tuna/tmpl/List.js"></script>
+		<script src="../../js/tuna/tmpl/Template.js"></script>
+		
+		<script src="../../js/tuna/tmpl/DataNode.js"></script>
+		
+		<script src="../../js/tuna/tmpl/PathEvaluator.js"></script>
+
+		<script src="../../js/tuna/tmpl/ICompiledUnit.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledTemplate.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledSpot.js"></script>
+		<script src="../../js/tuna/tmpl/CompiledList.js"></script>
+
+		<script src="../../js/tuna/tmpl/MarkupTemplateBuilder.js"></script>
+		<script src="../../js/tuna/tmpl/TemplateCompiler.js"></script>
+		<script src="../../js/tuna/tmpl/TemplateTransformer.js"></script>
+	
+		<script>
+			function $(id) {
+				return document.getElementById(id);
+			}
+			
+			var templateBuilder = new tuna.tmpl.MarkupTemplateBuilder();
+			var template = templateBuilder.buildTemplate('list_template');
+			
+			var tepmplateCompiler = new tuna.tmpl.TemplateCompiler();
+			var transformer = tepmplateCompiler.makeTransformer(template, $('users_info'))
+			
+			transformer.applyTransform(data);
+			
+			
+			var g = $('g');
+			var str = g.innerHTML;
+			var arr = {};
+			
+			var i = 500;
+			while(--i) {
+				str += '<tr class="t-users-list:0">\
+					<td><span class="t-first-name">.</span></td>\
+						<td><span class="t-last-name">.</span></td>\
+						<td>\
+							<span class="t-user-index">0</span> /\
+							<span class="t-users-count">0</span>\
+						</td>\
+					</tr>';
+					
+				arr[i] = str;
+			}
+			
+			var a = new Date().getTime();
+			
+			i = 500;
+			while (--i) {
+				data.users.push({
+					"id": i + 3,
+				 	"first_name": ".",
+				 	"last_name": "."
+				});
+				
+				transformer.applyTransform(data);
+	
+				//g.innerHTML = arr[i];
+			}
+			
+			alert(new Date().getTime() - a);
+		</script>
+		
+		
+	</body>
+</html>
+   

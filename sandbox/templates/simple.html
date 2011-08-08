@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:tuna="http://localhost/">
+	<head>
+		<meta charset="UTF-8" />
+		
+		<title>TUNA TEMPLATES</title>
+		
+		<link href="../../css/templates.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="../../js/tuna.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<tuna:template id="simple_template">
+				<tuna:spot tuna:class="t-user-id" tuna:path="id" />
+				<tuna:spot tuna:class="t-first-name" tuna:path="first_name" />
+				<tuna:spot tuna:class="t-last-name" tuna:path="last_name" />
+			</tuna:template>
+		</div>
+	
+		<div id="user_info">
+			<p> ID: <span class="t-user-id">1</span> </p>
+			<p> FIRST NAME: <span class="t-first-name">Sergey</span> </p>
+			<p> LAST NAME: <span class="t-last-name">Kononenko</span> </p>			
+		</div>
+	
+		<script>
+			function $(id) {
+				return document.getElementById(id);
+			}
+		
+			var data = {
+				'id': 2, 
+				'first_name': 'Marina', 
+				'last_name': 'Teodori'
+			};
+			
+			tuna.JS_ROOT = '../../js'
+			tuna.include('tuna.tmpl.MarkupTemplateCompiler');
+			
+			var compiler = new tuna.tmpl.MarkupTemplateCompiler();
+			compiler.registerTemplate($('simple_template'), 'template');
+			
+			compiler.compile('template', $('user_info')).applyTransform(data);
+		
+		</script>
+	</body>
+</html>
+   
