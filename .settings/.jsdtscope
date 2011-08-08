@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="tuna/display/|tuna/data/ext/|tuna/tmpl/|tuna/|tuna/act/|tuna/ya/|tuna/event/|tuna/debug/|tuna/test/|tuna/cmd/|tuna/data/xml/|tuna/net/|tuna/data/|tuna/transform/|tests/|tuna/geom/" kind="src" path="js"/>
+	<classpathentry kind="src" path="js/tests"/>
+	<classpathentry excluding="display/|data/ext/|tmpl/|act/|ya/|event/|debug/|test/|cmd/|data/xml/|net/|data/|transform/|geom/" kind="src" path="js/tuna"/>
+	<classpathentry kind="src" path="js/tuna/act"/>
+	<classpathentry kind="src" path="js/tuna/cmd"/>
+	<classpathentry excluding="ext/|xml/" kind="src" path="js/tuna/data"/>
+	<classpathentry kind="src" path="js/tuna/data/ext"/>
+	<classpathentry kind="src" path="js/tuna/data/xml"/>
+	<classpathentry kind="src" path="js/tuna/debug"/>
+	<classpathentry kind="src" path="js/tuna/display"/>
+	<classpathentry kind="src" path="js/tuna/event"/>
+	<classpathentry kind="src" path="js/tuna/geom"/>
+	<classpathentry kind="src" path="js/tuna/net"/>
+	<classpathentry kind="src" path="js/tuna/test"/>
+	<classpathentry kind="src" path="js/tuna/tmpl"/>
+	<classpathentry kind="src" path="js/tuna/transform"/>
+	<classpathentry kind="src" path="js/tuna/ya"/>
+	<classpathentry excluding="templates/" kind="src" path="sandbox"/>
+	<classpathentry kind="src" path="sandbox/templates"/>
+	<classpathentry kind="src" path="test/stuff"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
