@@ -1,2 +1,0 @@
-tuna.debug = {};
-tuna.tmpl = {};
