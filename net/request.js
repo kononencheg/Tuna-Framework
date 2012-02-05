@@ -89,7 +89,7 @@
         }
 
         //Инициализируем запрос.
-        var request = !tuna.utils.IS_IE ?
+        var request = !tuna.IS_IE ?
                         new XMLHttpRequest() :
                         new ActiveXObject('Microsoft.XMLHTTP');
 

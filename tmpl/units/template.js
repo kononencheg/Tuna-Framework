@@ -1,71 +1,110 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file compiled-template.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
+ * @extends {tuna.tmpl.units.CompiledUnit}
+ * @param {tuna.tmpl.units.Template} root
  */
+var Template = function(root) {
+    tuna.tmpl.units.CompiledUnit.call(this, root || this);
 
-(function() {
+    /**
+     * @private
+     * @type Array.<tuna.tmpl.units.CompiledUnit>
+     */
+    this.__items = [];
 
-    var Template = function(rootTemplate) {
-        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate || this);
+    /**
+     * @private
+     * @type Array.<Node>
+     */
+    this.__createdChildren = [];
 
-        this.__items = [];
+    /**
+     * @private
+     * @type Array.<Node>
+     */
+    this.__removedChildren = [];
 
-        this.__createdChildren = [];
-        this.__removedChildren = [];
+    /**
+     * @private
+     * @type Node
+     */
+    this.__target = null;
+};
 
-        this.__target = null;
-    };
+tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
 
-    tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
+/**
+ * @param {Node} element
+ */
+Template.prototype.setTarget = function(element) {
+    this.__target = element;
+};
 
-    Template.prototype.setTarget = function(element) {
-        this.__target = element;
-    };
+/**
+ * @param {Array.<tuna.tmpl.units.CompiledUnit>|tuna.tmpl.units.CompiledUnit} items
+ */
+Template.prototype.addItems = function(items) {
+    this.__items = this.__items.concat(items);
+};
 
-    Template.prototype.addItems = function(items) {
-        this.__items = this.__items.concat(items);
-    };
+/**
+ * @param {Node} child
+ */
+Template.prototype.registerChildCreation = function(child) {
+    this.__createdChildren.push(child);
+};
 
-    // TODO: rename to registerElementCreation
-    Template.prototype.registerChildCreation = function(child) {
-        this.__createdChildren.push(child);
-    };
+/**
+ * @return {Array.<Node>}
+ */
+Template.prototype.fetchCreatedChildren = function() {
+    return this.__createdChildren.splice(0, this.__createdChildren.length);
+};
 
-    Template.prototype.fetchCreatedChildren = function() {
-        return this.__createdChildren.splice(0, this.__createdChildren.length);
-    };
+/**
+ * @param {Node} child
+ */
+Template.prototype.registerChildRemoval = function(child) {
+    this.__removedChildren.push(child);
+};
 
-    Template.prototype.registerChildRemoval = function(child) {
-        this.__removedChildren.push(child);
-    };
+/**
+ * @return {Array.<Node>}
+ */
+Template.prototype.fetchRemovedChildren = function() {
+    return this.__removedChildren.splice(0, this.__removedChildren.length);
+};
 
-    Template.prototype.fetchRemovedChildren = function() {
-        return this.__removedChildren.splice(0, this.__removedChildren.length);
-    };
+/**
+ * @override
+ */
+Template.prototype.applyData = function(dataNode) {
+    var i = this.__items.length - 1;
+    while (i >= 0) {
+        this.__items[i].applyData(dataNode);
 
-    Template.prototype.applyData = function(dataNode) {
-        var i = this.__items.length - 1;
-        while (i >= 0) {
-            this.__items[i].applyData(dataNode);
+        i--;
+    }
+};
 
-            i--;
-        }
-    };
+/**
+ * @override
+ */
+Template.prototype.destroy = function() {
+    var i = this.__items.length - 1;
+    while (i >= 0) {
+        this.__items[i].destroy();
 
-    Template.prototype.destroy = function() {
-        var i = this.__items.length - 1;
-        while (i >= 0) {
-            this.__items[i].destroy();
+        i--;
+    }
 
-            i--;
-        }
+    this.__target.parentNode.removeChild(this.__target);
 
-        this.__target.parentNode.removeChild(this.__target);
+    this.getRootTemplate().registerChildRemoval(this.__target);
+};
 
-        this.getRootTemplate().registerChildRemoval(this.__target);
-    };
-
-    tuna.tmpl.units.Template = Template;
-})();
+/**
+ * @constructor
+ * @extends {Template}
+ */
+tuna.tmpl.units.Template = Template;

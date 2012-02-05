@@ -1,14 +1,28 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.tmpl.units.IListItemRouter}
+ * @param {Node} container
+ */
+var ListContainerRouter = function(container) {
 
-    var ListContainerRouter = function(containerElement) {
-        this._container = containerElement;
-    };
+    /**
+     * @protected
+     * @type Node
+     */
+    this._container = container;
+};
 
-    tuna.utils.implement(ListContainerRouter, tuna.tmpl.units.IListItemRouter);
+tuna.utils.implement(ListContainerRouter, tuna.tmpl.units.IListItemRouter);
 
-    ListContainerRouter.prototype.append = function(node) {
-        this._container.appendChild(node);
-    };
+/**
+ * @override
+ */
+ListContainerRouter.prototype.append = function(node) {
+    this._container.appendChild(node);
+};
 
-    tuna.tmpl.units.ListContainerRouter = ListContainerRouter;
-})();
+/**
+ * @constructor
+ * @extends {ListContainerRouter}
+ */
+tuna.tmpl.units.ListContainerRouter = ListContainerRouter;

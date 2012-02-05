@@ -1,140 +1,227 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.tmpl.compilers.SpotCompiler}
+ */
+var ConditionCompiler = function() {
+    tuna.tmpl.compilers.SpotCompiler.call(this);
+};
 
-    var ConditionCompiler = function() {
-        tuna.tmpl.compilers.SpotCompiler.call(this);
-    };
+tuna.utils.extend(ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
 
-    tuna.utils.extend(ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
+/**
+ * @override
+ */
+ConditionCompiler.prototype._getItemsSettings = function(settings) {
+    return settings.getConditions();
+};
 
-    ConditionCompiler.prototype._getItemsSettings = function(settings) {
-        return settings.getConditions();
-    };
+/**
+ * @override
+ */
+ConditionCompiler.prototype._createItem = function(rootTemplate) {
+    return new tuna.tmpl.units.Condition(rootTemplate);
+};
 
-    ConditionCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.units.Condition(rootTemplate);
-    };
+/**
+ * @override
+ */
+ConditionCompiler.prototype._compileItem = function(element, settings, item) {
+    tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
+                                    (this, element, settings, item);
 
-    ConditionCompiler.prototype._compileItem = function(element, settings, item) {
-        tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
-                                        (this, element, settings, item);
+    var action = this.__createAction
+        (settings.getActionType(), settings.getActionData());
 
-        var action = this.__createAction
-            (settings.getActionType(), settings.getActionData());
+    item.setAction(action);
 
-        item.setAction(action);
+    var operator = this.__createOperator
+        (settings.getOperatorType(), settings.getOperatorData());
 
-        var operator = this.__createOperator
-            (settings.getOperatorType(), settings.getOperatorData());
+    item.setOperator(operator);
+};
 
-        item.setOperator(operator);
-    };
+/**
+ * @private
+ * @param {string} type
+ * @param {string} data
+ * @return {__ConditionAction}
+ */
+ConditionCompiler.prototype.__createAction = function(type, data) {
+    switch (type) {
+        case 'class': return new __ClassAction(data);
+    }
 
-    ConditionCompiler.prototype.__createAction = function(type, data) {
-        switch (type) {
-            case 'class': return new ClassAction(data);
+    return null;
+};
+
+/**
+ * @private
+ * @param {string} type
+ * @param {string} data
+ * @return {__ConditionOperator}
+ */
+ConditionCompiler.prototype.__createOperator = function(type, data) {
+    switch (type) {
+        case 'isset': return new __IsSetOperator();
+        case 'eq': return new __EqualsOperator(data);
+        case 'ne': return new __NotEqualsOperator(data);
+    }
+
+    return null;
+};
+
+tuna.tmpl.compilers.ConditionCompiler = ConditionCompiler;
+
+///////////////////////////////////////////////////////////////////////////
+//
+//  Operators
+//
+///////////////////////////////////////////////////////////////////////////
+
+/**
+ * @private
+ * @constructor
+ * @param {string=} data
+ */
+var __ConditionOperator = function(data) {
+    /**
+     * @private
+     * @type string
+     */
+    this._data = data || '';
+};
+
+/**
+ * @param {*} value
+ * @return {boolean}
+ */
+__ConditionOperator.prototype.test = function(value) {};
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionOperator}
+ */
+var __IsSetOperator = function() {
+    __ConditionOperator.call(this);
+};
+
+tuna.utils.extend(__IsSetOperator, __ConditionOperator);
+
+/**
+ * @override
+ */
+__IsSetOperator.prototype.test = function(value) {
+    return value !== undefined;
+};
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionOperator}
+ * @param {string=} data
+ */
+var __EqualsOperator = function(data) {
+    __ConditionOperator.call(this, data);
+};
+
+tuna.utils.extend(__EqualsOperator, __ConditionOperator);
+
+/**
+ * @override
+ */
+__EqualsOperator.prototype.test = function(value) {
+    return value === this._data || (value + '') === this._data;
+};
+
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionOperator}
+ * @param {string=} data
+ */
+var __NotEqualsOperator = function(data) {
+    __ConditionOperator.call(this, data);
+};
+
+tuna.utils.extend(__NotEqualsOperator, __ConditionOperator);
+
+/**
+ * @override
+ */
+__NotEqualsOperator.prototype.test = function(value) {
+    return !(value == this._data || String(value) == this._data);
+};
+
+///////////////////////////////////////////////////////////////////////////
+//
+//  Actions
+//
+///////////////////////////////////////////////////////////////////////////
+
+/**
+ * @private
+ * @constructor
+ * @param {string=} data
+ */
+var __ConditionAction = function(data) {
+
+    /**
+     * @private
+     * @type string
+     */
+    this._data = data || '';
+};
+
+/**
+ *
+ * @param {Node} element
+ * @param {boolean} testResult
+ * @param {*} value
+ */
+__ConditionAction.prototype.apply = function(element, testResult, value) {};
+
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionAction}
+ * @param {string=} data
+ */
+var __ClassAction = function(data) {
+    __ConditionAction.call(this, data);
+
+    /**
+     * @private
+     * @type *
+     */
+    this.__lastName = null;
+};
+
+tuna.utils.extend(__ClassAction, __ConditionAction);
+
+/**
+ * @override
+ */
+__ClassAction.prototype.apply = function(element, testResult, value) {
+    var className = this._data;
+
+    if (className !== '') {
+        if (testResult) {
+            tuna.dom.addClass(element, className);
+        } else {
+            tuna.dom.removeClass(element, className);
         }
 
-        return null;
-    };
-
-    ConditionCompiler.prototype.__createOperator = function(type, data) {
-        switch (type) {
-            case 'isset': return new IsSetOperator();
-            case 'eq': return new EqualsOperator(data);
-            case 'ne': return new NotEqualsOperator(data);
+    } else if (this.__lastName !== value && testResult) {
+        if (this.__lastName !== null) {
+            tuna.dom.removeClass(element, this.__lastName + '');
         }
 
-        return null;
-    };
+        tuna.dom.addClass(element, value + '');
 
-    tuna.tmpl.compilers.ConditionCompiler = ConditionCompiler;
+        this.__lastName = value;
+    }
 
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    //  Operators
-    //
-    ///////////////////////////////////////////////////////////////////////////
-
-    var ConditionOperator = function(data) {
-        this._data = data;
-    };
-
-    ConditionOperator.prototype.test = function(value) {};
-
-
-    var IsSetOperator = function() {
-        ConditionOperator.call(this);
-    };
-
-    tuna.utils.extend(IsSetOperator, ConditionOperator);
-
-    IsSetOperator.prototype.test = function(value) {
-        return value !== undefined;
-    };
-
-
-    var EqualsOperator = function(data) {
-        ConditionOperator.call(this, data);
-    };
-
-    tuna.utils.extend(EqualsOperator, ConditionOperator);
-
-    EqualsOperator.prototype.test = function(value) {
-        return value == this._data || String(value) == this._data;
-    };
-
-
-    var NotEqualsOperator = function(data) {
-        ConditionOperator.call(this, data);
-    };
-
-    tuna.utils.extend(NotEqualsOperator, ConditionOperator);
-
-    NotEqualsOperator.prototype.test = function(value) {
-        return !(value == this._data || String(value) == this._data);
-    };
-
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    //  Actions
-    //
-    ///////////////////////////////////////////////////////////////////////////
-
-    var ConditionAction = function(data) {
-        this._data = data;
-    };
-
-    ConditionAction.prototype.apply = function(node, testResult, value) {};
-
-
-    var ClassAction = function(data) {
-        ConditionAction.call(this, data);
-
-        this.__lastName = null;
-    };
-
-    tuna.utils.extend(ClassAction, ConditionAction);
-
-    ClassAction.prototype.apply = function(node, testResult, value) {
-        var className = this._data;
-
-        if (className !== '') {
-            if (testResult) {
-                tuna.dom.addClass(node, className);
-            } else {
-                tuna.dom.removeClass(node, className);
-            }
-
-        } else if (this.__lastName !== value && testResult) {
-            if (this.__lastName !== null) {
-                tuna.dom.removeClass(node, this.__lastName);
-            }
-
-            tuna.dom.addClass(node, value);
-
-            this.__lastName = value;
-        }
-
-    };
-
-})();
+};

@@ -1,24 +1,45 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.view.ViewController}
+ */
+var PageViewController = function() {
+    tuna.view.ViewController.call(this);
 
-    var PageViewController = function(targetID) {
-        tuna.view.ViewController.call(this, targetID);
+    /**
+     * @protected
+     * @type tuna.ui.selection.Navigation
+     */
+    this._navigation = null;
+};
 
-        this._navigation = null;
-    };
+tuna.utils.extend(PageViewController, tuna.view.ViewController);
 
-    tuna.utils.extend(PageViewController, tuna.view.ViewController);
+/**
+ * @param {tuna.ui.selection.Navigation} navigation
+ */
+PageViewController.prototype.setNavigation = function(navigation) {
+    this._navigation = navigation;
+};
 
-    PageViewController.prototype.setNavigation = function(navigation) {
-        this._navigation = navigation;
-    };
+/**
+ * @param {string} index
+ */
+PageViewController.prototype.canClose = function(index) {
+    return true;
+};
 
-    PageViewController.prototype.canClose = function(index) {
-        return true;
-    };
+/**
+ *
+ */
+PageViewController.prototype.close = function() {};
 
-    PageViewController.prototype.close = function() {};
-    
-    PageViewController.prototype.open = function(args) {};
+/**
+ * @param {Object.<string, string>} args
+ */
+PageViewController.prototype.open = function(args) {};
 
-    tuna.view.PageViewController = PageViewController;
-})();
+/**
+ * @constructor
+ * @extends {PageViewController}
+ */
+tuna.view.PageViewController = PageViewController;

@@ -1,18 +1,39 @@
-(function() {
+/**
+ * @interface
+ */
+var IItemsCollection = function() {};
 
-    var IItemsCollection = function() {};
+/**
+ * @param {Node} item
+ * @return {?(string|number)}
+ */
+IItemsCollection.prototype.addItem = function(item) {};
+
+/**
+ * @param {Node} item
+ * @return {?(string|number)}
+ */
+IItemsCollection.prototype.getItemIndex = function(item) {};
+
+/**
+* @param {string|number} index
+* @return {Node}
+*/
+IItemsCollection.prototype.getItemAt = function(index) {};
+
+/**
+* @param {function((string|number), Node)} callback
+*/
+IItemsCollection.prototype.mapItems = function(callback) {};
+
+/**
+ *
+ */
+IItemsCollection.prototype.clear = function() {};
 
 
-    IItemsCollection.prototype.addItem = function(item) {};
-
-    IItemsCollection.prototype.getItemIndex = function(item) {};
-
-    IItemsCollection.prototype.getItemAt = function(index) {};
-
-    IItemsCollection.prototype.clear = function() {};
-
-    IItemsCollection.prototype.mapItems = function(callback) {};
-
-
-    tuna.ui.selection.items.IItemsCollection = IItemsCollection;
-})();
+/**
+ * @interface
+ * @extends {IItemsCollection}
+ */
+tuna.ui.selection.items.IItemsCollection = IItemsCollection;

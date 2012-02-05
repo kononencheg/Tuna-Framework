@@ -7,7 +7,7 @@
 
         this._itemSelector = null;
 
-        this._selectedClass = null;
+        this._selectionClass = null;
         this._disabledClass = 'disabled';
     };
 
@@ -17,8 +17,8 @@
         this._itemSelector = selector;
     };
 
-    ClassSelectionView.prototype.setSelectedClass = function(className) {
-        this._selectedClass = className;
+    ClassSelectionView.prototype.setSelectionClass = function(className) {
+        this._selectionClass = className;
     };
 
     ClassSelectionView.prototype.setDisabledClass = function(className) {
@@ -28,13 +28,13 @@
 
     ClassSelectionView.prototype.applySelectionAt = function(index) {
         tuna.dom.addClass
-            (this._itemsCollection.getItemAt(index), this._selectedClass);
+            (this._itemsCollection.getItemAt(index), this._selectionClass);
     };
 
     ClassSelectionView.prototype.destroySelectionAt = function(index) {
         var item = this._itemsCollection.getItemAt(index);
         if (item !== null) {
-            tuna.dom.removeClass(item, this._selectedClass);
+            tuna.dom.removeClass(item, this._selectionClass);
         }
     };
 
@@ -68,7 +68,7 @@
 
                 index = this._itemsCollection.addItem(item);
                 if (index !== null &&
-                    tuna.dom.hasClass(item, this._selectedClass)) {
+                    tuna.dom.hasClass(item, this._selectionClass)) {
                     this._selectionGroup.selectIndex(index);
                 }
             }

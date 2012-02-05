@@ -1,66 +1,71 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file template-compiler.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
+ * @param {HTMLDocument} doc
  */
-
-(function() {
-
+var TemplateCompiler = function(doc) {
 
     /**
-     * @public
-     * @class
-     *
-     * @constructor
+     * @private
+     * @type HTMLDocument
      */
-    var TemplateCompiler = function(doc) {
-        this.__doc = doc;
-
-        this.__itemCompilers = [];
-
-        this.__registerItemCompilers();
-    };
-
-    TemplateCompiler.prototype.__registerItemCompilers = function() {
-        this.__itemCompilers.push(new tuna.tmpl.compilers.SpotCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compilers.ListCompiler(this.__doc, this));
-    };
+    this.__doc = doc;
 
     /**
-     * Compiling template with target DOM element.
-     *
-     * @param {tuna.tmpl.settings.Template} template Template to compilers.
-     * @param {Element} element Target DOM element.
-     * @return {tuna.tmpl.ITransformer} New template transformer.
+     * @private
+     * @type Array.<tuna.tmpl.compilers.IItemCompiler>
      */
-    TemplateCompiler.prototype.makeTransformer
-        = function(templateSettings, element) {
+    this.__itemCompilers = [];
 
-        var transformer = new tuna.tmpl.TemplateTransformer();
-        transformer.setTargetElement(element);
-        transformer.setCore(this.compileTemplate(templateSettings, element));
+    this.__registerItemCompilers();
+};
 
-        return transformer;
-    };
+/**
+ * @private
+ */
+TemplateCompiler.prototype.__registerItemCompilers = function() {
+    this.__itemCompilers.push(new tuna.tmpl.compilers.SpotCompiler());
+    this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
+    this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
+    this.__itemCompilers.push
+        (new tuna.tmpl.compilers.ListCompiler(this.__doc, this));
+};
 
-    TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
-        var template = new tuna.tmpl.units.Template(root);
-        template.setTarget(element);
+/**
+ * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * @param {Node} element
+ * @return {tuna.tmpl.ITransformer}
+ */
+TemplateCompiler.prototype.makeTransformer = function(settings, element) {
+    var transformer = new tuna.tmpl.TemplateTransformer();
+    transformer.setTargetElement(element);
+    transformer.setCoreTemplate(this.compileTemplate(settings, element, null));
 
-        var i = 0,
-            l = this.__itemCompilers.length;
+    return transformer;
+};
 
-        while (i < l) {
-            this.__itemCompilers[i].compile(element, settings, template);
-            i++;
-        }
+/**
+ * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * @param {Node} element
+ * @param {tuna.tmpl.units.Template} root
+ * @return {tuna.tmpl.units.Template}
+ */
+TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
+    var template = new tuna.tmpl.units.Template(root);
+    template.setTarget(element);
 
-        return template;
-    };
+    var i = 0,
+        l = this.__itemCompilers.length;
 
-    tuna.tmpl.compilers.TemplateCompiler = TemplateCompiler;
+    while (i < l) {
+        this.__itemCompilers[i].compile(element, settings, template);
+        i++;
+    }
 
-})();
+    return template;
+};
+
+/**
+ * @constructor
+ * @extends {TemplateCompiler}
+ */
+tuna.tmpl.compilers.TemplateCompiler = TemplateCompiler;

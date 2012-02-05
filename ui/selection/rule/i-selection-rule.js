@@ -1,16 +1,31 @@
-(function() {
+/**
+ * @interface
+ */
+var ISelectionRule = function() {};
 
-    var ISelectionRule = function() {};
+/**
+ * @return Array.<string|number>
+ */
+ISelectionRule.prototype.getSelectedIndexes = function() {};
 
+/**
+ * @param {string|number} index
+ */
+ISelectionRule.prototype.selectIndex = function(index) {};
 
-    ISelectionRule.prototype.getSelectedIndexes = function() {};
+/**
+ * @param {string|number} index
+ * @return boolean
+ */
+ISelectionRule.prototype.isSelected = function(index) {};
 
-    ISelectionRule.prototype.selectIndex = function(index) {};
+/**
+ *
+ */
+ISelectionRule.prototype.clearSelection = function() {};
 
-    ISelectionRule.prototype.isSelected = function(index) {};
-
-    ISelectionRule.prototype.clearSelection = function() {};
-
-
-    tuna.ui.selection.rule.ISelectionRule = ISelectionRule;
-})();
+/**
+ * @interface
+ * @extends {ISelectionRule}
+ */
+tuna.ui.selection.rule.ISelectionRule = ISelectionRule;

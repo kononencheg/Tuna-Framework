@@ -1,64 +1,103 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.tmpl.units.Spot}
+ * @param {tuna.tmpl.units.Template} root
+ */
+var Attribute = function(root) {
+    tuna.tmpl.units.Spot.call(this, root);
 
-    var Attribute = function(rootTemplate) {
-        tuna.tmpl.units.Spot.call(this, rootTemplate);
+    /**
+     * @private
+     * @type {string}
+     */
+    this.__attributeName = '';
 
-        this.__attributeName = null;
-        this.__eventName = null;
+    /**
+     * @private
+     * @type {string}
+     */
+    this.__eventName = '';
 
-        this.__hasEvent = false;
-    };
+    /**
+     * @private
+     * @type {boolean}
+     */
+    this.__hasEvent = false;
+};
 
-    tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
+tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
 
-    Attribute.prototype.setAttributeName = function(attributeName) {
-        this.__attributeName = attributeName;
-        this.__eventName = attributeName + '-change';
-    };
+/**
+ * @param {string} attributeName
+ */
+Attribute.prototype.setAttributeName = function(attributeName) {
+    this.__attributeName = attributeName;
+    this.__eventName = attributeName + '-change';
+};
 
-    Attribute.prototype.setEvent = function(hasEvent) {
-        this.__hasEvent = hasEvent;
-    };
+/**
+ * @param {boolean} hasEvent
+ */
+Attribute.prototype.setEvent = function(hasEvent) {
+    this.__hasEvent = hasEvent;
+};
 
-    Attribute.prototype._applyValue = function(value) {
-        if (value !== null) {
-            this.__setAttribute(value);
-        } else {
-            this.__removeAttribute();
-        }
+/**
+ * @override
+ */
+Attribute.prototype._applyValue = function(value) {
+    if (value !== null) {
+        this.__setAttribute(value);
+    } else {
+        this.__removeAttribute();
+    }
 
-        if (this.__hasEvent) {
-            var self = this;
-            setTimeout(function() {
-                self.__dispatchAttribute(value);
-            }, 0);
-        }
-    };
+    if (this.__hasEvent) {
+        var self = this;
+        setTimeout(function() {
+            self.__dispatchAttribute(value);
+        }, 0);
+    }
+};
 
-    Attribute.prototype.__setAttribute = function(value) {
-        var i = this._nodes.length - 1;
-        while (i >= 0) {
-            this._nodes[i].setAttribute(this.__attributeName, value);
-            i--;
-        }
-    };
+/**
+ * @private
+ * @param {*} value
+ */
+Attribute.prototype.__setAttribute = function(value) {
+    var i = this._nodes.length - 1;
+    while (i >= 0) {
+        this._nodes[i].setAttribute(this.__attributeName, value + '');
+        i--;
+    }
+};
 
-    Attribute.prototype.__removeAttribute = function() {
-        var i = this._nodes.length - 1;
-        while (i >= 0) {
-            this._nodes[i].removeAttribute(this.__attributeName);
-            i--;
-        }
-    };
+/**
+ * @private
+ */
+Attribute.prototype.__removeAttribute = function() {
+    var i = this._nodes.length - 1;
+    while (i >= 0) {
+        this._nodes[i].removeAttribute(this.__attributeName);
+        i--;
+    }
+};
 
-    Attribute.prototype.__dispatchAttribute = function(value) {
-        var i = this._nodes.length - 1;
-        while (i >= 0) {
-            tuna.dom.dispatchEvent(this._nodes[i], this.__eventName, value);
+/**
+ * @private
+ * @param {*} value
+ */
+Attribute.prototype.__dispatchAttribute = function(value) {
+    var i = this._nodes.length - 1;
+    while (i >= 0) {
+        tuna.dom.dispatchEvent(this._nodes[i], this.__eventName, '' + value);
 
-            i--;
-        }
-    };
+        i--;
+    }
+};
 
-    tuna.tmpl.units.Attribute = Attribute;
-})();
+/**
+ * @constructor
+ * @extends {Attribute}
+ */
+tuna.tmpl.units.Attribute = Attribute;

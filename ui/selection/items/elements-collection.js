@@ -1,37 +1,63 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.ui.selection.items.IItemsCollection}
+ */
+var ElementsCollection = function() {
 
-    var ElementsCollection = function() {
-        this.__items = [];
-    };
+    /**
+     * @private
+     * @type Array.<Node>
+     */
+    this.__items = [];
+};
 
-    tuna.utils.implement(ElementsCollection, tuna.ui.selection.items.IItemsCollection);
+tuna.utils.implement
+    (ElementsCollection, tuna.ui.selection.items.IItemsCollection);
 
-    ElementsCollection.prototype.addItem = function(item) {
-        return this.__items.push(item) - 1;
-    };
+/**
+ * @override
+ */
+ElementsCollection.prototype.addItem = function(item) {
+    return this.__items.push(item) - 1;
+};
 
-    ElementsCollection.prototype.getItemIndex = function(item) {
-        return tuna.utils.indexOf(item, this.__items);
-    };
+/**
+ * @override
+ */
+ElementsCollection.prototype.getItemIndex = function(item) {
+    return tuna.utils.indexOf(item, this.__items);
+};
 
-    ElementsCollection.prototype.getItemAt = function(index) {
-        return this.__items[index] || null;
-    };
+/**
+ * @override
+ */
+ElementsCollection.prototype.getItemAt = function(index) {
+    return this.__items[index] || null;
+};
 
-    ElementsCollection.prototype.clear = function() {
-        this.__items.length = 0;
-    };
+/**
+ * @override
+ */
+ElementsCollection.prototype.clear = function() {
+    this.__items.length = 0;
+};
 
-    ElementsCollection.prototype.mapItems = function(callback) {
-        var i = 0,
-            l = this.__items.length;
+/**
+ * @override
+ */
+ElementsCollection.prototype.mapItems = function(callback) {
+    var i = 0,
+        l = this.__items.length;
 
-        while (i < l) {
-            callback(i, this.__items[i]);
+    while (i < l) {
+        callback(i, this.__items[i]);
 
-            i++;
-        }
-    };
+        i++;
+    }
+};
 
-    tuna.ui.selection.items.ElementsCollection = ElementsCollection;
-})();
+/**
+ * @constructor
+ * @extends {ElementsCollection}
+ */
+tuna.ui.selection.items.ElementsCollection = ElementsCollection;

@@ -1,65 +1,70 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.Module}
+ */
+var TransformContainerModule = function() {
+    tuna.ui.Module.call(this, '.j-transform-container');
 
-    var TransformContainer = function() {
-        tuna.ui.modules.Module.call
-            (this, 'transform-container', '.j-transform-container');
+    /**
+     * @private
+     * @type tuna.tmpl.markup.MarkupTemplateBuilder
+     */
+    this.__templateBuilder
+        = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
-        this._useContext = false;
+    /**
+     * @private
+     * @type tuna.tmpl.compilers.TemplateCompiler
+     */
+    this.__templateCompiler 
+        = new tuna.tmpl.compilers.TemplateCompiler(document);
 
-        this.__templateBuilder
-            = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
+    /**
+     * @private
+     * @type Object.<string, tuna.tmpl.settings.TemplateSettings>
+     */
+    this.__templatesTable = {};
+};
 
-        this.__templateCompiler 
-            = new tuna.tmpl.compilers.TemplateCompiler(document);
+tuna.utils.extend(TransformContainerModule, tuna.ui.Module);
 
-        this.__templatesTable = {};
-    };
+/**
+ * @override
+ */
+TransformContainerModule.prototype._findTargets = function(context) {
+    return tuna.dom.select(this._selector, context);
+};
 
-    tuna.utils.extend(TransformContainer, tuna.ui.modules.Module);
+/**
+ * @private
+ * @param {string} id
+ */
+TransformContainerModule.prototype.__getTemplate = function(id) {
+    if (this.__templatesTable[id] === undefined) {
+        this.__templatesTable[id]
+            = this.__templateBuilder.buildSettings(id);
+    }
 
-    TransformContainer.prototype._findTargets = function(context) {
-        return tuna.dom.select(this._selector, context);
-    };
+    return this.__templatesTable[id];
+};
 
-    TransformContainer.prototype.__getTemplate = function(id) {
-        if (this.__templatesTable[id] === undefined) {
-            this.__templatesTable[id]
-                = this.__templateBuilder.buildTemplate(id);
-        }
+TransformContainerModule.prototype.initInstance = function(target, parent) {
 
-        return this.__templatesTable[id];
-    };
+    var container = new tuna.ui.container.TransformContainer(target);
+    var templateID = container.getOption('template-id');
 
-    TransformContainer.prototype.initInstance = function(target, parent) {
-        var self = this;
+    var template = this.__getTemplate(templateID);
+    if (template !== null) {
+        var transformer
+            = this.__templateCompiler.makeTransformer(template, target);
 
-        var templateID  = target.getAttribute('data-template-id');
-        var initEvent   = target.getAttribute('data-init-event');
+        container.setTransformer(transformer);
+    }
 
-        var container = new tuna.ui.container.TransformContainer(target, parent);
 
-        var initContainer = function() {
-            var template = self.__getTemplate(templateID);
-            if (template !== null) {
-                var transformer
-                    = self.__templateCompiler.makeTransformer(template, target);
+    return container;
+};
 
-                container.setTransformer(transformer);
-            }
+tuna.ui.modules.register('transform-container', new TransformContainerModule());
+tuna.ui.modules.addIsolator('j-transform-container');
 
-            container.init();
-        };
-
-        if (initEvent !== null) {
-            tuna.dom.addOneEventListener(target, initEvent, initContainer);
-        } else {
-            initContainer();
-        }
-
-        return container;
-    };
-
-    tuna.ui.modules.register(new TransformContainer());
-    tuna.ui.modules.addIsolator('j-transform-container');
-    
-})();

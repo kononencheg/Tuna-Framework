@@ -1,11 +1,25 @@
-(function() {
+/**
+ * @interface
+ */
+var ITransformer = function() {};
 
-    var ITransformer = function() {};
+/**
+ * @param {Object} data
+ */
+ITransformer.prototype.applyTransform = function(data) {};
 
-    ITransformer.prototype.applyTransform = function(data) {};
-    ITransformer.prototype.setTransformHandler = function(handler) {};
-    ITransformer.prototype.destroy = function() {};
+/**
+ * @param {tuna.tmpl.ITransformHandler} handler
+ */
+ITransformer.prototype.setTransformHandler = function(handler) {};
 
-    tuna.tmpl.ITransformer = ITransformer;
+/**
+ *
+ */
+ITransformer.prototype.destroy = function() {};
 
-})();
+/**
+ * @interface
+ * @extends {ITransformer}
+ */
+tuna.tmpl.ITransformer = ITransformer;

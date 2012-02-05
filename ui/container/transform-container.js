@@ -1,52 +1,96 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.container.Container}
+ * @param {!Node} target
+ */
+var TransformContainer = function(target) {
+    tuna.ui.container.Container.call(this, target);
 
-    var TransformContainer = function(target, parent) {
-        tuna.ui.container.Container.call(this, target, parent);
+    /**
+     * @private
+     * @type tuna.view.ViewController
+     */
+    this.__controller = null;
 
-        this.__controller = null;
-        this.__transformer = null;
-    };
+    /**
+     * @private
+     * @type tuna.tmpl.ITransformer
+     */
+    this.__transformer = null;
 
-    tuna.utils.extend(TransformContainer, tuna.ui.container.Container);
+    this._setDefaultOption('template-id', null);
+    this._setDefaultOption('init-event', null);
+};
 
-    TransformContainer.prototype.setTransformer = function(transformer) {
-        this.__transformer = transformer;
-    };
+tuna.utils.extend(TransformContainer, tuna.ui.container.Container);
 
-    TransformContainer.prototype.render = function(element) {
-        tuna.ui.container.Container.prototype.render.call(this, element);
+/**
+ * @param {tuna.tmpl.ITransformer} transformer
+ */
+TransformContainer.prototype.setTransformer = function(transformer) {
+    this.__transformer = transformer;
+};
 
-        if (this.__controller !== null) {
-            this.__controller.init();
-        }
-    };
+/**
+ * @override
+ */
+TransformContainer.prototype.render = function(element) {
+    tuna.ui.container.Container.prototype.render.call(this, element);
 
-    TransformContainer.prototype.clear = function() {
-        tuna.ui.container.Container.prototype.clear.call(this);
+    if (this.__controller !== null) {
+        this.__controller.init();
+    }
+};
 
-        if (this.__controller !== null) {
-            this.__controller.destroy();
-        }
-    };
+/**
+ * @override
+ */
+TransformContainer.prototype.clear = function() {
+    tuna.ui.container.Container.prototype.clear.call(this);
 
-    TransformContainer.prototype.init = function() {
-        this.__controller = tuna.view.getController(this._target);
-        
-        if (this.__controller !== null) {
-            if (this.__transformer !== null) {
-                this.__transformer.setTransformHandler(this.__controller);
-            }
+    if (this.__controller !== null) {
+        this.__controller.destroy();
+    }
+};
 
-            this.__controller.bindContainer(this);
-        }
-    };
+/**
+ * @override
+ */
+TransformContainer.prototype.init = function() {
+    var initEvent = this.getOption('init-event');
+    if (initEvent !== null) {
+        var self = this;
+        tuna.dom.addOneEventListener(this._target, initEvent, function(event) {
+            self.__initContainer();
+        });
+    } else {
+        this.__initContainer();
+    }
+};
 
-    TransformContainer.prototype.applyData = function(data) {
+/**
+ * @private
+ */
+TransformContainer.prototype.__initContainer = function() {
+    this.__controller = tuna.view.getController(this._target);
+
+    if (this.__controller !== null) {
         if (this.__transformer !== null) {
-            this.__transformer.applyTransform(data);
+            this.__transformer.setTransformHandler(this.__controller);
         }
-    };
 
-    tuna.ui.container.TransformContainer = TransformContainer;
+        this.__controller.setContainer(this);
+        this.__controller.bootstrap();
+    }
+};
 
-})();
+/**
+ * @param {Object} data
+ */
+TransformContainer.prototype.applyData = function(data) {
+    if (this.__transformer !== null) {
+        this.__transformer.applyTransform(data);
+    }
+};
+
+tuna.ui.container.TransformContainer = TransformContainer;

@@ -1,32 +1,66 @@
-(function() {
+/**
+ * @interface
+ */
+var ISelectionGroup = function() {};
 
-    var ISelectionGroup = function() {};
+/**
+ * @return {Array.<string|number>}
+ */
+ISelectionGroup.prototype.getSelectedIndexes = function() {};
 
+/**
+ * @param {string|number} index
+ */
+ISelectionGroup.prototype.selectIndex = function(index) {};
 
-    ISelectionGroup.prototype.getSelectedIndexes = function() {};
+/**
+ * @param {string|number} index
+ * @return boolean
+ */
+ISelectionGroup.prototype.isSelected = function(index) {};
 
-    ISelectionGroup.prototype.selectIndex = function(index) {};
+/**
+ *
+ */
+ISelectionGroup.prototype.clearSelection = function() {};
 
-    ISelectionGroup.prototype.isSelected = function(index) {};
+/**
+ *
+ * @param {string|number} index
+ * @param {boolean} isEnabled
+ */
+ISelectionGroup.prototype.setIndexEnabled = function(index, isEnabled) {};
 
-    ISelectionGroup.prototype.clearSelection = function() {};
+/**
+ * @param {string|number} index
+ * @return boolean
+ */
+ISelectionGroup.prototype.isIndexEnabled = function(index) {};
 
+/**
+ * @param {Node} item
+ * @return {?(string|number)}
+ */
+ISelectionGroup.prototype.getItemIndex = function(item) {};
 
-    ISelectionGroup.prototype.setIndexEnabled = function(index, isEnabled) {};
+/**
+ * @param {string|number} index
+ * @return {Node}
+ */
+ISelectionGroup.prototype.getItemAt = function(index) {};
 
-    ISelectionGroup.prototype.isIndexEnabled = function(index) {};
+/**
+ * @param {function((string|number), Node)} callback
+ */
+ISelectionGroup.prototype.mapItems = function(callback) {};
 
+/**
+ *
+ */
+ISelectionGroup.prototype.updateView = function() {};
 
-    ISelectionGroup.prototype.getItemIndex = function(item) {};
-
-    ISelectionGroup.prototype.getItemAt = function(index) {};
-
-    ISelectionGroup.prototype.mapItems = function(callback) {};
-
-
-    ISelectionGroup.prototype.updateView = function() {};
-
-
-
-    tuna.ui.selection.ISelectionGroup = ISelectionGroup;
-})();
+/**
+ * @interface
+ * @extends {ISelectionGroup}
+ */
+tuna.ui.selection.ISelectionGroup = ISelectionGroup;

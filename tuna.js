@@ -4,6 +4,7 @@
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
+
 /**
  * @namespace Глобальная область имен.
  */
@@ -16,6 +17,14 @@ var tuna = {};
  * @type string
  */
 tuna.VERSION = '3.2.70';
+
+/**
+ * Является ли текущий браузер IE.
+ *
+ * @const
+ * @type boolean
+ */
+tuna.IS_IE = !!eval("'\v' == 'v'");
 
 /**
  * @namespace
@@ -117,7 +126,9 @@ tuna.utils = {};
  */
 tuna.view = {};
 
-
-
-
+/**
+ * @namespace
+ * @ignore
+ */
+var pkg = {};
 

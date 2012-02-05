@@ -1,26 +1,45 @@
-(function() {
+/**
+ * @private
+ * @type Object.<string, tuna.ui.Module>
+ */
+tuna.ui.modules.__typeTable = {};
 
-    var modulesTable = {};
-    var isolators = [];
+/**
+ * @private
+ * @type Array.<string>
+ */
+tuna.ui.modules.__isolators = [];
 
-    tuna.ui.modules.register = function(module) {
-        modulesTable[module.getName()] = module;
-    };
+/**
+ * @param {string} type
+ * @param {tuna.ui.Module} module
+ */
+tuna.ui.modules.register = function(type, module) {
+    tuna.ui.modules.__typeTable[type] = module;
+};
 
-    tuna.ui.modules.getModule = function(name) {
-        if (modulesTable[name] !== undefined) {
-            return modulesTable[name];
-        }
+/**
+ * @param {string} type
+ * @return {tuna.ui.Module}
+ */
+tuna.ui.modules.getModule = function(type) {
+    if (tuna.ui.modules.__typeTable[type] !== undefined) {
+        return tuna.ui.modules.__typeTable[type];
+    }
 
-        return null;
-    };
+    return null;
+};
 
-    tuna.ui.modules.addIsolator = function(className) {
-        isolators.push(className);
-    };
+/**
+ * @param {string} className
+ */
+tuna.ui.modules.addIsolator = function(className) {
+    tuna.ui.modules.__isolators.push(className);
+};
 
-    tuna.ui.modules.getIsolators = function() {
-        return isolators;
-    };
-
-})();
+/**
+ * @return Array.<string>
+ */
+tuna.ui.modules.getIsolators = function() {
+    return tuna.ui.modules.__isolators;
+};

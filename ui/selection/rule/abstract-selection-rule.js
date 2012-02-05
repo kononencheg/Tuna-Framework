@@ -1,25 +1,73 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.ui.selection.rule.ISelectionRule}
+ */
+var AbstractSelectionRule = function() {
+    /**
+     * @protected
+     * @type tuna.ui.selection.ISelectionGroup
+     */
+    this._selectionGroup = null;
 
-    var AbstractSelectionRule = function() {
-        this._selectionGroup = null;
-        this._selectionView = null;
+    /**
+     * @protected
+     * @type tuna.ui.selection.view.ISelectionView
+     */
+    this._selectionView = null;
 
-        this._eventDispatcher = null;
-    };
+    /**
+     * @protected
+     * @type tuna.events.EventDispatcher
+     */
+    this._eventDispatcher = null;
+};
 
-    tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
+tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
 
-    AbstractSelectionRule.prototype.setSelectionGroup = function(group) {
-        this._selectionGroup = group;
-    };
+/**
+ * @param {tuna.ui.selection.ISelectionGroup} group
+ */
+AbstractSelectionRule.prototype.setSelectionGroup = function(group) {
+    this._selectionGroup = group;
+};
 
-    AbstractSelectionRule.prototype.setSelectionView = function(view) {
-        this._selectionView = view;
-    };
+/**
+ * @param {tuna.ui.selection.view.ISelectionView} view
+ */
+AbstractSelectionRule.prototype.setSelectionView = function(view) {
+    this._selectionView = view;
+};
 
-    AbstractSelectionRule.prototype.setEventDispatcher = function(dispatcher) {
-        this._eventDispatcher = dispatcher;
-    };
+/**
+ * @param {tuna.events.EventDispatcher} dispatcher
+ */
+AbstractSelectionRule.prototype.setEventDispatcher = function(dispatcher) {
+    this._eventDispatcher = dispatcher;
+};
 
-    tuna.ui.selection.rule.AbstractSelectionRule = AbstractSelectionRule;
-})();
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.getSelectedIndexes = function() {};
+
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.selectIndex = function(index) {};
+
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.isSelected = function(index) {};
+
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.clearSelection = function() {};
+
+
+/**
+ * @constructor
+ * @extends {AbstractSelectionRule}
+ */
+tuna.ui.selection.rule.AbstractSelectionRule = AbstractSelectionRule;

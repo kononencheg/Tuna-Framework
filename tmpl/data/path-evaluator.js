@@ -1,78 +1,67 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file path-evaluator.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
  */
+var PathEvaluator = function() {
 
-(function() {
+    /**
+     * @private
+     * @type Array.<string>
+     */
+    this.__parsedPath = null;
+};
 
-    var PathEvaluator = function() {
-        this.__parsedPath = null;
-    };
+/**
+ */
+PathEvaluator.prototype.setPath = function(path) {
+    this.__parsedPath = path.split('/');
+};
 
-    PathEvaluator.prototype.setPath = function(path) {
-        this.__parsedPath = path.split('/');
-    };
+/**
+ * @param {tuna.tmpl.data.DataNode} dataNode
+ * @return {tuna.tmpl.data.DataNode}
+ */
+PathEvaluator.prototype.evaluate = function(dataNode) {
+    return this.__applyNextToken(this.__parsedPath, dataNode, 0);
+};
 
-    PathEvaluator.prototype.apply = function(dataNode) {
-        var result = this.evaluate(dataNode);
+/**
+ *
+ * @param {Array.<string>} path
+ * @param {tuna.tmpl.data.DataNode} dataNode
+ * @param {number} index
+ * @return {tuna.tmpl.data.DataNode}
+ */
+PathEvaluator.prototype.__applyNextToken = function(path, dataNode, index) {
+    var token = path[index];
+    if (dataNode !== null && token !== undefined) {
+        return this.__applyNextToken
+            (path, this.__applyToken(token, dataNode), ++index);
+    }
 
-        if (result instanceof tuna.tmpl.data.DataNode) {
-            result = result.getValue();
-        }
+    return dataNode;
+};
 
-        return result;
-    };
+/**
+ *
+ * @param {string} token
+ * @param {tuna.tmpl.data.DataNode} dataNode
+ * @return {tuna.tmpl.data.DataNode}
+ */
+PathEvaluator.prototype.__applyToken = function(token, dataNode) {
 
-    // TODO: make this return only a data-node
-    PathEvaluator.prototype.evaluate = function(dataNode) {
-        return this.__applyNextToken(this.__parsedPath, dataNode, 0);
-    };
+    switch (token) {
+        case '': return dataNode.getRoot();
+        case '.': return dataNode;
+        case '..': return dataNode.getParent();
 
-    PathEvaluator.prototype.__applyNextToken = function(tokens, dataNode, index) {
-        var token = tokens[index];
-        if (dataNode !== null && token !== undefined) {
-            return this.__applyNextToken
-                (tokens, this.__applyToken(token, dataNode), ++index);
-        }
+        case '$key': return dataNode.getKey();
+    }
 
-        return dataNode;
-    };
+    return dataNode.growChild(token);
+};
 
-    PathEvaluator.prototype.__applyToken = function(token, dataNode) {
-        var result = null;
-
-        switch (token) {
-            case '': {
-                result = dataNode.getRoot();
-
-                break;
-            }
-
-            case '.': {
-                result = dataNode;
-                break;
-            }
-
-            case '..': {
-                result = dataNode.getParent();
-                break;
-            }
-
-            case '$key': {
-                result = dataNode.getKey();
-
-                break;
-            }
-
-            default: {
-                result = dataNode.growChild(token);
-            }
-        }
-
-        return result;
-    };
-
-    tuna.tmpl.data.PathEvaluator = PathEvaluator;
-})();
+/**
+ * @constructor
+ * @extends {PathEvaluator}
+ */
+tuna.tmpl.data.PathEvaluator = PathEvaluator;

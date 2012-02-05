@@ -1,122 +1,172 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.ModuleInstance}
+ * @param {!Node} target
+ */
+var Container = function(target) {
+    tuna.ui.ModuleInstance.call(this, target);
 
-    var Container = function(target, parent) {
-        this._target = target;
-        this._parent = parent;
+    /**
+     * @type Object.<string, Array>
+     */
+    this.__moduleArgs = {};
 
-        this.__moduleArgs = {};
-        this.__moduleInstances = {};
-    };
+    /**
+     * @type Object.<string, Array.<tuna.ui.ModuleInstance>>
+     */
+    this.__moduleInstances = {};
+};
 
-    Container.prototype.getTarget = function() {
-        return this._target;
-    };
+tuna.utils.extend(Container, tuna.ui.ModuleInstance);
 
-    Container.prototype.render = function(element) {
-        if (element !== undefined) {
-            this.clear();
-            
-            this._target.appendChild(element);
-        }
-    };
+/**
+ * @param {Node} element
+ */
+Container.prototype.render = function(element) {
+    if (element !== undefined) {
+        this.clear();
+        this._target.appendChild(element);
+    }
+};
 
-    Container.prototype.clear = function() {
-        this._target.innerHTML = '';
-    };
+/**
+ *
+ */
+Container.prototype.clear = function() {
+    this._target.innerHTML = '';
+};
 
-    Container.prototype.requireModule = function(names) {
-        if (names instanceof Array) {
-            var i = 0,
-                l = names.length;
+/**
+ * @param {string} type
+ * @param {...} var_args
+ */
+Container.prototype.requireModule = function(type, var_args) {
+    var args = tuna.utils.toArray(arguments);
+    args.shift();
 
-            while (i < l) {
-                this.__requireOneModule(names[i]);
-                i++;
+    if (this.__moduleArgs[type] === undefined) {
+        this.__moduleArgs[type] = [null];
+    }
+
+    if (args.length > 0) {
+        this.__moduleArgs[type].push(args);
+    } else {
+        this.__moduleArgs[type][0] = [];
+    }
+};
+
+/**
+ *
+ * @param {Node=} target
+ */
+Container.prototype.initModules = function(target) {
+    target = target || this._target;
+
+    var module = null;
+    var instances = null;
+    for (var type in this.__moduleArgs) {
+        module = tuna.ui.modules.getModule(type);
+
+        if (module !== null) {
+            if (this.__moduleInstances[type] === undefined) {
+                this.__moduleInstances[type] = [];
             }
+
+            instances
+                = this.__initModule(module, target, this.__moduleArgs[type]);
+
+            this.__moduleInstances[type]
+                = this.__moduleInstances[type].concat(instances);
+
         } else {
-            this.__requireOneModule.apply(this, arguments);
+            alert('Unknown module "' + type + '"');
         }
-    };
+    }
+};
 
-    Container.prototype.initModules = function(target) {
-        var module = null;
-        for (var name in this.__moduleArgs) {
-            module = tuna.ui.modules.getModule(name);
+/**
+ * @param {string} type
+ * @return {Array.<tuna.ui.ModuleInstance>}
+ */
+Container.prototype.getModuleInstances = function(type) {
+    if (this.__moduleInstances[type] !== undefined) {
+        return this.__moduleInstances[type];
+    }
 
-            if (module === null) {
-                console.error('Unknown module "' + name + '"');
-                continue;
+    return null;
+};
+
+/**
+ * @param {string} type
+ * @return {tuna.ui.ModuleInstance}
+ */
+Container.prototype.getOneModuleInstance = function(type) {
+    if (this.__moduleInstances[type] !== undefined &&
+        this.__moduleInstances[type][0] !== undefined) {
+        return this.__moduleInstances[type][0];
+    }
+
+    return null;
+};
+
+Container.prototype.getModuleInstanceByName = function(type, name) {
+    if (this.__moduleInstances[type] !== undefined) {
+        var instances = this.__moduleInstances[type];
+
+        var i = 0,
+            l = instances.length;
+
+        while (i < l) {
+            if (instances[i].getName() === name) {
+                return instances[i];
             }
 
-            if (this.__moduleInstances[name] === undefined) {
-                this.__moduleInstances[name] = [];
-            }
-
-            this.__moduleInstances[name] = this.__moduleInstances[name].concat
-                (this.__initModule(module, target, this.__moduleArgs[name]));
+            i++;
         }
-    };
+    }
 
-    Container.prototype.getModuleInstances = function(name) {
-        if (this.__moduleInstances[name] !== undefined) {
-            return this.__moduleInstances[name];
-        }
+    return null;
+};
 
-        return null;
-    };
+/**
+ *
+ */
+Container.prototype.destroyModules = function() {
+    for (var name in this.__moduleInstances) {
+        tuna.ui.modules.getModule(name)
+                       .destroy(this.__moduleInstances[name]);
 
-    Container.prototype.getOneModuleInstance = function(name) {
-        if (this.__moduleInstances[name] !== undefined &&
-            this.__moduleInstances[name][0] !== undefined) {
-            return this.__moduleInstances[name][0];
-        }
-        
-        return null;
-    };
+        this.__moduleInstances[name].length = 0;
+    }
+};
 
-    Container.prototype.destroyModules = function() {
-        for (var name in this.__moduleInstances) {
-            tuna.ui.modules.getModule(name)
-                           .destroy(this.__moduleInstances[name]);
+/**
+ * @param {tuna.ui.Module} module
+ * @param {Node} target
+ * @param {Array} moduleArgs
+ * @return {Array.<tuna.ui.ModuleInstance>}
+ */
+Container.prototype.__initModule = function(module, target, moduleArgs) {
+    var result = [];
 
-            this.__moduleInstances[name].length = 0;
-        }
-    };
+    var commonArgs = [target, this];
 
-    Container.prototype.__initModule = function(module, target, moduleArgs) {
-        var result = [];
-
-        var commonArgs = [target || this._target, this];
-
-        var i = moduleArgs.length - 1;
-        while (i >= 0) {
-            if (moduleArgs[i] !== null) {
-                result = result.concat(
-                    module.init.apply(module, commonArgs.concat(moduleArgs[i]))
-                );
-            }
-
-            i--;
+    var i = moduleArgs.length - 1;
+    while (i >= 0) {
+        if (moduleArgs[i] !== null) {
+            result = result.concat(
+                module.init.apply(module, commonArgs.concat(moduleArgs[i]))
+            );
         }
 
-        return result;
-    };
+        i--;
+    }
 
-    Container.prototype.__requireOneModule = function() {
-        var args = tuna.utils.toArray(arguments);
-        var name = args.shift();
+    return result;
+};
 
-        if (this.__moduleArgs[name] === undefined) {
-            this.__moduleArgs[name] = [null];
-        }
-
-        if (args.length > 0) {
-            this.__moduleArgs[name].push(args);
-        } else {
-            this.__moduleArgs[name][0] = [];
-        }
-    };
-
-    tuna.ui.container.Container = Container;
-
-})();
+/**
+ * @constructor
+ * @extends {Container}
+ */
+tuna.ui.container.Container = Container;

@@ -1,85 +1,100 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.tmpl.ITransformHandler}
+ */
+var ViewController = function() {
 
-    var ViewController = function(targetID) {
-        this.__targetID = targetID;
+    /**
+     * @protected
+     * @type tuna.ui.container.Container
+     */
+    this._container = null;
+};
 
-        this._container = null;
-        this._target = null;
+tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
 
-        this._modules = null;
-    };
+/**
+ * @param {tuna.ui.container.Container} container
+ */
+ViewController.prototype.setContainer = function(container) {
+    this._container = container;
+};
 
-    tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
+/**
+ *
+ */
+ViewController.prototype.bootstrap = function() {
+    this.init();
+};
 
-    ViewController.prototype.getTargetID = function() {
-        return this.__targetID;
-    };
+/**
+ *
+ */
+ViewController.prototype.terminate = function() {
+    this.destroy();
+};
 
-    ViewController.prototype.bindContainer = function(container) {
-        this._container = container;
+/**
+ * @protected
+ */
+ViewController.prototype.init = function() {
+    this._requireModules();
+    this._container.initModules();
+    this._initActions();
+};
 
-        this._target = container.getTarget();
+/**
+ * @protected
+ */
+ViewController.prototype._requireModules = function() {};
 
-        this._bootstrap(); // TODO: Implement _terminate
-    };
+/**
+ * @protected
+ */
+ViewController.prototype._initActions = function() {};
 
-    ViewController.prototype._bootstrap = function() {
-        this.init();
-    };
+/**
+ * @protected
+ */
+ViewController.prototype.destroy = function() {
+    this._destroyActions();
+    this._container.destroyModules();
+};
 
-    ViewController.prototype.init = function() {
-        this._requireModules();
+/**
+ * @protected
+ */
+ViewController.prototype._destroyActions = function() {};
 
-        this._container.initModules();
+/**
+ * @override
+ */
+ViewController.prototype.handleTransformComplete
+    = function(target, createdElements, removedElements) {
 
-        this._initActions();
-    };
+    var i = 0,
+        l = createdElements.length;
 
-    ViewController.prototype._requireModules = function() {};
-    ViewController.prototype._initActions = function() {};
+    while (i < l) {
+        this._container.initModules(createdElements[i]);
+        i++;
+    }
+};
 
-    ViewController.prototype.destroy = function() {
-        this._container.destroyModules();
+/**
+ * @override
+ */
+ViewController.prototype.handleTransformStart = function(target) {};
 
-        this._destroyActions();
-    };
+/**
+ * @override
+ */
+ViewController.prototype.handleDestroy = function(target, removedElements) {};
 
-    ViewController.prototype._destroyActions = function() {};
 
-    ViewController.prototype.handleTransformComplete
-        = function(target, createdElements, removedElements) {
+/**
+ * @constructor
+ * @extends {ViewController}
+ */
+tuna.view.ViewController = ViewController;
 
-        var i = 0,
-            l = createdElements.length;
-
-        while (i < l) {
-            this._container.initModules(createdElements[i]);
-            i++;
-        }
-    };
-
-    tuna.view.ViewController = ViewController;
-
-    var idTable = {};
-    
-    var mainController = null;
-
-    tuna.view.setMainController = function(controller) {
-        mainController = controller;
-    };
-
-    tuna.view.registerController = function(controller) {
-        idTable[controller.getTargetID()] = controller;
-    };
-
-    tuna.view.getController = function(target) {
-        if (target === document.body) {
-            return mainController;
-        } else if (idTable[target.id] !== undefined) {
-            return idTable[target.id];
-        }
-
-        return null;
-    };
-
-})();

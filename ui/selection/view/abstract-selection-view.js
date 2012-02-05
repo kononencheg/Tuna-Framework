@@ -1,41 +1,65 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.ui.selection.view.ISelectionView}
+ */
+var AbstractSelectionView = function() {
+    /**
+     * @protected
+     * @type tuna.ui.selection.items.IItemsCollection
+     */
+    this._itemsCollection = null;
 
-    var AbstractSelectionView = function() {
-        this._itemsCollection = null;
-        this._selectionGroup = null;
-    };
+    /**
+     * @protected
+     * @type tuna.ui.selection.ISelectionGroup
+     */
+    this._selectionGroup = null;
+};
 
-    tuna.utils.implement(AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
+tuna.utils.implement
+    (AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
 
-    AbstractSelectionView.prototype.setSelectionGroup = function(group) {
-        this._selectionGroup = group;
-    };
+/**
+ * @param {tuna.ui.selection.ISelectionGroup} group
+ */
+AbstractSelectionView.prototype.setSelectionGroup = function(group) {
+    this._selectionGroup = group;
+};
 
-    AbstractSelectionView.prototype.setItemsCollection = function(collection) {
-        this._itemsCollection = collection;
-    };
+/**
+ * @param {tuna.ui.selection.items.IItemsCollection} collection
+ */
+AbstractSelectionView.prototype.setItemsCollection = function(collection) {
+    this._itemsCollection = collection;
+};
 
-    /*AbstractSelectionView.prototype.getItemIndex = function(item) {
-        if (this._items instanceof Array) {
-            return tuna.utils.indexOf(item, this._items);
-        } else {
-            for (var i in this._items) {
-                if (this._items.hasOwnProperty(i) && this._items[i] === item) {
-                    return i;
-                }
-            }
-        }
+/**
+ * @override
+ */
+AbstractSelectionView.prototype.applySelectionAt = function(index) {};
 
-        return null;
-    };
+/**
+ * @override
+ */
+AbstractSelectionView.prototype.destroySelectionAt = function(index) {};
 
-    AbstractSelectionView.prototype.getItemAt = function(index) {
-        if (this._items[index] !== undefined) {
-            return this._items[index];
-        }
+/**
+ * @override
+ */
+AbstractSelectionView.prototype.disableItemAt = function(index) {};
 
-        return null;
-    };*/
+/**
+ * @override
+ */
+AbstractSelectionView.prototype.enableItemAt = function(index) {};
 
-    tuna.ui.selection.view.AbstractSelectionView = AbstractSelectionView;
-})();
+/**
+ * @override
+ */
+AbstractSelectionView.prototype.update = function() {};
+
+/**
+ * @constructor
+ * @extends {AbstractSelectionView}
+ */
+tuna.ui.selection.view.AbstractSelectionView = AbstractSelectionView;

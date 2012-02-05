@@ -1,8 +1,16 @@
-(function() {
+/**
+ * @interface
+ */
+var IMarkupExtractor = function() {};
 
-    var IMarkupExtractor = function() {};
+/**
+ * @param {Node} element
+ * @param {tuna.tmpl.settings.TemplateSettings} settings
+ */
+IMarkupExtractor.prototype.extract = function(element, settings) {};
 
-    IMarkupExtractor.prototype.extract = function(element, template) {};
-
-    tuna.tmpl.markup.IMarkupExtractor = IMarkupExtractor;
-})();
+/**
+ * @interface
+ * @extends {IMarkupExtractor}
+ */
+tuna.tmpl.markup.IMarkupExtractor = IMarkupExtractor;

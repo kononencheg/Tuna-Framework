@@ -1,8 +1,15 @@
-(function() {
+/**
+ * @interface
+ */
+var IListItemRouter = function() {};
 
-    var IListItemRouter = function() {};
-    
-    IListItemRouter.prototype.append = function(element) {};
+/**
+ * @param {Node} element
+ */
+IListItemRouter.prototype.append = function(element) {};
 
-    tuna.tmpl.units.IListItemRouter = IListItemRouter;
-})();
+/**
+ * @interface
+ * @extends {IListItemRouter}
+ */
+tuna.tmpl.units.IListItemRouter = IListItemRouter;

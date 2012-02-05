@@ -1,39 +1,40 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.Module}
+ */
+var NavigationModule = function() {
+    tuna.ui.Module.call(this, '.j-navigation');
+};
 
-    var Navigation = function() {
-        tuna.ui.modules.Module.call(this, 'navigation', '.j-navigation');
-    };
+tuna.utils.extend(NavigationModule, tuna.ui.Module);
 
-    tuna.utils.extend(Navigation, tuna.ui.modules.Module);
+/**
+ * @override
+ */
+NavigationModule.prototype.initInstance = function(target) {
+    var navigation = new tuna.ui.selection.Navigation(target);
 
-    Navigation.prototype.initInstance = function(target) {
-        var navigation = new tuna.ui.selection.Navigation(target);
+    navigation.addEventListener('selected', function(event, index) {
+        tuna.dom.dispatchEvent(navigation.getItemAt(index), 'ui-navigate');
+    });
 
-        navigation.addEventListener('selected', function(event, index) {
-            tuna.dom.dispatchEvent(navigation.getItemAt(index), 'ui-navigate');
-        });
-
-        tuna.dom.addChildEventListener(
-            target, '.j-navigation-link', 'click', function(event) {
-                var index = this.getAttribute('data-href');
-                if (index !== null) {
-                    navigation.navigate
-                        (index, tuna.dom.getAttributesData(this));
-                }
+    tuna.dom.addChildEventListener(
+        target, '.j-navigation-link', 'click', function(event) {
+            var index = this.getAttribute('data-href');
+            if (index !== null) {
+                navigation.navigate
+                    (index, tuna.dom.getAttributesData(this));
             }
-        );
+        }
+    );
 
-        tuna.dom.addChildEventListener(
-            target, '.j-navigation-back', 'click', function(event) {
-                navigation.back();
-            }
-        );
+    tuna.dom.addChildEventListener(
+        target, '.j-navigation-back', 'click', function(event) {
+            navigation.back();
+        }
+    );
 
-        navigation.init();
+    return navigation;
+};
 
-        return navigation;
-    };
-
-    tuna.ui.modules.register(new Navigation());
-
-})();
+tuna.ui.modules.register('navigation', new NavigationModule());

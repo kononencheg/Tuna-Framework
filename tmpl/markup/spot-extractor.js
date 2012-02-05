@@ -1,42 +1,74 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.tmpl.markup.IMarkupExtractor}
+ */
+var SpotExtractor = function() {
 
-    var SpotExtractor = function() {
-        this._tagName = 'spot';
-        this._ns = 'tuna:';
-    };
+    /**
+     * @protected
+     * @type {string}
+     */
+    this._tagName = 'spot';
 
-    tuna.utils.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
+    /**
+     * @protected
+     * @type {string}
+     */
+    this._ns = 'tuna:';
+};
 
-    SpotExtractor.prototype.extract = function(element, template) {
-        var tagName = tuna.utils.IS_IE ? this._tagName : (this._ns + this._tagName);
-        var elements = element.getElementsByTagName(tagName);
+tuna.utils.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
 
-        var i = 0,
-            l = elements.length;
+/**
+ * @override
+ */
+SpotExtractor.prototype.extract = function(element, settings) {
+    var tagName = tuna.IS_IE ? this._tagName : (this._ns + this._tagName);
+    var elements = element.getElementsByTagName(tagName);
 
-        var item = null;
-        while (i < l) {
-            item = this._createItem();
+    var i = 0,
+        l = elements.length;
 
-            this._parseElement(elements.item(i), item);
-            this._saveItem(item, template);
+    var item = null;
+    while (i < l) {
+        item = this._createItem();
 
-            i++;
-        }
-    };
+        this._parseElement(elements.item(i), item);
+        this._saveItem(item, settings);
 
-    SpotExtractor.prototype._createItem = function() {
-        return new tuna.tmpl.settings.Spot();
-    };
+        i++;
+    }
+};
 
-    SpotExtractor.prototype._parseElement = function(element, item) {
-        item.setTargetClass(element.getAttribute(this._ns + 'target'));
-        item.setDataPath(element.getAttribute(this._ns + 'path'));
-    };
+/**
+ * @protected
+ * @return tuna.tmpl.settings.IItemSettings
+ */
+SpotExtractor.prototype._createItem = function() {
+    return new tuna.tmpl.settings.SpotSettings();
+};
 
-    SpotExtractor.prototype._saveItem = function(item, template) {
-        template.addSpot(item);
-    };
+/**
+ * @protected
+ * @param {Node} element
+ * @param {tuna.tmpl.settings.IItemSettings} item
+ */
+SpotExtractor.prototype._parseElement = function(element, item) {
+    item.setTargetClass(element.getAttribute(this._ns + 'target'));
+    item.setDataPath(element.getAttribute(this._ns + 'path'));
+};
 
-    tuna.tmpl.markup.SpotExtractor = SpotExtractor;
-})();
+/**
+ * @protected
+ * @param {tuna.tmpl.settings.SpotSettings} item
+ * @param {tuna.tmpl.settings.TemplateSettings} settings
+ */
+SpotExtractor.prototype._saveItem = function(item, settings) {
+    settings.addSpot(item);
+};
+
+/**
+ * @constructor
+ * @extends {SpotExtractor}
+ */
+tuna.tmpl.markup.SpotExtractor = SpotExtractor;

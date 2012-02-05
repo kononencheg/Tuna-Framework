@@ -1,15 +1,37 @@
-(function() {
 
-    var IEventDispatcher = function() {};
+/**
+ * @interface
+ */
+var IEventDispatcher = function() {};
 
-    IEventDispatcher.prototype.dispatch = function(event, data) {};
+/**
+ * @param {!tuna.events.BasicEvent|!string} event
+ * @param {*=} data
+ * @return {boolean}
+ */
+IEventDispatcher.prototype.dispatch = function(event, data) {};
 
-    IEventDispatcher.prototype.addEventListener = function(type, listener) {};
+/**
+ * @param {!string} type
+ * @param {!function(tuna.events.BasicEvent, *)} listener
+ */
+IEventDispatcher.prototype.addEventListener = function(type, listener) {};
 
-    IEventDispatcher.prototype.removeEventListener = function(type, listener) {};
+/**
+ * @param {!string} type
+ * @param {!function(tuna.events.BasicEvent, *)} listener
+ */
+IEventDispatcher.prototype.removeEventListener = function(type, listener) {};
 
-    IEventDispatcher.prototype.hasEventListener = function(type, listener) {};
+/**
+ * @param {!string} type
+ * @param {!function(tuna.events.BasicEvent, *)} listener
+ * @return {boolean}
+ */
+IEventDispatcher.prototype.hasEventListener = function(type, listener) {};
 
-    tuna.events.IEventDispatcher = IEventDispatcher;
-
-})();
+/**
+ * @interface
+ * @extends {IEventDispatcher}
+ */
+tuna.events.IEventDispatcher = IEventDispatcher;

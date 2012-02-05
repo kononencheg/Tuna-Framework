@@ -1,46 +1,69 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.selection.SelectionGroup}
+ * @param {!Node} target
+ */
+var Navigation = function(target) {
+    tuna.ui.selection.SelectionGroup.call(this, target, 'id');
 
-    var Navigation = function(target) {
-        tuna.ui.selection.SelectionGroup.call
-            (this, target, false, 'id', '.j-navigation-page', 'current');
+    this._setOption('is-multiple', null);
 
-        this.__openArgs = null;
+    /**
+     * @private
+     * @type Object.<string, string>
+     */
+    this.__openData = null;
 
-        this.__history = [];
-    };
+    /**
+     * @private
+     * @type Array.<string|number>
+     */
+    this.__history = [];
+};
 
-    tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
+tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
 
-    Navigation.prototype.init = function() {
-        var self = this;
+/**
+ * @override
+ */
+Navigation.prototype.init = function() {
+    var self = this;
 
-        this.addEventListener('deselected', function(event, index) {
-            self.dispatch('close', index);
-        });
+    this.addEventListener('deselected', function(event, index) {
+        self.dispatch('close');
+    });
 
-        this.addEventListener('selected', function(event, index) {
-            self.dispatch('open', { args: self.__openArgs, index: index });
-        });
+    this.addEventListener('selected', function(event, index) {
+        self.dispatch('open', self.__openData);
+    });
 
-        tuna.ui.selection.SelectionGroup.prototype.init.call(this);
-    };
+    tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+};
 
-    Navigation.prototype.navigate = function(index, args) {
-        var currentIndex = this.getLastSelectedIndex()
-        if (currentIndex !== null) {
-            this.__history.push(currentIndex);
-        }
+/**
+ * @param {string|number} index
+ * @param {Object.<string, string>=} data
+ */
+Navigation.prototype.navigate = function(index, data) {
+    var currentIndex = this.getLastSelectedIndex();
+    if (currentIndex !== null) {
+        this.__history.push(currentIndex);
+    }
 
-        this.__openArgs = args;
-        this.selectIndex(index);
-        this.__openArgs = null;
+    this.__openData = data || null;
+    this.selectIndex(index);
+    this.__openData = null;
+};
 
-    };
+/**
+ *
+ */
+Navigation.prototype.back = function() {
+    this.selectIndex(this.__history.pop());
+};
 
-    Navigation.prototype.back = function() {
-        this.selectIndex(this.__history.pop());
-    };
-
-
-    tuna.ui.selection.Navigation = Navigation;
-})();
+/**
+ * @constructor
+ * @extends {Navigation}
+ */
+tuna.ui.selection.Navigation = Navigation;

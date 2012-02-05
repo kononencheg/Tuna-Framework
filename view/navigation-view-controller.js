@@ -1,33 +1,82 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.view.ViewController}
+ */
+var NavigationViewController = function() {
+    tuna.view.ViewController.call(this);
 
-    var NavigationViewController = function(targetID) {
-        tuna.view.ViewController.call(this, targetID);
+    /**
+     * @protected
+     * @type (tuna.ui.selection.Navigation|tuna.ui.ModuleInstance)
+     */
+    this._pageNavigation = null;
 
-        this._pageNavigation = null;
-        this._currentController = null;
+    /**
+     * @protected
+     * @type (tuna.view.PageViewController|tuna.view.ViewController)
+     */
+    this._currentController = null;
 
-        this.__currentPage = null;
+    /**
+     * @protected
+     * @type Node
+     */
+    this._currentPage = null;
+};
 
-        this._testClose = tuna.utils.bind(this._testClose, this);
-        this._closePage = tuna.utils.bind(this._closePage, this);
-        this._openPage = tuna.utils.bind(this._openPage, this);
-    };
+tuna.utils.extend(NavigationViewController, tuna.view.ViewController);
 
-    tuna.utils.extend(NavigationViewController, tuna.view.ViewController);
+/**
+ * @override
+ */
+NavigationViewController.prototype._requireModules = function() {
+    this._container.requireModule('transform-container');
+    this._container.requireModule('navigation');
+};
 
-    NavigationViewController.prototype._requireModules = function() {
-        this._container.requireModule('transform-container');
-        this._container.requireModule('navigation');
-    };
+/**
+ * @override
+ */
+NavigationViewController.prototype._initActions = function() {
+    this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
-    NavigationViewController.prototype._initActions = function() {
-        this._pageNavigation = this._container.getOneModuleInstance('navigation');
-
-        this._pageNavigation.addEventListener('select', this._testClose);
-        this._pageNavigation.addEventListener('close', this._closePage);
-        this._pageNavigation.addEventListener('open', this._openPage);
-
+    if (this._pageNavigation !== null) {
         var self = this;
+
+        this._pageNavigation.addEventListener('select',
+            /**
+             * @param {tuna.events.BasicEvent} event
+             * @param {*} index
+             */
+            function(event, index) {
+                if (!self._canClose(index)) {
+                    event.preventDefault();
+                }
+            }
+        );
+
+        this._pageNavigation.addEventListener('close',
+            /**
+             * @param {tuna.events.BasicEvent} event
+             */
+            function(event) {
+                if (self._currentController !== null) {
+                    self._currentController.close();
+                }
+            }
+        );
+
+        this._pageNavigation.addEventListener('open',
+            /**
+             * @param {tuna.events.BasicEvent} event
+             * @param {*} data
+             */
+            function(event, data) {
+                self._setCurrentPage
+                    (self._pageNavigation.getLastSelectedIndex(), data);
+            }
+        );
+
         this._pageNavigation.mapItems(function(index, page) {
             var pageController = tuna.view.getController(page);
             if (pageController !== null) {
@@ -36,53 +85,63 @@
         });
 
         this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
-    };
+    }
 
-    NavigationViewController.prototype._openPage = function(event, data) {
-        this._setCurrentPage(data.index, data.args);
-    };
+};
 
-    NavigationViewController.prototype._testClose = function(event, index) {
-        if (!this._canClose(index)) {
-            event.preventDefault();
-        }
-    };
+/**
+ * @protected
+ * @param {string} index
+ * @return {boolean}
+ */
+NavigationViewController.prototype._canClose = function(index) {
+    if (this._currentController !== null) {
+        return this._currentController.canClose(index);
+    }
 
-    NavigationViewController.prototype._closePage = function(event, index) {
-        if (this._currentController !== null) {
-            this._currentController.close();
-        }
-    };
+    return true;
+};
 
-    NavigationViewController.prototype._canClose = function(index) {
-        if (this._currentController !== null) {
-            return this._currentController.canClose(index);
-        }
+/**
+ * @param {string} index
+ * @param {Object.<string, string>=} args
+ */
+NavigationViewController.prototype._setCurrentPage = function(index, args) {
+    var newPage = this._pageNavigation.getItemAt(index);
+    var oldPage = this._currentPage;
 
-        return true;
-    };
+    if (this._currentPage !== null) {
+        this._handlePageClose(this._currentPage, newPage);
+    }
 
-    NavigationViewController.prototype._setCurrentPage = function(index, args) {
-        var newPage = this._pageNavigation.getItemAt(index);
-        var oldPage = this.__currentPage;
+    this._currentPage = newPage;
 
-        if (oldPage !== null) {
-            this._handlePageClose(oldPage, newPage);
-        }
+    this._currentController = tuna.view.getController(this._currentPage);
+    if (this._currentController !== null) {
+        this._currentController.open(args || null);
+    }
 
-        this.__currentPage = newPage;
+    this._handlePageOpen(this._currentPage, oldPage);
+};
 
-        this._currentController = tuna.view.getController(newPage);
-        if (this._currentController !== null) {
-            this._currentController.open(args);
-        }
+/**
+ * @protected
+ * @param {Node} currentPage
+ * @param {Node} newPage
+ */
+NavigationViewController.prototype._handlePageClose
+    = function(currentPage, newPage) {};
 
-        this._handlePageOpen(newPage, oldPage);
-    };
+/**
+ * @protected
+ * @param {Node} currentPage
+ * @param {Node} oldPage
+ */
+NavigationViewController.prototype._handlePageOpen
+    = function(currentPage, oldPage) {};
 
-    NavigationViewController.prototype._handlePageClose = function(page, newPage) {};
-    NavigationViewController.prototype._handlePageOpen = function(page, oldPage) {};
-
-    tuna.view.NavigationViewController = NavigationViewController;
-
-})();
+/**
+ * @constructor
+ * @extends {NavigationViewController}
+ */
+tuna.view.NavigationViewController = NavigationViewController;

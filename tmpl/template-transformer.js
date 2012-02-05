@@ -1,100 +1,90 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file template-transformer.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
+ * @implements {tuna.tmpl.ITransformer}
  */
-
-(function() {
-
-    /**
-     * Template transformer binded to concrete HTML element.
-     *
-     * @public
-     * @class
-     * @implements {tuna.transform.ITransformer}
-     *
-     * @constructor
-     */
-    var TemplateTransformer = function() {
-
-        /**
-         * Compiled template.
-         *
-         * @private
-         * @type {tuna.tmpl.units.Template}
-         */
-        this.__core = null;
-
-        /**
-         * Transform target.
-         *
-         * @private
-         * @type {Element}
-         */
-        this.__target = null
-
-        /**
-         * @private
-         * @type {tuna.tmpl.ITransformHandler}
-         */
-        this.__transformHandler = null;
-    };
-
-    tuna.utils.implement(TemplateTransformer, tuna.tmpl.ITransformer);
+var TemplateTransformer = function() {
 
     /**
-     * Transform method.
-     *
-     * @public
-     * @param {*} data Data to transform.
+     * @private
+     * @type {tuna.tmpl.units.Template}
      */
-    TemplateTransformer.prototype.applyTransform = function(data) {
-        if (this.__transformHandler !== null) {
-            this.__transformHandler.handleTransformStart(this.__target);
-        }
+    this.__coreTemplate = null;
 
-        this.__core.applyData(new tuna.tmpl.data.DataNode(data));
+    /**
+     * @private
+     * @type {Node}
+     */
+    this.__target = null;
 
-        if (this.__transformHandler !== null) {
-            this.__transformHandler.handleTransformComplete(
-                this.__target,
-                this.__core.fetchCreatedChildren(),
-                this.__core.fetchRemovedChildren()
-            );
-        }
-    };
+    /**
+     * @private
+     * @type {tuna.tmpl.ITransformHandler}
+     */
+    this.__transformHandler = null;
+};
 
-    TemplateTransformer.prototype.setCore = function(compiledTemplate) {
-        this.__core = compiledTemplate;
-    };
+tuna.utils.implement(TemplateTransformer, tuna.tmpl.ITransformer);
 
+/**
+ * @param {Object} data Data to transform.
+ */
+TemplateTransformer.prototype.applyTransform = function(data) {
+    if (this.__transformHandler !== null) {
+        this.__transformHandler.handleTransformStart(this.__target);
+    }
 
-    TemplateTransformer.prototype.setTargetElement = function(element) {
-        this.__target = element;
-    };
+    this.__coreTemplate.applyData(new tuna.tmpl.data.DataNode(data));
 
+    if (this.__transformHandler !== null) {
+        this.__transformHandler.handleTransformComplete(
+            this.__target,
+            this.__coreTemplate.fetchCreatedChildren(),
+            this.__coreTemplate.fetchRemovedChildren()
+        );
+    }
+};
 
-    TemplateTransformer.prototype.setTransformHandler = function(handler) {
-        this.__transformHandler = handler;
-    };
+/**
+ * @param {tuna.tmpl.units.Template} template
+ */
+TemplateTransformer.prototype.setCoreTemplate = function(template) {
+    this.__coreTemplate = template;
+};
 
-    TemplateTransformer.prototype.destroy = function() {
-        this.__core.destroy();
+/**
+ * @param {Node} element
+ */
+TemplateTransformer.prototype.setTargetElement = function(element) {
+    this.__target = element;
+};
 
-        if (this.__transformHandler !== null) {
-            this.__transformHandler.handleDestroy(
-                this.__target,
-                this.__core.fetchRemovedChildren()
-            );
-        }
+/**
+ * @param {tuna.tmpl.ITransformHandler} handler
+ */
+TemplateTransformer.prototype.setTransformHandler = function(handler) {
+    this.__transformHandler = handler;
+};
 
-        this.__core = null;
-        this.__target = null;
-        this.__transformHandler = null;
-    };
+/**
+ *
+ */
+TemplateTransformer.prototype.destroy = function() {
+    this.__coreTemplate.destroy();
 
+    if (this.__transformHandler !== null) {
+        this.__transformHandler.handleDestroy(
+            this.__target,
+            this.__coreTemplate.fetchRemovedChildren()
+        );
+    }
 
-    tuna.tmpl.TemplateTransformer = TemplateTransformer;
-    
-})();
+    this.__coreTemplate = null;
+    this.__target = null;
+    this.__transformHandler = null;
+};
+
+/**
+ * @constructor
+ * @extends {TemplateTransformer}
+ */
+tuna.tmpl.TemplateTransformer = TemplateTransformer;

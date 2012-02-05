@@ -1,65 +1,95 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file data-node.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
+ * @param {*} value
+ * @param {tuna.tmpl.data.DataNode=} parent
+ * @param {string=} key
  */
-(function() {
+var DataNode = function(value, parent, key) {
+    /**
+     * @private
+     * @type *
+     */
+    this.__value = null;
 
-    var DataNode = function(value, parent, key) {
-        this.__value = null;
-        this.__parent = null;
-        this.__key = null;
+    /**
+     * @private
+     * @type tuna.tmpl.data.DataNode
+     */
+    this.__parent = parent || null;
 
-        if (value !== undefined) {
-            this.__value = value;
-        }
-        
-        if (parent !== undefined) {
-            this.__parent = parent;
-        }
+    /**
+     * @private
+     * @type tuna.tmpl.data.DataNode
+     */
+    this.__key = new tuna.tmpl.data.DataNode(key || null);
 
-        if (key !== undefined) {
-            this.__key = key;
-        }
+    /**
+     * @private
+     * @type Object.<string, tuna.tmpl.data.DataNode>
+     */
+    this.__children = {};
+};
 
-        this.__children = {};
-    };
+/**
+ * @const
+ * @type tuna.tmpl.data.DataNode
+ */
+DataNode.NULL_NODE = new tuna.tmpl.data.DataNode(null);
 
-    DataNode.NULL_NODE = new DataNode(null, null, null);
+/**
+ * @return {tuna.tmpl.data.DataNode}
+ */
+DataNode.prototype.getParent = function() {
+    return this.__parent;
+};
 
-    DataNode.prototype.getParent = function() {
-        return this.__parent;
-    };
+/**
+ * @return  {tuna.tmpl.data.DataNode}
+ */
+DataNode.prototype.getKey = function() {
+    return this.__key;
+};
 
-    DataNode.prototype.getKey = function() {
-        return this.__key;
-    };
+/**
+ * @return {tuna.tmpl.data.DataNode}
+ */
+DataNode.prototype.getRoot = function() {
+    return this.__parent !== null ? this.__parent.getRoot() : this;
+};
 
-    DataNode.prototype.getRoot = function() {
-        return this.__parent !== null ? this.__parent.getRoot() : this;
-    };
+/**
+ * @return  {*}
+ */
+DataNode.prototype.getValue = function() {
+    return this.__value;
+};
 
-    DataNode.prototype.getValue = function() {
-        return this.__value;
-    };
+/**
+ * @param {string} key
+ */
+DataNode.prototype.growChild = function(key) {
+    var result = null;
 
-    DataNode.prototype.growChild = function(key) {
-        var result = null;
+    if (this.__children[key] !== undefined) {
+        result = this.__children[key];
+    } else if (this.__value !== null) {
+        var keyValue = this.__value[key];
 
-        if (this.__children[key] !== undefined) {
+        if (keyValue !== undefined) {
+            this.__children[key]
+                = new tuna.tmpl.data.DataNode(keyValue, this, key);
+
             result = this.__children[key];
-        } else if (this.__value !== null) {
-            var keyValue = this.__value[key];
-            if (keyValue !== undefined) {
-                result = this.__children[key] = new DataNode(keyValue, this, key);
-            } else {
-                this.__children[key] = DataNode.NULL_NODE;
-            }
+        } else {
+            this.__children[key] = tuna.tmpl.data.DataNode.NULL_NODE;
         }
+    }
 
-        return result;
-    };
+    return result;
+};
 
-    tuna.tmpl.data.DataNode = DataNode;
-})();
+/**
+ * @constructor
+ * @extends {DataNode}
+ */
+tuna.tmpl.data.DataNode = DataNode;

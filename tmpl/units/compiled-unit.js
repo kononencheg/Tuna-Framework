@@ -1,20 +1,30 @@
 /**
- * TUNA FRAMEWORK
- * 
- * @file i-compiled-unit.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
+ * @constructor
+ * @param {tuna.tmpl.units.Template} root
  */
-(function() {
+var CompiledUnit = function(root) {
+    this.__rootTemplate = root;
+};
 
-    var CompiledUnit = function(rootTemplate) {
-        this.__rootTemplate = rootTemplate;
-    };
+/**
+ * @return {tuna.tmpl.units.Template}
+ */
+CompiledUnit.prototype.getRootTemplate = function() {
+    return this.__rootTemplate;
+};
 
-    CompiledUnit.prototype.getRootTemplate = function() {
-        return this.__rootTemplate;
-    };
+/**
+ *
+ */
+CompiledUnit.prototype.destroy = function() {};
 
-    CompiledUnit.prototype.destroy = function() {};
+/**
+ * @param {tuna.tmpl.data.DataNode} dataNode
+ */
+CompiledUnit.prototype.applyData = function(dataNode) {}
 
-    tuna.tmpl.units.CompiledUnit = CompiledUnit;
-})();
+/**
+ * @constructor
+ * @extends {CompiledUnit}
+ */
+tuna.tmpl.units.CompiledUnit = CompiledUnit;
