@@ -57,7 +57,7 @@ Form.prototype.submit = function() {
 };
 
 /**
- * @param {Event} event
+ * @param {Event=} event
  */
 Form.prototype.__prepareToSubmit = function(event) {
     if (this.dispatch('submit')) {
@@ -65,7 +65,7 @@ Form.prototype.__prepareToSubmit = function(event) {
         this.__clearInputs();
         
         this.__registerCallback();
-    } else {
+    } else if (event !== undefined) {
         tuna.dom.preventDefault(event);
     }
 };

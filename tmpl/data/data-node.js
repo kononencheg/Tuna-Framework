@@ -19,7 +19,7 @@ var DataNode = function(value, parent, key) {
 
     /**
      * @private
-     * @type string
+     * @type ?string
      */
     this.__key = key || null;
 
