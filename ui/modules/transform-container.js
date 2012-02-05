@@ -50,7 +50,7 @@ TransformContainerModule.prototype.__getTemplate = function(id) {
 
 TransformContainerModule.prototype.initInstance = function(target, parent) {
 
-    var container = new tuna.ui.container.TransformContainer(target);
+    var container = new tuna.ui.containers.TransformContainer(target);
     var templateID = container.getOption('template-id');
 
     var template = this.__getTemplate(templateID);

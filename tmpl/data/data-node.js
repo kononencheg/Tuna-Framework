@@ -9,7 +9,7 @@ var DataNode = function(value, parent, key) {
      * @private
      * @type *
      */
-    this.__value = null;
+    this.__value = value;
 
     /**
      * @private
@@ -19,9 +19,15 @@ var DataNode = function(value, parent, key) {
 
     /**
      * @private
+     * @type string
+     */
+    this.__key = key || null;
+
+    /**
+     * @private
      * @type tuna.tmpl.data.DataNode
      */
-    this.__key = new tuna.tmpl.data.DataNode(key || null);
+    this.__keyNode = null;
 
     /**
      * @private
@@ -34,7 +40,7 @@ var DataNode = function(value, parent, key) {
  * @const
  * @type tuna.tmpl.data.DataNode
  */
-DataNode.NULL_NODE = new tuna.tmpl.data.DataNode(null);
+DataNode.NULL_NODE = new DataNode(null);
 
 /**
  * @return {tuna.tmpl.data.DataNode}
@@ -47,7 +53,10 @@ DataNode.prototype.getParent = function() {
  * @return  {tuna.tmpl.data.DataNode}
  */
 DataNode.prototype.getKey = function() {
-    return this.__key;
+    if (this.__keyNode === null) {
+        this.__keyNode = new tuna.tmpl.data.DataNode(this.__key);
+    }
+    return this.__keyNode;
 };
 
 /**

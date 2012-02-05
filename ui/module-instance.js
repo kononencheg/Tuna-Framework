@@ -45,11 +45,11 @@ ModuleInstance.prototype._setDefaultOption = function(name, option) {
 };
 
 /**
- * @protected
+ * @public
  * @param {string} name
  * @param {?string} option
  */
-ModuleInstance.prototype._setOption = function(name, option) {
+ModuleInstance.prototype.setOption = function(name, option) {
     if (option) {
         this._target.setAttribute('data-' + name, option);
     } else {

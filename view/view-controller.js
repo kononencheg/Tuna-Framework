@@ -6,7 +6,7 @@ var ViewController = function() {
 
     /**
      * @protected
-     * @type tuna.ui.container.Container
+     * @type tuna.ui.containers.Container
      */
     this._container = null;
 };
@@ -14,7 +14,7 @@ var ViewController = function() {
 tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
 
 /**
- * @param {tuna.ui.container.Container} container
+ * @param {tuna.ui.containers.Container} container
  */
 ViewController.prototype.setContainer = function(container) {
     this._container = container;

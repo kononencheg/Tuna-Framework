@@ -1,48 +1,35 @@
-(function() {
+/**
+ * @constructor
+ * @extends {tuna.ui.Module}
+ */
+var SelectionGroupModule = function() {
+    tuna.ui.Module.call(this, '.j-selection-group');
+};
 
-    var SelectionGroup = function() {
-        tuna.ui.Module.call(this, 'selection-group', '.j-selection-group');
-    };
+tuna.utils.extend(SelectionGroupModule, tuna.ui.Module);
 
-    tuna.utils.extend(SelectionGroup, tuna.ui.Module);
+/**
+ * @override
+ */
+SelectionGroupModule.prototype.initInstance = function(target) {
 
-    SelectionGroup.prototype.initInstance = function(target) {
-        var isMultiple = target.getAttribute('data-is-multiple') === 'true';
+    var selectionGroup = new tuna.ui.selection.SelectionGroup(target, null);
 
-        var itemSelector = target.getAttribute('data-item-selector');
-        if (itemSelector === null) {
-            itemSelector = '.j-selection-item';
-        }
+    var selectionEvent = selectionGroup.getOption('selection-event');
+    var itemSelector = selectionGroup.getOption('item-selector');
 
-        var selectionClass = target.getAttribute('data-selection-class');
-        if (selectionClass === null) {
-            selectionClass = 'current';
-        }
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup
-            (target, isMultiple, null, itemSelector, selectionClass);
-
-        var selectionEvent = target.getAttribute('data-selection-event');
-        if (selectionEvent === null) {
-            selectionEvent = 'click';
-        }
-
-        tuna.dom.addChildEventListener(
-            target, itemSelector, selectionEvent, function() {
-                var index = selectionGroup.getItemIndex(this);
-                if (index !== null) {
-                    selectionGroup.selectIndex(index);
-                }
+    tuna.dom.addChildEventListener(
+        target, itemSelector, selectionEvent, function() {
+            var index = selectionGroup.getItemIndex(this);
+            if (index !== null) {
+                selectionGroup.selectIndex(index);
             }
-        );
+        }
+    );
 
-        selectionGroup.init();
-
-        return selectionGroup;
-    };
-
+    return selectionGroup;
+};
 
 
-    tuna.ui.modules.register(new SelectionGroup());
 
-})();
+tuna.ui.modules.register('selection-group', new SelectionGroupModule());

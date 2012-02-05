@@ -169,4 +169,4 @@ Container.prototype.__initModule = function(module, target, moduleArgs) {
  * @constructor
  * @extends {Container}
  */
-tuna.ui.container.Container = Container;
+tuna.ui.containers.Container = Container;

@@ -89,7 +89,17 @@ tuna.ui = {};
 /**
  * @namespace
  */
-tuna.ui.container = {};
+tuna.ui.containers = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.forms = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.popups = {};
 
 /**
  * @namespace
@@ -126,9 +136,4 @@ tuna.utils = {};
  */
 tuna.view = {};
 
-/**
- * @namespace
- * @ignore
- */
-var pkg = {};
 

@@ -6,8 +6,6 @@
 var Navigation = function(target) {
     tuna.ui.selection.SelectionGroup.call(this, target, 'id');
 
-    this._setOption('is-multiple', null);
-
     /**
      * @private
      * @type Object.<string, string>
@@ -19,6 +17,9 @@ var Navigation = function(target) {
      * @type Array.<string|number>
      */
     this.__history = [];
+
+    this.setOption('is-multiple', null);
+    this._setDefaultOption('item-selector', '.j-navigation-page');
 };
 
 tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);

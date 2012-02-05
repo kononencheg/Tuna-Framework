@@ -1,10 +1,10 @@
 /**
  * @constructor
- * @extends {tuna.ui.container.Container}
+ * @extends {tuna.ui.containers.Container}
  * @param {!Node} target
  */
 var TransformContainer = function(target) {
-    tuna.ui.container.Container.call(this, target);
+    tuna.ui.containers.Container.call(this, target);
 
     /**
      * @private
@@ -22,7 +22,7 @@ var TransformContainer = function(target) {
     this._setDefaultOption('init-event', null);
 };
 
-tuna.utils.extend(TransformContainer, tuna.ui.container.Container);
+tuna.utils.extend(TransformContainer, tuna.ui.containers.Container);
 
 /**
  * @param {tuna.tmpl.ITransformer} transformer
@@ -35,7 +35,7 @@ TransformContainer.prototype.setTransformer = function(transformer) {
  * @override
  */
 TransformContainer.prototype.render = function(element) {
-    tuna.ui.container.Container.prototype.render.call(this, element);
+    tuna.ui.containers.Container.prototype.render.call(this, element);
 
     if (this.__controller !== null) {
         this.__controller.init();
@@ -46,7 +46,7 @@ TransformContainer.prototype.render = function(element) {
  * @override
  */
 TransformContainer.prototype.clear = function() {
-    tuna.ui.container.Container.prototype.clear.call(this);
+    tuna.ui.containers.Container.prototype.clear.call(this);
 
     if (this.__controller !== null) {
         this.__controller.destroy();
@@ -93,4 +93,4 @@ TransformContainer.prototype.applyData = function(data) {
     }
 };
 
-tuna.ui.container.TransformContainer = TransformContainer;
+tuna.ui.containers.TransformContainer = TransformContainer;
