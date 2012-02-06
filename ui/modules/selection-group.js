@@ -18,14 +18,16 @@ SelectionGroupModule.prototype.initInstance = function(target) {
     var selectionEvent = selectionGroup.getOption('selection-event');
     var itemSelector = selectionGroup.getOption('item-selector');
 
-    tuna.dom.addChildEventListener(
-        target, itemSelector, selectionEvent, function() {
-            var index = selectionGroup.getItemIndex(this);
-            if (index !== null) {
-                selectionGroup.selectIndex(index);
+    if (selectionEvent !== null && itemSelector !== null) {
+        tuna.dom.addChildEventListener(
+            target, itemSelector, selectionEvent, function() {
+                var index = selectionGroup.getItemIndex(this);
+                if (index !== null) {
+                    selectionGroup.selectIndex(index);
+                }
             }
-        }
-    );
+        );
+    }
 
     return selectionGroup;
 };

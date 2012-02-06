@@ -1,20 +1,36 @@
-(function() {
+/**
+ * @constructor
+ * @implements {tuna.rest.IMethod}
+ * @extends {tuna.events.EventDispatcher}
+ * @param {string=} name
+ */
+var Method = function(name) {
+    tuna.events.EventDispatcher.call(this);
 
-    var Method = function(name) {
-        tuna.events.EventDispatcher.call(this);
+    /**
+     * @protected
+     * @type ?string
+     */
+    this._name = name || null;
+};
 
-        this._name = name || null;
-    };
+tuna.utils.implement(Method, tuna.rest.IMethod);
+tuna.utils.extend(Method, tuna.events.EventDispatcher);
 
-    tuna.utils.implement(Method, tuna.rest.IMethod);
-    tuna.utils.extend(Method, tuna.events.EventDispatcher);
+/**
+ * @override
+ */
+Method.prototype.call = function(args) {};
 
-    Method.prototype.call = function(args) {};
+/**
+ * @override
+ */
+Method.prototype.clone = function() {
+    return new this.constructor(this._name);
+};
 
-    Method.prototype.clone = function() {
-        return new this.constructor(this._name);
-    };
-
-    tuna.rest.Method = Method;
-
-})();
+/**
+ * @constructor
+ * @extends {Method}
+ */
+tuna.rest.Method = Method;

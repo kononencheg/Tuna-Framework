@@ -1,18 +1,30 @@
-(function() {
+/**
+ * @constructor
+ */
+var Record = function() {};
 
-    var Record = function() {};
-
-    Record.prototype.clone = function() {
-        var clone = new this.constructor();
-        for (var param in this) {
-            if (this.hasOwnProperty(param)) {
-                clone[param] = this[param];
-            }
+/**
+ * @return {tuna.model.Record}
+ */
+Record.prototype.clone = function() {
+    var clone = new this.constructor();
+    for (var param in this) {
+        if (this.hasOwnProperty(param)) {
+            clone[param] = this[param];
         }
+    }
 
-        return clone;
-    };
+    return clone;
+};
 
-    tuna.model.Record = Record;
+/**
+ * @param {Object} data
+ */
+Record.prototype.populate = function(data) {};
 
-})();
+/**
+ * @constructor
+ * @extends {Record}
+ */
+tuna.model.Record = Record;
+

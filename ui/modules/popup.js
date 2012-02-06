@@ -9,19 +9,11 @@ var PopupModule = function() {
 tuna.utils.extend(PopupModule, tuna.ui.Module);
 
 /**
- * @verride
+ * @override
  * @param target
  */
 PopupModule.prototype.initInstance = function(target) {
-    var popupElement =
-        tuna.dom.selectOne(target.getAttribute('data-popup-selector'));
-
-    var popup = tuna.ui.popups.create(popupElement);
-    tuna.dom.addEventListener(target, 'click', function(event) {
-        popup.open();
-    });
-
-    return popup;
+    return tuna.ui.popups.create(target);
 };
 
 tuna.ui.modules.register('popup', new PopupModule());

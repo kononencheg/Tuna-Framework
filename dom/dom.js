@@ -86,7 +86,7 @@ tuna.dom.filter = function(selector, elements) {
 /**
  *
  * @param {string} selector
- * @param {Node} context
+ * @param {Node=} context
  * @return {Node}
  */
 tuna.dom.selectOne = function(selector, context) {

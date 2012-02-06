@@ -1,12 +1,24 @@
-(function() {
+/**
+ * @interface
+ * @extends {tuna.events.IEventDispatcher}
+ */
+var IRequest = function() {};
 
-    var IRequest = function() {};
+tuna.utils.extend(IRequest, tuna.events.IEventDispatcher);
 
-    tuna.utils.extend(IRequest, tuna.events.IEventDispatcher);
+/**
+ * @param {string} url
+ */
+IRequest.prototype.send = function(url) {};
 
-    IRequest.prototype.send = function(url) {};
-    IRequest.prototype.abort = function() {};
+/**
+ *
+ */
+IRequest.prototype.abort = function() {};
 
-    tuna.net.IRequest = IRequest;
+/**
+ * @interface
+ * @extends {IRequest}
+ */
+tuna.net.IRequest = IRequest;
 
-})();

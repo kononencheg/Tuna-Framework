@@ -1,10 +1,22 @@
-(function() {
+/**
+ * @interface
+ * @extends {tuna.events.IEventDispatcher}
+ */
+var IMethod = function() {};
 
-    var IMethod = function() {};
-    
-    IMethod.prototype.call = function(args) {};
-    IMethod.prototype.clone = function() {};
+/**
+ * @param {Object} args
+ */
+IMethod.prototype.call = function(args) {};
 
-    tuna.rest.IMethod = IMethod;
+/**
+ * @return {tuna.rest.IMethod}
+ */
+IMethod.prototype.clone = function() {};
 
-})();
+/**
+ * @interface
+ * @extends {IMethod}
+ */
+tuna.rest.IMethod = IMethod;
+

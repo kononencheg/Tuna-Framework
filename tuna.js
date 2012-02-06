@@ -27,6 +27,11 @@ tuna.VERSION = '3.2.70';
 tuna.IS_IE = !!eval("'\v' == 'v'");
 
 /**
+ * @define {boolean}
+ */
+tuna.IS_COMPILED = false;
+
+/**
  * @namespace
  */
 tuna.dom = {};

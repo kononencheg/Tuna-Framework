@@ -2,7 +2,7 @@
  * @constructor
  * @extends {tuna.ui.selection.AbstractSelectionGroup}
  * @param {!Node} target
- * @param {string} indexAttribute
+ * @param {?string} indexAttribute
  */
 var SelectionGroup = function(target, indexAttribute) {
     tuna.ui.selection.AbstractSelectionGroup.call(this, target);

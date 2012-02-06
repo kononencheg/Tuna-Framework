@@ -18,7 +18,17 @@ var Form = function(target) {
      */
     this.__inputTable = {};
 
+    /**
+     * @private
+     * @type string
+     */
     this.__callbackName = Form.CALLBACK_PREFIX + (Math.random() + '').substr(2);
+
+    /**
+     * @private
+     * @type ?string
+     */
+    this.__recordName = null;
 };
 
 tuna.utils.extend(Form, tuna.ui.ModuleInstance);
@@ -49,6 +59,13 @@ Form.prototype.init = function() {
 };
 
 /**
+ * @param {string} name
+ */
+Form.prototype.setRecordName = function(name) {
+    this.__recordName = name;
+};
+
+/**
  * 
  */
 Form.prototype.submit = function() {
@@ -63,7 +80,6 @@ Form.prototype.__prepareToSubmit = function(event) {
     if (this.dispatch('submit')) {
         this.__clearMessage();
         this.__clearInputs();
-        
         this.__registerCallback();
     } else if (event !== undefined) {
         tuna.dom.preventDefault(event);
@@ -92,6 +108,10 @@ Form.prototype.__handleResponse = function(data) {
     var errors = data['errors'];
 
     if (response !== undefined) {
+        if (this.__recordName !== null) {
+            response = tuna.rest.populateRecords(response, this.__recordName);
+        }
+
         this.dispatch('result', response);
     } else if (errors !== undefined) {
         this.__showErrors(errors);
@@ -110,10 +130,10 @@ Form.prototype.__showErrors = function(errors) {
     var error = null;
     while (i < l) {
         error = errors[i];
-        if (error.param !== undefined) {
-            this.__showInputError(error.param, error.message);
+        if (error['param'] !== undefined) {
+            this.__showInputError(error['param'], error['message']);
         } else {
-            this.__showErrorMessage(error.message);
+            this.__showErrorMessage(error['message']);
         }
 
         i++;
