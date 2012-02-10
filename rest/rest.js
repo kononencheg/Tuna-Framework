@@ -98,7 +98,7 @@ tuna.rest.populateRecords = function(data, name) {
         }
 
         return result;
-    } else if (data instanceof Object) {
+    } else if (data !== null) {
         return tuna.rest.__populateRecord(data, name);
     }
 

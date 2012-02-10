@@ -77,6 +77,11 @@ ModuleInstance.prototype.getOption = function(name) {
 ModuleInstance.prototype.init = function() {};
 
 /**
+ *
+ */
+ModuleInstance.prototype.destroy = function() {};
+
+/**
  * @constructor
  * @extends {ModuleInstance}
  */

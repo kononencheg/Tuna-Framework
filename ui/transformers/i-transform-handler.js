@@ -27,4 +27,4 @@ ITransformHandler.prototype.handleDestroy
  * @interface
  * @extends {ITransformHandler}
  */
-tuna.tmpl.ITransformHandler = ITransformHandler;
+tuna.ui.transformers.ITransformHandler = ITransformHandler;

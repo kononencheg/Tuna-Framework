@@ -23,6 +23,11 @@ Record.prototype.clone = function() {
 Record.prototype.populate = function(data) {};
 
 /**
+ * @return {Object}
+ */
+Record.prototype.serialize = function() {};
+
+/**
  * @constructor
  * @extends {Record}
  */

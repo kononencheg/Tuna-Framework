@@ -43,6 +43,7 @@ Form.CALLBACK_PREFIX = 'form_callback';
  * @override
  */
 Form.prototype.init = function() {
+    this.__recordName = this.getOption('record-type');
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
     var self = this;
@@ -56,13 +57,6 @@ Form.prototype.init = function() {
     callbackInput.value = this.__callbackName;
 
     this._target.appendChild(callbackInput);
-};
-
-/**
- * @param {string} name
- */
-Form.prototype.setRecordName = function(name) {
-    this.__recordName = name;
 };
 
 /**
@@ -172,9 +166,8 @@ Form.prototype.__getFormInput = function(name) {
  */
 Form.prototype.__clearMessage = function() {
     if (this.__formMessage !== null) {
-        tuna.dom.removeClass(this.__formMessage, 'error');
-        tuna.dom.addClass(this.__formMessage, 'hide');
         this.__formMessage.innerHTML = '';
+        tuna.dom.addClass(this.__formMessage, 'hide');
     }
 };
 
@@ -183,10 +176,10 @@ Form.prototype.__clearMessage = function() {
  * @param {string} message
  */
 Form.prototype.__showErrorMessage = function(message) {
-    this.__formMessage.innerHTML += message + '<br />';
-
-    tuna.dom.addClass(this.__formMessage, 'error');
-    tuna.dom.removeClass(this.__formMessage, 'hide');
+    if (this.__formMessage !== null) {
+        this.__formMessage.innerHTML += message + '<br />';
+        tuna.dom.removeClass(this.__formMessage, 'hide');
+    }
 };
 
 /**

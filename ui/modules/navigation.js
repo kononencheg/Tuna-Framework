@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var NavigationModule = function() {
-    tuna.ui.Module.call(this, '.j-navigation');
+    tuna.ui.Module.call(this, 'body');
 };
 
 tuna.utils.extend(NavigationModule, tuna.ui.Module);
@@ -13,10 +13,6 @@ tuna.utils.extend(NavigationModule, tuna.ui.Module);
  */
 NavigationModule.prototype.initInstance = function(target) {
     var navigation = new tuna.ui.selection.Navigation(target);
-
-    navigation.addEventListener('selected', function(event, index) {
-        tuna.dom.dispatchEvent(navigation.getItemAt(index), 'ui-navigate');
-    });
 
     tuna.dom.addChildEventListener(
         target, '.j-navigation-link', 'click', function(event) {

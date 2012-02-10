@@ -96,22 +96,22 @@ Popup.prototype.__collectData = function() {
     var result = {};
 
     var form = tuna.dom.selectOne('form.j-popup-form', this._target);
-    var array = $(form).serializeArray();
 
+    var elements = form.elements;
     var i = 0,
-        l = array.length;
+        l = elements.length;
 
     var name = null;
     while (i < l) {
-        name = array[i].name;
+        name = elements[i].name;
 
         if (result[name] !== undefined) {
             if (!(result[name] instanceof Array)) {
                 result[name] = [result[name]];
             }
-            result[name].push(array[i].value);
+            result[name].push(elements[i].value);
         } else {
-            result[name] = array[i].value;
+            result[name] = elements[i].value;
         }
 
         i++

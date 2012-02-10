@@ -20,6 +20,13 @@ var Container = function(target) {
 tuna.utils.extend(Container, tuna.ui.ModuleInstance);
 
 /**
+ * @override
+ */
+Container.prototype.getName = function() {
+    return this._target.id;
+};
+
+/**
  * @param {Node} element
  */
 Container.prototype.render = function(element) {

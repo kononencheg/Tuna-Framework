@@ -22,6 +22,13 @@ PageViewController.prototype.setNavigation = function(navigation) {
 };
 
 /**
+ * @return {tuna.ui.selection.Navigation} navigation
+ */
+PageViewController.prototype.getNavigation = function() {
+    return this._navigation;
+};
+
+/**
  * @param {string} index
  */
 PageViewController.prototype.canClose = function(index) {

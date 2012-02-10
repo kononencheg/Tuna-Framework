@@ -151,7 +151,7 @@ tuna.utils.extend(__NotEqualsOperator, __ConditionOperator);
  * @override
  */
 __NotEqualsOperator.prototype.test = function(value) {
-    return !(value == this._data || String(value) == this._data);
+    return !(value == this._data || (value+'') == this._data);
 };
 
 ///////////////////////////////////////////////////////////////////////////

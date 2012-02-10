@@ -370,9 +370,9 @@ tuna.dom.removeClass = function(element, className) {
  */
 tuna.dom.setClassExist = function(element, className, isExist) {
     if (!isExist && tuna.dom.hasClass(element, className)) {
-        tuna.dom.removeClass(element, className)
+        tuna.dom.removeClass(element, className);
     } else if (isExist && !tuna.dom.hasClass(element, className)) {
-        tuna.dom.addClass(element, className)
+        tuna.dom.addClass(element, className);
     }
 };
 

@@ -119,6 +119,11 @@ tuna.ui.selection = {};
 /**
  * @namespace
  */
+tuna.ui.transformers = {};
+
+/**
+ * @namespace
+ */
 tuna.ui.selection.items = {};
 
 /**
@@ -140,5 +145,3 @@ tuna.utils = {};
  * @namespace
  */
 tuna.view = {};
-
-

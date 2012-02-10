@@ -12,7 +12,7 @@ var Request = function(url) {
      * @type string
      */
     this.__url = url || '/';
-
+    
     /**
      * @private
      * @type boolean

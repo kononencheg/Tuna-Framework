@@ -1,6 +1,6 @@
 /**
  * @constructor
- * @implements {tuna.tmpl.ITransformHandler}
+ * @implements {tuna.ui.transformers.ITransformHandler}
  */
 var ViewController = function() {
 
@@ -11,7 +11,7 @@ var ViewController = function() {
     this._container = null;
 };
 
-tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
+tuna.utils.implement(ViewController, tuna.ui.transformers.ITransformHandler);
 
 /**
  * @param {tuna.ui.containers.Container} container

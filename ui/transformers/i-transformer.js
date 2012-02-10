@@ -9,17 +9,12 @@ var ITransformer = function() {};
 ITransformer.prototype.applyTransform = function(data) {};
 
 /**
- * @param {tuna.tmpl.ITransformHandler} handler
+ * @param {tuna.ui.transformers.ITransformHandler} handler
  */
 ITransformer.prototype.setTransformHandler = function(handler) {};
-
-/**
- *
- */
-ITransformer.prototype.destroy = function() {};
 
 /**
  * @interface
  * @extends {ITransformer}
  */
-tuna.tmpl.ITransformer = ITransformer;
+tuna.ui.transformers.ITransformer = ITransformer;

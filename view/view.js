@@ -39,3 +39,10 @@ tuna.view.getController = function(target) {
 
     return null;
 };
+
+/**
+ *
+ */
+tuna.view.init = function() {
+    (new tuna.ui.containers.ControlContainer(document.body)).initController();
+};

@@ -33,19 +33,6 @@ TemplateCompiler.prototype.__registerItemCompilers = function() {
 /**
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  * @param {Node} element
- * @return {tuna.tmpl.ITransformer}
- */
-TemplateCompiler.prototype.makeTransformer = function(settings, element) {
-    var transformer = new tuna.tmpl.TemplateTransformer();
-    transformer.setTargetElement(element);
-    transformer.setCoreTemplate(this.compileTemplate(settings, element, null));
-
-    return transformer;
-};
-
-/**
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- * @param {Node} element
  * @param {tuna.tmpl.units.Template} root
  * @return {tuna.tmpl.units.Template}
  */

@@ -79,7 +79,7 @@ AbstractSelectionGroup.prototype.getSelectedIndexes = function() {
 };
 
 /**
- * @return {string|number}
+ * @return {?(string|number)}
  */
 AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
     var indexes = this._selectionRule.getSelectedIndexes();
@@ -87,7 +87,7 @@ AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
         return indexes.pop();
     }
 
-    return -1;
+    return null;
 };
 
 /**

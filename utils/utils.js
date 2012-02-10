@@ -186,7 +186,7 @@ var Config = function() {
 };
 
 /**
- * @param {!Object.<string, string>} data
+ * @param {Object} data
  */
 Config.prototype.init = function(data) {
     this.__data = data;

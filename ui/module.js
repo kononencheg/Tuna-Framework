@@ -3,7 +3,6 @@
  * @param {string} selector
  */
 var Module = function(selector) {
-
     /**
      * @protected
      * @type {string}
@@ -71,7 +70,7 @@ Module.prototype.__isInContext = function(target, context) {
     var i = 0,
         l = isolators.length;
     while (i < l) {
-        result = result && tuna.dom.getParentWithClass
+        result = result && tuna.dom.getParentMatches
                             (target, isolators[i], context) === null;
 
         if (!result) {
