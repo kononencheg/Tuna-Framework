@@ -94,6 +94,11 @@ tuna.ui = {};
 /**
  * @namespace
  */
+tuna.ui.buttons = {};
+
+/**
+ * @namespace
+ */
 tuna.ui.containers = {};
 
 /**

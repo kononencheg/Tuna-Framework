@@ -83,8 +83,7 @@ List.prototype.setCompiler = function(compiler) {
  * @param {Node} element
  */
 List.prototype.setItemRenderer = function(element) {
-    this.__itemRenderer = element.cloneNode(true);
-    this.__itemRenderer.removeAttribute('id');
+    this.__itemRenderer = element;
 };
 
 /**

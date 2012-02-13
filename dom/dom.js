@@ -331,10 +331,12 @@ tuna.dom.getParentWithClass = function(element, className, context) {
 tuna.dom.hasClass = function(element, className) {
     if (element.classList !== undefined) {
         return element.classList.contains(className);
-    } else {
+    } else if (element.className !== undefined) {
         return element.className.match
             (new RegExp('(\\s|^)' + className + '(\\s|$)')) !== null;
     }
+
+    return false;
 };
 
 /**

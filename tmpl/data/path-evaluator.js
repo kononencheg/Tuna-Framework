@@ -21,7 +21,12 @@ PathEvaluator.prototype.setPath = function(path) {
  * @return {tuna.tmpl.data.DataNode}
  */
 PathEvaluator.prototype.evaluate = function(dataNode) {
-    return this.__applyNextToken(this.__parsedPath, dataNode, 0);
+    var node = this.__applyNextToken(this.__parsedPath, dataNode, 0);
+    if (node !== null) {
+        return node;
+    }
+
+    return new tuna.tmpl.data.DataNode(null);
 };
 
 /**

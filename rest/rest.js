@@ -86,20 +86,22 @@ tuna.rest.call = function(name, args, callback, recordName) {
  * @return {tuna.model.Record|Array.<tuna.model.Record>}
  */
 tuna.rest.populateRecords = function(data, name) {
-    if (data instanceof Array) {
-        var result = [];
+    if (data !== null) {
+        if (data.splice !== undefined) {
+            var result = [];
 
-        var i = 0,
-            l = data.length;
+            var i = 0,
+                l = data.length;
 
-        while (i < l) {
-            result.push(tuna.rest.__populateRecord(data[i], name));
-            i++;
+            while (i < l) {
+                result.push(tuna.rest.__populateRecord(data[i], name));
+                i++;
+            }
+
+            return result;
+        } else {
+            return tuna.rest.__populateRecord(data, name);
         }
-
-        return result;
-    } else if (data !== null) {
-        return tuna.rest.__populateRecord(data, name);
     }
 
     return null;

@@ -5,28 +5,28 @@
 tuna.ui.popups.__idTable = {};
 
 /**
+ * @private
+ * @type number
+ */
+tuna.ui.popups.__lastId = 0;
+
+/**
  * @param {!Node} target
  * @return {tuna.ui.popups.Popup}
  */
 tuna.ui.popups.create = function(target) {
-    var popup = null;
-
-    if (target.id !== null) {
-        if (tuna.ui.popups.__idTable[target.id] === undefined) {
-            popup = new tuna.ui.popups.Popup(target);
-            popup.init();
-
-            tuna.ui.popups.__idTable[target.id] = popup;
-        }
-
-        return tuna.ui.popups.__idTable[target.id];
-    } else {
-        popup = new tuna.ui.popups.Popup(target);
-        popup.init();
-
-        return popup;
+    if (target.id === '') {
+        target.id = 'popup_' + tuna.ui.popups.__lastId++;
     }
 
+    if (tuna.ui.popups.__idTable[target.id] === undefined) {
+        var popup = new tuna.ui.popups.Popup(target);
+        popup.init();
+
+        tuna.ui.popups.__idTable[target.id] = popup;
+    }
+
+    return tuna.ui.popups.__idTable[target.id];
 };
 
 /**

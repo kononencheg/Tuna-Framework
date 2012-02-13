@@ -93,31 +93,13 @@ Popup.prototype.__show = function() {
  * @return {Object.<string, string>}
  */
 Popup.prototype.__collectData = function() {
-    var result = {};
-
     var form = tuna.dom.selectOne('form.j-popup-form', this._target);
 
-    var elements = form.elements;
-    var i = 0,
-        l = elements.length;
-
-    var name = null;
-    while (i < l) {
-        name = elements[i].name;
-
-        if (result[name] !== undefined) {
-            if (!(result[name] instanceof Array)) {
-                result[name] = [result[name]];
-            }
-            result[name].push(elements[i].value);
-        } else {
-            result[name] = elements[i].value;
-        }
-
-        i++
+    if (form !== null) {
+        return tuna.ui.forms.Form.serialize(form);
     }
 
-    return result;
+    return null;
 };
 
 /**

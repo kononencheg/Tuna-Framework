@@ -51,12 +51,34 @@ Form.prototype.init = function() {
         self.__prepareToSubmit(event);
     });
 
+    tuna.dom.addEventListener(this._target, 'change', function() {
+        self.dispatch('change');
+    });
+
+    tuna.dom.addEventListener(this._target, 'reset', function(event) {
+        self.__prepareToReset(event);
+    });
+
     var callbackInput = document.createElement('input');
     callbackInput.type = 'hidden';
     callbackInput.name = '__callback';
     callbackInput.value = this.__callbackName;
 
     this._target.appendChild(callbackInput);
+};
+
+/**
+ * @param {string} name
+ * @return {string|number|Object}
+ */
+Form.prototype.getValue = function(name) {
+    var data = Form.serialize(this._target);
+
+    if (data[name] !== undefined) {
+        return data[name];
+    }
+
+    return null;
 };
 
 /**
@@ -68,6 +90,14 @@ Form.prototype.submit = function() {
 };
 
 /**
+ *
+ */
+Form.prototype.reset = function() {
+    this.__prepareToReset();
+    this._target.reset();
+};
+
+/**
  * @param {Event=} event
  */
 Form.prototype.__prepareToSubmit = function(event) {
@@ -75,6 +105,18 @@ Form.prototype.__prepareToSubmit = function(event) {
         this.__clearMessage();
         this.__clearInputs();
         this.__registerCallback();
+    } else if (event !== undefined) {
+        tuna.dom.preventDefault(event);
+    }
+};
+
+/**
+ * @param {Event=} event
+ */
+Form.prototype.__prepareToReset = function(event) {
+    if (this.dispatch('reset')) {
+        this.__clearMessage();
+        this.__clearInputs();
     } else if (event !== undefined) {
         tuna.dom.preventDefault(event);
     }
@@ -203,6 +245,36 @@ Form.prototype.__clearInputs = function() {
     for (var name in this.__inputTable) {
         this.__inputTable[name].cleanup();
     }
+};
+
+/**
+ * @param {Node} formElement
+ * @return {Object}
+ */
+Form.serialize = function(formElement) {
+    var result = {};
+
+    var elements = formElement.elements;
+    var i = 0,
+        l = elements.length;
+
+    var name = null;
+    while (i < l) {
+        name = elements[i].name;
+
+        if (result[name] !== undefined) {
+            if (!(result[name] instanceof Array)) {
+                result[name] = [result[name]];
+            }
+            result[name].push(elements[i].value);
+        } else {
+            result[name] = elements[i].value;
+        }
+
+        i++
+    }
+
+    return result;
 };
 
 /**

@@ -37,12 +37,6 @@ var DataNode = function(value, parent, key) {
 };
 
 /**
- * @const
- * @type tuna.tmpl.data.DataNode
- */
-DataNode.NULL_NODE = new DataNode(null);
-
-/**
  * @return {tuna.tmpl.data.DataNode}
  */
 DataNode.prototype.getParent = function() {
@@ -56,6 +50,7 @@ DataNode.prototype.getKey = function() {
     if (this.__keyNode === null) {
         this.__keyNode = new tuna.tmpl.data.DataNode(this.__key);
     }
+
     return this.__keyNode;
 };
 
@@ -90,7 +85,7 @@ DataNode.prototype.growChild = function(key) {
 
             result = this.__children[key];
         } else {
-            this.__children[key] = tuna.tmpl.data.DataNode.NULL_NODE;
+            this.__children[key] = new tuna.tmpl.data.DataNode(null);
         }
     }
 

@@ -66,7 +66,12 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
     var list = new tuna.tmpl.units.List(root);
 
     list.setCompiler(this.__templateCompiler);
-    list.setItemRenderer(this.__doc.getElementById(settings.getItemRendererID()));
+
+    var renderer = this.__doc.getElementById(settings.getItemRendererID());
+    renderer = renderer.cloneNode(true);
+    renderer.removeAttribute('id');
+
+    list.setItemRenderer(renderer);
     list.setItemSettings(settings.getItemSettings());
     list.setKeyPath(settings.getItemKeyDataPath());
     list.setPath(settings.getDataPath());
