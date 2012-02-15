@@ -8,7 +8,7 @@ var ModuleInstance = function(target) {
 
     /**
      * @protected
-     * @type Node
+     * @type !Node
      */
     this._target = target;
 
@@ -45,7 +45,6 @@ ModuleInstance.prototype._setDefaultOption = function(name, option) {
 };
 
 /**
- * @public
  * @param {string} name
  * @param {?string} option
  */
@@ -58,7 +57,6 @@ ModuleInstance.prototype.setOption = function(name, option) {
 };
 
 /**
- * @private
  * @param {string} name
  * @return {?string}
  */
@@ -69,6 +67,13 @@ ModuleInstance.prototype.getOption = function(name) {
     }
 
     return option;
+};
+
+/**
+ * @return {Object}
+ */
+ModuleInstance.prototype.getOptions = function() {
+    return tuna.dom.getAttributesData(this._target);
 };
 
 /**

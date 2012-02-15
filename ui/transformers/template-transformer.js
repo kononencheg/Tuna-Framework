@@ -75,7 +75,6 @@ TemplateTransformer.prototype.destroy = function() {
             (this._target, this.__template.fetchRemovedChildren());
     }
 
-    this._target = null;
     this.__template = null;
     this.__transformHandler = null;
 };

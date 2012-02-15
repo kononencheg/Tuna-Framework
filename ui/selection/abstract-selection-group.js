@@ -40,7 +40,8 @@ AbstractSelectionGroup.prototype.setIndexEnabled
  * @override
  */
 AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
-    return tuna.utils.indexOf(index, this._disabledIndexes) === -1;
+    return this._itemsCollection.getItemAt(index) !== null &&
+            tuna.utils.indexOf(index, this._disabledIndexes) === -1;
 };
 
 /**

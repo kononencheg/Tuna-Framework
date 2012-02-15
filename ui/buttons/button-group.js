@@ -6,10 +6,23 @@
 var ButtonGroup = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
+    /**
+     * @private
+     * @type {?string}
+     */
+    this.__defaultAction = null;
+
     this._setDefaultOption('button-selector', '.j-button');
 };
 
 tuna.utils.extend(ButtonGroup, tuna.ui.ModuleInstance);
+
+/**
+ * @param {string} action
+ */
+ButtonGroup.prototype.setDefaultAction = function(action) {
+    this.__defaultAction = action;
+};
 
 /**
  * @override
@@ -21,9 +34,16 @@ ButtonGroup.prototype.init = function() {
     if (buttonSelector !== null) {
         tuna.dom.addChildEventListener(
             this._target, buttonSelector, 'click', function(event) {
+                tuna.dom.preventDefault(event);
+
                 var button = tuna.ui.buttons.create(this);
-                if (button.getOption('type') !== null) {
-                    self.dispatch(button.getOption('type'), button);
+                var action = button.getOption('action');
+                if (action === null) {
+                    action = self.__defaultAction;
+                }
+
+                if (action !== null) {
+                    self.dispatch(action, button);
                 }
             }
         );

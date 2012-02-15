@@ -18,8 +18,21 @@ var Navigation = function(target) {
      */
     this.__history = [];
 
+    /**
+     * @private
+     * @type {tuna.ui.buttons.ButtonGroup}
+     */
+    this.__controls = null;
+
+    /**
+     * @private
+     * @type {Object.<string, Array.<tuna.ui.buttons.Button>>}
+     */
+    this.__menuLinks = {};
+
     this.setOption('is-multiple', null);
     this._setDefaultOption('item-selector', '.j-navigation-page');
+    this._setDefaultOption('menu-selector', '.j-navigation-menu');
 };
 
 tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
@@ -28,17 +41,90 @@ tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
  * @override
  */
 Navigation.prototype.init = function() {
+    tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+
     var self = this;
 
     this.addEventListener('deselected', function(event, index) {
+        self.__updateMenu(index, false);
         self.dispatch('close');
     });
 
     this.addEventListener('selected', function(event, index) {
+        self.__updateMenu(index, true);
         self.dispatch('open', self.__openData);
     });
 
-    tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+    this.__controls = new tuna.ui.buttons.ButtonGroup(this._target);
+    this.__controls.setOption('button-selector', '.j-navigation-link');
+    this.__controls.setDefaultAction('navigate');
+
+    this.__controls.addEventListener('navigate', function(event, button) {
+        var index = button.getOption('href');
+        if (index !== null) {
+            self.navigate(index, button.getOptions());
+        }
+    });
+
+    this.__controls.addEventListener('back', function(event, button) {
+        self.back();
+    });
+
+    this.__controls.init();
+
+    this.__initMenu();
+};
+
+/**
+ * @private
+ */
+Navigation.prototype.__initMenu = function() {
+    var menuSelector = this.getOption('menu-selector');
+    var buttonSelector = this.getOption('button-selector');
+
+    if (menuSelector !== null && buttonSelector !== null) {
+        var menu = tuna.dom.selectOne(menuSelector, this._target);
+        var buttons = tuna.dom.select(buttonSelector, menu);
+
+        var i = 0,
+            l = buttons.length;
+
+        var href = null;
+        var button = null;
+        while (i < l) {
+            button = tuna.ui.buttons.create(buttons[i]);
+            href = button.getOption('href');
+            if (href !== null) {
+                if (this.__menuLinks[href] === undefined) {
+                    this.__menuLinks[href] = [];
+                }
+
+                this.__menuLinks[href].push(button);
+            }
+
+            i++;
+        }
+
+    }
+};
+
+/**
+ *
+ * @param {string} index
+ * @param {boolean} isSelected
+ */
+Navigation.prototype.__updateMenu = function(index, isSelected) {
+    var buttons = this.__menuLinks[index];
+    if (buttons !== undefined) {
+        var i = 0,
+            l = buttons.length;
+
+        while (i < l) {
+            buttons[i].setActive(isSelected);
+
+            i++;
+        }
+    }
 };
 
 /**

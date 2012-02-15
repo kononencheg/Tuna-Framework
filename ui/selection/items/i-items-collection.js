@@ -17,7 +17,7 @@ IItemsCollection.prototype.getItemIndex = function(item) {};
 
 /**
 * @param {string|number} index
-* @return {Node}
+* @return {?Node}
 */
 IItemsCollection.prototype.getItemAt = function(index) {};
 

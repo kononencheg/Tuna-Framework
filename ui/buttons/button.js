@@ -20,9 +20,6 @@ tuna.utils.extend(Button, tuna.ui.ModuleInstance);
  */
 Button.prototype.init = function() {
     if (!this.__isInit) {
-
-
-
         this.__isInit = true;
     }
 };
@@ -32,6 +29,13 @@ Button.prototype.init = function() {
  */
 Button.prototype.setEnabled = function(isEnabled) {
     tuna.dom.setClassExist(this._target, 'disabled', !isEnabled);
+};
+
+/**
+ * @param {boolean} isActive
+ */
+Button.prototype.setActive = function(isActive) {
+    tuna.dom.setClassExist(this._target, 'active', isActive);
 };
 
 /**

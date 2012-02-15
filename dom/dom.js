@@ -59,7 +59,7 @@ tuna.dom.setSelectorEngine = function(engine) {
 /**
  * @param {string} selector
  * @param {Node} context
- * @return {Array.<Node>}
+ * @return {Array.<!Node>}
  */
 tuna.dom.select = function(selector, context) {
     if (tuna.dom.__selectorEngine !== null) {
