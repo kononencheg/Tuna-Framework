@@ -45,7 +45,7 @@ tuna.utils.extend(InputFilter, tuna.ui.ModuleInstance);
  * @override
  */
 InputFilter.prototype.init = function() {
-    this._input = tuna.dom.selectOne('input.j-filtration');
+    this._input = tuna.dom.selectOne('input.j-filtration', this._target);
     if (this._input !== null) {
         var self = this;
 
@@ -73,7 +73,7 @@ InputFilter.prototype.setItemSerializeCallback = function(callback) {
  */
 InputFilter.prototype.setData = function(data) {
     this._currentData = this._data = data;
-    this._transformer.applyTransform(data);
+    this.update();
 };
 
 /**
@@ -81,6 +81,13 @@ InputFilter.prototype.setData = function(data) {
  */
 InputFilter.prototype.filter = function(term) {
     this._currentData = this._filterData(term);
+    this.update();
+};
+
+/**
+ *
+ */
+InputFilter.prototype.update = function() {
     this._transformer.applyTransform(this._currentData);
 };
 
