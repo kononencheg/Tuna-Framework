@@ -31,6 +31,11 @@ IItemsCollection.prototype.mapItems = function(callback) {};
  */
 IItemsCollection.prototype.clear = function() {};
 
+/**
+ * @return number
+ */
+IItemsCollection.prototype.getItemsCount = function() {};
+
 
 /**
  * @interface

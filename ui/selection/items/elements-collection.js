@@ -56,6 +56,15 @@ ElementsCollection.prototype.mapItems = function(callback) {
     }
 };
 
+
+/**
+ * @override
+ */
+ElementsCollection.prototype.getItemsCount = function() {
+    return this.__items.length;
+};
+
+
 /**
  * @constructor
  * @extends {ElementsCollection}
