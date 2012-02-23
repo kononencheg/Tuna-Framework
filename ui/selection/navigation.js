@@ -62,7 +62,9 @@ Navigation.prototype.init = function() {
     this.__controls.addEventListener('navigate', function(event, button) {
         var index = button.getOption('href');
         if (index !== null) {
-            self.navigate(index, button.getOptions());
+            if (self.navigate(index, button.getOptions())) {
+                event.preventDefault();
+            }
         }
     });
 
@@ -106,6 +108,11 @@ Navigation.prototype.__initMenu = function() {
         }
 
     }
+
+    var index = this.getLastSelectedIndex();
+    if (index !== null) {
+        this.__updateMenu(index, true);
+    }
 };
 
 /**
@@ -138,8 +145,10 @@ Navigation.prototype.navigate = function(index, data) {
     }
 
     this.__openData = data || null;
-    this.selectIndex(index);
+    var result = this.selectIndex(index);
     this.__openData = null;
+
+    return result;
 };
 
 /**

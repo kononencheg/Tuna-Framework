@@ -33,15 +33,21 @@ MultipleSelectionRule.prototype.selectIndex = function(index) {
 
                 this._selectionView.applySelectionAt(index);
                 this.__selectedIndexes.push(index);
+
+                return true;
             }
         } else {
             if (this._eventDispatcher.dispatch('deselect', index)) {
 
                 this._selectionView.destroySelectionAt(index);
                 this.__selectedIndexes.splice(indexPosition, 1);
+
+                return true;
             }
         }
     }
+
+    return false;
 };
 
 /**

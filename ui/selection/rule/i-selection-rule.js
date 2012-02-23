@@ -10,6 +10,7 @@ ISelectionRule.prototype.getSelectedIndexes = function() {};
 
 /**
  * @param {string|number} index
+ * @return {boolean}
  */
 ISelectionRule.prototype.selectIndex = function(index) {};
 

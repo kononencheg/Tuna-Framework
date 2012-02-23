@@ -95,7 +95,7 @@ AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
  * @override
  */
 AbstractSelectionGroup.prototype.selectIndex = function(index) {
-    this._selectionRule.selectIndex(index);
+    return this._selectionRule.selectIndex(index);
 };
 
 /**

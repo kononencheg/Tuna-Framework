@@ -43,7 +43,9 @@ ButtonGroup.prototype.init = function() {
                 }
 
                 if (action !== null) {
-                    self.dispatch(action, button);
+                    if (!self.dispatch(action, button)) {
+                        tuna.dom.stopPropagation(event);
+                    }
                 }
             }
         );

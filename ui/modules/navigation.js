@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var NavigationModule = function() {
-    tuna.ui.Module.call(this, 'body');
+    tuna.ui.Module.call(this, '.j-navigation');
 };
 
 tuna.utils.extend(NavigationModule, tuna.ui.Module);

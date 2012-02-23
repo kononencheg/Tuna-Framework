@@ -10,6 +10,7 @@ ISelectionGroup.prototype.getSelectedIndexes = function() {};
 
 /**
  * @param {string|number} index
+ * @return {boolean}
  */
 ISelectionGroup.prototype.selectIndex = function(index) {};
 

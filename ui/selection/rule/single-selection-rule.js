@@ -47,8 +47,12 @@ SingleSelectionRule.prototype.selectIndex = function(index) {
             this._eventDispatcher.dispatch('deselected', oldIndex)
         }
 
-        this._eventDispatcher.dispatch('selected', index)
+        this._eventDispatcher.dispatch('selected', index);
+
+        return true;
     }
+
+    return false;
 };
 
 /**
