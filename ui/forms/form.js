@@ -47,17 +47,13 @@ Form.prototype.init = function() {
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
     var self = this;
-    tuna.dom.addEventListener(this._target, 'submit', function(event) {
-        self.__prepareToSubmit(event);
-    });
 
-    tuna.dom.addEventListener(this._target, 'change', function() {
-        self.dispatch('change');
-    });
+    var prepareListener = function(event) {
+        self.__prepareTo(event.type, event);
+    };
 
-    tuna.dom.addEventListener(this._target, 'reset', function(event) {
-        self.__prepareToReset(event);
-    });
+    tuna.dom.addEventListener(this._target, 'submit', prepareListener);
+    tuna.dom.addEventListener(this._target, 'reset', prepareListener);
 
     var callbackInput = document.createElement('input');
     callbackInput.type = 'hidden';
@@ -65,6 +61,11 @@ Form.prototype.init = function() {
     callbackInput.value = this.__callbackName;
 
     this._target.appendChild(callbackInput);
+
+
+    window[this.__callbackName] = function(response) {
+        self.__handleResponse(response);
+    };
 };
 
 /**
@@ -85,7 +86,7 @@ Form.prototype.getValue = function(name) {
  * 
  */
 Form.prototype.submit = function() {
-    this.__prepareToSubmit();
+    this.__prepareTo('submit');
     this._target.submit();
 };
 
@@ -93,45 +94,20 @@ Form.prototype.submit = function() {
  *
  */
 Form.prototype.reset = function() {
-    this.__prepareToReset();
+    this.__prepareTo('reset');
     this._target.reset();
 };
 
 /**
+ * @param {string} type
  * @param {Event=} event
  */
-Form.prototype.__prepareToSubmit = function(event) {
-    if (this.dispatch('submit')) {
-        this.__clearMessage();
-        this.__clearInputs();
-        this.__registerCallback();
-    } else if (event !== undefined) {
-        tuna.dom.preventDefault(event);
-    }
-};
-
-/**
- * @param {Event=} event
- */
-Form.prototype.__prepareToReset = function(event) {
-    if (this.dispatch('reset')) {
+Form.prototype.__prepareTo = function(type, event) {
+    if (this.dispatch(type)) {
         this.__clearMessage();
         this.__clearInputs();
     } else if (event !== undefined) {
         tuna.dom.preventDefault(event);
-    }
-};
-
-/**
- * @private
- */
-Form.prototype.__registerCallback = function() {
-    var self = this;
-
-    if (window[this.__callbackName] === undefined) {
-        window[this.__callbackName] = function(response) {
-            self.__handleResponse(response);
-        };
     }
 };
 
