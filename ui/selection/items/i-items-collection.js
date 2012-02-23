@@ -36,7 +36,6 @@ IItemsCollection.prototype.clear = function() {};
  */
 IItemsCollection.prototype.getItemsCount = function() {};
 
-
 /**
  * @interface
  * @extends {IItemsCollection}

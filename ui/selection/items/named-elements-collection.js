@@ -71,7 +71,7 @@ NamedElementsCollection.prototype.mapItems = function(callback) {
 /**
  * @override
  */
-ElementsCollection.prototype.getItemsCount = function() {
+NamedElementsCollection.prototype.getItemsCount = function() {
     var i = 0;
     for (var index in this.__items) {
         i++;

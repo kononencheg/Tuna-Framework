@@ -26,7 +26,7 @@ var Navigation = function(target) {
 
     /**
      * @private
-     * @type {Object.<string, Array.<tuna.ui.buttons.Button>>}
+     * @type {Object.<string|number, Array.<tuna.ui.buttons.Button>>}
      */
     this.__menuLinks = {};
 
@@ -117,7 +117,7 @@ Navigation.prototype.__initMenu = function() {
 
 /**
  *
- * @param {string} index
+ * @param {number|string} index
  * @param {boolean} isSelected
  */
 Navigation.prototype.__updateMenu = function(index, isSelected) {
