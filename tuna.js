@@ -104,6 +104,11 @@ tuna.ui.containers = {};
 /**
  * @namespace
  */
+tuna.ui.flash = {};
+
+/**
+ * @namespace
+ */
 tuna.ui.forms = {};
 
 /**

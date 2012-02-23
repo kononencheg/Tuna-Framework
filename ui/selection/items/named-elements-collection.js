@@ -63,11 +63,23 @@ NamedElementsCollection.prototype.clear = function() {
  */
 NamedElementsCollection.prototype.mapItems = function(callback) {
     for (var index in this.__items) {
-        if (this.__items.hasOwnProperty(index)) {
-            callback(index, this.__items[index]);
-        }
+        callback(index, this.__items[index]);
     }
 };
+
+
+/**
+ * @override
+ */
+ElementsCollection.prototype.getItemsCount = function() {
+    var i = 0;
+    for (var index in this.__items) {
+        i++;
+    }
+
+    return i;
+};
+
 
 /**
  * @constructor
