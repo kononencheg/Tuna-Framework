@@ -128,11 +128,11 @@ Form.prototype.__prepareToReset = function(event) {
 Form.prototype.__registerCallback = function() {
     var self = this;
 
-    window[this.__callbackName] = function(response) {
-        self.__handleResponse(response);
-        
-        delete window[self.__callbackName];
-    };
+    if (window[this.__callbackName] === undefined) {
+        window[this.__callbackName] = function(response) {
+            self.__handleResponse(response);
+        };
+    }
 };
 
 /**
