@@ -210,7 +210,7 @@ tuna.utils.decodeSearch = function(search) {
             pathToken = path.shift();
 
             if (path.length === 0) {
-                context[pathToken] = pair.shift();
+                context[pathToken] = decodeURIComponent(pair.shift());
             } else if (context[pathToken] === undefined) {
                 context[pathToken] = {};
             }
