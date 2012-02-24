@@ -174,6 +174,57 @@ tuna.utils.indexOf = function(element, array) {
 };
 
 /**
+ * @const
+ * @type {string}s
+ */
+tuna.utils.__DECODE_PATH_SEP = '|';
+
+/**
+ * @param {string} search
+ * @return {Object}
+ */
+tuna.utils.decodeSearch = function(search) {
+    var result = {};
+
+    var parsedSearch = search.substring(1);
+    parsedSearch = parsedSearch.split('][').join(tuna.utils.__DECODE_PATH_SEP);
+    parsedSearch = parsedSearch.split('[').join(tuna.utils.__DECODE_PATH_SEP);
+    parsedSearch = parsedSearch.split(']').join('');
+
+    var vars = parsedSearch.split('&');
+    var i = 0,
+        l = vars.length;
+
+    var pair = null;
+    var path = null;
+    var pathToken = null;
+
+    var context = null;
+    while (i < l) {
+        pair = vars[i].split('=');
+        path = pair.shift().split(tuna.utils.__DECODE_PATH_SEP);
+
+        context = result;
+
+        while (path.length > 0) {
+            pathToken = path.shift();
+
+            if (path.length === 0) {
+                context[pathToken] = pair.shift();
+            } else if (context[pathToken] === undefined) {
+                context[pathToken] = {};
+            }
+
+            context = context[pathToken];
+        }
+
+        i++;
+    }
+
+    return result;
+};
+
+/**
  * @constructor
  */
 var Config = function() {
