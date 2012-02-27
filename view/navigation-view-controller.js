@@ -71,7 +71,7 @@ NavigationViewController.prototype._canClose = function(index) {
     if (this._currentPage !== null) {
         var controller = this.__getPageController(this._currentPage);
         if (controller !== null) {
-            controller.close();
+            return controller.canClose();
         }
     }
 

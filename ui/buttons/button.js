@@ -28,6 +28,7 @@ Button.prototype.init = function() {
  * @param {boolean} isEnabled
  */
 Button.prototype.setEnabled = function(isEnabled) {
+    this._isEnabled = isEnabled;
     tuna.dom.setClassExist(this._target, 'disabled', !isEnabled);
 };
 

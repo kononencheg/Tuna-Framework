@@ -13,6 +13,12 @@ var ModuleInstance = function(target) {
     this._target = target;
 
     /**
+     * @type boolean
+     * @protected
+     */
+    this._isEnabled = true;
+
+    /**
      * @private
      * @type Object.<string, ?string>
      */
@@ -33,6 +39,21 @@ ModuleInstance.prototype.getTarget = function() {
  */
 ModuleInstance.prototype.getName = function() {
     return this._target.getAttribute('data-name');
+};
+
+
+/**
+ * @param {boolean} isEnabled
+ */
+ModuleInstance.prototype.setEnabled = function(isEnabled) {
+    this._isEnabled = isEnabled;
+};
+
+/**
+ * @return {boolean}
+ */
+ModuleInstance.prototype.isEnabled = function() {
+    return this._isEnabled;
 };
 
 /**

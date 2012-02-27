@@ -55,8 +55,12 @@ Form.prototype.init = function() {
 
     var self = this;
     var prepareListener = function(event) {
-        callbackInput.setAttribute('value', self.__callbackName);
-        self.__prepareTo(event.type, event);
+        if (self._isEnabled) {
+            callbackInput.setAttribute('value', self.__callbackName);
+            self.__prepareTo(event.type, event);
+        } else {
+            tuna.dom.preventDefault(event);
+        }
     };
 
     tuna.dom.addEventListener(this._target, 'submit', prepareListener);
