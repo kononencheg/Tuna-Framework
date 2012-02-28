@@ -30,14 +30,14 @@ ButtonGroup.prototype.setDefaultAction = function(action) {
 ButtonGroup.prototype.init = function() {
     var self = this;
 
-    var buttonSelector = this.getOption('button-selector');
+    var buttonSelector = this.getStringOption('button-selector');
     if (buttonSelector !== null) {
         tuna.dom.addChildEventListener(
             this._target, buttonSelector, 'click', function(event) {
                 tuna.dom.preventDefault(event);
 
                 var button = tuna.ui.buttons.create(this);
-                var action = button.getOption('action');
+                var action = button.getStringOption('action');
                 if (action === null) {
                     action = self.__defaultAction;
                 }

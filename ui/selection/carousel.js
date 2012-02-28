@@ -27,23 +27,29 @@ Carousel.prototype.init = function() {
 
     var self = this;
 
-    this.__shiftIndex = this.getLastSelectedIndex();
+    this.__shiftIndex = Number(this.getLastSelectedIndex());
 
-    tuna.dom.addChildEventListener(
-        this._target, this.getOption('next-button-selector'), 'click',
-        function(event) {
-            tuna.dom.preventDefault(event);
-            self.next();
-        }
-    );
+    var nextButtonSelector = this.getStringOption('next-button-selector');
+    if (nextButtonSelector !== null) {
+        tuna.dom.addChildEventListener(
+            this._target, nextButtonSelector, 'click',
+            function(event) {
+                tuna.dom.preventDefault(event);
+                self.next();
+            }
+        );
+    }
 
-    tuna.dom.addChildEventListener(
-        this._target, this.getOption('back-button-selector'), 'click',
-        function(event) {
-            tuna.dom.preventDefault(event);
-            self.back();
-        }
-    );
+    var backButtonSelector = this.getStringOption('back-button-selector')
+    if (backButtonSelector !== null) {
+        tuna.dom.addChildEventListener(
+            this._target, backButtonSelector, 'click',
+            function(event) {
+                tuna.dom.preventDefault(event);
+                self.back();
+            }
+        );
+    }
 };
 
 

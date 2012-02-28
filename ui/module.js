@@ -35,9 +35,11 @@ Module.prototype.init = function(context, container, options) {
     while (i < l) {
         if (this.__isInContext(targets[i], context)) {
             instance = this.initInstance(targets[i], container, options);
-            instance.init && instance.init();
+            if (instance !== null) {
+                instance.init();
 
-            instances.push(instance);
+                instances.push(instance);
+            }
         }
 
         i++;

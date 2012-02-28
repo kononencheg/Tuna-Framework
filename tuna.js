@@ -4,7 +4,6 @@
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
-
 /**
  * @namespace Глобальная область имен.
  */

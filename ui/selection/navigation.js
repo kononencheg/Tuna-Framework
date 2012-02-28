@@ -60,7 +60,7 @@ Navigation.prototype.init = function() {
     this.__controls.setDefaultAction('navigate');
 
     this.__controls.addEventListener('navigate', function(event, button) {
-        var index = button.getOption('href');
+        var index = button.getStringOption('href');
         if (index !== null) {
             if (self.navigate(index, button.getOptions())) {
                 event.preventDefault();
@@ -81,8 +81,8 @@ Navigation.prototype.init = function() {
  * @private
  */
 Navigation.prototype.__initMenu = function() {
-    var menuSelector = this.getOption('menu-selector');
-    var buttonSelector = this.getOption('button-selector');
+    var menuSelector = this.getStringOption('menu-selector');
+    var buttonSelector = this.getStringOption('button-selector');
 
     if (menuSelector !== null && buttonSelector !== null) {
         var menu = tuna.dom.selectOne(menuSelector, this._target);
@@ -95,7 +95,7 @@ Navigation.prototype.__initMenu = function() {
         var button = null;
         while (i < l) {
             button = tuna.ui.buttons.create(buttons[i]);
-            href = button.getOption('href');
+            href = button.getStringOption('href');
             if (href !== null) {
                 if (this.__menuLinks[href] === undefined) {
                     this.__menuLinks[href] = [];

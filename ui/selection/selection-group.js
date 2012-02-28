@@ -20,7 +20,7 @@ tuna.utils.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
  * @override
  */
 SelectionGroup.prototype.init = function() {
-    var indexAttribute = this.getOption('index-attribute');
+    var indexAttribute = this.getStringOption('index-attribute');
 
     this._itemsCollection = indexAttribute === null ?
             new tuna.ui.selection.items.ElementsCollection():
@@ -29,12 +29,12 @@ SelectionGroup.prototype.init = function() {
     this._selectionView
         = new tuna.ui.selection.view.ClassSelectionView(this._target);
 
-    this._selectionRule = this.getOption('is-multiple') ?
+    this._selectionRule = this.getBooleanOption('is-multiple') ?
             new tuna.ui.selection.rule.MultipleSelectionRule() :
             new tuna.ui.selection.rule.SingleSelectionRule();
 
-    this._selectionView.setSelectionClass(this.getOption('selection-class'));
-    this._selectionView.setItemSelector(this.getOption('item-selector'));
+    this._selectionView.setSelectionClass(this.getStringOption('selection-class'));
+    this._selectionView.setItemSelector(this.getStringOption('item-selector'));
     this._selectionView.setSelectionGroup(this);
     this._selectionView.setItemsCollection(this._itemsCollection);
 

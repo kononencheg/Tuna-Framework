@@ -20,7 +20,7 @@ var InputFilter = function(target) {
 
     /**
      * @protected
-     * @type HTMLInputElement
+     * @type Node
      */
     this._input = null;
 
@@ -34,7 +34,7 @@ var InputFilter = function(target) {
 
     /**
      * @protected
-     * @type tuna.ui.transformers.ITransformer
+     * @type tuna.ui.transformers.TemplateTransformer
      */
     this._transformer = new tuna.ui.transformers.TemplateTransformer(target);
 };

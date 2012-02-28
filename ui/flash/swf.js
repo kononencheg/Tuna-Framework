@@ -37,13 +37,13 @@ SWF.prototype.init = function() {
     this.__movieId = this._target.id;
 
     swfobject.embedSWF(
-        this.getOption('src'), this._target.id,
-        this.getOption('width'), this.getOption('height'),
-        '10.0.0', null, this.getOption('flashvars'), {
-            'wmode': this.getOption('wmode'),
-            'allowfullscreen': this.getOption('allow-fullscreen'),
-            'allowscriptaccess': this.getOption('allow-script-access'),
-            'menu': this.getOption('menu')
+        this.getStringOption('src'), this._target.id,
+        this.getNumberOption('width'), this.getNumberOption('height'),
+        '10.0.0', null, this.getStringOption('flashvars'), {
+            'wmode': this.getStringOption('wmode'),
+            'allowfullscreen': this.getStringOption('allow-fullscreen'),
+            'allowscriptaccess': this.getStringOption('allow-script-access'),
+            'menu': this.getStringOption('menu')
         }
     );
 };

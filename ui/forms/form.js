@@ -43,7 +43,7 @@ Form.CALLBACK_PREFIX = 'form_callback';
  * @override
  */
 Form.prototype.init = function() {
-    this.__recordName = this.getOption('record-type');
+    this.__recordName = '' + this.getStringOption('record-type');
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
 

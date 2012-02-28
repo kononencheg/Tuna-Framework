@@ -50,7 +50,7 @@ ConditionSettings.prototype.getOperatorType = function() {
 };
 
 /**
- * @return {string} 
+ * @return {string}
  */
 ConditionSettings.prototype.getOperatorData = function() {
     return this.__operatorData;
@@ -66,14 +66,14 @@ ConditionSettings.prototype.setAction = function(type, data) {
 };
 
 /**
- * @return {string} 
+ * @return {string}
  */
 ConditionSettings.prototype.getActionType = function() {
     return this.__actionType;
 };
 
 /**
- * @return {string} 
+ * @return {string}
  */
 ConditionSettings.prototype.getActionData = function() {
     return this.__actionData;

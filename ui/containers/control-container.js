@@ -43,7 +43,7 @@ ControlContainer.prototype.clear = function() {
  * @override
  */
 ControlContainer.prototype.init = function() {
-    if (this.getOption('is-auto-init')) {
+    if (this.getBooleanOption('is-auto-init')) {
         this.initController();
     }
 };

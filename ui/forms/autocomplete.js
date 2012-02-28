@@ -8,7 +8,7 @@ var Autocomplete = function(target) {
 
     /**
      * @private
-     * @type Array.<string>
+     * @type Object
      */
     this.__selectedData = null;
 
@@ -16,7 +16,7 @@ var Autocomplete = function(target) {
      * @private
      * @type tuna.ui.selection.SelectionGroup
      */
-    this.__selectionGroup = new tuna.ui.selection.SelectionGroup(target);
+    this.__selectionGroup = new tuna.ui.selection.SelectionGroup(target, null);
 
 };
 
@@ -72,7 +72,7 @@ Autocomplete.prototype.init = function() {
 };
 
 /**
- * @return {Array.<Object>}
+ * @return {Object}
  */
 Autocomplete.prototype.getSelectedData = function() {
     return this.__selectedData;

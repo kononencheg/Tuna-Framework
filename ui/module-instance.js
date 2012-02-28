@@ -20,7 +20,7 @@ var ModuleInstance = function(target) {
 
     /**
      * @private
-     * @type Object.<string, ?string>
+     * @type Object.<string, null|string|boolean|number>
      */
     this.__defaultOptions = {};
 };
@@ -59,7 +59,7 @@ ModuleInstance.prototype.isEnabled = function() {
 /**
  * @protected
  * @param {string} name
- * @param {?string} option
+ * @param {null|string|boolean|number} option
  */
 ModuleInstance.prototype._setDefaultOption = function(name, option) {
     this.__defaultOptions[name] = option;
@@ -67,7 +67,7 @@ ModuleInstance.prototype._setDefaultOption = function(name, option) {
 
 /**
  * @param {string} name
- * @param {?string} option
+ * @param {null|string|boolean|number} option
  */
 ModuleInstance.prototype.setOption = function(name, option) {
     if (option) {
@@ -79,7 +79,7 @@ ModuleInstance.prototype.setOption = function(name, option) {
 
 /**
  * @param {string} name
- * @return {?string}
+ * @return {null|string|boolean|number}
  */
 ModuleInstance.prototype.getOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -89,6 +89,46 @@ ModuleInstance.prototype.getOption = function(name) {
 
     return option;
 };
+
+/**
+ * @param {string} name
+ * @return {null|string}
+ */
+ModuleInstance.prototype.getStringOption = function(name) {
+    var option = this._target.getAttribute('data-' + name);
+    if (option === null && this.__defaultOptions[name] !== undefined) {
+        option = '' + this.__defaultOptions[name];
+    }
+
+    return option;
+};
+
+/**
+ * @param {string} name
+ * @return {null|number}
+ */
+ModuleInstance.prototype.getNumberOption = function(name) {
+    var option = this._target.getAttribute('data-' + name);
+    if (option === null && this.__defaultOptions[name] !== undefined) {
+        option = this.__defaultOptions[name];
+    }
+
+    return option + 0;
+};
+
+/**
+ * @param {string} name
+ * @return {boolean}
+ */
+ModuleInstance.prototype.getBooleanOption = function(name) {
+    var option = this._target.getAttribute('data-' + name);
+    if (option === null && this.__defaultOptions[name] !== undefined) {
+        option = this.__defaultOptions[name];
+    }
+
+    return !!option;
+};
+
 
 /**
  * @return {Object}

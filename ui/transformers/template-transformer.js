@@ -28,7 +28,7 @@ tuna.utils.implement(TemplateTransformer, tuna.ui.transformers.ITransformer);
  * @override
  */
 TemplateTransformer.prototype.init = function() {
-    var templateId = this.getOption('template-id');
+    var templateId = this.getStringOption('template-id');
 
     var settings = tuna.tmpl.getTemplateSettingsById(templateId);
     if (settings !== null) {

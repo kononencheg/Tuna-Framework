@@ -15,8 +15,8 @@ SelectionGroupModule.prototype.initInstance = function(target) {
 
     var selectionGroup = new tuna.ui.selection.SelectionGroup(target, null);
 
-    var selectionEvent = selectionGroup.getOption('selection-event');
-    var itemSelector = selectionGroup.getOption('item-selector');
+    var selectionEvent = selectionGroup.getStringOption('selection-event');
+    var itemSelector = selectionGroup.getStringOption('item-selector');
 
     if (selectionEvent !== null && itemSelector !== null) {
         tuna.dom.addChildEventListener(
