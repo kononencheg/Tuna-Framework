@@ -18,7 +18,7 @@ var SWF = function(target) {
      */
     this.__movie = null;
 
-    this._setDefaultOption('wmode', 'window');
+    this._setDefaultOption('wmode', 'direct');
     this._setDefaultOption('menu', false);
     this._setDefaultOption('allow-fullscreen', false);
     this._setDefaultOption('allow-script-access', 'always');
