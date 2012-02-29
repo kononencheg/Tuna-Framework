@@ -62,7 +62,11 @@ ModuleInstance.prototype.isEnabled = function() {
  * @param {null|string|boolean|number} option
  */
 ModuleInstance.prototype._setDefaultOption = function(name, option) {
-    this.__defaultOptions[name] = option;
+    if (option === null) {
+        delete this.__defaultOptions[name];
+    } else {
+        this.__defaultOptions[name] = option;
+    }
 };
 
 /**
@@ -97,7 +101,7 @@ ModuleInstance.prototype.getOption = function(name) {
 ModuleInstance.prototype.getStringOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
-        option = '' + this.__defaultOptions[name];
+        option = this.__defaultOptions[name];
     }
 
     return option;
@@ -113,7 +117,7 @@ ModuleInstance.prototype.getNumberOption = function(name) {
         option = this.__defaultOptions[name];
     }
 
-    return option + 0;
+    return Number(option);
 };
 
 /**

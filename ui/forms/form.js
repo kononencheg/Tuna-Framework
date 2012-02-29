@@ -43,7 +43,7 @@ Form.CALLBACK_PREFIX = 'form_callback';
  * @override
  */
 Form.prototype.init = function() {
-    this.__recordName = '' + this.getStringOption('record-type');
+    this.__recordName = this.getStringOption('record-type');
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
 
@@ -76,7 +76,7 @@ Form.prototype.init = function() {
  * @return {string|number|Object}
  */
 Form.prototype.getValue = function(name) {
-    var data = Form.serialize(this._target);
+    var data = tuna.ui.forms.serialize(this._target);
 
     if (data[name] !== undefined) {
         return data[name];
@@ -224,36 +224,6 @@ Form.prototype.__clearInputs = function() {
     for (var name in this.__inputTable) {
         this.__inputTable[name].cleanup();
     }
-};
-
-/**
- * @param {Node} formElement
- * @return {Object}
- */
-Form.serialize = function(formElement) {
-    var result = {};
-
-    var elements = formElement.elements;
-    var i = 0,
-        l = elements.length;
-
-    var name = null;
-    while (i < l) {
-        name = elements[i].name;
-
-        if (result[name] !== undefined) {
-            if (!(result[name] instanceof Array)) {
-                result[name] = [result[name]];
-            }
-            result[name].push(elements[i].value);
-        } else {
-            result[name] = elements[i].value;
-        }
-
-        i++
-    }
-
-    return result;
 };
 
 /**

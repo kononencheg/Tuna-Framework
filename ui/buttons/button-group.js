@@ -12,6 +12,12 @@ var ButtonGroup = function(target) {
      */
     this.__defaultAction = null;
 
+    /**
+     * @type {boolean}
+     * @private
+     */
+    this.__isPreventDefault = true;
+
     this._setDefaultOption('button-selector', '.j-button');
 };
 
@@ -25,6 +31,13 @@ ButtonGroup.prototype.setDefaultAction = function(action) {
 };
 
 /**
+ * @param {boolean} isPreventDefault
+ */
+ButtonGroup.prototype.setPreventDefault = function(isPreventDefault) {
+    this.__isPreventDefault = isPreventDefault;
+};
+
+/**
  * @override
  */
 ButtonGroup.prototype.init = function() {
@@ -34,7 +47,9 @@ ButtonGroup.prototype.init = function() {
     if (buttonSelector !== null) {
         tuna.dom.addChildEventListener(
             this._target, buttonSelector, 'click', function(event) {
-                tuna.dom.preventDefault(event);
+                if (self.__isPreventDefault) {
+                    tuna.dom.preventDefault(event);
+                }
 
                 var button = tuna.ui.buttons.create(this);
                 var action = button.getStringOption('action');

@@ -78,14 +78,13 @@ DataNode.prototype.growChild = function(key) {
         result = this.__children[key];
     } else if (this.__value !== null) {
         var keyValue = this.__value[key];
-
         if (keyValue !== undefined) {
             this.__children[key]
                 = new tuna.tmpl.data.DataNode(keyValue, this, key);
 
             result = this.__children[key];
         } else {
-            this.__children[key] = new tuna.tmpl.data.DataNode(null);
+            this.__children[key] = tuna.tmpl.data.NULL_NODE;
         }
     }
 
@@ -97,3 +96,8 @@ DataNode.prototype.growChild = function(key) {
  * @extends {DataNode}
  */
 tuna.tmpl.data.DataNode = DataNode;
+
+/**
+ * @type {tuna.tmpl.data.DataNode}
+ */
+tuna.tmpl.data.NULL_NODE = new tuna.tmpl.data.DataNode(null);

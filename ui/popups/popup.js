@@ -11,6 +11,7 @@ var Popup = function(target) {
      * @type boolean
      */
     this.__isInit = false;
+
 };
 
 tuna.utils.extend(Popup, tuna.ui.ModuleInstance);
@@ -96,7 +97,7 @@ Popup.prototype.__collectData = function() {
     var form = tuna.dom.selectOne('form.j-popup-form', this._target);
 
     if (form !== null) {
-        return tuna.ui.forms.Form.serialize(form);
+        return tuna.ui.forms.serialize(form);
     }
 
     return null;

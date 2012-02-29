@@ -116,6 +116,11 @@ Container.prototype.getOneModuleInstance = function(type) {
     return null;
 };
 
+/**
+ * @param {string} type
+ * @param {string} name
+ * @return {tuna.ui.ModuleInstance}
+ */
 Container.prototype.getModuleInstanceByName = function(type, name) {
     if (this.__moduleInstances[type] !== undefined) {
         var instances = this.__moduleInstances[type];

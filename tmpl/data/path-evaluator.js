@@ -26,7 +26,7 @@ PathEvaluator.prototype.evaluate = function(dataNode) {
         return node;
     }
 
-    return new tuna.tmpl.data.DataNode(null);
+    return tuna.tmpl.data.NULL_NODE;
 };
 
 /**

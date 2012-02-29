@@ -31,3 +31,21 @@ RecordFactory.prototype.createRecord = function(name) {
  * @type RecordFactory
  */
 tuna.model.recordFactory = new RecordFactory();
+
+/**
+ * @param {Array.<tuna.model.Record>} records
+ * @return {Array.<Object>}
+ */
+tuna.model.serializeArray = function(records) {
+    var result = [];
+
+    var i = 0,
+        l = records.length;
+    while (i < l) {
+        result.push(records[i].serialize());
+
+        i++;
+    }
+
+    return result;
+};
