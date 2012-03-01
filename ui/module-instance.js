@@ -46,14 +46,14 @@ ModuleInstance.prototype.getName = function() {
  * @param {boolean} isEnabled
  */
 ModuleInstance.prototype.setEnabled = function(isEnabled) {
-    this._isEnabled = isEnabled;
+    tuna.dom.setClassExist(this._target, 'disabled', !isEnabled);
 };
 
 /**
  * @return {boolean}
  */
 ModuleInstance.prototype.isEnabled = function() {
-    return this._isEnabled;
+    return !tuna.dom.hasClass(this._target, 'disabled');
 };
 
 /**

@@ -55,7 +55,7 @@ Form.prototype.init = function() {
 
     var self = this;
     var prepareListener = function(event) {
-        if (self._isEnabled) {
+        if (self.isEnabled()) {
             callbackInput.setAttribute('value', self.__callbackName);
             self.__prepareTo(event.type, event);
         } else {
@@ -99,6 +99,13 @@ Form.prototype.submit = function() {
 Form.prototype.reset = function() {
     this.__prepareTo('reset');
     this._target.reset();
+};
+
+/**
+ * @return {Object}
+ */
+Form.prototype.serialize = function() {
+    return tuna.ui.forms.serialize(this._target);
 };
 
 /**

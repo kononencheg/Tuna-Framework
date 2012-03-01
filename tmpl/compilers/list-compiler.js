@@ -67,11 +67,17 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
 
     list.setCompiler(this.__templateCompiler);
 
-    var renderer = this.__doc.getElementById(settings.getItemRendererID());
-    renderer = renderer.cloneNode(true);
-    renderer.removeAttribute('id');
+    var rendererId = settings.getItemRendererID();
+    var renderer = this.__doc.getElementById(rendererId);
+    if (renderer !== null) {
+        renderer = renderer.cloneNode(true);
+        renderer.removeAttribute('id');
 
-    list.setItemRenderer(renderer);
+        list.setItemRenderer(renderer);
+    } else {
+        alert('Cannot find item renderer with id: ' + rendererId);
+    }
+
     list.setItemSettings(settings.getItemSettings());
     list.setKeyPath(settings.getItemKeyDataPath());
     list.setPath(settings.getDataPath());

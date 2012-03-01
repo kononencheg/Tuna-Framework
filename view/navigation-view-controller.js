@@ -27,6 +27,17 @@ var NavigationViewController = function() {
 tuna.utils.extend(NavigationViewController, tuna.view.ViewController);
 
 /**
+ * @return {tuna.view.ViewController}
+ */
+NavigationViewController.prototype.getCurrentController = function() {
+    if (this._currentPage !== null) {
+        return this._getPageController(this._currentPage);
+    }
+
+    return null;
+};
+
+/**
  * @override
  */
 NavigationViewController.prototype._requireModules = function() {
@@ -43,8 +54,8 @@ NavigationViewController.prototype._initActions = function() {
     if (this._navigation !== null) {
         var self = this;
 
-        this._navigation.addEventListener('select', function(event, index) {
-            if (!self._canClose(index)) {
+        this._navigation.addEventListener('select', function(event) {
+            if (!self._canClose()) {
                 event.preventDefault();
             }
         });
@@ -64,12 +75,11 @@ NavigationViewController.prototype._initActions = function() {
 
 /**
  * @protected
- * @param {string} index
  * @return {boolean}
  */
-NavigationViewController.prototype._canClose = function(index) {
+NavigationViewController.prototype._canClose = function() {
     if (this._currentPage !== null) {
-        var controller = this.__getPageController(this._currentPage);
+        var controller = this._getPageController(this._currentPage);
         if (controller !== null) {
             return controller.canClose();
         }
@@ -106,7 +116,7 @@ NavigationViewController.prototype._openPage = function(args) {
         this.__initPage(this._currentPage);
     }
 
-    var controller = this.__getPageController(this._currentPage);
+    var controller = this._getPageController(this._currentPage);
     if (controller !== null) {
         controller.open(args);
     }
@@ -116,7 +126,7 @@ NavigationViewController.prototype._openPage = function(args) {
  * @protected
  */
 NavigationViewController.prototype._closePage = function() {
-    var controller = this.__getPageController(this._currentPage);
+    var controller = this._getPageController(this._currentPage);
     if (controller !== null) {
         controller.close();
     }
@@ -126,8 +136,12 @@ NavigationViewController.prototype._closePage = function() {
  * @param {Node} page
  * @return {tuna.view.ViewController}
  */
-NavigationViewController.prototype.__getPageController = function(page) {
-    return this.__pageControllers[page.id];
+NavigationViewController.prototype._getPageController = function(page) {
+    if (this.__isPageInit(page)) {
+        return this.__pageControllers[page.id];
+    }
+
+    return null;
 };
 
 /**
