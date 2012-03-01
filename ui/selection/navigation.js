@@ -4,7 +4,7 @@
  * @param {!Node} target
  */
 var Navigation = function(target) {
-    tuna.ui.selection.SelectionGroup.call(this, target, 'id');
+    tuna.ui.selection.SelectionGroup.call(this, target, 'data-name');
 
     /**
      * @private
@@ -29,6 +29,13 @@ var Navigation = function(target) {
      * @type {Object.<string|number, Array.<tuna.ui.buttons.Button>>}
      */
     this.__menuLinks = {};
+
+    /**
+     *
+     * @type {Object.<string|number, tuna.ui.selection.Navigation>}
+     * @private
+     */
+    this.__children = {};
 
     this.setOption('is-multiple', null);
     this._setDefaultOption('item-selector', '.j-navigation-page');
@@ -135,10 +142,29 @@ Navigation.prototype.__updateMenu = function(index, isSelected) {
 };
 
 /**
- * @param {string|number} index
+ * @param {string|number|!Array.<string|number>} indexes
  * @param {Object.<string, string>=} data
  */
-Navigation.prototype.navigate = function(index, data) {
+Navigation.prototype.navigate = function(indexes, data) {
+    if (indexes instanceof Array) {
+        var index = indexes.shift();
+
+        this.__doNavigate(index, data);
+
+        if (this.__children[index] !== undefined) {
+            this.__children[index].navigate(indexes, data);
+        }
+    } else {
+        this.__doNavigate(indexes, data);
+    }
+};
+
+/**
+ * @param {string|number} index
+ * @param {Object.<string, string>=} data
+ * @private
+ */
+Navigation.prototype.__doNavigate = function(index, data) {
     var currentIndex = this.getLastSelectedIndex();
     if (currentIndex !== null) {
         this.__history.push(currentIndex);
@@ -149,6 +175,15 @@ Navigation.prototype.navigate = function(index, data) {
     this.__openData = null;
 
     return result;
+};
+
+/**
+ *
+ * @param {tuna.ui.selection.Navigation} navigation
+ * @param {string} name
+ */
+Navigation.prototype.addChild = function(navigation, name) {
+    this.__children[name] = navigation;
 };
 
 /**

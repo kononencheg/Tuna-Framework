@@ -50,7 +50,6 @@ NavigationViewController.prototype._requireModules = function() {
  */
 NavigationViewController.prototype._initActions = function() {
     this._navigation = this._container.getOneModuleInstance('navigation');
-
     if (this._navigation !== null) {
         var self = this;
 
@@ -70,7 +69,6 @@ NavigationViewController.prototype._initActions = function() {
             this._setCurrentPage(currentIndex);
         }
     }
-
 };
 
 /**
