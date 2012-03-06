@@ -100,7 +100,7 @@ ClassSelectionView.prototype.enableItemAt = function(index) {
  */
 ClassSelectionView.prototype.update = function() {
     if (this._itemSelector !== null) {
-        this._selectionGroup.clearSelection();
+        this._selectionRule.clearSelection();
         this._itemsCollection.clear();
 
         var possibleItems = tuna.dom.select(this._itemSelector, this._target);
@@ -118,7 +118,7 @@ ClassSelectionView.prototype.update = function() {
                 index = this._itemsCollection.addItem(item);
                 if (index !== null &&
                     tuna.dom.hasClass(item, this._selectionClass)) {
-                    this._selectionGroup.selectIndex(index);
+                    this._selectionRule.selectIndex(index);
                 }
             }
 

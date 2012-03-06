@@ -112,7 +112,7 @@ tuna.utils.extend(__IsSetOperator, __ConditionOperator);
  * @override
  */
 __IsSetOperator.prototype.test = function(value) {
-    return value !== undefined;
+    return value != null;
 };
 
 /**
@@ -205,6 +205,49 @@ tuna.utils.extend(__ClassAction, __ConditionAction);
  * @override
  */
 __ClassAction.prototype.apply = function(element, testResult, value) {
+    var className = this._data;
+
+    if (className !== '') {
+        if (testResult) {
+            tuna.dom.addClass(element, className);
+        } else {
+            tuna.dom.removeClass(element, className);
+        }
+
+    } else if (this.__lastName !== value && testResult) {
+        if (this.__lastName !== null) {
+            tuna.dom.removeClass(element, this.__lastName + '');
+        }
+
+        tuna.dom.addClass(element, value + '');
+
+        this.__lastName = value;
+    }
+
+};
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionAction}
+ * @param {string=} data
+ */
+var __AttrAction = function(data) {
+    __ConditionAction.call(this, data);
+
+    /**
+     * @private
+     * @type *
+     */
+    this.__lastName = null;
+};
+
+tuna.utils.extend(__AttrAction, __ConditionAction);
+
+/**
+ * @override
+ */
+__AttrAction.prototype.apply = function(element, testResult, value) {
     var className = this._data;
 
     if (className !== '') {

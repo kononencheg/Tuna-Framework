@@ -11,8 +11,6 @@ var AbstractSelectionGroup = function(target) {
 
     this._selectionView = null;
     this._selectionRule = null;
-
-    this._disabledIndexes = [];
 };
 
 tuna.utils.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
@@ -23,25 +21,14 @@ tuna.utils.extend(AbstractSelectionGroup, tuna.ui.ModuleInstance);
  */
 AbstractSelectionGroup.prototype.setIndexEnabled
     = function(index, isEnabled) {
-
-    var indexPosition = tuna.utils.indexOf(index, this._disabledIndexes);
-    if (isEnabled) {
-        if (indexPosition !== -1) {
-            this._selectionView.enableItemAt(index);
-            this._disabledIndexes.splice(indexPosition, 1);
-        }
-    } else if (indexPosition === -1) {
-        this._selectionView.disableItemAt([index]);
-        this._disabledIndexes.push(index);
-    }
+    this._selectionRule.setIndexEnabled(index, isEnabled);
 };
 
 /**
  * @override
  */
 AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
-    return this._itemsCollection.getItemAt(index) !== null &&
-            tuna.utils.indexOf(index, this._disabledIndexes) === -1;
+    return this._selectionRule.isIndexEnabled();
 };
 
 /**

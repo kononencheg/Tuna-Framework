@@ -6,41 +6,44 @@ var ViewController = function() {
 
     /**
      * @protected
-     * @type tuna.ui.containers.Container
+     * @type tuna.ui.ModuleContainer
      */
     this._container = null;
+
+    /**
+     * @type {boolean}
+     * @protected
+     */
+    this._isActive = false;
 };
 
 tuna.utils.implement(ViewController, tuna.ui.transformers.ITransformHandler);
 
 /**
- * @param {tuna.ui.containers.Container} container
+ * @return {boolean}
  */
-ViewController.prototype.setContainer = function(container) {
-    this._container = container;
+ViewController.prototype.isActive = function() {
+    return this._isActive;
 };
 
 /**
- *
+ * @param {!Node} target
  */
-ViewController.prototype.bootstrap = function() {
-    this.init();
+ViewController.prototype.bootstrap = function(target) {
+    this._container = new tuna.ui.ModuleContainer(target);
+    this._requireModules();
+    this._container.initModules();
+    this._initActions();
+    this._isActive = true;
 };
 
 /**
  *
  */
 ViewController.prototype.terminate = function() {
-    this.destroy();
-};
-
-/**
- * @protected
- */
-ViewController.prototype.init = function() {
-    this._requireModules();
-    this._container.initModules();
-    this._initActions();
+    this._destroyActions();
+    this._container.destroyModules();
+    this._isActive = false;
 };
 
 /**
@@ -52,14 +55,6 @@ ViewController.prototype._requireModules = function() {};
  * @protected
  */
 ViewController.prototype._initActions = function() {};
-
-/**
- * @protected
- */
-ViewController.prototype.destroy = function() {
-    this._destroyActions();
-    this._container.destroyModules();
-};
 
 /**
  * @protected
@@ -77,6 +72,7 @@ ViewController.prototype.handleTransformComplete
 
     while (i < l) {
         this._container.initModules(createdElements[i]);
+
         i++;
     }
 };

@@ -29,7 +29,7 @@ SingleSelectionRule.prototype.getSelectedIndexes = function() {
  * @override
  */
 SingleSelectionRule.prototype.selectIndex = function(index) {
-    if (this._selectionGroup.isIndexEnabled(index) &&
+    if (this.isIndexEnabled(index) &&
         this.__currentIndex !== index &&
         this.__dispatchSelect(index)) {
 

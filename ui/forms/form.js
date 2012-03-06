@@ -46,7 +46,6 @@ Form.prototype.init = function() {
     this.__recordName = this.getStringOption('record-type');
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
-
     var callbackInput = document.createElement('input');
     callbackInput.setAttribute('type', 'hidden');
     callbackInput.setAttribute('name', '__callback');
@@ -73,16 +72,100 @@ Form.prototype.init = function() {
 
 /**
  * @param {string} name
- * @return {string|number|Object}
+ * @return {null|string|Array.<string>}
  */
 Form.prototype.getValue = function(name) {
-    var data = tuna.ui.forms.serialize(this._target);
+    var result = null;
 
-    if (data[name] !== undefined) {
-        return data[name];
+    var element = this._target.elements[name];
+    if (element !== undefined) {
+        var isCheck = false;
+
+        if (element instanceof NodeList) {
+            var elements = tuna.utils.toArray(element);
+
+            var i = 0,
+                l = elements.length;
+
+            result = [];
+
+            while (i < l) {
+                isCheck = elements[i].type === 'checkbox' ||
+                          elements[i].type === 'radio';
+
+                if (!isCheck || (isCheck && elements[i].checked)) {
+                    result.push(elements[i].value);
+                }
+
+                i++;
+            }
+
+        } else {
+            isCheck = element.type === 'checkbox' ||
+                      element.type === 'radio';
+
+            if (!isCheck || (isCheck && element.checked)) {
+                result = element.value;
+            }
+        }
     }
 
-    return null;
+    return result;
+};
+
+/**
+ *
+ * @param {string} name
+ * @param {string|Array.<string>} value
+ */
+Form.prototype.setValue = function(name, value) {
+    var element = this._target.elements[name];
+    if (element !== undefined) {
+        if (element instanceof NodeList) {
+            var elements = tuna.utils.toArray(element);
+
+            var i = 0,
+                l = elements.length;
+
+            var stringValue = '';
+            var arrayValue = [];
+
+            if (value instanceof Array) {
+                arrayValue = tuna.utils.cloneArray(value);
+                stringValue = value.join(',');
+            } else {
+                stringValue = value + '';
+                arrayValue = [ stringValue ];
+            }
+
+            var index = -1;
+            while (i < l) {
+                if (elements[i].type === 'radio') {
+                    elements[i].checked = elements[i].value === stringValue;
+                } else if (elements[i].type === 'checkbox') {
+                    index = tuna.utils.indexOf(elements[i].value, arrayValue);
+
+                    elements[i].checked = index !== -1;
+
+                    if (index !== -1) {
+                        arrayValue.splice(index, 1);
+                    }
+                } else {
+                    element.value = stringValue;
+                }
+
+                i++;
+            }
+
+        } else {
+            if (element.type === 'checkbox' ||
+                element.type === 'radio') {
+                element.checked = element.value === value;
+            } else {
+                element.value = value;
+            }
+        }
+    }
 };
 
 /**

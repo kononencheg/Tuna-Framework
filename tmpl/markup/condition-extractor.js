@@ -20,7 +20,7 @@ var ConditionExtractor = function() {
      * @private
      * @type Array.<string>
      */
-    this.__actionAttrs = ['class'];
+    this.__actionAttrs = ['class', 'attr'];
 };
 
 tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);

@@ -2,7 +2,7 @@
  * @private
  * @type Object.<string, tuna.view.ViewController>
  */
-tuna.view.__idTable = {};
+tuna.view.__controllerTable = {};
 
 /**
  * @private
@@ -18,23 +18,20 @@ tuna.view.setMainController = function(controller) {
 };
 
 /**
- * @param {!string} targetId
+ * @param {!string} name
  * @param {!tuna.view.ViewController} controller
  */
-tuna.view.registerController = function(targetId, controller) {
-    tuna.view.__idTable[targetId] = controller;
+tuna.view.registerController = function(name, controller) {
+    tuna.view.__controllerTable[name] = controller;
 };
 
 /**
- * @param {Node} target
+ * @param {!string} name
  * @return {tuna.view.ViewController}
  */
-tuna.view.getController = function(target) {
-    if (target === document.body) {
-        return tuna.view.__mainController;
-    } else if (target !== null &&
-               tuna.view.__idTable[target.id] !== undefined) {
-        return tuna.view.__idTable[target.id];
+tuna.view.getController = function(name) {
+    if (tuna.view.__controllerTable[name] !== undefined) {
+        return tuna.view.__controllerTable[name];
     }
 
     return null;
@@ -44,5 +41,7 @@ tuna.view.getController = function(target) {
  *
  */
 tuna.view.init = function() {
-    (new tuna.ui.containers.ControlContainer(document.body)).initController();
+    if (document.body !== null) {
+        tuna.view.__mainController.bootstrap(document.body);
+    }
 };

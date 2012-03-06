@@ -1,7 +1,12 @@
 /**
  * @constructor
+ * @param {Object=} data
  */
-var Record = function() {};
+var Record = function(data) {
+    if (data !== undefined) {
+        this.populate(data);
+    }
+};
 
 /**
  * @return {tuna.model.Record}

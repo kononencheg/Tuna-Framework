@@ -5,9 +5,9 @@
 var AbstractSelectionRule = function() {
     /**
      * @protected
-     * @type tuna.ui.selection.ISelectionGroup
+     * @type tuna.ui.selection.items.IItemsCollection
      */
-    this._selectionGroup = null;
+    this._itemsCollection = null;
 
     /**
      * @protected
@@ -20,15 +20,22 @@ var AbstractSelectionRule = function() {
      * @type tuna.events.EventDispatcher
      */
     this._eventDispatcher = null;
+
+    /**
+     *
+     * @type {Array}
+     * @protected
+     */
+    this._disabledIndexes = [];
 };
 
 tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
 
 /**
- * @param {tuna.ui.selection.ISelectionGroup} group
+ * @param {tuna.ui.selection.items.IItemsCollection} collection
  */
-AbstractSelectionRule.prototype.setSelectionGroup = function(group) {
-    this._selectionGroup = group;
+AbstractSelectionRule.prototype.setItemsCollection = function(collection) {
+    this._itemsCollection = collection;
 };
 
 /**
@@ -64,6 +71,32 @@ AbstractSelectionRule.prototype.isSelected = function(index) {};
  * @override
  */
 AbstractSelectionRule.prototype.clearSelection = function() {};
+
+
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.setIndexEnabled
+    = function(index, isEnabled) {
+    var indexPosition = tuna.utils.indexOf(index, this._disabledIndexes);
+    if (isEnabled) {
+        if (indexPosition !== -1) {
+            this._selectionView.enableItemAt(index);
+            this._disabledIndexes.splice(indexPosition, 1);
+        }
+    } else if (indexPosition === -1) {
+        this._selectionView.disableItemAt([index]);
+        this._disabledIndexes.push(index);
+    }
+};
+
+/**
+ * @override
+ */
+AbstractSelectionRule.prototype.isIndexEnabled = function(index) {
+    return this._itemsCollection.getItemAt(index) !== null &&
+        tuna.utils.indexOf(index, this._disabledIndexes) === -1;
+};
 
 
 /**

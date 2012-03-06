@@ -11,19 +11,19 @@ var AbstractSelectionView = function() {
 
     /**
      * @protected
-     * @type tuna.ui.selection.ISelectionGroup
+     * @type tuna.ui.selection.rule.ISelectionRule
      */
-    this._selectionGroup = null;
+    this._selectionRule = null;
 };
 
 tuna.utils.implement
     (AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
 
 /**
- * @param {tuna.ui.selection.ISelectionGroup} group
+ * @param {tuna.ui.selection.rule.ISelectionRule} rule
  */
-AbstractSelectionView.prototype.setSelectionGroup = function(group) {
-    this._selectionGroup = group;
+AbstractSelectionView.prototype.setSelectionRule = function(rule) {
+    this._selectionRule = rule;
 };
 
 /**

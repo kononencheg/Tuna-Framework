@@ -19,7 +19,7 @@ Module.prototype.getSelector = function() {
 
 /**
  * @param {Node} context
- * @param {tuna.ui.containers.Container} container
+ * @param {tuna.ui.ModuleContainer} container
  * @param {Object=} options
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
@@ -72,7 +72,7 @@ Module.prototype.__isInContext = function(target, context) {
     var i = 0,
         l = isolators.length;
     while (i < l) {
-        result = result && tuna.dom.getParentMatches
+        result = result && tuna.dom.getParentWithClass
                             (target, isolators[i], context) === null;
 
         if (!result) {
@@ -103,7 +103,7 @@ Module.prototype.destroy = function(instances) {
 
 /**
  * @param {!Node} target
- * @param {tuna.ui.containers.Container} container
+ * @param {tuna.ui.ModuleContainer} container
  * @param {Object=} options
  * @return {tuna.ui.ModuleInstance}
  */

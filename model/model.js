@@ -49,3 +49,11 @@ tuna.model.serializeArray = function(records) {
 
     return result;
 };
+
+/**
+ * @param {Date} date
+ * @return {string}
+ */
+tuna.model.serializeDate = function(date) {
+    return date.toJSON().substring(0, 16).replace('T', ' ');
+};

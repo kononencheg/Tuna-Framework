@@ -3,7 +3,7 @@
  * @extends {tuna.ui.ModuleInstance}
  * @param {!Node} target
  */
-var Container = function(target) {
+var ModuleContainer = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -17,19 +17,12 @@ var Container = function(target) {
     this.__moduleInstances = {};
 };
 
-tuna.utils.extend(Container, tuna.ui.ModuleInstance);
-
-/**
- * @override
- */
-Container.prototype.getName = function() {
-    return this._target.id;
-};
+tuna.utils.extend(ModuleContainer, tuna.ui.ModuleInstance);
 
 /**
  * @param {Node} element
  */
-Container.prototype.render = function(element) {
+ModuleContainer.prototype.render = function(element) {
     if (element !== undefined) {
         this.clear();
         this._target.appendChild(element);
@@ -39,7 +32,7 @@ Container.prototype.render = function(element) {
 /**
  *
  */
-Container.prototype.clear = function() {
+ModuleContainer.prototype.clear = function() {
     this._target.innerHTML = '';
 };
 
@@ -47,7 +40,7 @@ Container.prototype.clear = function() {
  * @param {string} type
  * @param {...} var_args
  */
-Container.prototype.requireModule = function(type, var_args) {
+ModuleContainer.prototype.requireModule = function(type, var_args) {
     var args = tuna.utils.toArray(arguments);
     args.shift();
 
@@ -66,7 +59,7 @@ Container.prototype.requireModule = function(type, var_args) {
  *
  * @param {Node=} target
  */
-Container.prototype.initModules = function(target) {
+ModuleContainer.prototype.initModules = function(target) {
     target = target || this._target;
 
     var module = null;
@@ -95,7 +88,7 @@ Container.prototype.initModules = function(target) {
  * @param {string} type
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
-Container.prototype.getModuleInstances = function(type) {
+ModuleContainer.prototype.getModuleInstances = function(type) {
     if (this.__moduleInstances[type] !== undefined) {
         return this.__moduleInstances[type];
     }
@@ -107,7 +100,7 @@ Container.prototype.getModuleInstances = function(type) {
  * @param {string} type
  * @return {tuna.ui.ModuleInstance}
  */
-Container.prototype.getOneModuleInstance = function(type) {
+ModuleContainer.prototype.getOneModuleInstance = function(type) {
     if (this.__moduleInstances[type] !== undefined &&
         this.__moduleInstances[type][0] !== undefined) {
         return this.__moduleInstances[type][0];
@@ -121,7 +114,7 @@ Container.prototype.getOneModuleInstance = function(type) {
  * @param {string} name
  * @return {tuna.ui.ModuleInstance}
  */
-Container.prototype.getModuleInstanceByName = function(type, name) {
+ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
     if (this.__moduleInstances[type] !== undefined) {
         var instances = this.__moduleInstances[type];
 
@@ -143,7 +136,7 @@ Container.prototype.getModuleInstanceByName = function(type, name) {
 /**
  *
  */
-Container.prototype.destroyModules = function() {
+ModuleContainer.prototype.destroyModules = function() {
     for (var name in this.__moduleInstances) {
         tuna.ui.modules.getModule(name)
                        .destroy(this.__moduleInstances[name]);
@@ -158,7 +151,7 @@ Container.prototype.destroyModules = function() {
  * @param {Array} moduleArgs
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
-Container.prototype.__initModule = function(module, target, moduleArgs) {
+ModuleContainer.prototype.__initModule = function(module, target, moduleArgs) {
     var result = [];
 
     var commonArgs = [target, this];
@@ -179,6 +172,6 @@ Container.prototype.__initModule = function(module, target, moduleArgs) {
 
 /**
  * @constructor
- * @extends {Container}
+ * @extends {ModuleContainer}
  */
-tuna.ui.containers.Container = Container;
+tuna.ui.ModuleContainer = ModuleContainer;

@@ -1,28 +1,16 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.SelectionGroup}
+ * @extends {tuna.ui.ModuleInstance}
  * @param {!Node} target
  */
 var Navigation = function(target) {
-    tuna.ui.selection.SelectionGroup.call(this, target, 'data-name');
+    tuna.ui.ModuleInstance.call(this, target);
 
     /**
+     * @type {tuna.ui.selection.rule.NavigationSelectionRule}
      * @private
-     * @type Object.<string, string>
      */
-    this.__openData = null;
-
-    /**
-     * @private
-     * @type Array.<string|number>
-     */
-    this.__history = [];
-
-    /**
-     * @private
-     * @type {tuna.ui.buttons.ButtonGroup}
-     */
-    this.__controls = null;
+    this.__navigationRule = null;
 
     /**
      * @private
@@ -31,57 +19,106 @@ var Navigation = function(target) {
     this.__menuLinks = {};
 
     /**
-     *
-     * @type {Object.<string|number, tuna.ui.selection.Navigation>}
+     * @protected
+     * @type {tuna.ui.selection.Navigation}
+     */
+    this.__parent = null;
+
+    /**
+     * @type {Object.<string, tuna.ui.selection.Navigation>}
      * @private
      */
     this.__children = {};
 
-    this.setOption('is-multiple', null);
+    /**
+     * @type {?string}
+     * @private
+     */
+    this.__name = null;
+
+    /**
+     * @type {Array.<NavigationState>}
+     * @private
+     */
+    this.__history = [];
+
+    /**
+     * @type {NavigationState}
+     * @private
+     */
+    this.__currentState = null;
+
+    this._setDefaultOption('selection-class', 'active');
     this._setDefaultOption('item-selector', '.j-navigation-page');
     this._setDefaultOption('menu-selector', '.j-navigation-menu');
 };
 
-tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
+tuna.utils.extend(Navigation, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
 Navigation.prototype.init = function() {
-    tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+    this.__initNavigation();
+    this.__initControls();
+    this.__initMenu();
+};
 
+/**
+ * @private
+ */
+Navigation.prototype.__initNavigation = function() {
+    this.__navigationRule
+        = new tuna.ui.selection.rule.NavigationSelectionRule();
+
+    var itemsCollection =
+        new tuna.ui.selection.items.NamedElementsCollection('data-page-name');
+
+    var selectionView
+        = new tuna.ui.selection.view.ClassSelectionView(this._target);
+
+    selectionView.setSelectionClass(this.getStringOption('selection-class'));
+    selectionView.setItemSelector(this.getStringOption('item-selector'));
+    selectionView.setSelectionRule(this.__navigationRule);
+    selectionView.setItemsCollection(itemsCollection);
+
+    this.__navigationRule.setEventDispatcher(this);
+    this.__navigationRule.setSelectionView(selectionView);
+    this.__navigationRule.setItemsCollection(itemsCollection);
+    this.__navigationRule.setNavigation(this);
+
+    selectionView.update();
+};
+
+/**
+ * @private
+ */
+Navigation.prototype.__initControls = function() {
     var self = this;
 
-    this.addEventListener('deselected', function(event, index) {
-        self.__updateMenu(index, false);
-        self.dispatch('close');
-    });
+    var controls = new tuna.ui.buttons.ButtonGroup(this._target);
+    controls.setOption('button-selector', '.j-navigation-link');
+    controls.setDefaultAction('navigate');
 
-    this.addEventListener('selected', function(event, index) {
-        self.__updateMenu(index, true);
-        self.dispatch('open', self.__openData);
-    });
+    controls.addEventListener('navigate', function(event, button) {
+        event.preventDefault();
 
-    this.__controls = new tuna.ui.buttons.ButtonGroup(this._target);
-    this.__controls.setOption('button-selector', '.j-navigation-link');
-    this.__controls.setDefaultAction('navigate');
-
-    this.__controls.addEventListener('navigate', function(event, button) {
         var index = button.getStringOption('href');
         if (index !== null) {
-            if (self.navigate(index, button.getOptions())) {
-                event.preventDefault();
-            }
+            var data = button.getOptions();
+            delete data['href'];
+
+            self.navigate(index, data);
         }
     });
 
-    this.__controls.addEventListener('back', function(event, button) {
+    controls.addEventListener('back', function(event, button) {
+        event.preventDefault();
+
         self.back();
     });
 
-    this.__controls.init();
-
-    this.__initMenu();
+    controls.init();
 };
 
 /**
@@ -99,36 +136,37 @@ Navigation.prototype.__initMenu = function() {
             l = buttons.length;
 
         var href = null;
+        var index = null;
         var button = null;
         while (i < l) {
             button = tuna.ui.buttons.create(buttons[i]);
             href = button.getStringOption('href');
             if (href !== null) {
-                if (this.__menuLinks[href] === undefined) {
-                    this.__menuLinks[href] = [];
+                index = href.split('/').shift();
+
+                if (this.__menuLinks[index] === undefined) {
+                    this.__menuLinks[index] = [];
                 }
 
-                this.__menuLinks[href].push(button);
+                this.__menuLinks[index].push(button);
             }
 
             i++;
         }
-
     }
 
-    var index = this.getLastSelectedIndex();
-    if (index !== null) {
-        this.__updateMenu(index, true);
-    }
-};
+    var currentIndex = this.__navigationRule.getCurrentIndex();
+    if (currentIndex !== null) {
+        this.__updateMenu(currentIndex, true);
+    }};
 
 /**
  *
- * @param {number|string} index
+ * @param {string|number} path
  * @param {boolean} isSelected
  */
-Navigation.prototype.__updateMenu = function(index, isSelected) {
-    var buttons = this.__menuLinks[index];
+Navigation.prototype.__updateMenu = function(path, isSelected) {
+    var buttons = this.__menuLinks[path];
     if (buttons !== undefined) {
         var i = 0,
             l = buttons.length;
@@ -142,55 +180,208 @@ Navigation.prototype.__updateMenu = function(index, isSelected) {
 };
 
 /**
- * @param {string|number|!Array.<string|number>} indexes
- * @param {Object.<string, string>=} data
+ * @return {tuna.view.ViewController}
  */
-Navigation.prototype.navigate = function(indexes, data) {
-    if (indexes instanceof Array) {
-        var index = indexes.shift();
-
-        this.__doNavigate(index, data);
-
-        if (this.__children[index] !== undefined) {
-            this.__children[index].navigate(indexes, data);
-        }
-    } else {
-        this.__doNavigate(indexes, data);
-    }
+Navigation.prototype.getCurrentController = function() {
+    return this.__navigationRule.getCurrentController();
 };
 
 /**
- * @param {string|number} index
- * @param {Object.<string, string>=} data
- * @private
+ * @return {Array.<string>}
  */
-Navigation.prototype.__doNavigate = function(index, data) {
-    var currentIndex = this.getLastSelectedIndex();
-    if (currentIndex !== null) {
-        this.__history.push(currentIndex);
-    }
+Navigation.prototype.getPathDesc = function() {
+    var result = [];
 
-    this.__openData = data || null;
-    var result = this.selectIndex(index);
-    this.__openData = null;
+    var index = this.__navigationRule.getCurrentIndex();
+    if (index !== null) {
+        result.push(index);
+
+        if (this.__children[index] !== undefined) {
+            result = result.concat(this.__children[index].getPathDesc());
+        }
+    }
 
     return result;
 };
 
 /**
- *
- * @param {tuna.ui.selection.Navigation} navigation
- * @param {string} name
+ * @return {Array.<string>}
  */
-Navigation.prototype.addChild = function(navigation, name) {
-    this.__children[name] = navigation;
+Navigation.prototype.getRelatedPath = function() {
+    var result = [];
+
+    if (this.__name !== null) {
+        result.push(this.__name);
+    }
+
+    if (this.__parent !== null) {
+        result = this.__parent.getRelatedPath().concat(result);
+    }
+
+    return result;
+};
+
+/**
+ * @return {tuna.ui.selection.Navigation}
+ */
+Navigation.prototype.getRoot = function() {
+    return this.isRoot() ? this : this.__parent.getRoot();
+};
+
+/**
+ * @return {boolean}
+ */
+Navigation.prototype.isRoot = function() {
+    return this.__parent === null;
 };
 
 /**
  *
  */
 Navigation.prototype.back = function() {
-    this.selectIndex(this.__history.pop());
+    if (this.isRoot()) {
+        if (this.__history.length > 0) {
+            this.__currentState = this.__history.pop();
+
+            this.navigatePath(
+                this.__currentState.getPath(),
+                this.__currentState.getData()
+            );
+        }
+    } else {
+        this.getRoot().back();
+    }
+
+};
+
+/**
+ * @param {!string|!Array.<string>} path
+ * @param {Object.<string, string>=} data
+ */
+Navigation.prototype.navigate = function(path, data) {
+    if (path instanceof Array) {
+
+        if (this.isRoot()) {
+            if (this.__currentState === null) {
+                this.__currentState = new NavigationState(this.getPathDesc());
+            }
+
+            this.__history.push(this.__currentState);
+
+            this.__currentState = new NavigationState(path, data);
+
+            this.navigatePath(this.__currentState.getPath(), data);
+        } else {
+            this.navigatePath(path, data);
+        }
+
+    } else {
+        var parsedPath = path.split('/');
+
+        if (path.indexOf('/') !== 0) {
+            parsedPath = this.getRelatedPath().concat(parsedPath);
+        }
+
+        this.getRoot().navigate(parsedPath, data);
+    }
+};
+
+/**
+ * @param {!Array.<string>} path
+ * @param {Object.<string, string>=} data
+ */
+Navigation.prototype.navigatePath = function(path, data) {
+    var index = path.shift();
+    while (index === '' && path.length > 0) {
+        index = path.shift();
+    }
+
+    this.__updateMenu(this.__navigationRule.getCurrentIndex(), false);
+
+    this.__navigationRule.navigate(index, data);
+
+    this.__updateMenu(this.__navigationRule.getCurrentIndex(), true);
+
+    if (this.__children[index] !== undefined) {
+        return this.__children[index].navigatePath(path, data);
+    }
+};
+
+
+
+/**
+ * @param {tuna.ui.selection.Navigation} navigation
+ * @param {string} name
+ */
+Navigation.prototype.addChild = function(navigation, name) {
+    if (navigation !== null) {
+        navigation.setName(name);
+        navigation.setParent(this);
+
+        this.__children[name] = navigation;
+    }
+};
+
+/**
+ * @param {tuna.ui.selection.Navigation} navigation
+ */
+Navigation.prototype.setParent = function(navigation) {
+    this.__parent = navigation;
+};
+
+/**
+ * @param {string} name
+ */
+Navigation.prototype.setName = function(name) {
+    this.__name = name;
+};
+
+/**
+ * @param {Array.<string>} path
+ * @param {Object.<string, string>=} data
+ * @constructor
+ */
+var NavigationState = function(path, data) {
+    /**
+     * @type {Array.<string>}
+     * @private
+     */
+    this.__path = path;
+
+    /**
+     * @type {Object.<string, string>}
+     */
+    this.__data = data || null;
+};
+
+/**
+ * @return {string}
+ */
+NavigationState.prototype.serialize = function() {
+    var result = '';
+    if (this.__data !== null) {
+        result = tuna.net.encode(this.__data);
+    }
+
+    if (result !== '') {
+        result = '?' + result;
+    }
+
+    return '/' + this.__path.join('/') + result;
+};
+
+/**
+ * @return {Array.<string>}
+ */
+NavigationState.prototype.getPath = function() {
+    return tuna.utils.cloneArray(this.__path);
+};
+
+/**
+ * @return {Array.<string>}
+ */
+NavigationState.prototype.getData = function() {
+    return this.__data;
 };
 
 /**
@@ -198,3 +389,4 @@ Navigation.prototype.back = function() {
  * @extends {Navigation}
  */
 tuna.ui.selection.Navigation = Navigation;
+

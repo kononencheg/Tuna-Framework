@@ -13,14 +13,9 @@ tuna.ui.modules.__isolators = [];
 /**
  * @param {string} type
  * @param {tuna.ui.Module} module
- * @param {boolean=} isIsolator
  */
-tuna.ui.modules.register = function(type, module, isIsolator) {
+tuna.ui.modules.register = function(type, module) {
     tuna.ui.modules.__typeTable[type] = module;
-
-    if (isIsolator) {
-        tuna.ui.modules.__isolators.push(module.getSelector());
-    }
 };
 
 /**
@@ -40,4 +35,13 @@ tuna.ui.modules.getModule = function(type) {
  */
 tuna.ui.modules.getIsolators = function() {
     return tuna.ui.modules.__isolators;
+};
+
+/**
+ * @param {string} className
+ */
+tuna.ui.modules.addIsolator = function(className) {
+    if (tuna.utils.indexOf(className, tuna.ui.modules.__isolators) === -1) {
+        tuna.ui.modules.__isolators.push(className);
+    }
 };

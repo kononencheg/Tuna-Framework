@@ -103,7 +103,7 @@ Request.prototype.send = function() {
         }
     }
 
-    var dataString = Request.encode(this.__data);
+    var dataString = tuna.net.encode(this.__data);
 
     if (this.method === 'GET' && dataString !== '') {
         requestURL += (requestURL.indexOf('?') === -1 ? '?' : '&') + dataString;
@@ -153,49 +153,6 @@ Request.prototype.abort = function() {
  */
 Request.prototype.getResponse = function() {
     return this.__response;
-};
-
-/**
- * Кодирование объекта в x-www-form-urlencoded форму.
- *
- * @param {Object} object Объект кодирования.
- * @return {string} Перекодированный в строку объект.
- */
-Request.encode = function(object) {
-    return Request.__splitData(object).join('&');
-};
-
-/**
- * Рекурсивное разбиение объекта н данные для кодирования в x-www-form-urlencoded.
- *
- * @private
- * @param {Object} object Объект кодирования.
- * @param {Object=} path Путь к элементарной единице данных.
- * @return {Array} Массив элементарных данных составляющих объект
- */
-Request.__splitData = function(object, path) {
-    var result = [];
-
-    if (path === undefined) {
-        path = [];
-    }
-
-    if (object !== null && !(object instanceof Function)) {
-        if (object instanceof Object) {
-            for (var key in object) {
-                var newPath = path.length === 0 ? [key] : (path.join(',') + ',' + key).split(',');
-                result = result.concat(Request.__splitData(object[key], newPath));
-            }
-        } else {
-            result = [
-                path.shift() +
-                    (path.length > 0 ? '[' + path.join('][') + ']=' : '=') +
-                        encodeURIComponent('' + object)
-            ];
-        }
-    }
-
-    return result;
 };
 
 /**

@@ -26,7 +26,7 @@ MultipleSelectionRule.prototype.getSelectedIndexes = function() {
  * @override
  */
 MultipleSelectionRule.prototype.selectIndex = function(index) {
-    if (this._selectionGroup.isIndexEnabled(index)) {
+    if (this.isIndexEnabled(index)) {
         var indexPosition = tuna.utils.indexOf(index, this.__selectedIndexes);
         if (indexPosition === -1) {
             if (this._eventDispatcher.dispatch('select', index)) {
