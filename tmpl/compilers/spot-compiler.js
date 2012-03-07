@@ -51,9 +51,13 @@ SpotCompiler.prototype._createItem = function(rootTemplate) {
  * @param {tuna.tmpl.units.CompiledUnit} item
  */
 SpotCompiler.prototype._compileItem = function(element, settings, item) {
-    item.setPath(settings.getDataPath());
+    item.setPath(settings.dataPath);
 
-    var className = settings.getTargetClass();
+    if (settings.filter !== null) {
+        item.setFilter(settings.filter.split('$$'));
+    }
+
+    var className = settings.targetClass;
     if (tuna.dom.hasClass(element, className)) { // Например если шаблоном является элемент списка
         item.addTargets(element);
     } else {

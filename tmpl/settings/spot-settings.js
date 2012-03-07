@@ -8,41 +8,20 @@ var SpotSettings = function() {
      * @private
      * @type {string}
      */
-    this.__class = '';
+    this.targetClass = '';
 
     /**
      * @private
      * @type {string}
      */
-    this.__path = '';
-};
+    this.dataPath = '';
 
-/**
- * @param {string} className
- */
-SpotSettings.prototype.setTargetClass = function(className) {
-    this.__class = className;
-};
-
-/**
- * @return {string}
- */
-SpotSettings.prototype.getTargetClass = function() {
-    return this.__class;
-};
-
-/**
- * @param {string} path
- */
-SpotSettings.prototype.setDataPath = function(path) {
-    this.__path = path;
-};
-
-/**
- * @return {string}
- */
-SpotSettings.prototype.getDataPath = function() {
-    return this.__path;
+    /**
+     *
+     * @type {string}
+     * @private
+     */
+    this.filter = null;
 };
 
 /**

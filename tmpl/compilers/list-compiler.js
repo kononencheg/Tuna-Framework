@@ -35,7 +35,7 @@ ListCompiler.prototype.__compileLists = function(element, settings, template) {
     var root = template.getRootTemplate();
     var lists = [];
 
-    var className = settings.getTargetClass();
+    var className = settings.targetClass;
     if (tuna.dom.hasClass(element, className)) {
         lists.push(this.__createList(element, settings, root));
     } else {
@@ -67,7 +67,7 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
 
     list.setCompiler(this.__templateCompiler);
 
-    var rendererId = settings.getItemRendererID();
+    var rendererId = settings.itemRendererID;
     var renderer = this.__doc.getElementById(rendererId);
     if (renderer !== null) {
         renderer = renderer.cloneNode(true);
@@ -78,9 +78,9 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
         alert('Cannot find item renderer with id: ' + rendererId);
     }
 
-    list.setItemSettings(settings.getItemSettings());
-    list.setKeyPath(settings.getItemKeyDataPath());
-    list.setPath(settings.getDataPath());
+    list.setItemSettings(settings.itemSettings);
+    list.setKeyPath(settings.keyPath);
+    list.setPath(settings.dataPath);
 
     list.setListNodeRouter(new tuna.tmpl.units.ListContainerRouter(element));
 

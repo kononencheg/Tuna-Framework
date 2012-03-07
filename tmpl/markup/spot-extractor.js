@@ -54,8 +54,9 @@ SpotExtractor.prototype._createItem = function() {
  * @param {tuna.tmpl.settings.IItemSettings} item
  */
 SpotExtractor.prototype._parseElement = function(element, item) {
-    item.setTargetClass(element.getAttribute(this._ns + 'target'));
-    item.setDataPath(element.getAttribute(this._ns + 'path'));
+    item.targetClass = element.getAttribute(this._ns + 'target');
+    item.dataPath = element.getAttribute(this._ns + 'path');
+    item.filter = element.getAttribute(this._ns + 'filter');
 };
 
 /**

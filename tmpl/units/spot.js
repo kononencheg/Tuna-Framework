@@ -17,9 +17,23 @@ var Spot = function(root) {
      * @type Array.<Node>
      */
     this._nodes = [];
+
+    /**
+     *
+     * @type {Array.<string>}
+     * @private
+     */
+    this._filter = null;
 };
 
 tuna.utils.extend(Spot, tuna.tmpl.units.CompiledUnit);
+
+/**
+ * @param {Array.<string>} filter
+ */
+Spot.prototype.setFilter = function(filter) {
+    this._filter = filter;
+};
 
 /**
  * @param {string} path
@@ -41,7 +55,13 @@ Spot.prototype.addTargets = function(elements) {
 Spot.prototype.applyData = function(dataNode) {
     var valueNode = this.__pathEvaluator.evaluate(dataNode);
     if (valueNode !== null) {
-        this._applyValue(valueNode.getValue());
+        var value = valueNode.getValue();
+
+        if (this._filter !== null) {
+            value = this._filter.join(value);
+        }
+
+        this._applyValue(value);
     }
 };
 

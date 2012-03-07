@@ -33,11 +33,11 @@ ListExtractor.prototype._createItem = function() {
 ListExtractor.prototype._parseElement = function(element, item) {
     tuna.tmpl.markup.SpotExtractor.prototype._parseElement.call(this, element, item);
 
-    item.setItemRendererID(element.getAttribute(this._ns + 'item-renderer-id'));
-    item.setItemKeyDataPath(element.getAttribute(this._ns + 'key-path'));
+    item.itemRendererID = element.getAttribute(this._ns + 'item-renderer-id');
+    item.keyPath = element.getAttribute(this._ns + 'key-path');
 
     var templateID = element.getAttribute(this._ns + 'item-template-id');
-    item.setItemSettings(this.__templateBuilder.buildSettings(templateID));
+    item.itemSettings = this.__templateBuilder.buildSettings(templateID);
 };
 
 /**

@@ -24,8 +24,8 @@ AttributeExtractor.prototype._parseElement = function(element, item) {
     tuna.tmpl.markup.SpotExtractor.prototype.
         _parseElement.call(this, element, item);
 
-    item.setAttributeName(element.getAttribute(this._ns + 'name'));
-    item.setEvent(element.getAttribute(this._ns + 'event') !== null);
+    item.attributeName = element.getAttribute(this._ns + 'name');
+    item.hasEvent = !!element.getAttribute(this._ns + 'event');
 };
 
 /**

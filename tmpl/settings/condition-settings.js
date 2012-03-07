@@ -10,74 +10,28 @@ var ConditionSettings = function() {
      * @private
      * @type string
      */
-    this.__actionType = '';
+    this.actionType = '';
 
     /**
      * @private
      * @type string
      */
-    this.__actionData = '';
+    this.actionData = '';
 
     /**
      * @private
      * @type string
      */
-    this.__operatorType = '';
+    this.operatorType = '';
 
     /**
      * @private
      * @type string
      */
-    this.__operatorData = '';
+    this.operatorData = '';
 };
 
 tuna.utils.extend(ConditionSettings, tuna.tmpl.settings.SpotSettings);
-
-/**
- * @param {string} type
- * @param {string} data
- */
-ConditionSettings.prototype.setOperator = function(type, data) {
-    this.__operatorType = type;
-    this.__operatorData = data;
-};
-
-/**
- * @return {string}
- */
-ConditionSettings.prototype.getOperatorType = function() {
-    return this.__operatorType;
-};
-
-/**
- * @return {string}
- */
-ConditionSettings.prototype.getOperatorData = function() {
-    return this.__operatorData;
-};
-
-/**
- * @param {string} type
- * @param {string} data
- */
-ConditionSettings.prototype.setAction = function(type, data) {
-    this.__actionType = type;
-    this.__actionData = data;
-};
-
-/**
- * @return {string}
- */
-ConditionSettings.prototype.getActionType = function() {
-    return this.__actionType;
-};
-
-/**
- * @return {string}
- */
-ConditionSettings.prototype.getActionData = function() {
-    return this.__actionData;
-};
 
 /**
  * @constructor

@@ -14,13 +14,13 @@ var ConditionExtractor = function() {
      * @private
      * @type Array.<string>
      */
-    this.__operatorAttrs = ['isset', 'eq', 'ne'];
+    this.__operatorAttrs = ['isset', 'notset','eq', 'ne'];
 
     /**
      * @private
      * @type Array.<string>
      */
-    this.__actionAttrs = ['class', 'attr'];
+    this.__actionAttrs = ['class'];
 };
 
 tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
@@ -58,7 +58,9 @@ ConditionExtractor.prototype.__extractAction = function(element, item) {
         value = element.getAttribute('tuna:' + attr);
 
         if (value !== null) {
-            item.setAction(attr, value);
+            item.actionType  = attr;
+            item.actionData  = value;
+
             break;
         }
 
@@ -82,7 +84,9 @@ ConditionExtractor.prototype.__extractOperator = function(element, item) {
         value = element.getAttribute('tuna:' + attr);
 
         if (value !== null) {
-            item.setOperator(attr, value);
+            item.operatorType  = attr;
+            item.operatorData  = value;
+
             break;
         }
 

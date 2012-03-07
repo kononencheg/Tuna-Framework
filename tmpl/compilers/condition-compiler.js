@@ -30,12 +30,12 @@ ConditionCompiler.prototype._compileItem = function(element, settings, item) {
                                     (this, element, settings, item);
 
     var action = this.__createAction
-        (settings.getActionType(), settings.getActionData());
+        (settings.actionType, settings.actionData);
 
     item.setAction(action);
 
     var operator = this.__createOperator
-        (settings.getOperatorType(), settings.getOperatorData());
+        (settings.operatorType, settings.operatorData);
 
     item.setOperator(operator);
 };
@@ -63,6 +63,7 @@ ConditionCompiler.prototype.__createAction = function(type, data) {
 ConditionCompiler.prototype.__createOperator = function(type, data) {
     switch (type) {
         case 'isset': return new __IsSetOperator();
+        case 'notset': return new __NotSetOperator();
         case 'eq': return new __EqualsOperator(data);
         case 'ne': return new __NotEqualsOperator(data);
     }
@@ -113,6 +114,24 @@ tuna.utils.extend(__IsSetOperator, __ConditionOperator);
  */
 __IsSetOperator.prototype.test = function(value) {
     return value != null;
+};
+
+/**
+ * @private
+ * @constructor
+ * @extends {__ConditionOperator}
+ */
+var __NotSetOperator = function() {
+    __ConditionOperator.call(this);
+};
+
+tuna.utils.extend(__NotSetOperator, __ConditionOperator);
+
+/**
+ * @override
+ */
+__NotSetOperator.prototype.test = function(value) {
+    return value == null;
 };
 
 /**

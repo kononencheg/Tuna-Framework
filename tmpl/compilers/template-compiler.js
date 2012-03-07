@@ -24,6 +24,7 @@ var TemplateCompiler = function(doc) {
  */
 TemplateCompiler.prototype.__registerItemCompilers = function() {
     this.__itemCompilers.push(new tuna.tmpl.compilers.SpotCompiler());
+    this.__itemCompilers.push(new tuna.tmpl.compilers.CheckboxCompiler());
     this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
     this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
     this.__itemCompilers.push

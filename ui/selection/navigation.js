@@ -130,28 +130,30 @@ Navigation.prototype.__initMenu = function() {
 
     if (menuSelector !== null && buttonSelector !== null) {
         var menu = tuna.dom.selectOne(menuSelector, this._target);
-        var buttons = tuna.dom.select(buttonSelector, menu);
+        if (menu !== null) {
+            var buttons = tuna.dom.select(buttonSelector, menu);
 
-        var i = 0,
-            l = buttons.length;
+            var i = 0,
+                l = buttons.length;
 
-        var href = null;
-        var index = null;
-        var button = null;
-        while (i < l) {
-            button = tuna.ui.buttons.create(buttons[i]);
-            href = button.getStringOption('href');
-            if (href !== null) {
-                index = href.split('/').shift();
+            var href = null;
+            var index = null;
+            var button = null;
+            while (i < l) {
+                button = tuna.ui.buttons.create(buttons[i]);
+                href = button.getStringOption('href');
+                if (href !== null) {
+                    index = href.split('/').shift();
 
-                if (this.__menuLinks[index] === undefined) {
-                    this.__menuLinks[index] = [];
+                    if (this.__menuLinks[index] === undefined) {
+                        this.__menuLinks[index] = [];
+                    }
+
+                    this.__menuLinks[index].push(button);
                 }
 
-                this.__menuLinks[index].push(button);
+                i++;
             }
-
-            i++;
         }
     }
 
@@ -247,6 +249,8 @@ Navigation.prototype.back = function() {
                 this.__currentState.getPath(),
                 this.__currentState.getData()
             );
+
+            history.back();
         }
     } else {
         this.getRoot().back();
@@ -266,11 +270,14 @@ Navigation.prototype.navigate = function(path, data) {
                 this.__currentState = new NavigationState(this.getPathDesc());
             }
 
+            this.navigatePath(path, data);
+
             this.__history.push(this.__currentState);
 
-            this.__currentState = new NavigationState(path, data);
+            this.__currentState = new NavigationState(this.getPathDesc(), data);
 
-            this.navigatePath(this.__currentState.getPath(), data);
+            history.pushState(null, '', this.__currentState.serialize());
+
         } else {
             this.navigatePath(path, data);
         }

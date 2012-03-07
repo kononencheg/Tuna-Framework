@@ -18,6 +18,7 @@ var MarkupTemplateBuilder = function(doc) {
  */
 MarkupTemplateBuilder.prototype.__registerExtractors = function() {
     this.__extractors.push(new tuna.tmpl.markup.SpotExtractor());
+    this.__extractors.push(new tuna.tmpl.markup.CheckboxExtractor());
     this.__extractors.push(new tuna.tmpl.markup.AttributeExtractor());
     this.__extractors.push(new tuna.tmpl.markup.ConditionExtractor());
     this.__extractors.push(new tuna.tmpl.markup.ListExtractor(this));

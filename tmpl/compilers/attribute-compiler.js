@@ -29,8 +29,8 @@ AttributeCompiler.prototype._compileItem = function(element, settings, item) {
     tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
                                     (this, element, settings, item);
 
-    item.setAttributeName(settings.getAttributeName());
-    item.setEvent(settings.hasEvent());
+    item.setAttributeName(settings.attributeName);
+    item.setEvent(settings.hasEvent);
 };
 
 /**
