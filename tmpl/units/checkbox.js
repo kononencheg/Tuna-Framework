@@ -14,20 +14,29 @@ tuna.utils.extend(Checkbox, tuna.tmpl.units.Spot);
  * @param {*} value
  */
 Checkbox.prototype._applyValue = function(value) {
-    var arrayValue = [];
-
-    if (value instanceof Array) {
-        arrayValue = tuna.utils.cloneArray(value);
-    } else {
-        arrayValue = [ value + '' ];
-    }
-
     var i = this._nodes.length - 1;
-    while (i >= 0) {
-        this._nodes[i].checked =
-            tuna.utils.indexOf(this._nodes.value, arrayValue) !== -1;
 
-        i--;
+    if (value === true || value === false) {
+        while (i >= 0) {
+            this._nodes[i].checked = value;
+            
+            i--;
+        }
+    } else if (value instanceof Array) {
+        while (i >= 0) {
+            this._nodes[i].checked =
+                tuna.utils.indexOf(this._nodes[i].value, value) !== -1;
+
+            i--;
+        }
+    } else {
+        value = value + '';
+
+        while (i >= 0) {
+            this._nodes[i].checked = this._nodes[i].value === value;
+
+            i--;
+        }
     }
 };
 
