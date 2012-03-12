@@ -31,12 +31,6 @@ var Navigation = function(target) {
     this.__children = {};
 
     /**
-     * @type {?string}
-     * @private
-     */
-    this.__name = null;
-
-    /**
      * @type {Array.<NavigationState>}
      * @private
      */
@@ -72,7 +66,7 @@ Navigation.prototype.__initNavigation = function() {
         = new tuna.ui.selection.rule.NavigationSelectionRule();
 
     var itemsCollection =
-        new tuna.ui.selection.items.NamedElementsCollection('data-page-name');
+        new tuna.ui.selection.items.NamedElementsCollection('data-name');
 
     var selectionView
         = new tuna.ui.selection.view.ClassSelectionView(this._target);
@@ -212,11 +206,8 @@ Navigation.prototype.getPathDesc = function() {
 Navigation.prototype.getRelatedPath = function() {
     var result = [];
 
-    if (this.__name !== null) {
-        result.push(this.__name);
-    }
-
     if (this.__parent !== null) {
+        result.push(this.getName());
         result = this.__parent.getRelatedPath().concat(result);
     }
 
@@ -250,7 +241,7 @@ Navigation.prototype.back = function() {
                 this.__currentState.getData()
             );
 
-            history.back();
+            window.history.back();
         }
     } else {
         this.getRoot().back();
@@ -263,7 +254,7 @@ Navigation.prototype.back = function() {
  * @param {Object.<string, string>=} data
  */
 Navigation.prototype.navigate = function(path, data) {
-    if (path instanceof Array) {
+    if (tuna.utils.isArray(path)) {
 
         if (this.isRoot()) {
             if (this.__currentState === null) {
@@ -276,7 +267,7 @@ Navigation.prototype.navigate = function(path, data) {
 
             this.__currentState = new NavigationState(this.getPathDesc(), data);
 
-            history.pushState(null, '', this.__currentState.serialize());
+            window.history.pushState(null, '', this.__currentState.serialize());
 
         } else {
             this.navigatePath(path, data);
@@ -320,12 +311,11 @@ Navigation.prototype.navigatePath = function(path, data) {
  * @param {tuna.ui.selection.Navigation} navigation
  * @param {string} name
  */
-Navigation.prototype.addChild = function(navigation, name) {
+Navigation.prototype.addChild = function(navigation) {
     if (navigation !== null) {
-        navigation.setName(name);
         navigation.setParent(this);
 
-        this.__children[name] = navigation;
+        this.__children[navigation.getName()] = navigation;
     }
 };
 
@@ -334,13 +324,6 @@ Navigation.prototype.addChild = function(navigation, name) {
  */
 Navigation.prototype.setParent = function(navigation) {
     this.__parent = navigation;
-};
-
-/**
- * @param {string} name
- */
-Navigation.prototype.setName = function(name) {
-    this.__name = name;
 };
 
 /**

@@ -106,19 +106,17 @@ NavigationSelectionRule.prototype.selectIndex = function(index) {
 
             this.__currentIndex = index;
 
+            this.__updateController();
+
             this._selectionView.applySelectionAt(this.__currentIndex);
             this._eventDispatcher.dispatch('open', this.__currentIndex);
-
-            result = true;
-        }
-
-        if (result) {
-            this.__updateController();
 
             if (this.__currentController !== null &&
                 this.__currentController instanceof tuna.view.PageViewController) {
                 this.__currentController.open(this.__openData);
             }
+
+            result = true;
         }
     }
 

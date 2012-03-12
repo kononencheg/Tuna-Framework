@@ -14,14 +14,14 @@ CompiledUnit.prototype.getRootTemplate = function() {
 };
 
 /**
- *
+ * @param {boolean} isHard
  */
-CompiledUnit.prototype.destroy = function() {};
+CompiledUnit.prototype.destroy = function(isHard) {};
 
 /**
  * @param {tuna.tmpl.data.DataNode} dataNode
  */
-CompiledUnit.prototype.applyData = function(dataNode) {}
+CompiledUnit.prototype.applyData = function(dataNode) {};
 
 /**
  * @constructor

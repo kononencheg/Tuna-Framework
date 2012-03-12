@@ -137,15 +137,18 @@ List.prototype.__updateItem = function(itemNode, oldItemsTable) {
     var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
     if (keyNode !== null) {
         var key = keyNode.getValue();
+        if (key !== null) {
 
-        if (oldItemsTable[key] === undefined) {
-            this.addItem(this.__makeNewItem(), key);
-        } else {
-            this.__itemsTable[key] = oldItemsTable[key];
-            delete oldItemsTable[key];
+            if (oldItemsTable[key] === undefined) {
+                this.addItem(this.__makeNewItem(), key);
+            } else {
+                this.__itemsTable[key] = oldItemsTable[key];
+                delete oldItemsTable[key];
+            }
+
+            this.__itemsTable[key].applyData(itemNode);
+
         }
-
-        this.__itemsTable[key].applyData(itemNode);
     }
 };
 
@@ -155,7 +158,7 @@ List.prototype.__updateItem = function(itemNode, oldItemsTable) {
  */
 List.prototype.__destroyItems = function(itemsTable) {
     for (var key in itemsTable) {
-        itemsTable[key].destroy();
+        itemsTable[key].destroy(true);
         delete itemsTable[key];
     }
 };
@@ -175,6 +178,24 @@ List.prototype.__makeNewItem = function() {
     rootTemplate.registerChildCreation(itemElement);
 
     return template;
+};
+
+/**
+ * @override
+ */
+List.prototype.destroy = function(isHard) {
+    for (var key in this.__itemsTable) {
+        this.__itemsTable[key].destroy(isHard);
+        this.__itemsTable[key] = null;
+    }
+
+    this.__templateCompiler = null;
+    this.__itemRenderer = null;
+    this.__itemSettings = null;
+    this.__pathEvaluator = null;
+    this.__keyPathEvaluator = null;
+    this.__listNodeRouter = null;
+    this.__itemsTable = null;
 };
 
 /**

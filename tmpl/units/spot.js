@@ -87,6 +87,30 @@ Spot.prototype._applyValue = function(value) {
 };
 
 /**
+ * @override
+ */
+Spot.prototype.destroy = function(isHard) {
+    if (isHard) {
+        var node = null;
+        while (this._nodes.length > 0) {
+            node = this._nodes.shift();
+
+            if (node.parentNode !== null) {
+                node.parentNode.removeChild(node);
+
+                this.getRootTemplate()
+                    .registerChildRemoval(node);
+            }
+        }
+
+    } else{
+        this._nodes.length = 0;
+    }
+
+    this.__pathEvaluator = null
+};
+
+/**
  * @constructor
  * @extends {Spot}
  */

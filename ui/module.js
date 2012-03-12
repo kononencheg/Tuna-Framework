@@ -72,11 +72,14 @@ Module.prototype.__isInContext = function(target, context) {
     var i = 0,
         l = isolators.length;
     while (i < l) {
-        result = result && tuna.dom.getParentWithClass
-                            (target, isolators[i], context) === null;
+        if (target !== context) {
+            result = result && !tuna.dom.hasClass(target, isolators[i]) &&
+                                tuna.dom.getParentWithClass
+                                    (target, isolators[i], context) === null;
 
-        if (!result) {
-            break;
+            if (!result) {
+                break;
+            }
         }
 
         i++;

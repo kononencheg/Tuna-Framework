@@ -9,6 +9,16 @@ tuna.utils.toArray = function(list) {
 };
 
 /**
+ *
+ * @param {Object}  list
+ * @return {boolean}
+ */
+tuna.utils.isArray = function(list) {
+    return list !== null && list.push !== undefined &&
+           list.length !== undefined && !isNaN(list.length);
+};
+
+/**
  * Объявление реализации интерфейса.
  *
  * Добавление либо замена (уже существующих) методов прототипа класса
@@ -102,7 +112,7 @@ tuna.utils.nextTick = function(callback) {
  * @param {Array=} clones
  */
 tuna.utils.clone = function(object, clones) {
-    if (object instanceof Array) {
+    if (tuna.utils.isArray(object)) {
         return tuna.utils.cloneArray(object);
     } else if (object instanceof Date) {
         return tuna.utils.cloneDate(object);

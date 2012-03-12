@@ -18,7 +18,6 @@ tuna.utils.extend(CheckboxExtractor, tuna.tmpl.markup.SpotExtractor);
  * @return tuna.tmpl.settings.IItemSettings
  */
 CheckboxExtractor.prototype._createItem = function() {
-    debugger;
     return new tuna.tmpl.settings.CheckboxSettings();
 };
 

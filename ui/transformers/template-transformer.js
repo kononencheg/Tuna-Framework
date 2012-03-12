@@ -80,6 +80,18 @@ TemplateTransformer.prototype.destroy = function() {
 };
 
 /**
+ *
+ */
+TemplateTransformer.prototype.reset = function() {
+    var transformHandler = this.__transformHandler;
+
+    this.destroy();
+    this.init();
+
+    this.__transformHandler = transformHandler;
+};
+
+/**
  * @constructor
  * @extends {TemplateTransformer}
  */

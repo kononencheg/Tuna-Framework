@@ -51,7 +51,7 @@ Template.prototype.addItems = function(items) {
  * @param {Node} child
  */
 Template.prototype.registerChildCreation = function(child) {
-    this.__createdChildren.push(child);
+    this.__createdChildren = this.__createdChildren.concat(child);
 };
 
 /**
@@ -65,7 +65,7 @@ Template.prototype.fetchCreatedChildren = function() {
  * @param {Node} child
  */
 Template.prototype.registerChildRemoval = function(child) {
-    this.__removedChildren.push(child);
+    this.__removedChildren = this.__removedChildren.concat(child);
 };
 
 /**
@@ -90,17 +90,17 @@ Template.prototype.applyData = function(dataNode) {
 /**
  * @override
  */
-Template.prototype.destroy = function() {
+Template.prototype.destroy = function(isHard) {
     var i = this.__items.length - 1;
     while (i >= 0) {
-        this.__items[i].destroy();
+        this.__items[i].destroy(isHard);
 
         i--;
     }
 
-    this.__target.parentNode.removeChild(this.__target);
-
-    this.getRootTemplate().registerChildRemoval(this.__target);
+    if (isHard) {
+        this.__target.parentNode.removeChild(this.__target);
+    }
 };
 
 /**

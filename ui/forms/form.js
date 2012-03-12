@@ -130,7 +130,7 @@ Form.prototype.setValue = function(name, value) {
             var stringValue = '';
             var arrayValue = [];
 
-            if (value instanceof Array) {
+            if (tuna.utils.isArray(value)) {
                 arrayValue = tuna.utils.cloneArray(value);
                 stringValue = value.join(',');
             } else {

@@ -3,6 +3,12 @@
  * @param {Object=} data
  */
 var Record = function(data) {
+
+    /**
+     * @type {string}
+     */
+    this.id = '';
+
     if (data !== undefined) {
         this.populate(data);
     }
@@ -28,9 +34,10 @@ Record.prototype.clone = function() {
 Record.prototype.populate = function(data) {};
 
 /**
+ * @param {Object=} options
  * @return {Object}
  */
-Record.prototype.serialize = function() {};
+Record.prototype.serialize = function(options) {};
 
 /**
  * @constructor
