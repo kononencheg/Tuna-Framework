@@ -24,6 +24,15 @@ Button.prototype.init = function() {
     if (!this.__isInit) {
         this.__isInit = true;
         // TODO: Stop events in disabled.
+
+        var self = this;
+        tuna.dom.addEventListener(this._target, 'click', function(event) {
+            if (self.isEnabled()) {
+                self.dispatch('click');
+            } else {
+                tuna.dom.stopPropagation(event);
+            }
+        });
     }
 };
 

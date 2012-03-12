@@ -85,42 +85,38 @@ NavigationSelectionRule.prototype.navigate = function(index, data) {
  * @override
  */
 NavigationSelectionRule.prototype.selectIndex = function(index) {
-    var result = false;
+    if (this.isIndexEnabled(index) && this.__currentIndex !== index) {
 
-    if (this.__currentController === null ||
-        (this.__currentController instanceof tuna.view.PageViewController &&
-            this.__currentController.canClose(index))) {
+        if (this.__currentIndex !== null) {
+            if (this.__currentController instanceof tuna.view.PageViewController &&
+                this.__currentController.canClose(index)) {
+
+                if (this.__currentController instanceof tuna.view.PageViewController) {
+                    this.__currentController.close();
+                }
+            }
+
+            this._selectionView.destroySelectionAt(this.__currentIndex);
+            this._eventDispatcher.dispatch('close', this.__currentIndex)
+        }
+
+
+        this.__currentIndex = index;
+
+        this.__updateController();
+
+        this._selectionView.applySelectionAt(this.__currentIndex);
+        this._eventDispatcher.dispatch('open', this.__currentIndex);
 
         if (this.__currentController !== null &&
             this.__currentController instanceof tuna.view.PageViewController) {
-            this.__currentController.close();
+            this.__currentController.open(this.__openData);
         }
 
-        if (this.isIndexEnabled(index) &&
-            this.__currentIndex !== index) {
-
-            if (this.__currentIndex !== null) {
-                this._selectionView.destroySelectionAt(this.__currentIndex);
-                this._eventDispatcher.dispatch('close', this.__currentIndex)
-            }
-
-            this.__currentIndex = index;
-
-            this.__updateController();
-
-            this._selectionView.applySelectionAt(this.__currentIndex);
-            this._eventDispatcher.dispatch('open', this.__currentIndex);
-
-            if (this.__currentController !== null &&
-                this.__currentController instanceof tuna.view.PageViewController) {
-                this.__currentController.open(this.__openData);
-            }
-
-            result = true;
-        }
+        return true;
     }
 
-    return result;
+    return false;
 };
 
 /**

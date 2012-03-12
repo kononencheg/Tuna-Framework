@@ -20,10 +20,9 @@ Module.prototype.getSelector = function() {
 /**
  * @param {Node} context
  * @param {tuna.ui.ModuleContainer} container
- * @param {Object=} options
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
-Module.prototype.init = function(context, container, options) {
+Module.prototype.init = function(context, container) {
     var instances = [];
 
     var targets = this._findTargets(context);
@@ -34,7 +33,7 @@ Module.prototype.init = function(context, container, options) {
     var instance = null;
     while (i < l) {
         if (this.__isInContext(targets[i], context)) {
-            instance = this.initInstance(targets[i], container, options);
+            instance = this.initInstance(targets[i], container);
             if (instance !== null) {
                 instance.init();
 
@@ -107,10 +106,9 @@ Module.prototype.destroy = function(instances) {
 /**
  * @param {!Node} target
  * @param {tuna.ui.ModuleContainer} container
- * @param {Object=} options
  * @return {tuna.ui.ModuleInstance}
  */
-Module.prototype.initInstance = function(target, container, options) {};
+Module.prototype.initInstance = function(target, container) {};
 
 /**
  * @param {tuna.ui.ModuleInstance} instance

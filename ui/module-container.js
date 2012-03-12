@@ -7,14 +7,14 @@ var ModuleContainer = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
-     * @type Object.<string, Array>
+     * @type Array.<string>
      */
-    this.__moduleArgs = {};
+    this.__modules = [];
 
     /**
      * @type Object.<string, Array.<tuna.ui.ModuleInstance>>
      */
-    this.__moduleInstances = {};
+    this.__instances = {};
 };
 
 tuna.utils.extend(ModuleContainer, tuna.ui.ModuleInstance);
@@ -38,21 +38,9 @@ ModuleContainer.prototype.clear = function() {
 
 /**
  * @param {string} type
- * @param {...} var_args
  */
-ModuleContainer.prototype.requireModule = function(type, var_args) {
-    var args = tuna.utils.toArray(arguments);
-    args.shift();
-
-    if (this.__moduleArgs[type] === undefined) {
-        this.__moduleArgs[type] = [null];
-    }
-
-    if (args.length > 0) {
-        this.__moduleArgs[type].push(args);
-    } else {
-        this.__moduleArgs[type][0] = [];
-    }
+ModuleContainer.prototype.requireModule = function(type) {
+    this.__modules.push(type);
 };
 
 /**
@@ -62,25 +50,28 @@ ModuleContainer.prototype.requireModule = function(type, var_args) {
 ModuleContainer.prototype.initModules = function(target) {
     target = target || this._target;
 
+    var i = 0,
+        l = this.__modules.length;
+
+    var type = null;
     var module = null;
-    var instances = null;
-    for (var type in this.__moduleArgs) {
+    while (i < l) {
+        type = this.__modules[i];
         module = tuna.ui.modules.getModule(type);
 
         if (module !== null) {
-            if (this.__moduleInstances[type] === undefined) {
-                this.__moduleInstances[type] = [];
+            if (this.__instances[type] === undefined) {
+                this.__instances[type] = [];
             }
 
-            instances
-                = this.__initModule(module, target, this.__moduleArgs[type]);
-
-            this.__moduleInstances[type]
-                = this.__moduleInstances[type].concat(instances);
+            this.__instances[type]
+                = this.__instances[type].concat(module.init(target, this));
 
         } else {
             alert('Unknown module "' + type + '"');
         }
+
+        i++;
     }
 };
 
@@ -89,8 +80,8 @@ ModuleContainer.prototype.initModules = function(target) {
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
 ModuleContainer.prototype.getModuleInstances = function(type) {
-    if (this.__moduleInstances[type] !== undefined) {
-        return this.__moduleInstances[type];
+    if (this.__instances[type] !== undefined) {
+        return this.__instances[type];
     }
 
     return null;
@@ -101,9 +92,9 @@ ModuleContainer.prototype.getModuleInstances = function(type) {
  * @return {tuna.ui.ModuleInstance}
  */
 ModuleContainer.prototype.getOneModuleInstance = function(type) {
-    if (this.__moduleInstances[type] !== undefined &&
-        this.__moduleInstances[type][0] !== undefined) {
-        return this.__moduleInstances[type][0];
+    if (this.__instances[type] !== undefined &&
+        this.__instances[type][0] !== undefined) {
+        return this.__instances[type][0];
     }
 
     return null;
@@ -115,8 +106,8 @@ ModuleContainer.prototype.getOneModuleInstance = function(type) {
  * @return {tuna.ui.ModuleInstance}
  */
 ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
-    if (this.__moduleInstances[type] !== undefined) {
-        var instances = this.__moduleInstances[type];
+    if (this.__instances[type] !== undefined) {
+        var instances = this.__instances[type];
 
         var i = 0,
             l = instances.length;
@@ -137,37 +128,12 @@ ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
  *
  */
 ModuleContainer.prototype.destroyModules = function() {
-    for (var name in this.__moduleInstances) {
+    for (var name in this.__instances) {
         tuna.ui.modules.getModule(name)
-                       .destroy(this.__moduleInstances[name]);
+                       .destroy(this.__instances[name]);
 
-        this.__moduleInstances[name].length = 0;
+        this.__instances[name].length = 0;
     }
-};
-
-/**
- * @param {tuna.ui.Module} module
- * @param {Node} target
- * @param {Array} moduleArgs
- * @return {Array.<tuna.ui.ModuleInstance>}
- */
-ModuleContainer.prototype.__initModule = function(module, target, moduleArgs) {
-    var result = [];
-
-    var commonArgs = [target, this];
-
-    var i = moduleArgs.length - 1;
-    while (i >= 0) {
-        if (moduleArgs[i] !== null) {
-            result = result.concat(
-                module.init.apply(module, commonArgs.concat(moduleArgs[i]))
-            );
-        }
-
-        i--;
-    }
-
-    return result;
 };
 
 /**

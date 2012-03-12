@@ -15,6 +15,12 @@ var ViewController = function() {
      * @protected
      */
     this._isActive = false;
+
+    /**
+     * @type {Array.<string>}
+     * @protected
+     */
+    this._modules = [];
 };
 
 tuna.utils.implement(ViewController, tuna.ui.transformers.ITransformHandler);
@@ -49,7 +55,15 @@ ViewController.prototype.terminate = function() {
 /**
  * @protected
  */
-ViewController.prototype._requireModules = function() {};
+ViewController.prototype._requireModules = function() {
+    var i = 0,
+        l = this._modules.length;
+
+    while (i < l) {
+        this._container.requireModule(this._modules[i]);
+        i++;
+    }
+};
 
 /**
  * @protected

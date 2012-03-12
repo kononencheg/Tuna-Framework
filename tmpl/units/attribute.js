@@ -67,7 +67,13 @@ Attribute.prototype._applyValue = function(value) {
 Attribute.prototype.__setAttribute = function(value) {
     var i = this._nodes.length - 1;
     while (i >= 0) {
-        this._nodes[i].setAttribute(this.__attributeName, value + '');
+        if (this._nodes[i][this.__attributeName] !== undefined) {
+            this._nodes[i][this.__attributeName] = value;
+        } else {
+            this._nodes[i].setAttribute(this.__attributeName, value + '');
+        }
+
+
         i--;
     }
 };
@@ -78,7 +84,12 @@ Attribute.prototype.__setAttribute = function(value) {
 Attribute.prototype.__removeAttribute = function() {
     var i = this._nodes.length - 1;
     while (i >= 0) {
-        this._nodes[i].removeAttribute(this.__attributeName);
+        if (this._nodes[i][this.__attributeName] !== undefined) {
+            this._nodes[i][this.__attributeName] = null;
+        } else {
+            this._nodes[i].removeAttribute(this.__attributeName);
+        }
+
         i--;
     }
 };
