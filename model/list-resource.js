@@ -15,13 +15,13 @@ var ListResource = function (methodName, recordType) {
     this._methodName = methodName || null;
 
     /**
-     * @type {string}
+     * @type {?string}
      * @protected
      */
     this._recordType = recordType || null;
 
     /**
-     * @type {Array.<tuna.model.Record>}
+     * @type {Object|Array.<tuna.model.Record>}
      * @private
      */
     this._list = [];
@@ -31,7 +31,7 @@ tuna.utils.implement(ListResource, tuna.model.IResource);
 tuna.utils.extend(ListResource, tuna.events.EventDispatcher);
 
 /**
- * @param {Object} args
+ * @param {Object=} args
  */
 ListResource.prototype.load = function(args) {
     var self = this;
@@ -43,7 +43,7 @@ ListResource.prototype.load = function(args) {
 };
 
 /**
- * @param {Array.<tuna.model.Record>} list
+ * @override
  */
 ListResource.prototype.set = function(list) {
     this._list = list;
@@ -52,7 +52,7 @@ ListResource.prototype.set = function(list) {
 };
 
 /**
- * @return {Array.<tuna.model.Record>}
+ * @override
  */
 ListResource.prototype.get = function() {
     return this._list;

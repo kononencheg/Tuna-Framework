@@ -128,16 +128,16 @@ NavigationSelectionRule.prototype.__updateController = function() {
         var page = this._itemsCollection.getItemAt(this.__currentIndex);
         if (page !== null) {
             this.__currentController = tuna.view.getController(page.id);
-        }
 
-        if (this.__currentController !== null &&
-            !this.__currentController.isActive()) {
+            if (this.__currentController !== null &&
+                !this.__currentController.isActive()) {
 
-            if (this.__currentController instanceof tuna.view.PageViewController) {
-                this.__currentController.setNavigation(this.__navigation);
+                if (this.__currentController instanceof tuna.view.PageViewController) {
+                    this.__currentController.setNavigation(this.__navigation);
+                }
+
+                this.__currentController.bootstrap(page);
             }
-
-            this.__currentController.bootstrap(page);
         }
     }
 };

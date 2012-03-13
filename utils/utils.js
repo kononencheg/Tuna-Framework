@@ -1,7 +1,7 @@
 /**
  * Convert array-like object to array.
  *
- * @param {Object} list Array-like object.
+ * @param {Object|null|undefined} list Array-like object.
  * @return {Array} Converted array.
  */
 tuna.utils.toArray = function(list) {
@@ -10,12 +10,12 @@ tuna.utils.toArray = function(list) {
 
 /**
  *
- * @param {Object}  list
+ * @param {*} list
  * @return {boolean}
  */
-tuna.utils.isArray = function(list) {
-    return list !== null && list.push !== undefined &&
-           list.length !== undefined && !isNaN(list.length);
+tuna.utils.isArrayLike = function(list) {
+    return list !== undefined &&
+           list !== null && !isNaN(list.length);
 };
 
 /**
@@ -108,29 +108,32 @@ tuna.utils.nextTick = function(callback) {
 /**
  * Клонирование объекта.
  *
- * @param {*} object
+ * @param {Object} object
  * @param {Array=} clones
  */
 tuna.utils.clone = function(object, clones) {
-    if (tuna.utils.isArray(object)) {
-        return tuna.utils.cloneArray(object);
+    if (tuna.utils.isArrayLike(object)) {
+        return tuna.utils.toArray(object);
     } else if (object instanceof Date) {
         return tuna.utils.cloneDate(object);
     } else if (object instanceof Object) {
+
         if (clones === undefined) {
-            clones = [object];
-        } else {
-            clones.push(object);
+            clones = [];
         }
 
+        clones.push(object);
+
         var result = {};
+
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
                 if (tuna.utils.indexOf(object[key], clones) === -1) {
                     result[key] = tuna.utils.clone(object[key]);
-                } else {
-                    throw new TypeError('Cloning circular structure');
                 }
+                /*else {
+                    throw new TypeError('Cloning circular structure');
+                }*/
             }
         }
 

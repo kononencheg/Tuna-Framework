@@ -18,7 +18,7 @@ var SpotSettings = function() {
 
     /**
      *
-     * @type {string}
+     * @type {Array.<string>}
      * @private
      */
     this.filter = null;

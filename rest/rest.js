@@ -55,7 +55,7 @@ tuna.rest.methodFactory = new MethodFactory();
  * @param {string} name
  * @param {Object} args
  * @param {function(Object)} callback
- * @param {string=} recordName
+ * @param {?string=} recordName
  */
 tuna.rest.call = function(name, args, callback, recordName) {
 
@@ -65,7 +65,7 @@ tuna.rest.call = function(name, args, callback, recordName) {
         var listener = function(event, data) {
             var result = data;
 
-            if (recordName !== undefined) {
+            if (recordName !== null && recordName !== undefined) {
                 result = tuna.rest.populateRecords(data, recordName);
             }
 

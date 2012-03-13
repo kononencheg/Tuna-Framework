@@ -30,13 +30,13 @@ ISelectionRule.prototype.clearSelection = function() {};
  * @param {string|number} index
  * @param {boolean} isEnabled
  */
-ISelectionGroup.prototype.setIndexEnabled = function(index, isEnabled) {};
+ISelectionRule.prototype.setIndexEnabled = function(index, isEnabled) {};
 
 /**
  * @param {string|number} index
  * @return boolean
  */
-ISelectionGroup.prototype.isIndexEnabled = function(index) {};
+ISelectionRule.prototype.isIndexEnabled = function(index) {};
 
 /**
  * @interface

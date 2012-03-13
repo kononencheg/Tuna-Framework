@@ -23,7 +23,7 @@ Checkbox.prototype._applyValue = function(value) {
 
                 i--;
             }
-        } else if (tuna.utils.isArray(value)) {
+        } else if (value instanceof Array) {
             while (i >= 0) {
                 this._nodes[i].checked =
                     tuna.utils.indexOf(this._nodes[i].value, value) !== -1;

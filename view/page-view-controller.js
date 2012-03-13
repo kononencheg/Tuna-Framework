@@ -7,7 +7,7 @@ var PageViewController = function() {
 
     /**
      * @protected
-     * @type tuna.ui.selection.ISelectionGroup|tuna.ui.selection.Navigation
+     * @type tuna.ui.selection.Navigation
      */
     this._navigation = null;
 };
@@ -15,14 +15,14 @@ var PageViewController = function() {
 tuna.utils.extend(PageViewController, tuna.view.ViewController);
 
 /**
- * @param {tuna.ui.selection.ISelectionGroup|tuna.ui.selection.Navigation} navigation
+ * @param {tuna.ui.selection.Navigation} navigation
  */
 PageViewController.prototype.setNavigation = function(navigation) {
     this._navigation = navigation;
 };
 
 /**
- * @param {string} index
+ * @param {string|number} index
  */
 PageViewController.prototype.canClose = function(index) {
     return true;

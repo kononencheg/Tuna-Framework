@@ -7,7 +7,7 @@ var ItemResource = function () {
     tuna.events.EventDispatcher.call(this);
 
     /**
-     * @type {tuna.model.Record}
+     * @type {Object|tuna.model.Record}
      * @private
      */
     this._item = null;
@@ -17,7 +17,7 @@ tuna.utils.implement(ItemResource, tuna.model.IResource);
 tuna.utils.extend(ItemResource, tuna.events.EventDispatcher);
 
 /**
- * @param {tuna.model.Record} item
+ * @override
  */
 ItemResource.prototype.set = function(item) {
     this._item = item;
@@ -26,7 +26,7 @@ ItemResource.prototype.set = function(item) {
 };
 
 /**
- * @return {tuna.model.Record}
+ * @override
  */
 ItemResource.prototype.get = function() {
     return this._item;

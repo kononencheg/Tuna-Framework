@@ -66,7 +66,8 @@ Form.prototype.init = function() {
     tuna.dom.addEventListener(this._target, 'reset', prepareListener);
 
     window[this.__callbackName] = function(response) {
-        self.__handleResponse(response);
+        self.__handleResponse(tuna.utils.clone(response));
+        response = null;
     };
 };
 
@@ -130,7 +131,7 @@ Form.prototype.setValue = function(name, value) {
             var stringValue = '';
             var arrayValue = [];
 
-            if (tuna.utils.isArray(value)) {
+            if (value instanceof Array) {
                 arrayValue = tuna.utils.cloneArray(value);
                 stringValue = value.join(',');
             } else {

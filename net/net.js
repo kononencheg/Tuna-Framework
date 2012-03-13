@@ -56,8 +56,7 @@ tuna.net.__DECODE_HELPER = '|';
 tuna.net.decode = function(search) {
     var result = {};
 
-    var parsedSearch = search.substring(1);
-    parsedSearch = parsedSearch.split('][').join(tuna.net.__DECODE_HELPER);
+    var parsedSearch = search.split('][').join(tuna.net.__DECODE_HELPER);
     parsedSearch = parsedSearch.split('[').join(tuna.net.__DECODE_HELPER);
     parsedSearch = parsedSearch.split(']').join('');
 
@@ -72,7 +71,7 @@ tuna.net.decode = function(search) {
     var context = null;
     while (i < l) {
         pair = vars[i].split('=');
-        path = pair.shift().split(tuna.utils.__DECODE_HELPER);
+        path = pair.shift().split(tuna.net.__DECODE_HELPER);
 
         context = result;
 

@@ -38,10 +38,8 @@ tuna.view.getController = function(name) {
 };
 
 /**
- *
+ * @param {!Node} target
  */
-tuna.view.init = function() {
-    if (document.body !== null) {
-        tuna.view.__mainController.bootstrap(document.body);
-    }
+tuna.view.init = function(target) {
+    tuna.view.__mainController.bootstrap(target);
 };

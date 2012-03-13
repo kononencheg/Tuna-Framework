@@ -38,7 +38,7 @@ tuna.model.recordFactory = new RecordFactory();
  */
 tuna.model.serialize = function(object) {
     if (object !== null) {
-        if (tuna.utils.isArray(object)) {
+        if (object instanceof Array) {
             var result = [];
 
             var i = 0,

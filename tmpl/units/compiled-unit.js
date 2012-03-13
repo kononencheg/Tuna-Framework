@@ -14,7 +14,7 @@ CompiledUnit.prototype.getRootTemplate = function() {
 };
 
 /**
- * @param {boolean} isHard
+ * @param {boolean=} isHard
  */
 CompiledUnit.prototype.destroy = function(isHard) {};
 

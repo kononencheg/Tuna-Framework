@@ -85,7 +85,7 @@ AbstractSelectionRule.prototype.setIndexEnabled
             this._disabledIndexes.splice(indexPosition, 1);
         }
     } else if (indexPosition === -1) {
-        this._selectionView.disableItemAt([index]);
+        this._selectionView.disableItemAt(index);
         this._disabledIndexes.push(index);
     }
 };

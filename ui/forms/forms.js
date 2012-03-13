@@ -14,7 +14,7 @@ tuna.ui.forms.serialize = function(formElement) {
         name = elements[i].name;
 
         if (result[name] !== undefined) {
-            if (!(tuna.utils.isArray(result[name]))) {
+            if (!(result[name] instanceof Array)) {
                 result[name] = [result[name]];
             }
             result[name].push(elements[i].value);

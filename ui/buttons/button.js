@@ -9,10 +9,10 @@ var Button = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
-     * @private
+     * @protected
      * @type boolean
      */
-    this.__isInit = false;
+    this._isInit = false;
 };
 
 tuna.utils.extend(Button, tuna.ui.ModuleInstance);
@@ -21,8 +21,8 @@ tuna.utils.extend(Button, tuna.ui.ModuleInstance);
  * @override
  */
 Button.prototype.init = function() {
-    if (!this.__isInit) {
-        this.__isInit = true;
+    if (!this._isInit) {
+        this._isInit = true;
         // TODO: Stop events in disabled.
 
         var self = this;

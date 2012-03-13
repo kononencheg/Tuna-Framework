@@ -25,7 +25,7 @@ var Navigation = function(target) {
     this.__parent = null;
 
     /**
-     * @type {Object.<string, tuna.ui.selection.Navigation>}
+     * @type {Object.<string|number, tuna.ui.selection.Navigation>}
      * @private
      */
     this.__children = {};
@@ -158,19 +158,21 @@ Navigation.prototype.__initMenu = function() {
 
 /**
  *
- * @param {string|number} path
+ * @param {?(string|number)} path
  * @param {boolean} isSelected
  */
 Navigation.prototype.__updateMenu = function(path, isSelected) {
-    var buttons = this.__menuLinks[path];
-    if (buttons !== undefined) {
-        var i = 0,
-            l = buttons.length;
+    if (path !== null) {
+        var buttons = this.__menuLinks[path];
+        if (buttons !== undefined) {
+            var i = 0,
+                l = buttons.length;
 
-        while (i < l) {
-            buttons[i].setActive(isSelected);
+            while (i < l) {
+                buttons[i].setActive(isSelected);
 
-            i++;
+                i++;
+            }
         }
     }
 };
@@ -254,7 +256,7 @@ Navigation.prototype.back = function() {
  * @param {Object.<string, string>=} data
  */
 Navigation.prototype.navigate = function(path, data) {
-    if (tuna.utils.isArray(path)) {
+    if (path instanceof Array) {
 
         if (this.isRoot()) {
             if (this.__currentState === null) {
@@ -296,7 +298,7 @@ Navigation.prototype.navigatePath = function(path, data) {
 
     this.__updateMenu(this.__navigationRule.getCurrentIndex(), false);
 
-    this.__navigationRule.navigate(index, data);
+    this.__navigationRule.navigate(index, data || null);
 
     this.__updateMenu(this.__navigationRule.getCurrentIndex(), true);
 
@@ -309,13 +311,15 @@ Navigation.prototype.navigatePath = function(path, data) {
 
 /**
  * @param {tuna.ui.selection.Navigation} navigation
- * @param {string} name
  */
 Navigation.prototype.addChild = function(navigation) {
     if (navigation !== null) {
         navigation.setParent(this);
 
-        this.__children[navigation.getName()] = navigation;
+        var name = navigation.getName();
+        if (name !== null) {
+            this.__children[name] = navigation;
+        }
     }
 };
 
@@ -368,7 +372,7 @@ NavigationState.prototype.getPath = function() {
 };
 
 /**
- * @return {Array.<string>}
+ * @return {Object}
  */
 NavigationState.prototype.getData = function() {
     return this.__data;

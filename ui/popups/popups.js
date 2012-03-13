@@ -42,20 +42,32 @@ tuna.ui.popups.__alert = null;
 tuna.ui.popups.__alertMessage = null;
 
 /**
- * @param {!Node} target
+ * @param {Node} target
  */
 tuna.ui.popups.registerAlert = function(target) {
-    tuna.ui.popups.__alert = tuna.ui.popups.create(target);
-    tuna.ui.popups.__alert.init();
-    tuna.ui.popups.__alertMessage = tuna.dom.selectOne('.j-message', target);
+    if (target !== null) {
+        tuna.ui.popups.__alert = tuna.ui.popups.create(target);
+        tuna.ui.popups.__alert.init();
+        tuna.ui.popups.__alertMessage = tuna.dom.selectOne('.j-message', target);
+    } else {
+        if (tuna.ui.popups.__alert !== null) {
+            tuna.ui.popups.__alert.destroy();
+            tuna.ui.popups.__alert = null;
+            tuna.ui.popups.__alertMessage = null;
+        }
+    }
+
 };
 
 /**
  * @param {string} message
  */
 tuna.ui.popups.alert = function(message) {
-    tuna.ui.popups.__alertMessage.innerHTML = message;
-    tuna.ui.popups.__alert.open();
+    if (tuna.ui.popups.__alert !== null &&
+        tuna.ui.popups.__alertMessage !== null) {
+        tuna.ui.popups.__alertMessage.innerHTML = message;
+        tuna.ui.popups.__alert.open();
+    }
 };
 
 /**
@@ -71,39 +83,38 @@ tuna.ui.popups.__confirm = null;
 tuna.ui.popups.__confirmMessage = null;
 
 /**
- * @param {!Node} target
+ * @param {Node} target
  */
 tuna.ui.popups.registerConfirm = function(target) {
-    tuna.ui.popups.__confirm  = tuna.ui.popups.create(target);
-    tuna.ui.popups.__confirm.init();
-    tuna.ui.popups.__confirmMessage = tuna.dom.selectOne('.j-message', target);
+    if (target !== null) {
+        tuna.ui.popups.__confirm  = tuna.ui.popups.create(target);
+        tuna.ui.popups.__confirm.init();
+        tuna.ui.popups.__confirmMessage = tuna.dom.selectOne('.j-message', target);
+    } else {
+        if (tuna.ui.popups.__confirm !== null) {
+            tuna.ui.popups.__confirm.destroy();
+            tuna.ui.popups.__confirm = null;
+            tuna.ui.popups.__confirmMessage = null;
+        }
+    }
 };
 
 /**
  * @param {string} message
- * @param {function(boolean)} callback
+ * @param {!function(boolean)} callback
  */
 tuna.ui.popups.confirm = function(message, callback) {
     tuna.ui.popups.__confirmMessage.innerHTML = message;
 
-    var okHandler = function(event) {
-        callback && callback(true);
+    var handler = function(event) {
+        callback(event.getType() === 'popup-apply');
 
-        tuna.ui.popups.__confirm.removeEventListener('popup-apply', okHandler);
-        tuna.ui.popups.__confirm.removeEventListener
-            ('popup-close', cancelHandler);
+        tuna.ui.popups.__confirm.removeEventListener('popup-apply', handler);
+        tuna.ui.popups.__confirm.removeEventListener('popup-close', handler);
     };
 
-    var cancelHandler = function(event) {
-        callback && callback(false);
-
-        tuna.ui.popups.__confirm.removeEventListener('popup-apply', okHandler);
-        tuna.ui.popups.__confirm.removeEventListener
-            ('popup-close', cancelHandler);
-    };
-
-    tuna.ui.popups.__confirm.addEventListener('popup-apply', okHandler);
-    tuna.ui.popups.__confirm.addEventListener('popup-close', cancelHandler);
+    tuna.ui.popups.__confirm.addEventListener('popup-apply', handler);
+    tuna.ui.popups.__confirm.addEventListener('popup-close', handler);
 
     tuna.ui.popups.__confirm.open();
 };

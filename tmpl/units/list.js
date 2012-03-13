@@ -122,13 +122,6 @@ List.prototype.applyData = function(dataNode) {
 };
 
 /**
- * @override
- */
-List.prototype.destroy = function() {
-    this.__destroyItems(this.__itemsTable);
-};
-
-/**
  * @private
  * @param {tuna.tmpl.data.DataNode} itemNode
  * @param {Object.<*, tuna.tmpl.units.Template>} oldItemsTable

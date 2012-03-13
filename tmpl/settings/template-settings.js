@@ -32,21 +32,21 @@ var TemplateSettings = function() {
      * @private
      * @type Array.<tuna.tmpl.settings.CheckboxSettings>
      */
-    this.__comboboxex = [];
+    this.__checkboxex = [];
 };
 
 /**
- * @param {tuna.tmpl.settings.CheckboxSettings} condition
+ * @param {tuna.tmpl.settings.CheckboxSettings} checkbox
  */
-TemplateSettings.prototype.addCheckbox = function(combobox) {
-    this.__comboboxex.push(combobox);
+TemplateSettings.prototype.addCheckbox = function(checkbox) {
+    this.__checkboxex.push(checkbox);
 };
 
 /**
  * @return {Array.<tuna.tmpl.settings.CheckboxSettings>}
  */
 TemplateSettings.prototype.getCheckboxes = function() {
-    return this.__comboboxex;
+    return this.__checkboxex;
 };
 
 /**
