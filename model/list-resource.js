@@ -46,9 +46,10 @@ ListResource.prototype.load = function(args) {
  * @override
  */
 ListResource.prototype.set = function(list) {
-    this._list = list;
-
-    this.dispatch('update', this._list);
+    if (this._list !== list) {
+        this._list = list;
+        this.dispatch('update', this._list);
+    }
 };
 
 /**
@@ -132,6 +133,50 @@ ListResource.prototype.getItemById = function(id) {
     }
 
     return null;
+};
+
+/**
+ * @param {!function(tuna.model.Record):boolean} testCallback
+ * @return {Array.<tuna.model.Record>}
+ */
+ListResource.prototype.find = function(testCallback) {
+    var result = [];
+
+    var i = 0,
+        l = this._list.length;
+
+    while (i < l) {
+        if (testCallback(this._list[i])) {
+            result.push(this._list[i]);
+        }
+
+        i++;
+    }
+
+    return result;
+};
+
+/**
+ * @param {!function(tuna.model.Record):*} mapCallback
+ * @return {Array}
+ */
+ListResource.prototype.map = function(mapCallback) {
+    var result = [];
+
+    var i = 0,
+        l = this._list.length;
+
+    var item = null;
+    while (i < l) {
+        item = mapCallback(this._list[i]);
+        if (item !== null) {
+            result.push(item);
+        }
+
+        i++;
+    }
+
+    return result;
 };
 
 /**

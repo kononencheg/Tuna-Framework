@@ -36,8 +36,9 @@ Autocomplete.prototype.init = function() {
         if (!isOpen) {
             tuna.dom.addOneEventListener(
                 document.body, 'click', function() {
-                    var data = self.getSelectedData();
-                    if (data === null) {
+                    self.selectValue(self._input.value);
+
+                    if (self.getSelectedData() === null) {
                         self.clear();
                     }
 
@@ -46,8 +47,8 @@ Autocomplete.prototype.init = function() {
                 }
             );
 
+            self.filter('');
             tuna.dom.removeClass(body, 'hide');
-
             isOpen = true;
         }
     });
@@ -82,12 +83,15 @@ Autocomplete.prototype.getSelectedData = function() {
  * @param {string} value
  */
 Autocomplete.prototype.selectValue = function(value) {
-    var filteredData = this._filterData(value);
-    if (filteredData.length === 1) {
-        this.__selectedData = filteredData[0];
-        this._input.value = value;
+    this.__selectedData = null;
 
-        this.dispatch('change');
+    var filteredData = this._filterData(value);
+
+    var dataItem = filteredData.shift();
+    if (dataItem !== undefined) {
+        if (this._itemSerializeCallback(dataItem) === value) {
+            this.__selectData(dataItem)
+        }
     }
 };
 
@@ -96,8 +100,19 @@ Autocomplete.prototype.selectValue = function(value) {
  */
 Autocomplete.prototype.selectIndex = function(index) {
     if (this._currentData.length > 0) {
-        this.__selectedData = this._currentData[index];
-        this._input.value = this._itemSerializeCallback(this.__selectedData);
+        this.__selectData(this._currentData[index]);
+    }
+};
+
+/**
+ * @param {Object} dataItem
+ * @private
+ */
+Autocomplete.prototype.__selectData = function(dataItem) {
+    if (this.__selectedData !== dataItem) {
+
+        this.__selectedData = dataItem;
+        this._input.value = this._itemSerializeCallback(dataItem);
 
         this.dispatch('change');
     }

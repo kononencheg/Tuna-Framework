@@ -20,9 +20,10 @@ tuna.utils.extend(ItemResource, tuna.events.EventDispatcher);
  * @override
  */
 ItemResource.prototype.set = function(item) {
-    this._item = item;
-
-    this.dispatch('update', this._item);
+    if (this._item !== item) {
+        this._item = item;
+        this.dispatch('update', this._item);
+    }
 };
 
 /**
