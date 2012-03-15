@@ -8,9 +8,9 @@ var SWF = function(target) {
 
     /**
      * @private
-     * @type {string}
+     * @type {?string}
      */
-    this.__movieId = '';
+    this.__movieId = null;
 
     /**
      * @private
@@ -30,16 +30,15 @@ tuna.utils.extend(SWF, tuna.ui.ModuleInstance);
  * @override
  */
 SWF.prototype.init = function() {
-    if (this._target.id === '') {
-        this._target.id = 'swf_' + tuna.ui.flash.__lastId++;
-    }
+    this.__movieId = 'swf_' + tuna.ui.flash.__lastId++;
 
-    this.__movieId = this._target.id;
+    this._target.innerHTML = '<div id="' + this.__movieId + '"></div>';
 
     swfobject.embedSWF(
-        this.getStringOption('src'), this._target.id,
+        this.getStringOption('src'), this.__movieId,
         this.getNumberOption('width'), this.getNumberOption('height'),
-        '10.0.0', null, this.getStringOption('flashvars'), {
+        '10.0.0', null,
+        this.getStringOption('flashvars'), {
             'wmode': this.getStringOption('wmode'),
             'allowfullscreen': this.getStringOption('allow-fullscreen'),
             'allowscriptaccess': this.getStringOption('allow-script-access'),
@@ -49,10 +48,27 @@ SWF.prototype.init = function() {
 };
 
 /**
+ *
+ */
+SWF.prototype.destroy = function() {
+    this._target.innerHTML = '';
+    this.__movieId = null;
+    this.__movie = null;
+};
+
+/**
+ *
+ */
+SWF.prototype.reset = function() {
+    this.destroy();
+    this.init();
+};
+
+/**
  * @return {HTMLObjectElement}
  */
 SWF.prototype.getMovie = function() {
-    if (this.__movie === null) {
+    if (this.__movieId !== null && this.__movie === null) {
         this.__movie = swfobject.getObjectById(this.__movieId);
     }
 

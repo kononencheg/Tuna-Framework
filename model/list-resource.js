@@ -63,9 +63,10 @@ ListResource.prototype.get = function() {
  * @override
  */
 ListResource.prototype.clear = function() {
-    this._list.length = 0;
-
-    this.dispatch('update', this._list);
+    if (this._list.length > 0) {
+        this._list.length = 0;
+        this.dispatch('update', this._list);
+    }
 };
 
 /**
@@ -136,17 +137,17 @@ ListResource.prototype.getItemById = function(id) {
 };
 
 /**
- * @param {!function(tuna.model.Record):boolean} testCallback
+ * @param {!function(tuna.model.Record):boolean} callback
  * @return {Array.<tuna.model.Record>}
  */
-ListResource.prototype.find = function(testCallback) {
+ListResource.prototype.find = function(callback) {
     var result = [];
 
     var i = 0,
         l = this._list.length;
 
     while (i < l) {
-        if (testCallback(this._list[i])) {
+        if (callback(this._list[i])) {
             result.push(this._list[i]);
         }
 
@@ -157,10 +158,10 @@ ListResource.prototype.find = function(testCallback) {
 };
 
 /**
- * @param {!function(tuna.model.Record):*} mapCallback
+ * @param {!function(tuna.model.Record):*} callback
  * @return {Array}
  */
-ListResource.prototype.map = function(mapCallback) {
+ListResource.prototype.map = function(callback) {
     var result = [];
 
     var i = 0,
@@ -168,7 +169,7 @@ ListResource.prototype.map = function(mapCallback) {
 
     var item = null;
     while (i < l) {
-        item = mapCallback(this._list[i]);
+        item = callback(this._list[i]);
         if (item !== null) {
             result.push(item);
         }
@@ -178,6 +179,20 @@ ListResource.prototype.map = function(mapCallback) {
 
     return result;
 };
+
+/**
+ * @param {!function(tuna.model.Record)} callback
+ */
+ListResource.prototype.each = function(callback) {
+    var i = 0,
+        l = this._list.length;
+    while (i < l) {
+        callback(this._list[i]);
+
+        i++;
+    }
+};
+
 
 /**
  * @constructor

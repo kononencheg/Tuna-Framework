@@ -34,9 +34,10 @@ tuna.model.recordFactory = new RecordFactory();
 
 /**
  * @param {Object|tuna.model.Record|Array.<tuna.model.Record>} object
+ * @param {Object=} options
  * @return {Object}
  */
-tuna.model.serialize = function(object) {
+tuna.model.serialize = function(object, options) {
     if (object !== null) {
         if (object instanceof Array) {
             var result = [];
@@ -45,14 +46,14 @@ tuna.model.serialize = function(object) {
                 l = object.length;
 
             while (i < l) {
-                result.push(object[i].serialize());
+                result.push(object[i].serialize(options));
 
                 i++;
             }
 
             return result;
         } else if (object instanceof tuna.model.Record) {
-            return object.serialize();
+            return object.serialize(options);
         }
 
         return object;

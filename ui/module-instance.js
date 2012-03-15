@@ -13,12 +13,6 @@ var ModuleInstance = function(target) {
     this._target = target;
 
     /**
-     * @type boolean
-     * @protected
-     */
-    this._isEnabled = true;
-
-    /**
      * @private
      * @type Object.<string, null|string|boolean|number>
      */
