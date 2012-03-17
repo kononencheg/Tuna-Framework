@@ -9,6 +9,12 @@ var ListResource = function (methodName, recordType) {
     tuna.events.EventDispatcher.call(this);
 
     /**
+     * @type {Object}
+     * @private
+     */
+    this.__lastArgs = null;
+
+    /**
      * @type {?string}
      * @protected
      */
@@ -32,13 +38,21 @@ tuna.utils.extend(ListResource, tuna.events.EventDispatcher);
 
 /**
  * @param {Object=} args
+ * @param {boolean=} isForce
  */
-ListResource.prototype.load = function(args) {
+ListResource.prototype.load = function(args, isForce) {
     var self = this;
-    if (this._methodName !== null) {
-        tuna.rest.call(this._methodName, args || null, function(records) {
-            self.set(records);
-        }, this._recordType);
+
+    if (isForce || args === undefined ||
+       !tuna.utils.isObjectsEquals(this.__lastArgs, args)) {
+
+        if (this._methodName !== null) {
+            tuna.rest.call(this._methodName, args || null, function(records) {
+                self.set(records);
+            }, this._recordType);
+        }
+
+        this.__lastArgs = args || null;
     }
 };
 

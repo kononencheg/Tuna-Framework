@@ -11,13 +11,6 @@ var Module = function(selector) {
 };
 
 /**
- * @return {string}
- */
-Module.prototype.getSelector = function() {
-    return this._selector;
-};
-
-/**
  * @param {Node} context
  * @param {tuna.ui.ModuleContainer} container
  * @return {Array.<tuna.ui.ModuleInstance>}

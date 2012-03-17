@@ -80,8 +80,9 @@ tuna.utils.eval = function(code) {
 /**
  * Привязывание определенного контекста к функции или методу.
  *
- * @param {!Function} func
+ * @param {!function()} func
  * @param {Object} context
+ * @return {function()}
  */
 tuna.utils.bind = function(func, context) {
     if (func.bind !== undefined) {
@@ -159,6 +160,31 @@ tuna.utils.cloneDate = function(date) {
  */
 tuna.utils.cloneArray = function(array) {
     return array.slice(0);
+};
+
+/**
+ * @param {Object} object1
+ * @param {Object} object2
+ * @return {boolean}
+ */
+tuna.utils.isObjectsEquals = function(object1, object2) {
+    var result = object1 === object2;
+
+    if (!result && object1 !== null && object2 !== null) {
+        result = true;
+
+        for (var key in object1) {
+            if (object1[key] instanceof Object &&
+                object2[key] instanceof Object) {
+                result = result &&
+                         tuna.utils.isObjectsEquals(object1[key], object2[key]);
+            } else {
+                result = result && object1[key] === object2[key];
+            }
+        }
+    }
+
+    return result;
 };
 
 /**
