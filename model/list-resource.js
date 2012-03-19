@@ -200,6 +200,7 @@ ListResource.prototype.map = function(callback) {
 ListResource.prototype.each = function(callback) {
     var i = 0,
         l = this._list.length;
+
     while (i < l) {
         callback(this._list[i]);
 

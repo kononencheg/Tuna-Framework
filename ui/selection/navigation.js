@@ -310,10 +310,10 @@ Navigation.prototype.navigatePath = function(path, data) {
 
 
 /**
- * @param {tuna.ui.selection.Navigation} navigation
+ * @param {tuna.ui.ModuleInstance|tuna.ui.selection.Navigation} navigation
  */
 Navigation.prototype.addChild = function(navigation) {
-    if (navigation !== null) {
+    if (navigation instanceof tuna.ui.selection.Navigation) {
         navigation.setParent(this);
 
         var name = navigation.getName();
