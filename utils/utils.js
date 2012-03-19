@@ -9,16 +9,6 @@ tuna.utils.toArray = function(list) {
 };
 
 /**
- *
- * @param {*} list
- * @return {boolean}
- */
-tuna.utils.isArrayLike = function(list) {
-    return list !== undefined &&
-           list !== null && !isNaN(list.length);
-};
-
-/**
  * Объявление реализации интерфейса.
  *
  * Добавление либо замена (уже существующих) методов прототипа класса
@@ -110,47 +100,9 @@ tuna.utils.nextTick = function(callback) {
  * Клонирование объекта.
  *
  * @param {Object} object
- * @param {Array=} clones
  */
-tuna.utils.clone = function(object, clones) {
-    if (tuna.utils.isArrayLike(object)) {
-        return tuna.utils.toArray(object);
-    } else if (object instanceof Date) {
-        return tuna.utils.cloneDate(object);
-    } else if (object instanceof Object) {
-
-        if (clones === undefined) {
-            clones = [];
-        }
-
-        clones.push(object);
-
-        var result = {};
-
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                if (tuna.utils.indexOf(object[key], clones) === -1) {
-                    result[key] = tuna.utils.clone(object[key]);
-                }
-                /*else {
-                    throw new TypeError('Cloning circular structure');
-                }*/
-            }
-        }
-
-        return result;
-    }
-
-    return object;
-};
-
-/**
- * Клонирование даты.
- *
- * @param {Date} date
- */
-tuna.utils.cloneDate = function(date) {
-    return new Date(date.getTime());
+tuna.utils.clone = function(object) {
+    return JSON.parse(JSON.stringify(object));
 };
 
 /**
