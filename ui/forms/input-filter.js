@@ -107,7 +107,7 @@ InputFilter.prototype._filterData = function(term) {
     var result = [];
 
     if (!term || term.length === 0) {
-        result = this._data;
+        result = tuna.utils.cloneArray(this._data);
     } else {
         var needle = term.toUpperCase();
 
