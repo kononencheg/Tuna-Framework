@@ -20,12 +20,6 @@ var Form = function(target) {
 
     /**
      * @private
-     * @type string
-     */
-    this.__callbackName = Form.CALLBACK_PREFIX + (Math.random() + '').substr(2);
-
-    /**
-     * @private
      * @type ?string
      */
     this.__recordName = null;
@@ -47,28 +41,36 @@ Form.prototype.init = function() {
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
     var callbackInput = document.createElement('input');
-    callbackInput.setAttribute('type', 'hidden');
-    callbackInput.setAttribute('name', '__callback');
+    callbackInput.type = 'hidden';
+    callbackInput.name = '__callback';
 
     this._target.appendChild(callbackInput);
 
     var self = this;
-    var prepareListener = function(event) {
+
+    tuna.dom.addEventListener(this._target, 'submit', function(event) {
         if (self.isEnabled()) {
-            callbackInput.setAttribute('value', self.__callbackName);
+            callbackInput.value
+                = Form.CALLBACK_PREFIX + (Math.random() + '').substr(2);
+
+            window[callbackInput.value] = function(response) {
+                self.__handleResponse(tuna.utils.clone(response));
+                window[callbackInput.value] = undefined;
+            };
+
             self.__prepareTo(event.type, event);
         } else {
             tuna.dom.preventDefault(event);
         }
-    };
+    });
 
-    tuna.dom.addEventListener(this._target, 'submit', prepareListener);
-    tuna.dom.addEventListener(this._target, 'reset', prepareListener);
-
-    window[this.__callbackName] = function(response) {
-        self.__handleResponse(tuna.utils.clone(response));
-        response = null;
-    };
+    tuna.dom.addEventListener(this._target, 'reset', function(event) {
+        if (self.isEnabled()) {
+            self.__prepareTo(event.type, event);
+        } else {
+            tuna.dom.preventDefault(event);
+        }
+    });
 };
 
 /**
