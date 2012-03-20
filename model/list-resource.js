@@ -172,6 +172,25 @@ ListResource.prototype.find = function(callback) {
 };
 
 /**
+ * @param {!function(tuna.model.Record):boolean} callback
+ * @return {tuna.model.Record}
+ */
+ListResource.prototype.findOne = function(callback) {
+    var i = 0,
+        l = this._list.length;
+
+    while (i < l) {
+        if (callback(this._list[i])) {
+            return this._list[i];
+        }
+
+        i++;
+    }
+
+    return null;
+};
+
+/**
  * @param {!function(tuna.model.Record):*} callback
  * @return {Array}
  */
