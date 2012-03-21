@@ -171,7 +171,7 @@ var Config = function() {
 
     /**
      * @private
-     * @type {Object.<string, string>}
+     * @type {Object.<(string|number), (string|number|boolean)>}
      */
     this.__data = null;
 };
@@ -184,11 +184,16 @@ Config.prototype.init = function(data) {
 };
 
 /**
- * @param {!string} key
- * @return {?string}
+ * @param {!(string|number)} key
+ * @param {(string|number)=} subKey
+ * @return {?(string|number|boolean)}
  */
-Config.prototype.get = function(key) {
+Config.prototype.get = function(key, subKey) {
     if (this.__data[key] !== undefined) {
+        if (subKey !== undefined) {
+            return this.__data[key][subKey] || null;
+        }
+
         return this.__data[key];
     }
 
