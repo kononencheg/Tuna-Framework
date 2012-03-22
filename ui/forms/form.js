@@ -84,7 +84,7 @@ Form.prototype.getValue = function(name) {
     if (element !== undefined) {
         var isCheck = false;
 
-        if (element instanceof NodeList) {
+        if (!isNaN(element.length)) {
             var elements = tuna.utils.toArray(element);
 
             var i = 0,
@@ -124,7 +124,7 @@ Form.prototype.getValue = function(name) {
 Form.prototype.setValue = function(name, value) {
     var element = this._target.elements[name];
     if (element !== undefined) {
-        if (element instanceof NodeList) {
+        if (!isNaN(element.length)) {
             var elements = tuna.utils.toArray(element);
 
             var i = 0,
