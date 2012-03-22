@@ -84,11 +84,7 @@ Attribute.prototype.__setAttribute = function(value) {
 Attribute.prototype.__removeAttribute = function() {
     var i = this._nodes.length - 1;
     while (i >= 0) {
-        if (this._nodes[i][this.__attributeName] !== undefined) {
-            this._nodes[i][this.__attributeName] = null;
-        } else {
-            this._nodes[i].removeAttribute(this.__attributeName);
-        }
+        this._nodes[i].removeAttribute(this.__attributeName);
 
         i--;
     }
