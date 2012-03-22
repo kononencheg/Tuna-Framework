@@ -84,7 +84,7 @@ Form.prototype.getValue = function(name) {
     if (element !== undefined) {
         var isCheck = false;
 
-        if (!isNaN(element.length)) {
+        if (element.value === undefined) {
             var i = 0,
                 l = element.length;
 
@@ -122,7 +122,7 @@ Form.prototype.getValue = function(name) {
 Form.prototype.setValue = function(name, value) {
     var element = this._target.elements[name];
     if (element !== undefined) {
-        if (!isNaN(element.length)) {
+        if (element.value === undefined) {
             var i = 0,
                 l = element.length;
 
