@@ -85,19 +85,17 @@ Form.prototype.getValue = function(name) {
         var isCheck = false;
 
         if (!isNaN(element.length)) {
-            var elements = tuna.utils.toArray(element);
-
             var i = 0,
-                l = elements.length;
+                l = element.length;
 
             result = [];
 
             while (i < l) {
-                isCheck = elements[i].type === 'checkbox' ||
-                          elements[i].type === 'radio';
+                isCheck = element[i].type === 'checkbox' ||
+                          element[i].type === 'radio';
 
-                if (!isCheck || (isCheck && elements[i].checked)) {
-                    result.push(elements[i].value);
+                if (!isCheck || (isCheck && element[i].checked)) {
+                    result.push(element[i].value);
                 }
 
                 i++;
@@ -125,10 +123,8 @@ Form.prototype.setValue = function(name, value) {
     var element = this._target.elements[name];
     if (element !== undefined) {
         if (!isNaN(element.length)) {
-            var elements = tuna.utils.toArray(element);
-
             var i = 0,
-                l = elements.length;
+                l = element.length;
 
             var stringValue = '';
             var arrayValue = [];
@@ -143,12 +139,12 @@ Form.prototype.setValue = function(name, value) {
 
             var index = -1;
             while (i < l) {
-                if (elements[i].type === 'radio') {
-                    elements[i].checked = elements[i].value === stringValue;
-                } else if (elements[i].type === 'checkbox') {
-                    index = tuna.utils.indexOf(elements[i].value, arrayValue);
+                if (element[i].type === 'radio') {
+                    element[i].checked = element[i].value === stringValue;
+                } else if (element[i].type === 'checkbox') {
+                    index = tuna.utils.indexOf(element[i].value, arrayValue);
 
-                    elements[i].checked = index !== -1;
+                    element[i].checked = index !== -1;
 
                     if (index !== -1) {
                         arrayValue.splice(index, 1);
