@@ -243,7 +243,7 @@ Navigation.prototype.back = function() {
                 this.__currentState.getData()
             );
 
-            window.history.back();
+            //window.history.back();
         }
     } else {
         this.getRoot().back();
@@ -269,7 +269,7 @@ Navigation.prototype.navigate = function(path, data) {
 
             this.__currentState = new NavigationState(this.getPathDesc(), data);
 
-            window.history.pushState(null, '', this.__currentState.serialize());
+            //window.history.pushState(null, '', this.__currentState.serialize());
 
         } else {
             this.navigatePath(path, data);
