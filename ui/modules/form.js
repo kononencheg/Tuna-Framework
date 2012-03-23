@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var FormModule = function() {
-    tuna.ui.Module.call(this, 'form', 'form.j-form');
+    tuna.ui.Module.call(this, 'form.j-form');
 };
 
 tuna.utils.extend(FormModule, tuna.ui.Module);
@@ -15,4 +15,4 @@ FormModule.prototype.initInstance = function(target) {
     return new tuna.ui.forms.Form(target);
 };
 
-tuna.ui.modules.form = new FormModule();
+tuna.ui.modules.register('form', new FormModule());

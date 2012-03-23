@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var ButtonModule = function() {
-    tuna.ui.Module.call(this, 'button', '.j-button');
+    tuna.ui.Module.call(this, '.j-button');
 };
 
 tuna.utils.extend(ButtonModule, tuna.ui.Module);
@@ -15,4 +15,4 @@ ButtonModule.prototype.initInstance = function(target) {
     return tuna.ui.buttons.create(target);
 };
 
-tuna.ui.modules.button = new ButtonModule();
+tuna.ui.modules.register('button', new ButtonModule());

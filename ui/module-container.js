@@ -7,7 +7,7 @@ var ModuleContainer = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
-     * @type Array.<tuna.ui.Module>
+     * @type Array.<string>
      */
     this.__modules = [];
 
@@ -53,11 +53,11 @@ ModuleContainer.prototype.initModules = function(target) {
     var i = 0,
         l = this.__modules.length;
 
-    var module = null;
     var type = null;
+    var module = null;
     while (i < l) {
-        module = this.__modules[i];
-        type = module.getName();
+        type = this.__modules[i];
+        module = tuna.ui.modules.getModule(type);
 
         if (module !== null) {
             if (this.__instances[type] === undefined) {
@@ -129,18 +129,8 @@ ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
  */
 ModuleContainer.prototype.destroyModules = function() {
     for (var name in this.__instances) {
-
-        var i = 0,
-            l = this.__modules.length;
-
-        var module = null;
-        while (i < l) {
-            module = this.__modules[i];
-            module.destroy(this.__instances[module.getName()]);
-
-            i++;
-        }
-
+        tuna.ui.modules.getModule(name)
+                       .destroy(this.__instances[name]);
 
         this.__instances[name].length = 0;
     }

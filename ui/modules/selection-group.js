@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var SelectionGroupModule = function() {
-    tuna.ui.Module.call(this, 'selection-group', '.j-selection-group');
+    tuna.ui.Module.call(this, '.j-selection-group');
 };
 
 tuna.utils.extend(SelectionGroupModule, tuna.ui.Module);
@@ -34,4 +34,4 @@ SelectionGroupModule.prototype.initInstance = function(target) {
 
 
 
-tuna.ui.modules.selectionGroup = new SelectionGroupModule();
+tuna.ui.modules.register('selection-group', new SelectionGroupModule());
