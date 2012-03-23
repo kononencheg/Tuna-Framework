@@ -3,7 +3,7 @@
  * @extends {tuna.ui.Module}
  */
 var InputFilterModule = function() {
-    tuna.ui.Module.call(this, '.j-input-filter');
+    tuna.ui.Module.call(this, 'input-filter', '.j-input-filter');
 };
 
 tuna.utils.extend(InputFilterModule, tuna.ui.Module);
@@ -15,4 +15,4 @@ InputFilterModule.prototype.initInstance = function(target) {
     return new tuna.ui.forms.InputFilter(target);
 };
 
-tuna.ui.modules.register('input-filter', new InputFilterModule());
+tuna.ui.modules.inputFilter = new InputFilterModule();

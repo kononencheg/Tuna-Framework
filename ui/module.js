@@ -1,13 +1,28 @@
 /**
  * @constructor
+ * @param {!string} name
  * @param {string} selector
  */
-var Module = function(selector) {
+var Module = function(name, selector) {
+
+    /**
+     * @type {string}
+     * @private
+     */
+    this.__name = name;
+
     /**
      * @protected
      * @type {string}
      */
     this._selector = selector;
+};
+
+/**
+ * @return {string}
+ */
+Module.prototype.getName = function() {
+    return this.__name;
 };
 
 /**
