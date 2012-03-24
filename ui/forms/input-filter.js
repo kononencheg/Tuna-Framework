@@ -50,7 +50,7 @@ InputFilter.prototype.init = function() {
         var self = this;
 
         var lastValue = null;
-        tuna.dom.addEventListener(this._input, 'keyup', function(event) {
+        tuna.dom.addEventListener(this._input, 'keyup', function() {
             if (this.value !== lastValue) {
                 self.filter(this.value);
                 lastValue = this.value;

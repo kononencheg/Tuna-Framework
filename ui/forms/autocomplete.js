@@ -27,49 +27,54 @@ tuna.utils.extend(Autocomplete, tuna.ui.forms.InputFilter);
  */
 Autocomplete.prototype.init = function() {
     tuna.ui.forms.InputFilter.prototype.init.call(this);
-    var body = tuna.dom.selectOne('.j-autocomplete-body', this._target);
 
+    var body = tuna.dom.selectOne('.j-autocomplete-body', this._target);
     var self = this;
 
     var isOpen = false;
-    tuna.dom.addEventListener(this._input, 'focus', function(event) {
-        if (!isOpen) {
-            tuna.dom.addOneEventListener(
-                document.body, 'click', function() {
-                    self.selectValue(self._input.value);
 
-                    if (self.getSelectedData() === null) {
-                        self.clear();
-                    }
+    if (this._input !== null) {
+        tuna.dom.addEventListener(this._input, 'focus', function(event) {
+            if (!isOpen) {
+                if (document.body !== null) {
+                    tuna.dom.addOneEventListener(
+                        document.body, 'click', function() {
+                            self.selectValue(self._input.value);
 
-                    tuna.dom.addClass(body, 'hide');
-                    isOpen = false;
+                            if (self.getSelectedData() === null) {
+                                self.clear();
+                            }
+
+                            tuna.dom.addClass(body, 'hide');
+                            isOpen = false;
+                        }
+                    );
                 }
-            );
 
-            self.filter('');
-            tuna.dom.removeClass(body, 'hide');
-            isOpen = true;
-        }
-    });
-
-    tuna.dom.addChildEventListener(
-        this._target, '.j-autocomplete-item', 'click', function(event) {
-            var index = self.__selectionGroup.getItemIndex(this);
-            if (index !== null) {
-                self.selectIndex(index);
-            } else {
-                tuna.dom.stopPropagation(event);
+                self.filter('');
+                tuna.dom.removeClass(body, 'hide');
+                isOpen = true;
             }
-        }
-    );
+        });
 
-    tuna.dom.addEventListener(this._input, 'click', function(event) {
-        tuna.dom.stopPropagation(event);
-    });
+        tuna.dom.addChildEventListener(
+            this._target, '.j-autocomplete-item', 'click', function(event) {
+                var index = self.__selectionGroup.getItemIndex(this);
+                if (index !== null) {
+                    self.selectIndex(index);
+                } else {
+                    tuna.dom.stopPropagation(event);
+                }
+            }
+        );
 
-    this.__selectionGroup.setOption('item-selector', '.j-autocomplete-item');
-    this.__selectionGroup.init();
+        tuna.dom.addEventListener(this._input, 'click', function(event) {
+            tuna.dom.stopPropagation(event);
+        });
+
+        this.__selectionGroup.setOption('item-selector', '.j-autocomplete-item');
+        this.__selectionGroup.init();
+    }
 };
 
 /**

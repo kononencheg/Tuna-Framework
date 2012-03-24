@@ -127,10 +127,10 @@ tuna.dom.createFragment = function(html, doc) {
 
 /**
  * TODO: Make remove child listener
- * @param {Node} element
- * @param {string} childSelector
- * @param {string} type
- * @param {function(Event)} handler
+ * @param {!Node} element
+ * @param {!string} childSelector
+ * @param {!string} type
+ * @param {!function(Event)} handler
  */
 tuna.dom.addChildEventListener = function(element, childSelector, type, handler) {
     tuna.dom.addEventListener(element, type, function(event) {
@@ -149,42 +149,49 @@ tuna.dom.addChildEventListener = function(element, childSelector, type, handler)
 };
 
 /**
- * @param {Node} element
- * @param {string} type
- * @param {function(Event)} handler
+ * @param {!Node} element
+ * @param {!string} type
+ * @param {!function(Event)} handler
  */
 tuna.dom.addEventListener = function(element, type, handler) {
     if (element.addEventListener !== undefined) {
         element.addEventListener(type, handler, false);
     } else if (element.attachEvent !== undefined) {
+        var listener = tuna.utils.bind(handler, element);
+
         var eventName = 'on' + type;
         if (element[eventName] === undefined) {
-            tuna.dom.__addCustomIEListener(element, type, handler);
+            tuna.dom.__addCustomIEListener(element, type, listener);
         } else {
-            element.attachEvent(eventName, handler);
+            element.attachEvent(eventName, listener);
         }
+
+        listener = null;
     }
 };
 
 /**
  * TODO: Make remove listener
- * @param {Node} element
- * @param {string} type
- * @param {function(Event)} handler
+ * @param {!Node} element
+ * @param {!string} type
+ * @param {!function(Event)} handler
  */
 tuna.dom.addOneEventListener = function(element, type, handler) {
-    var listener = function(event) {
+    /**
+     * @param {Event} event
+     */
+    function listener(event) {
         handler.call(element, event);
         tuna.dom.removeEventListener(element, type, listener);
-    };
+    }
 
     tuna.dom.addEventListener(element, type, listener);
 };
 
 /**
- * @param {Node} element
- * @param {string} type
- * @param {function(Event)} handler
+ * @param {!Node} element
+ * @param {!string} type
+ * @param {!function(Event)} handler
  */
 tuna.dom.removeEventListener = function(element, type, handler) {
     if (element.removeEventListener !== undefined) {
@@ -201,8 +208,8 @@ tuna.dom.removeEventListener = function(element, type, handler) {
 };
 
 /**
- * @param {Node} element
- * @param {string} type
+ * @param {!Node} element
+ * @param {!string} type
  * @param {string=} data
  */
 tuna.dom.dispatchEvent = function(element, type, data) {
@@ -232,7 +239,7 @@ tuna.dom.dispatchEvent = function(element, type, data) {
 };
 
 /**
- * @param {Event} event
+ * @param {!Event} event
  */
 tuna.dom.preventDefault = function(event) {
     if (event.preventDefault !== undefined) {
@@ -243,7 +250,7 @@ tuna.dom.preventDefault = function(event) {
 };
 
 /**
- * @param {Event} event
+ * @param {!Event} event
  */
 tuna.dom.stopPropagation = function(event) {
     if (event.stopPropagation !== undefined) {

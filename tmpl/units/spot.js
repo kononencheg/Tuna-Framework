@@ -14,7 +14,7 @@ var Spot = function(root) {
 
     /**
      * @protected
-     * @type Array.<Node>
+     * @type Array.<!Node>
      */
     this._nodes = [];
 

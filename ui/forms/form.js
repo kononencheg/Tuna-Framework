@@ -192,7 +192,7 @@ Form.prototype.serialize = function() {
 
 /**
  * @param {string} type
- * @param {Event=} event
+ * @param {!Event=} event
  */
 Form.prototype.__prepareTo = function(type, event) {
     if (this.dispatch(type)) {
