@@ -1,51 +1,3 @@
-/**
- * TUNA FRAMEWORK
- *
- * @author Kononenko Sergey <kononenheg@gmail.com>
- */
-
-tuna.dom.__addCustomIEListener = function(element, type, handler) {
-    if (element.__customListener == undefined) {
-        element.__customListener = function(event) {
-            if (event.__type !== undefined) {
-                var type = event.__type;
-                delete event.__type;
-
-                var handlers = element['__' + type];
-                for (var i in handlers) {
-                    handlers[i].call(element, event);
-                }
-            }
-        };
-
-        element.attachEvent('onhelp', element.__customListener);
-    }
-
-    if (element['__' + type] === undefined) {
-        element['__' + type] = [];
-    }
-
-    element['__' + type].push(handler);
-};
-
-tuna.dom.__removeCustomIEListener = function(element, type, handler) {
-    var handlers = element['__' + type];
-    if (handlers !== undefined) {
-        var i = handlers.length - 1;
-        while (i >= 0) {
-            if (handlers[i] === handler) {
-                handlers.splice(i, 1);
-            }
-
-            i--;
-        }
-    }
-};
-
-tuna.dom.__dispatchCustomIEEvent = function(element, event, type) {
-    event.__type = type;
-    return element.fireEvent('onhelp', event);
-};
 
 tuna.dom.__selectorEngine = null;
 
@@ -410,4 +362,104 @@ tuna.dom.getAttributesData = function(element, prefix) {
     }
 
     return result;
+};
+
+/**
+ * Добавление слушателя события DOM-елемента.
+ *
+ * @param {!Node} element DOM-элемент, событие которого нужно слушать.
+ * @param {!string} type Тип обрабатываемого события.
+ * @param {!function(Event)} handler Функция-бработчик события. 
+ */
+tuna.dom.addEventListener = function(element, type, handler) {
+    if (element.addEventListener !== undefined) {
+        element.addEventListener(type, handler, false);
+    } else if (element.attachEvent !== undefined) {
+        var listener = tuna.utils.bind(handler, element);
+
+        var eventName = 'on' + type;
+        if (element[eventName] === undefined) {
+            tuna.dom.__addCustomIEListener(element, type, listener);
+        } else {
+            element.attachEvent(eventName, listener);
+        }
+
+        listener = null;
+    }
+};
+
+
+/**
+ * Добавление обработчика нестандартного события в Internet Explorer.
+ *
+ * В качестве вспомогательного события, данный метод использует событие 
+ * <code>'onhelp'</code>.
+ *
+ * @see tuna.dom.__dispatchCustomIEEvent()
+ * @param {!Node} element DOM-елемент, событие которого нужно обрабатывать.
+ * @param {!string} type Тип обрабатываемого события.
+ * @param {!function(Event)} handler Функция-обработчик события.
+ */
+tuna.dom.__addCustomIEListener = function(element, type, handler) {
+    if (element['__customListener'] === undefined) {
+        element['__customListener'] = function(event) {
+            if (event.__type !== undefined) {
+                var type = event['__type'];
+                delete event['__type'];
+
+                var handlers = element['__' + type];
+                for (var i in handlers) {
+                    handlers[i].call(element, event);
+                }
+            }
+        };
+
+        element.attachEvent('onhelp', element['__customListener']);
+    }
+
+    if (element['__' + type] === undefined) {
+        element['__' + type] = [];
+    }
+
+    element['__' + type].push(handler);
+};
+
+/**
+ * Удаление нестандартного события в Internet Explorer.
+ *
+ * @see tuna.dom.__addCustomIEListener()
+ * @param {!Node} element DOM-елемент, слушатель события которого нужно удалить.
+ * @param {!string} type Тип кдаляемого события.
+ * @param {!function(Event)} handler Удаляемая функция-обработчик события.
+ */
+tuna.dom.__removeCustomIEListener = function(element, type, handler) {
+    var handlers = element['__' + type];
+    if (handlers !== undefined) {
+        var i = handlers.length - 1;
+        while (i >= 0) {
+            if (handlers[i] === handler) {
+                handlers.splice(i, 1);
+            }
+
+            i--;
+        }
+    }
+};
+
+
+/** 
+ * Оповещение слушателей нестандартного события в Internet Explorer.
+ * 
+ * Также как и функция <code>tuna.dom.__addCustomIEListener()</code> использует
+ * в качестве вспомогательного событие <code>'onhelp'/code>.
+ * 
+ * @see tuna.dom.__addCustomIEListener()
+ * @param {!Node} element DOM-елемент, событие которого нужно обрабатывать.
+ * @param {!Event} event Объект события стандартной событийной модели браузера.
+ * @param {!string} type Тип не стандартного события.
+ * @return {boolean} Успех оповещения о событии.
+ */
+tuna.dom.__dispatchCustomIEEvent = function(element, event, type) {
+    event['__type'] = type;
+    return element.fireEvent('onhelp', event);
 };
