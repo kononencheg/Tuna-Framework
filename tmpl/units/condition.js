@@ -1,9 +1,10 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
  * @param {tuna.tmpl.units.Template} root
  */
-var Condition = function(root) {
+tuna.tmpl.units.Condition = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
@@ -19,26 +20,26 @@ var Condition = function(root) {
     this.__operator = null;
 };
 
-tuna.utils.extend(Condition, tuna.tmpl.units.Spot);
+tuna.utils.extend(tuna.tmpl.units.Condition, tuna.tmpl.units.Spot);
 
 /**
  * @param {__ConditionAction} action
  */
-Condition.prototype.setAction = function(action) {
+tuna.tmpl.units.Condition.prototype.setAction = function(action) {
     this.__action = action;
 };
 
 /**
  * @param {__ConditionOperator} operator
  */
-Condition.prototype.setOperator = function(operator) {
+tuna.tmpl.units.Condition.prototype.setOperator = function(operator) {
     this.__operator = operator;
 };
 
 /**
  * @override
  */
-Condition.prototype._applyValue = function(value) {
+tuna.tmpl.units.Condition.prototype._applyValue = function(value) {
     var testResult = this.__operator.test(value);
 
     var i = this._nodes.length - 1;
@@ -47,9 +48,3 @@ Condition.prototype._applyValue = function(value) {
         i--;
     }
 };
-
-/**
- * @constructor
- * @extends {Condition}
- */
-tuna.tmpl.units.Condition = Condition;

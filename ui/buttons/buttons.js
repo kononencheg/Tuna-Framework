@@ -27,6 +27,4 @@ tuna.ui.buttons.create = function(target) {
     }
 
     return tuna.ui.buttons.__idTable[target.id];
-
-
 };

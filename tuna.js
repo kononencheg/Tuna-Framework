@@ -28,7 +28,7 @@ tuna.IS_IE = !!eval("'\v' == 'v'");
 /**
  * @define {boolean}
  */
-tuna.IS_COMPILED = false;
+tuna.IS_COMPILED = true;
 
 /**
  * @namespace
@@ -118,11 +118,6 @@ tuna.ui.popups = {};
 /**
  * @namespace
  */
-tuna.ui.modules = {};
-
-/**
- * @namespace
- */
 tuna.ui.selection = {};
 
 /**
@@ -153,4 +148,4 @@ tuna.utils = {};
 /**
  * @namespace
  */
-tuna.view = {};
+tuna.control = {};

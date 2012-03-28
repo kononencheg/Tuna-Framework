@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.forms.InputFilter}
+ * @extends tuna.ui.forms.InputFilter
  * @param {!Node} target
  */
-var Autocomplete = function(target) {
+tuna.ui.forms.Autocomplete = function(target) {
     tuna.ui.forms.InputFilter.call(this, target);
 
     /**
@@ -20,12 +20,12 @@ var Autocomplete = function(target) {
 
 };
 
-tuna.utils.extend(Autocomplete, tuna.ui.forms.InputFilter);
+tuna.utils.extend(tuna.ui.forms.Autocomplete, tuna.ui.forms.InputFilter);
 
 /**
  * @override
  */
-Autocomplete.prototype.init = function() {
+tuna.ui.forms.Autocomplete.prototype.init = function() {
     tuna.ui.forms.InputFilter.prototype.init.call(this);
 
     var body = tuna.dom.selectOne('.j-autocomplete-body', this._target);
@@ -80,14 +80,14 @@ Autocomplete.prototype.init = function() {
 /**
  * @return {Object}
  */
-Autocomplete.prototype.getSelectedData = function() {
+tuna.ui.forms.Autocomplete.prototype.getSelectedData = function() {
     return this.__selectedData;
 };
 
 /**
  * @param {string} value
  */
-Autocomplete.prototype.selectValue = function(value) {
+tuna.ui.forms.Autocomplete.prototype.selectValue = function(value) {
     this.__selectedData = null;
 
     var filteredData = this._filterData(value);
@@ -103,7 +103,7 @@ Autocomplete.prototype.selectValue = function(value) {
 /**
  * @param {string|number} index
  */
-Autocomplete.prototype.selectIndex = function(index) {
+tuna.ui.forms.Autocomplete.prototype.selectIndex = function(index) {
     if (this._currentData.length > 0) {
         this.__selectData(this._currentData[index]);
     }
@@ -113,7 +113,7 @@ Autocomplete.prototype.selectIndex = function(index) {
  * @param {Object} dataItem
  * @private
  */
-Autocomplete.prototype.__selectData = function(dataItem) {
+tuna.ui.forms.Autocomplete.prototype.__selectData = function(dataItem) {
     if (this.__selectedData !== dataItem) {
 
         this.__selectedData = dataItem;
@@ -126,7 +126,7 @@ Autocomplete.prototype.__selectData = function(dataItem) {
 /**
  *
  */
-Autocomplete.prototype.clearSelection = function() {
+tuna.ui.forms.Autocomplete.prototype.clearSelection = function() {
     if (this.__selectedData !== null) {
         this.__selectedData = null;
 
@@ -137,14 +137,8 @@ Autocomplete.prototype.clearSelection = function() {
 /**
  * @override
  */
-Autocomplete.prototype.update = function() {
+tuna.ui.forms.Autocomplete.prototype.update = function() {
     tuna.ui.forms.InputFilter.prototype.update.call(this);
     this.__selectionGroup.updateView();
     this.clearSelection();
 };
-
-/**
- * @constructor
- * @extends {Autocomplete}
- */
-tuna.ui.forms.Autocomplete = Autocomplete;

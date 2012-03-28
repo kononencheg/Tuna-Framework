@@ -9,31 +9,6 @@ tuna.utils.toArray = function(list) {
 };
 
 /**
- * Объявление реализации интерфейса.
- *
- * Добавление либо замена (уже существующих) методов прототипа класса
- * 'интерфейса', неоходимое для оповещения о не реализованных методах.
- *
- * При объявлении интерфейса в каждом объявленном методе следует
- * генерировать ошибку типа <code>InterfaceMethodError</code>.
- *
- * Данную функцию следует вызывать перез вызовом функции
- * <code>tuna.utils.extend</code>.
- *
- * @param {!Object} Class Класс который должен реализовать интерфейс.
- * @param {!Object} Interface Класс "интерфейс" для реализации.
- */
-tuna.utils.implement = function(Class, Interface) {
-    if (!tuna.IS_COMPILED) {
-        for (var method in Interface.prototype) {
-            if (typeof Interface.prototype[method] === 'function') {
-                Class.prototype[method] = Interface.prototype[method];
-            }
-        }
-    }
-};
-
-/**
  * Наследование типа.
  *
  * Передает прототип родительского класса дочернему классу без ссылки на
@@ -44,6 +19,7 @@ tuna.utils.implement = function(Class, Interface) {
  */
 tuna.utils.extend = function(Class, Parent) {
     /**
+     * @private
      * @constructor
      */
     var Link = function() {};

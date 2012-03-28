@@ -1,10 +1,10 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
- * @implements {tuna.ui.selection.ISelectionGroup}
+ * @extends tuna.ui.ModuleInstance
+ * @implements tuna.ui.selection.ISelectionGroup
  * @param {!Node} target
  */
-var AbstractSelectionGroup = function(target) {
+tuna.ui.selection.AbstractSelectionGroup = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     this._itemsCollection = null;
@@ -13,63 +13,77 @@ var AbstractSelectionGroup = function(target) {
     this._selectionRule = null;
 };
 
-tuna.utils.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
-tuna.utils.extend(AbstractSelectionGroup, tuna.ui.ModuleInstance);
+
+tuna.utils.extend
+    (tuna.ui.selection.AbstractSelectionGroup, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.setIndexEnabled
+tuna.ui.selection.AbstractSelectionGroup.prototype.setIndexEnabled
     = function(index, isEnabled) {
+
     this._selectionRule.setIndexEnabled(index, isEnabled);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
-    return this._selectionRule.isIndexEnabled();
+tuna.ui.selection.AbstractSelectionGroup.prototype.isIndexEnabled
+    = function(index) {
+
+    return this._selectionRule.isIndexEnabled(index);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.updateView = function() {
+tuna.ui.selection.AbstractSelectionGroup.prototype.updateView = function() {
     this._selectionView.update();
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.getItemIndex = function(item) {
+tuna.ui.selection.AbstractSelectionGroup.prototype.getItemIndex
+    = function(item) {
+
     return this._itemsCollection.getItemIndex(item);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.getItemAt = function(index) {
+tuna.ui.selection.AbstractSelectionGroup.prototype.getItemAt
+    = function(index) {
+
     return this._itemsCollection.getItemAt(index);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.mapItems = function(callback) {
+tuna.ui.selection.AbstractSelectionGroup.prototype.mapItems
+    = function(callback) {
+
     this._itemsCollection.mapItems(callback);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.getSelectedIndexes = function() {
+tuna.ui.selection.AbstractSelectionGroup.prototype.getSelectedIndexes
+    = function() {
+
     return this._selectionRule.getSelectedIndexes();
 };
 
 /**
  * @return {?(string|number)}
  */
-AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
+tuna.ui.selection.AbstractSelectionGroup.prototype.getLastSelectedIndex
+    = function() {
+
     var indexes = this._selectionRule.getSelectedIndexes();
     if (indexes.length > 0) {
         return indexes.pop();
@@ -81,26 +95,26 @@ AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.selectIndex = function(index) {
+tuna.ui.selection.AbstractSelectionGroup.prototype.selectIndex
+    = function(index) {
+
     return this._selectionRule.selectIndex(index);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.isSelected = function(index) {
+tuna.ui.selection.AbstractSelectionGroup.prototype.isSelected
+    = function(index) {
+
     return this._selectionRule.isSelected(index);
 };
 
 /**
  * @override
  */
-AbstractSelectionGroup.prototype.clearSelection = function() {
+tuna.ui.selection.AbstractSelectionGroup.prototype.clearSelection
+    = function() {
+
     this._selectionRule.clearSelection();
 };
-
-/**
- * @constructor
- * @extends {AbstractSelectionGroup}
- */
-tuna.ui.selection.AbstractSelectionGroup = AbstractSelectionGroup;

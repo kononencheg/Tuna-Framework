@@ -9,7 +9,7 @@ var ListCompiler = function(doc, compiler) {
     this.__templateCompiler = compiler;
 };
 
-tuna.utils.implement(ListCompiler, tuna.tmpl.compilers.IItemCompiler);
+
 
 /**
  * @override

@@ -3,7 +3,7 @@
  * @extends {tuna.tmpl.units.CompiledUnit}
  * @param {tuna.tmpl.units.Template} root
  */
-var Template = function(root) {
+tuna.tmpl.units.Template = function(root) {
     tuna.tmpl.units.CompiledUnit.call(this, root || this);
 
     /**
@@ -31,54 +31,54 @@ var Template = function(root) {
     this.__target = null;
 };
 
-tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
+tuna.utils.extend(tuna.tmpl.units.Template, tuna.tmpl.units.CompiledUnit);
 
 /**
  * @param {Node} element
  */
-Template.prototype.setTarget = function(element) {
+tuna.tmpl.units.Template.prototype.setTarget = function(element) {
     this.__target = element;
 };
 
 /**
  * @param {Array.<tuna.tmpl.units.CompiledUnit>|tuna.tmpl.units.CompiledUnit} items
  */
-Template.prototype.addItems = function(items) {
+tuna.tmpl.units.Template.prototype.addItems = function(items) {
     this.__items = this.__items.concat(items);
 };
 
 /**
  * @param {Node} child
  */
-Template.prototype.registerChildCreation = function(child) {
+tuna.tmpl.units.Template.prototype.registerChildCreation = function(child) {
     this.__createdChildren = this.__createdChildren.concat(child);
 };
 
 /**
  * @return {Array.<Node>}
  */
-Template.prototype.fetchCreatedChildren = function() {
+tuna.tmpl.units.Template.prototype.fetchCreatedChildren = function() {
     return this.__createdChildren.splice(0, this.__createdChildren.length);
 };
 
 /**
  * @param {Node} child
  */
-Template.prototype.registerChildRemoval = function(child) {
+tuna.tmpl.units.Template.prototype.registerChildRemoval = function(child) {
     this.__removedChildren = this.__removedChildren.concat(child);
 };
 
 /**
  * @return {Array.<Node>}
  */
-Template.prototype.fetchRemovedChildren = function() {
+tuna.tmpl.units.Template.prototype.fetchRemovedChildren = function() {
     return this.__removedChildren.splice(0, this.__removedChildren.length);
 };
 
 /**
  * @override
  */
-Template.prototype.applyData = function(dataNode) {
+tuna.tmpl.units.Template.prototype.applyData = function(dataNode) {
     var i = this.__items.length - 1;
     while (i >= 0) {
         this.__items[i].applyData(dataNode);
@@ -90,21 +90,27 @@ Template.prototype.applyData = function(dataNode) {
 /**
  * @override
  */
-Template.prototype.destroy = function(isHard) {
+tuna.tmpl.units.Template.prototype.destroy = function() {
     var i = this.__items.length - 1;
     while (i >= 0) {
-        this.__items[i].destroy(isHard);
+        this.__items[i].destroy();
 
         i--;
     }
 
-    if (isHard) {
-        this.__target.parentNode.removeChild(this.__target);
-    }
+    this.__target = null;
 };
 
 /**
- * @constructor
- * @extends {Template}
+ * @override
  */
-tuna.tmpl.units.Template = Template;
+tuna.tmpl.units.Template.prototype.remove = function() {
+    var i = this.__items.length - 1;
+    while (i >= 0) {
+        this.__items[i].remove();
+
+        i--;
+    }
+
+    this.__target.parentNode.removeChild(this.__target);
+};

@@ -3,7 +3,7 @@
  * @implements {tuna.tmpl.units.IListItemRouter}
  * @param {Node} container
  */
-var ListContainerRouter = function(container) {
+tuna.tmpl.units.ListContainerRouter = function(container) {
 
     /**
      * @protected
@@ -12,17 +12,9 @@ var ListContainerRouter = function(container) {
     this._container = container;
 };
 
-tuna.utils.implement(ListContainerRouter, tuna.tmpl.units.IListItemRouter);
-
 /**
  * @override
  */
-ListContainerRouter.prototype.append = function(node) {
+tuna.tmpl.units.ListContainerRouter.prototype.append = function(node) {
     this._container.appendChild(node);
 };
-
-/**
- * @constructor
- * @extends {ListContainerRouter}
- */
-tuna.tmpl.units.ListContainerRouter = ListContainerRouter;

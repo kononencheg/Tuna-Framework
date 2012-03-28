@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.events.EventDispatcher}
+ * @extends tuna.events.EventDispatcher
  * @param {!Node} target
  */
-var ModuleInstance = function(target) {
+tuna.ui.ModuleInstance = function(target) {
     tuna.events.EventDispatcher.call(this);
 
     /**
@@ -19,19 +19,19 @@ var ModuleInstance = function(target) {
     this.__defaultOptions = {};
 };
 
-tuna.utils.extend(ModuleInstance, tuna.events.EventDispatcher);
+tuna.utils.extend(tuna.ui.ModuleInstance, tuna.events.EventDispatcher);
 
 /**
  * @return {Node}
  */
-ModuleInstance.prototype.getTarget = function() {
+tuna.ui.ModuleInstance.prototype.getTarget = function() {
     return this._target;
 };
 
 /**
  * @return {string}
  */
-ModuleInstance.prototype.getName = function() {
+tuna.ui.ModuleInstance.prototype.getName = function() {
     return this._target.getAttribute('data-name');
 };
 
@@ -39,14 +39,14 @@ ModuleInstance.prototype.getName = function() {
 /**
  * @param {boolean} isEnabled
  */
-ModuleInstance.prototype.setEnabled = function(isEnabled) {
+tuna.ui.ModuleInstance.prototype.setEnabled = function(isEnabled) {
     tuna.dom.setClassExist(this._target, 'disabled', !isEnabled);
 };
 
 /**
  * @return {boolean}
  */
-ModuleInstance.prototype.isEnabled = function() {
+tuna.ui.ModuleInstance.prototype.isEnabled = function() {
     return !tuna.dom.hasClass(this._target, 'disabled');
 };
 
@@ -55,7 +55,7 @@ ModuleInstance.prototype.isEnabled = function() {
  * @param {string} name
  * @param {null|string|boolean|number} option
  */
-ModuleInstance.prototype._setDefaultOption = function(name, option) {
+tuna.ui.ModuleInstance.prototype._setDefaultOption = function(name, option) {
     if (option === null) {
         delete this.__defaultOptions[name];
     } else {
@@ -67,7 +67,7 @@ ModuleInstance.prototype._setDefaultOption = function(name, option) {
  * @param {string} name
  * @param {null|string|boolean|number} option
  */
-ModuleInstance.prototype.setOption = function(name, option) {
+tuna.ui.ModuleInstance.prototype.setOption = function(name, option) {
     if (option) {
         this._target.setAttribute('data-' + name, option);
     } else {
@@ -79,7 +79,7 @@ ModuleInstance.prototype.setOption = function(name, option) {
  * @param {string} name
  * @return {null|string|boolean|number}
  */
-ModuleInstance.prototype.getOption = function(name) {
+tuna.ui.ModuleInstance.prototype.getOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
         option = this.__defaultOptions[name];
@@ -92,7 +92,7 @@ ModuleInstance.prototype.getOption = function(name) {
  * @param {string} name
  * @return {null|string}
  */
-ModuleInstance.prototype.getStringOption = function(name) {
+tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
         option = this.__defaultOptions[name];
@@ -105,7 +105,7 @@ ModuleInstance.prototype.getStringOption = function(name) {
  * @param {string} name
  * @return {null|number}
  */
-ModuleInstance.prototype.getNumberOption = function(name) {
+tuna.ui.ModuleInstance.prototype.getNumberOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
         option = this.__defaultOptions[name];
@@ -118,7 +118,7 @@ ModuleInstance.prototype.getNumberOption = function(name) {
  * @param {string} name
  * @return {boolean}
  */
-ModuleInstance.prototype.getBooleanOption = function(name) {
+tuna.ui.ModuleInstance.prototype.getBooleanOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
         option = this.__defaultOptions[name];
@@ -131,22 +131,16 @@ ModuleInstance.prototype.getBooleanOption = function(name) {
 /**
  * @return {Object}
  */
-ModuleInstance.prototype.getOptions = function() {
+tuna.ui.ModuleInstance.prototype.getOptions = function() {
     return tuna.dom.getAttributesData(this._target);
 };
 
 /**
  *
  */
-ModuleInstance.prototype.init = function() {};
+tuna.ui.ModuleInstance.prototype.init = function() {};
 
 /**
  *
  */
-ModuleInstance.prototype.destroy = function() {};
-
-/**
- * @constructor
- * @extends {ModuleInstance}
- */
-tuna.ui.ModuleInstance = ModuleInstance;
+tuna.ui.ModuleInstance.prototype.destroy = function() {};

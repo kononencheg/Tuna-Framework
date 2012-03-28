@@ -50,7 +50,7 @@ var Request = function(url) {
     this.__request = null;
 };
 
-tuna.utils.implement(Request, tuna.net.IRequest);
+
 tuna.utils.extend(Request, tuna.events.EventDispatcher);
 
 /**

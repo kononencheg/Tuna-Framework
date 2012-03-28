@@ -3,7 +3,7 @@
  * @extends {tuna.tmpl.units.Spot}
  * @param {tuna.tmpl.units.Template} root
  */
-var Attribute = function(root) {
+tuna.tmpl.units.Attribute = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
@@ -25,12 +25,12 @@ var Attribute = function(root) {
     this.__hasEvent = false;
 };
 
-tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
+tuna.utils.extend(tuna.tmpl.units.Attribute, tuna.tmpl.units.Spot);
 
 /**
  * @param {string} attributeName
  */
-Attribute.prototype.setAttributeName = function(attributeName) {
+tuna.tmpl.units.Attribute.prototype.setAttributeName = function(attributeName) {
     this.__attributeName = attributeName;
     this.__eventName = attributeName + '-change';
 };
@@ -38,14 +38,14 @@ Attribute.prototype.setAttributeName = function(attributeName) {
 /**
  * @param {boolean} hasEvent
  */
-Attribute.prototype.setEvent = function(hasEvent) {
+tuna.tmpl.units.Attribute.prototype.setEvent = function(hasEvent) {
     this.__hasEvent = hasEvent;
 };
 
 /**
  * @override
  */
-Attribute.prototype._applyValue = function(value) {
+tuna.tmpl.units.Attribute.prototype._applyValue = function(value) {
     if (value !== null) {
         this.__setAttribute(value);
     } else {
@@ -64,7 +64,7 @@ Attribute.prototype._applyValue = function(value) {
  * @private
  * @param {*} value
  */
-Attribute.prototype.__setAttribute = function(value) {
+tuna.tmpl.units.Attribute.prototype.__setAttribute = function(value) {
     var i = this._nodes.length - 1;
     while (i >= 0) {
         if (this._nodes[i][this.__attributeName] !== undefined) {
@@ -81,7 +81,7 @@ Attribute.prototype.__setAttribute = function(value) {
 /**
  * @private
  */
-Attribute.prototype.__removeAttribute = function() {
+tuna.tmpl.units.Attribute.prototype.__removeAttribute = function() {
     var i = this._nodes.length - 1;
     while (i >= 0) {
         this._nodes[i].removeAttribute(this.__attributeName);
@@ -94,7 +94,7 @@ Attribute.prototype.__removeAttribute = function() {
  * @private
  * @param {*} value
  */
-Attribute.prototype.__dispatchAttribute = function(value) {
+tuna.tmpl.units.Attribute.prototype.__dispatchAttribute = function(value) {
     var i = this._nodes.length - 1;
     while (i >= 0) {
         tuna.dom.dispatchEvent(this._nodes[i], this.__eventName, '' + value);
@@ -102,9 +102,3 @@ Attribute.prototype.__dispatchAttribute = function(value) {
         i--;
     }
 };
-
-/**
- * @constructor
- * @extends {Attribute}
- */
-tuna.tmpl.units.Attribute = Attribute;

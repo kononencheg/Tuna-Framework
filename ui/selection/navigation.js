@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var Navigation = function(target) {
+tuna.ui.selection.Navigation = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -47,12 +47,12 @@ var Navigation = function(target) {
     this._setDefaultOption('menu-selector', '.j-navigation-menu');
 };
 
-tuna.utils.extend(Navigation, tuna.ui.ModuleInstance);
+tuna.utils.extend(tuna.ui.selection.Navigation, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-Navigation.prototype.init = function() {
+tuna.ui.selection.Navigation.prototype.init = function() {
     this.__initNavigation();
     this.__initControls();
     this.__initMenu();
@@ -61,7 +61,7 @@ Navigation.prototype.init = function() {
 /**
  * @private
  */
-Navigation.prototype.__initNavigation = function() {
+tuna.ui.selection.Navigation.prototype.__initNavigation = function() {
     this.__navigationRule
         = new tuna.ui.selection.rule.NavigationSelectionRule();
 
@@ -87,7 +87,7 @@ Navigation.prototype.__initNavigation = function() {
 /**
  * @private
  */
-Navigation.prototype.__initControls = function() {
+tuna.ui.selection.Navigation.prototype.__initControls = function() {
     var self = this;
 
     var controls = new tuna.ui.buttons.ButtonGroup(this._target);
@@ -118,7 +118,7 @@ Navigation.prototype.__initControls = function() {
 /**
  * @private
  */
-Navigation.prototype.__initMenu = function() {
+tuna.ui.selection.Navigation.prototype.__initMenu = function() {
     var menuSelector = this.getStringOption('menu-selector');
     var buttonSelector = this.getStringOption('button-selector');
 
@@ -161,7 +161,7 @@ Navigation.prototype.__initMenu = function() {
  * @param {?(string|number)} path
  * @param {boolean} isSelected
  */
-Navigation.prototype.__updateMenu = function(path, isSelected) {
+tuna.ui.selection.Navigation.prototype.__updateMenu = function(path, isSelected) {
     if (path !== null) {
         var buttons = this.__menuLinks[path];
         if (buttons !== undefined) {
@@ -178,16 +178,16 @@ Navigation.prototype.__updateMenu = function(path, isSelected) {
 };
 
 /**
- * @return {tuna.view.ViewController}
+ * @return {tuna.control.ViewController}
  */
-Navigation.prototype.getCurrentController = function() {
+tuna.ui.selection.Navigation.prototype.getCurrentController = function() {
     return this.__navigationRule.getCurrentController();
 };
 
 /**
  * @return {Array.<string>}
  */
-Navigation.prototype.getPathDesc = function() {
+tuna.ui.selection.Navigation.prototype.getPathDesc = function() {
     var result = [];
 
     var index = this.__navigationRule.getCurrentIndex();
@@ -205,7 +205,7 @@ Navigation.prototype.getPathDesc = function() {
 /**
  * @return {Array.<string>}
  */
-Navigation.prototype.getRelatedPath = function() {
+tuna.ui.selection.Navigation.prototype.getRelatedPath = function() {
     var result = [];
 
     if (this.__parent !== null) {
@@ -219,21 +219,21 @@ Navigation.prototype.getRelatedPath = function() {
 /**
  * @return {tuna.ui.selection.Navigation}
  */
-Navigation.prototype.getRoot = function() {
+tuna.ui.selection.Navigation.prototype.getRoot = function() {
     return this.isRoot() ? this : this.__parent.getRoot();
 };
 
 /**
  * @return {boolean}
  */
-Navigation.prototype.isRoot = function() {
+tuna.ui.selection.Navigation.prototype.isRoot = function() {
     return this.__parent === null;
 };
 
 /**
  *
  */
-Navigation.prototype.back = function() {
+tuna.ui.selection.Navigation.prototype.back = function() {
     if (this.isRoot()) {
         if (this.__history.length > 0) {
             this.__currentState = this.__history.pop();
@@ -255,7 +255,7 @@ Navigation.prototype.back = function() {
  * @param {!string|!Array.<string>} path
  * @param {Object.<string, string>=} data
  */
-Navigation.prototype.navigate = function(path, data) {
+tuna.ui.selection.Navigation.prototype.navigate = function(path, data) {
     if (path instanceof Array) {
 
         if (this.isRoot()) {
@@ -290,7 +290,7 @@ Navigation.prototype.navigate = function(path, data) {
  * @param {!Array.<string>} path
  * @param {Object.<string, string>=} data
  */
-Navigation.prototype.navigatePath = function(path, data) {
+tuna.ui.selection.Navigation.prototype.navigatePath = function(path, data) {
     var index = path.shift();
     while (index === '' && path.length > 0) {
         index = path.shift();
@@ -312,7 +312,7 @@ Navigation.prototype.navigatePath = function(path, data) {
 /**
  * @param {tuna.ui.ModuleInstance|tuna.ui.selection.Navigation} navigation
  */
-Navigation.prototype.addChild = function(navigation) {
+tuna.ui.selection.Navigation.prototype.addChild = function(navigation) {
     if (navigation instanceof tuna.ui.selection.Navigation) {
         navigation.setParent(this);
 
@@ -326,11 +326,12 @@ Navigation.prototype.addChild = function(navigation) {
 /**
  * @param {tuna.ui.selection.Navigation} navigation
  */
-Navigation.prototype.setParent = function(navigation) {
+tuna.ui.selection.Navigation.prototype.setParent = function(navigation) {
     this.__parent = navigation;
 };
 
 /**
+ * @ignore
  * @param {Array.<string>} path
  * @param {Object.<string, string>=} data
  * @constructor
@@ -349,6 +350,7 @@ var NavigationState = function(path, data) {
 };
 
 /**
+ * @ignore
  * @return {string}
  */
 NavigationState.prototype.serialize = function() {
@@ -365,6 +367,7 @@ NavigationState.prototype.serialize = function() {
 };
 
 /**
+ * @ignore
  * @return {Array.<string>}
  */
 NavigationState.prototype.getPath = function() {
@@ -372,15 +375,9 @@ NavigationState.prototype.getPath = function() {
 };
 
 /**
+ * @ignore
  * @return {Object}
  */
 NavigationState.prototype.getData = function() {
     return this.__data;
 };
-
-/**
- * @constructor
- * @extends {Navigation}
- */
-tuna.ui.selection.Navigation = Navigation;
-

@@ -16,7 +16,7 @@ var MethodFactory = function() {
     this.__commonFactory = null;
 };
 
-tuna.utils.implement(MethodFactory, tuna.rest.IMethodFactory);
+
 
 /**
  * @param {tuna.rest.IMethodFactory} factory

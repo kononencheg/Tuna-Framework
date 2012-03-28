@@ -1,30 +1,18 @@
 /**
  * @interface
  */
-var ITransformHandler = function() {};
+tuna.ui.transformers.ITransformHandler = function() {};
 
 /**
- * @param {Node} target
+ * @param {tuna.ui.transformers.ITransformer} transformer
  */
-ITransformHandler.prototype.handleTransformStart = function(target) {};
+tuna.ui.transformers.ITransformHandler.prototype.handleTransformStart
+    = function(transformer) {};
 
 /**
- * @param {Node} target
+ * @param {tuna.ui.transformers.ITransformer} transformer
  * @param {Array.<Node>} createdElements
  * @param {Array.<Node>} removedElements
  */
-ITransformHandler.prototype.handleTransformComplete
-    = function(target, createdElements, removedElements) {};
-
-/**
- * @param {Node} target
- * @param {Array.<Node>} removedElements
- */
-ITransformHandler.prototype.handleDestroy
-    = function(target, removedElements) {};
-
-/**
- * @interface
- * @extends {ITransformHandler}
- */
-tuna.ui.transformers.ITransformHandler = ITransformHandler;
+tuna.ui.transformers.ITransformHandler.prototype.handleTransformComplete
+    = function(transformer, createdElements, removedElements) {};

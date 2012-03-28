@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var ModuleContainer = function(target) {
+tuna.ui.ModuleContainer = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -12,43 +12,43 @@ var ModuleContainer = function(target) {
     this.__modules = [];
 
     /**
-     * @type Object.<string, Array.<tuna.ui.ModuleInstance>>
+     * @type Object.<string, Object.<string, Array.<tuna.ui.ModuleInstance>>>
      */
     this.__instances = {};
 };
 
-tuna.utils.extend(ModuleContainer, tuna.ui.ModuleInstance);
-
-/**
- * @param {Node} element
- */
-ModuleContainer.prototype.render = function(element) {
-    if (element !== undefined) {
-        this.clear();
-        this._target.appendChild(element);
-    }
-};
+tuna.utils.extend(tuna.ui.ModuleContainer, tuna.ui.ModuleInstance);
 
 /**
  *
  */
-ModuleContainer.prototype.clear = function() {
-    this._target.innerHTML = '';
+tuna.ui.ModuleContainer.prototype.isActive = function() {
+    return document.getElementById(this._target.id) === this._target;
 };
 
 /**
- * @param {string} type
+ * @param {Array.<string>} modules
  */
-ModuleContainer.prototype.requireModule = function(type) {
-    this.__modules.push(type);
+tuna.ui.ModuleContainer.prototype.requireModules = function(modules) {
+    this.__modules = modules;
 };
 
 /**
- *
  * @param {Node=} target
  */
-ModuleContainer.prototype.initModules = function(target) {
+tuna.ui.ModuleContainer.prototype.initModules = function(target) {
     target = target || this._target;
+
+    if (target.id === null) {
+        target.id = 'container_' + tuna.ui.__lastId++;
+    }
+
+    var targetId = target.id;
+    if (this.__instances[targetId] === undefined) {
+        this.__instances[targetId] = {};
+    }
+
+    var instances = this.__instances[targetId];
 
     var i = 0,
         l = this.__modules.length;
@@ -57,16 +57,14 @@ ModuleContainer.prototype.initModules = function(target) {
     var module = null;
     while (i < l) {
         type = this.__modules[i];
-        module = tuna.ui.modules.getModule(type);
+        module = tuna.ui.getModule(type);
 
         if (module !== null) {
-            if (this.__instances[type] === undefined) {
-                this.__instances[type] = [];
+            if (instances[type] === undefined) {
+                instances[type] = [];
             }
 
-            this.__instances[type]
-                = this.__instances[type].concat(module.init(target, this));
-
+            instances[type] = instances[type].concat(module.init(target, this));
         } else {
             alert('Unknown module "' + type + '"');
         }
@@ -77,37 +75,35 @@ ModuleContainer.prototype.initModules = function(target) {
 
 /**
  * @param {string} type
+ * @param {string=} targetId
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
-ModuleContainer.prototype.getModuleInstances = function(type) {
-    if (this.__instances[type] !== undefined) {
-        return this.__instances[type];
+tuna.ui.ModuleContainer.prototype.getModuleInstances = function(type,
+                                                                targetId) {
+    targetId = targetId || this._target.id;
+
+    if (this.__instances[targetId] !== undefined &&
+        this.__instances[targetId][type] !== undefined) {
+        return this.__instances[targetId][type];
     }
 
     return null;
 };
 
-/**
- * @param {string} type
- * @return {tuna.ui.ModuleInstance}
- */
-ModuleContainer.prototype.getOneModuleInstance = function(type) {
-    if (this.__instances[type] !== undefined &&
-        this.__instances[type][0] !== undefined) {
-        return this.__instances[type][0];
-    }
-
-    return null;
-};
 
 /**
  * @param {string} type
  * @param {string} name
+ * @param {string=} targetId
  * @return {tuna.ui.ModuleInstance}
  */
-ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
-    if (this.__instances[type] !== undefined) {
-        var instances = this.__instances[type];
+tuna.ui.ModuleContainer.prototype.getModuleInstanceByName = function(type, name,
+                                                                     targetId) {
+    targetId = targetId || this._target.id;
+
+    if (this.__instances[targetId] !== undefined &&
+        this.__instances[targetId][type] !== undefined) {
+        var instances = this.__instances[targetId][type];
 
         var i = 0,
             l = instances.length;
@@ -125,19 +121,32 @@ ModuleContainer.prototype.getModuleInstanceByName = function(type, name) {
 };
 
 /**
- *
+ * @param {Node=} target
  */
-ModuleContainer.prototype.destroyModules = function() {
-    for (var name in this.__instances) {
-        tuna.ui.modules.getModule(name)
-                       .destroy(this.__instances[name]);
-
-        this.__instances[name].length = 0;
+tuna.ui.ModuleContainer.prototype.destroyModules = function(target) {
+    if (target === undefined) {
+        for (var targetId in this.__instances) {
+            this.__destroyModulesById(targetId);
+        }
+    } else {
+        this.__destroyModulesById(target.id);
     }
 };
 
 /**
- * @constructor
- * @extends {ModuleContainer}
+ * @param {string} targetId
+ * @private
  */
-tuna.ui.ModuleContainer = ModuleContainer;
+tuna.ui.ModuleContainer.prototype.__destroyModulesById = function(targetId) {
+    var module = null;
+    for (var name in this.__instances[targetId]) {
+        module = tuna.ui.getModule(name);
+        if (module !== null) {
+            module.destroy(this.__instances[targetId][name]);
+        }
+
+        this.__instances[targetId][name].length = 0;
+    }
+
+    delete this.__instances[targetId];
+};

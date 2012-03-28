@@ -4,7 +4,7 @@
  */
 var SpotCompiler = function() {};
 
-tuna.utils.implement(SpotCompiler, tuna.tmpl.compilers.IItemCompiler);
+
 
 /**
  * @override

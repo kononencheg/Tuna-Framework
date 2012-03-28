@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.view.ViewController}
+ * @extends {tuna.control.ViewController}
  */
 var PageViewController = function() {
-    tuna.view.ViewController.call(this);
+    tuna.control.ViewController.call(this);
 
     /**
      * @protected
@@ -12,7 +12,7 @@ var PageViewController = function() {
     this._navigation = null;
 };
 
-tuna.utils.extend(PageViewController, tuna.view.ViewController);
+tuna.utils.extend(PageViewController, tuna.control.ViewController);
 
 /**
  * @param {tuna.ui.selection.Navigation} navigation
@@ -42,4 +42,4 @@ PageViewController.prototype.open = function(args) {};
  * @constructor
  * @extends {PageViewController}
  */
-tuna.view.PageViewController = PageViewController;
+tuna.control.PageViewController = PageViewController;

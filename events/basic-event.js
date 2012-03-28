@@ -3,7 +3,7 @@
  * @param {!string} type
  * @param {boolean=} isBubbling
  */
-var BasicEvent = function(type, isBubbling) {
+tuna.events.BasicEvent = function(type, isBubbling) {
 
     /**
      * @protected
@@ -45,75 +45,69 @@ var BasicEvent = function(type, isBubbling) {
 /**
  * @param {tuna.events.IEventDispatcher} target
  */
-BasicEvent.prototype.setTarget = function(target) {
+tuna.events.BasicEvent.prototype.setTarget = function(target) {
     this._target = target;
 };
 
 /**
  * @return tuna.events.IEventDispatcher
  */
-BasicEvent.prototype.getTarget = function() {
+tuna.events.BasicEvent.prototype.getTarget = function() {
     return this._target;
 };
 
 /**
  * @return string
  */
-BasicEvent.prototype.getType = function() {
+tuna.events.BasicEvent.prototype.getType = function() {
     return this._type;
 };
 
 /**
  * @return boolean
  */
-BasicEvent.prototype.isBubbling = function() {
+tuna.events.BasicEvent.prototype.isBubbling = function() {
     return this._isBubbling;
 };
 
 /**
  *
  */
-BasicEvent.prototype.preventDefault = function() {
+tuna.events.BasicEvent.prototype.preventDefault = function() {
     this._isCanceled = true;
 };
 
 /**
  * @return boolean
  */
-BasicEvent.prototype.isDefaultPrevented = function() {
+tuna.events.BasicEvent.prototype.isDefaultPrevented = function() {
     return this._isCanceled;
 };
 
 /**
  *
  */
-BasicEvent.prototype.stopImmediatePropagation = function() {
+tuna.events.BasicEvent.prototype.stopImmediatePropagation = function() {
     this._isImmediateStopped = true;
 };
 
 /**
  * @return boolean
  */
-BasicEvent.prototype.isImmediatePropagationStopped = function() {
+tuna.events.BasicEvent.prototype.isImmediatePropagationStopped = function() {
      return this._isImmediateStopped;
 };
 
 /**
  *
  */
-BasicEvent.prototype.stopPropagation = function() {
+tuna.events.BasicEvent.prototype.stopPropagation = function() {
     this._isStopped = true;
 };
 
 /**
  * @return boolean
  */
-BasicEvent.prototype.isPropagationStopped = function() {
+tuna.events.BasicEvent.prototype.isPropagationStopped = function() {
     return this._isImmediateStopped || this._isStopped;
 };
-
-/**
- * @constructor
- * @extends {BasicEvent}
- */
-tuna.events.BasicEvent = BasicEvent;

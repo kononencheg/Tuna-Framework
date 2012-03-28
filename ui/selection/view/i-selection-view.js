@@ -1,35 +1,33 @@
 /**
  * @interface
  */
-var ISelectionView = function() {};
+tuna.ui.selection.view.ISelectionView = function() {};
 
 /**
  * @param {string|number} index
  */
-ISelectionView.prototype.applySelectionAt = function(index) {};
+tuna.ui.selection.view.ISelectionView.prototype.applySelectionAt
+    = function(index) {};
 
 /**
  * @param {string|number} index
  */
-ISelectionView.prototype.destroySelectionAt = function(index) {};
+tuna.ui.selection.view.ISelectionView.prototype.destroySelectionAt
+    = function(index) {};
 
 /**
  * @param {string|number} index
  */
-ISelectionView.prototype.disableItemAt = function(index) {};
+tuna.ui.selection.view.ISelectionView.prototype.disableItemAt
+    = function(index) {};
 
 /**
  * @param {string|number} index
  */
-ISelectionView.prototype.enableItemAt = function(index) {};
+tuna.ui.selection.view.ISelectionView.prototype.enableItemAt
+    = function(index) {};
 
 /**
  *
  */
-ISelectionView.prototype.update = function() {};
-
-/**
- * @interface
- * @extends {ISelectionView}
- */
-tuna.ui.selection.view.ISelectionView = ISelectionView;
+tuna.ui.selection.view.ISelectionView.prototype.update = function() {};

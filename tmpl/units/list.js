@@ -3,7 +3,7 @@
  * @extends {tuna.tmpl.units.CompiledUnit}
  * @param {tuna.tmpl.units.Template} root
  */
-var List = function(root) {
+tuna.tmpl.units.List = function(root) {
     tuna.tmpl.units.CompiledUnit.call(this, root);
 
     /**
@@ -49,47 +49,47 @@ var List = function(root) {
     this.__listNodeRouter = null;
 };
 
-tuna.utils.extend(List, tuna.tmpl.units.CompiledUnit);
+tuna.utils.extend(tuna.tmpl.units.List, tuna.tmpl.units.CompiledUnit);
 
 /**
  * @param {tuna.tmpl.units.IListItemRouter} router
  */
-List.prototype.setListNodeRouter = function(router) {
+tuna.tmpl.units.List.prototype.setListNodeRouter = function(router) {
     this.__listNodeRouter = router;
 };
 
 /**
  * @param {string} path
  */
-List.prototype.setPath = function(path) {
+tuna.tmpl.units.List.prototype.setPath = function(path) {
     this.__pathEvaluator.setPath(path);
 };
 
 /**
  * @param {string} path
  */
-List.prototype.setKeyPath = function(path) {
+tuna.tmpl.units.List.prototype.setKeyPath = function(path) {
     this.__keyPathEvaluator.setPath(path);
 };
 
 /**
  * @param {tuna.tmpl.compilers.TemplateCompiler} compiler
  */
-List.prototype.setCompiler = function(compiler) {
+tuna.tmpl.units.List.prototype.setCompiler = function(compiler) {
     this.__templateCompiler = compiler;
 };
 
 /**
  * @param {Node} element
  */
-List.prototype.setItemRenderer = function(element) {
+tuna.tmpl.units.List.prototype.setItemRenderer = function(element) {
     this.__itemRenderer = element;
 };
 
 /**
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
-List.prototype.setItemSettings = function(settings) {
+tuna.tmpl.units.List.prototype.setItemSettings = function(settings) {
     this.__itemSettings = settings;
 };
 
@@ -97,14 +97,14 @@ List.prototype.setItemSettings = function(settings) {
  * @param {tuna.tmpl.units.Template} compiledItem
  * @param {*} key
  */
-List.prototype.addItem = function(compiledItem, key) {
+tuna.tmpl.units.List.prototype.addItem = function(compiledItem, key) {
     this.__itemsTable[key] = compiledItem;
 };
 
 /**
  * @override
  */
-List.prototype.applyData = function(dataNode) {
+tuna.tmpl.units.List.prototype.applyData = function(dataNode) {
     var sampleNode = this.__pathEvaluator.evaluate(dataNode);
     if (sampleNode !== null) {
         var sample = sampleNode.getValue();
@@ -115,9 +115,9 @@ List.prototype.applyData = function(dataNode) {
             this.__updateItem(sampleNode.growChild(index), oldItemsTable);
         }
 
-        this.__destroyItems(oldItemsTable);
+        this.__removeItems(oldItemsTable);
     } else {
-        this.__destroyItems(this.__itemsTable);
+        this.__removeItems(this.__itemsTable);
     }
 };
 
@@ -126,7 +126,7 @@ List.prototype.applyData = function(dataNode) {
  * @param {tuna.tmpl.data.DataNode} itemNode
  * @param {Object.<*, tuna.tmpl.units.Template>} oldItemsTable
  */
-List.prototype.__updateItem = function(itemNode, oldItemsTable) {
+tuna.tmpl.units.List.prototype.__updateItem = function(itemNode, oldItemsTable) {
     var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
     if (keyNode !== null) {
         var key = keyNode.getValue();
@@ -140,7 +140,6 @@ List.prototype.__updateItem = function(itemNode, oldItemsTable) {
             }
 
             this.__itemsTable[key].applyData(itemNode);
-
         }
     }
 };
@@ -149,9 +148,9 @@ List.prototype.__updateItem = function(itemNode, oldItemsTable) {
  * @private
  * @param {Object.<*, tuna.tmpl.units.Template>} itemsTable
  */
-List.prototype.__destroyItems = function(itemsTable) {
+tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
     for (var key in itemsTable) {
-        itemsTable[key].destroy(true);
+        itemsTable[key].remove();
         delete itemsTable[key];
     }
 };
@@ -159,7 +158,7 @@ List.prototype.__destroyItems = function(itemsTable) {
 /**
  * @return {tuna.tmpl.units.Template}
  */
-List.prototype.__makeNewItem = function() {
+tuna.tmpl.units.List.prototype.__makeNewItem = function() {
     var itemElement = this.__itemRenderer.cloneNode(true);
 
     var rootTemplate = this.getRootTemplate();
@@ -176,9 +175,9 @@ List.prototype.__makeNewItem = function() {
 /**
  * @override
  */
-List.prototype.destroy = function(isHard) {
+tuna.tmpl.units.List.prototype.destroy = function() {
     for (var key in this.__itemsTable) {
-        this.__itemsTable[key].destroy(isHard);
+        this.__itemsTable[key].destroy();
         this.__itemsTable[key] = null;
     }
 
@@ -192,7 +191,16 @@ List.prototype.destroy = function(isHard) {
 };
 
 /**
- * @constructor
- * @extends {List}
+ * @override
  */
-tuna.tmpl.units.List = List;
+tuna.tmpl.units.List.prototype.remove = function() {
+    this.__removeItems(this.__itemsTable);
+
+    this.__templateCompiler = null;
+    this.__itemRenderer = null;
+    this.__itemSettings = null;
+    this.__pathEvaluator = null;
+    this.__keyPathEvaluator = null;
+    this.__listNodeRouter = null;
+    this.__itemsTable = null;
+};

@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var Popup = function(target) {
+tuna.ui.popups.Popup = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -14,12 +14,12 @@ var Popup = function(target) {
 
 };
 
-tuna.utils.extend(Popup, tuna.ui.ModuleInstance);
+tuna.utils.extend(tuna.ui.popups.Popup, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-Popup.prototype.init = function() {
+tuna.ui.popups.Popup.prototype.init = function() {
     if (!this.__isInit) {
         var self = this;
 
@@ -44,15 +44,15 @@ Popup.prototype.init = function() {
 /**
  * @return {boolean}
  */
-Popup.prototype.isOpen = function() {
+tuna.ui.popups.Popup.prototype.isOpen = function() {
     return tuna.dom.hasClass(this._target, 'show');
 };
 
 /**
  *
  */
-Popup.prototype.open = function() {
-    if (this.dispatch('popup-open')) {
+tuna.ui.popups.Popup.prototype.open = function() {
+    if (this.dispatch('open')) {
         this.__show();
     }
 };
@@ -60,8 +60,8 @@ Popup.prototype.open = function() {
 /**
  *
  */
-Popup.prototype.close = function() {
-    if (this.dispatch('popup-close')) {
+tuna.ui.popups.Popup.prototype.close = function() {
+    if (this.dispatch('close')) {
         this.__hide();
     }
 };
@@ -69,8 +69,8 @@ Popup.prototype.close = function() {
 /**
  *
  */
-Popup.prototype.apply = function() {
-    if (this.dispatch('popup-apply', this.__collectData())) {
+tuna.ui.popups.Popup.prototype.apply = function() {
+    if (this.dispatch('apply', this.__collectData())) {
         this.__hide();
     }
 };
@@ -78,14 +78,14 @@ Popup.prototype.apply = function() {
 /**
  * @private
  */
-Popup.prototype.__hide = function() {
+tuna.ui.popups.Popup.prototype.__hide = function() {
     tuna.dom.removeClass(this._target, 'show');
 };
 
 /**
  * @private
  */
-Popup.prototype.__show = function() {
+tuna.ui.popups.Popup.prototype.__show = function() {
     tuna.dom.addClass(this._target, 'show');
 };
 
@@ -93,7 +93,7 @@ Popup.prototype.__show = function() {
  * @private
  * @return {Object.<string, string>}
  */
-Popup.prototype.__collectData = function() {
+tuna.ui.popups.Popup.prototype.__collectData = function() {
     var form = tuna.dom.selectOne('form.j-popup-form', this._target);
 
     if (form !== null) {
@@ -102,9 +102,3 @@ Popup.prototype.__collectData = function() {
 
     return null;
 };
-
-/**
- * @constructor
- * @extends {Popup}
- */
-tuna.ui.popups.Popup = Popup;

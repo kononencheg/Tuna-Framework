@@ -14,7 +14,7 @@ var Method = function(name) {
     this._name = name || null;
 };
 
-tuna.utils.implement(Method, tuna.rest.IMethod);
+
 tuna.utils.extend(Method, tuna.events.EventDispatcher);
 
 /**

@@ -1,45 +1,43 @@
 /**
  * @interface
  */
-var ISelectionRule = function() {};
+tuna.ui.selection.rule.ISelectionRule = function() {};
 
 /**
  * @return Array.<string|number>
  */
-ISelectionRule.prototype.getSelectedIndexes = function() {};
+tuna.ui.selection.rule.ISelectionRule.prototype.getSelectedIndexes
+    = function() {};
 
 /**
  * @param {string|number} index
  * @return {boolean}
  */
-ISelectionRule.prototype.selectIndex = function(index) {};
+tuna.ui.selection.rule.ISelectionRule.prototype.selectIndex
+    = function(index) {};
 
 /**
  * @param {string|number} index
  * @return boolean
  */
-ISelectionRule.prototype.isSelected = function(index) {};
+tuna.ui.selection.rule.ISelectionRule.prototype.isSelected
+    = function(index) {};
 
 /**
  *
  */
-ISelectionRule.prototype.clearSelection = function() {};
+tuna.ui.selection.rule.ISelectionRule.prototype.clearSelection = function() {};
 
 /**
- *
  * @param {string|number} index
  * @param {boolean} isEnabled
  */
-ISelectionRule.prototype.setIndexEnabled = function(index, isEnabled) {};
+tuna.ui.selection.rule.ISelectionRule.prototype.setIndexEnabled
+    = function(index, isEnabled) {};
 
 /**
  * @param {string|number} index
  * @return boolean
  */
-ISelectionRule.prototype.isIndexEnabled = function(index) {};
-
-/**
- * @interface
- * @extends {ISelectionRule}
- */
-tuna.ui.selection.rule.ISelectionRule = ISelectionRule;
+tuna.ui.selection.rule.ISelectionRule.prototype.isIndexEnabled
+    = function(index) {};

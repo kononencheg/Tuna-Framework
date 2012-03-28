@@ -107,14 +107,14 @@ tuna.ui.popups.confirm = function(message, callback) {
     tuna.ui.popups.__confirmMessage.innerHTML = message;
 
     var handler = function(event) {
-        callback(event.getType() === 'popup-apply');
+        callback(event.getType() === 'apply');
 
-        tuna.ui.popups.__confirm.removeEventListener('popup-apply', handler);
-        tuna.ui.popups.__confirm.removeEventListener('popup-close', handler);
+        tuna.ui.popups.__confirm.removeEventListener('apply', handler);
+        tuna.ui.popups.__confirm.removeEventListener('close', handler);
     };
 
-    tuna.ui.popups.__confirm.addEventListener('popup-apply', handler);
-    tuna.ui.popups.__confirm.addEventListener('popup-close', handler);
+    tuna.ui.popups.__confirm.addEventListener('apply', handler);
+    tuna.ui.popups.__confirm.addEventListener('close', handler);
 
     tuna.ui.popups.__confirm.open();
 };

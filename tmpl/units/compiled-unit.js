@@ -2,29 +2,28 @@
  * @constructor
  * @param {tuna.tmpl.units.Template} root
  */
-var CompiledUnit = function(root) {
+tuna.tmpl.units.CompiledUnit = function(root) {
     this.__rootTemplate = root;
 };
 
 /**
  * @return {tuna.tmpl.units.Template}
  */
-CompiledUnit.prototype.getRootTemplate = function() {
+tuna.tmpl.units.CompiledUnit.prototype.getRootTemplate = function() {
     return this.__rootTemplate;
 };
 
 /**
- * @param {boolean=} isHard
+ *
  */
-CompiledUnit.prototype.destroy = function(isHard) {};
+tuna.tmpl.units.CompiledUnit.prototype.destroy = function() {};
+
+/**
+ *
+ */
+tuna.tmpl.units.CompiledUnit.prototype.remove = function() {};
 
 /**
  * @param {tuna.tmpl.data.DataNode} dataNode
  */
-CompiledUnit.prototype.applyData = function(dataNode) {};
-
-/**
- * @constructor
- * @extends {CompiledUnit}
- */
-tuna.tmpl.units.CompiledUnit = CompiledUnit;
+tuna.tmpl.units.CompiledUnit.prototype.applyData = function(dataNode) {};

@@ -3,7 +3,7 @@
  * @extends {tuna.tmpl.units.CompiledUnit}
  * @param {tuna.tmpl.units.Template} root
  */
-var Spot = function(root) {
+tuna.tmpl.units.Spot = function(root) {
     tuna.tmpl.units.CompiledUnit.call(this, root);
 
     /**
@@ -26,33 +26,33 @@ var Spot = function(root) {
     this._filter = null;
 };
 
-tuna.utils.extend(Spot, tuna.tmpl.units.CompiledUnit);
+tuna.utils.extend(tuna.tmpl.units.Spot, tuna.tmpl.units.CompiledUnit);
 
 /**
  * @param {Array.<string>} filter
  */
-Spot.prototype.setFilter = function(filter) {
+tuna.tmpl.units.Spot.prototype.setFilter = function(filter) {
     this._filter = filter;
 };
 
 /**
  * @param {string} path
  */
-Spot.prototype.setPath = function(path) {
+tuna.tmpl.units.Spot.prototype.setPath = function(path) {
     this.__pathEvaluator.setPath(path);
 };
 
 /**
  * @param {Array.<Node>} elements
  */
-Spot.prototype.addTargets = function(elements) {
+tuna.tmpl.units.Spot.prototype.addTargets = function(elements) {
     this._nodes = this._nodes.concat(elements);
 };
 
 /**
  * @override
  */
-Spot.prototype.applyData = function(dataNode) {
+tuna.tmpl.units.Spot.prototype.applyData = function(dataNode) {
     var valueNode = this.__pathEvaluator.evaluate(dataNode);
     if (valueNode !== null) {
         var value = valueNode.getValue();
@@ -69,7 +69,7 @@ Spot.prototype.applyData = function(dataNode) {
  * @protected
  * @param {*} value
  */
-Spot.prototype._applyValue = function(value) {
+tuna.tmpl.units.Spot.prototype._applyValue = function(value) {
     if (value === null) {
         value = '';
     }
@@ -89,29 +89,26 @@ Spot.prototype._applyValue = function(value) {
 /**
  * @override
  */
-Spot.prototype.destroy = function(isHard) {
-    if (isHard) {
-        var node = null;
-        while (this._nodes.length > 0) {
-            node = this._nodes.shift();
-
-            if (node.parentNode !== null) {
-                node.parentNode.removeChild(node);
-
-                this.getRootTemplate()
-                    .registerChildRemoval(node);
-            }
-        }
-
-    } else{
-        this._nodes.length = 0;
-    }
-
-    this.__pathEvaluator = null
+tuna.tmpl.units.Spot.prototype.destroy = function() {
+    this._nodes.length = 0;
+    this.__pathEvaluator = null;
 };
 
 /**
- * @constructor
- * @extends {Spot}
+ * @override
  */
-tuna.tmpl.units.Spot = Spot;
+tuna.tmpl.units.Spot.prototype.remove = function() {
+    var node = null;
+    while (this._nodes.length > 0) {
+        node = this._nodes.shift();
+
+        if (node.parentNode !== null) {
+            node.parentNode.removeChild(node);
+
+            this.getRootTemplate()
+                .registerChildRemoval(node);
+        }
+    }
+
+    this.__pathEvaluator = null;
+};

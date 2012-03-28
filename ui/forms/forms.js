@@ -1,4 +1,5 @@
 /**
+ * @private
  * @param {Node} formElement
  * @return {Object}
  */

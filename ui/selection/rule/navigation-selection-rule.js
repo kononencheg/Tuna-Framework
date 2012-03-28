@@ -1,8 +1,8 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.rule.AbstractSelectionRule}
+ * @extends tuna.ui.selection.rule.AbstractSelectionRule
  */
-var NavigationSelectionRule = function() {
+tuna.ui.selection.rule.NavigationSelectionRule = function() {
     tuna.ui.selection.rule.AbstractSelectionRule.call(this);
 
     /**
@@ -12,7 +12,7 @@ var NavigationSelectionRule = function() {
     this.__currentIndex = null;
 
     /**
-     * @type tuna.view.ViewController
+     * @type tuna.control.ViewController
      * @private
      */
     this.__currentController = null;
@@ -30,20 +30,26 @@ var NavigationSelectionRule = function() {
     this.__openData = null;
 };
 
-tuna.utils.extend(NavigationSelectionRule,
-                  tuna.ui.selection.rule.AbstractSelectionRule);
+tuna.utils.extend(
+    tuna.ui.selection.rule.NavigationSelectionRule,
+    tuna.ui.selection.rule.AbstractSelectionRule
+);
 
 /**
  * @param {tuna.ui.selection.Navigation} navigation
  */
-NavigationSelectionRule.prototype.setNavigation = function(navigation) {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.setNavigation
+    = function(navigation) {
+
     this.__navigation = navigation;
 };
 
     /**
  * @override
  */
-NavigationSelectionRule.prototype.getSelectedIndexes = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.getSelectedIndexes
+    = function() {
+
     if (this.__currentIndex !== null) {
         return [ this.__currentIndex ];
     }
@@ -54,21 +60,27 @@ NavigationSelectionRule.prototype.getSelectedIndexes = function() {
 /**
  * @return {?(string|number)}
  */
-NavigationSelectionRule.prototype.getCurrentIndex = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.getCurrentIndex
+    = function() {
+
     return this.__currentIndex;
 };
 
 /**
- * @return {tuna.view.ViewController}
+ * @return {tuna.control.ViewController}
  */
-NavigationSelectionRule.prototype.getCurrentController = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.getCurrentController
+    = function() {
+
     return this.__currentController;
 };
 
 /**
  * @return {Object}
  */
-NavigationSelectionRule.prototype.getOpenData = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.getOpenData
+    = function() {
+
     return this.__openData;
 };
 
@@ -76,7 +88,9 @@ NavigationSelectionRule.prototype.getOpenData = function() {
  * @param {string} index
  * @param {Object} data
  */
-NavigationSelectionRule.prototype.navigate = function(index, data) {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.navigate
+    = function(index, data) {
+
     this.__openData = data;
     return this.selectIndex(index);
 };
@@ -84,14 +98,16 @@ NavigationSelectionRule.prototype.navigate = function(index, data) {
 /**
  * @override
  */
-NavigationSelectionRule.prototype.selectIndex = function(index) {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.selectIndex
+    = function(index) {
+
     if (this.isIndexEnabled(index) && this.__currentIndex !== index) {
 
         if (this.__currentIndex !== null) {
-            if (this.__currentController instanceof tuna.view.PageViewController &&
+            if (this.__currentController instanceof tuna.control.PageViewController &&
                 this.__currentController.canClose(index)) {
 
-                if (this.__currentController instanceof tuna.view.PageViewController) {
+                if (this.__currentController instanceof tuna.control.PageViewController) {
                     this.__currentController.close();
                 }
             }
@@ -109,7 +125,7 @@ NavigationSelectionRule.prototype.selectIndex = function(index) {
         this._eventDispatcher.dispatch('open', this.__currentIndex);
 
         if (this.__currentController !== null &&
-            this.__currentController instanceof tuna.view.PageViewController) {
+            this.__currentController instanceof tuna.control.PageViewController) {
             this.__currentController.open(this.__openData);
         }
 
@@ -122,21 +138,23 @@ NavigationSelectionRule.prototype.selectIndex = function(index) {
 /**
  * @private
  */
-NavigationSelectionRule.prototype.__updateController = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.__updateController
+    = function() {
+
     this.__currentController = null;
     if (this.__currentIndex !== null) {
         var page = this._itemsCollection.getItemAt(this.__currentIndex);
         if (page !== null) {
-            this.__currentController = tuna.view.getController(page.id);
+            this.__currentController = tuna.control.getController(page.id);
 
             if (this.__currentController !== null &&
                 !this.__currentController.isActive()) {
 
-                if (this.__currentController instanceof tuna.view.PageViewController) {
+                if (this.__currentController instanceof tuna.control.PageViewController) {
                     this.__currentController.setNavigation(this.__navigation);
                 }
 
-                this.__currentController.bootstrap(page);
+                this.__currentController.init(page);
             }
         }
     }
@@ -145,22 +163,20 @@ NavigationSelectionRule.prototype.__updateController = function() {
 /**
  * @override
  */
-NavigationSelectionRule.prototype.isSelected = function(index) {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.isSelected
+    = function(index) {
+
     return index === this.__currentIndex;
 };
 
 /**
  * @override
  */
-NavigationSelectionRule.prototype.clearSelection = function() {
+tuna.ui.selection.rule.NavigationSelectionRule.prototype.clearSelection
+    = function() {
+
     if (this.__currentIndex !== null) {
         this._selectionView.destroySelectionAt(this.__currentIndex);
         this.__currentIndex = null;
     }
 };
-
-/**
- * @constructor
- * @extends {NavigationSelectionRule}
- */
-tuna.ui.selection.rule.NavigationSelectionRule = NavigationSelectionRule;

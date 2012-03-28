@@ -1,43 +1,41 @@
 /**
  * @interface
  */
-var IItemsCollection = function() {};
+tuna.ui.selection.items.IItemsCollection = function() {};
 
 /**
  * @param {Node} item
  * @return {?(string|number)}
  */
-IItemsCollection.prototype.addItem = function(item) {};
+tuna.ui.selection.items.IItemsCollection.prototype.addItem = function(item) {};
 
 /**
  * @param {Node} item
  * @return {?(string|number)}
  */
-IItemsCollection.prototype.getItemIndex = function(item) {};
+tuna.ui.selection.items.IItemsCollection.prototype.getItemIndex
+    = function(item) {};
 
 /**
 * @param {string|number} index
 * @return {?Node}
 */
-IItemsCollection.prototype.getItemAt = function(index) {};
+tuna.ui.selection.items.IItemsCollection.prototype.getItemAt
+    = function(index) {};
 
 /**
 * @param {function((string|number), Node)} callback
 */
-IItemsCollection.prototype.mapItems = function(callback) {};
+tuna.ui.selection.items.IItemsCollection.prototype.mapItems
+    = function(callback) {};
 
 /**
  *
  */
-IItemsCollection.prototype.clear = function() {};
+tuna.ui.selection.items.IItemsCollection.prototype.clear = function() {};
 
 /**
  * @return number
  */
-IItemsCollection.prototype.getItemsCount = function() {};
-
-/**
- * @interface
- * @extends {IItemsCollection}
- */
-tuna.ui.selection.items.IItemsCollection = IItemsCollection;
+tuna.ui.selection.items.IItemsCollection.prototype.getItemsCount
+    = function() {};

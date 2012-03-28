@@ -33,7 +33,7 @@ var ListResource = function (methodName, recordType) {
     this._list = [];
 };
 
-tuna.utils.implement(ListResource, tuna.model.IResource);
+
 tuna.utils.extend(ListResource, tuna.events.EventDispatcher);
 
 /**

@@ -17,7 +17,7 @@ var SpotExtractor = function() {
     this._ns = 'tuna:';
 };
 
-tuna.utils.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
+
 
 /**
  * @override

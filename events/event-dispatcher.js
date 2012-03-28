@@ -1,10 +1,9 @@
-
 /**
  * @constructor
  * @implements tuna.events.IEventDispatcher
  * @param {tuna.events.IEventDispatcher=} parent
  */
-var EventDispatcher = function(parent) {
+tuna.events.EventDispatcher = function(parent) {
 
     /**
      * @protected
@@ -19,12 +18,12 @@ var EventDispatcher = function(parent) {
     this._listeners = {};
 };
 
-tuna.utils.implement(EventDispatcher, tuna.events.IEventDispatcher);
+
 
 /**
  * @override
  */
-EventDispatcher.prototype.dispatch = function(event, data) {
+tuna.events.EventDispatcher.prototype.dispatch = function(event, data) {
     if (!(event instanceof tuna.events.BasicEvent)) {
         event = new tuna.events.BasicEvent(event);
     }
@@ -62,7 +61,9 @@ EventDispatcher.prototype.dispatch = function(event, data) {
 /**
  * @override
  */
-EventDispatcher.prototype.addEventListener = function(type, listener) {
+tuna.events.EventDispatcher.prototype.addEventListener
+    = function(type, listener) {
+
     if (this._listeners[type] === undefined) {
         this._listeners[type] = [listener];
     } else if (!this.hasEventListener(type, listener)) {
@@ -73,7 +74,9 @@ EventDispatcher.prototype.addEventListener = function(type, listener) {
 /**
  * @override
  */
-EventDispatcher.prototype.removeEventListener = function(type, listener) {
+tuna.events.EventDispatcher.prototype.removeEventListener
+    = function(type, listener) {
+
     if (this._listeners[type] !== undefined) {
         var listenerIndex
             = tuna.utils.indexOf(listener, this._listeners[type]);
@@ -87,7 +90,9 @@ EventDispatcher.prototype.removeEventListener = function(type, listener) {
 /**
  * @override
  */
-EventDispatcher.prototype.hasEventListener = function(type, listener) {
+tuna.events.EventDispatcher.prototype.hasEventListener
+    = function(type, listener) {
+
     if (this._listeners[type] !== undefined) {
         return tuna.utils.indexOf(listener, this._listeners[type]) !== -1;
     }
@@ -95,8 +100,3 @@ EventDispatcher.prototype.hasEventListener = function(type, listener) {
     return false;
 };
 
-/**
- * @constructor
- * @extends {EventDispatcher}
- */
-tuna.events.EventDispatcher = EventDispatcher;

@@ -1,8 +1,9 @@
 /**
  * @constructor
- * @implements {tuna.ui.selection.rule.ISelectionRule}
+ * @implements tuna.ui.selection.rule.ISelectionRule
  */
-var AbstractSelectionRule = function() {
+tuna.ui.selection.rule.AbstractSelectionRule = function() {
+
     /**
      * @protected
      * @type tuna.ui.selection.items.IItemsCollection
@@ -29,55 +30,61 @@ var AbstractSelectionRule = function() {
     this._disabledIndexes = [];
 };
 
-tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
-
 /**
  * @param {tuna.ui.selection.items.IItemsCollection} collection
  */
-AbstractSelectionRule.prototype.setItemsCollection = function(collection) {
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.setItemsCollection
+    = function(collection) {
     this._itemsCollection = collection;
 };
 
 /**
  * @param {tuna.ui.selection.view.ISelectionView} view
  */
-AbstractSelectionRule.prototype.setSelectionView = function(view) {
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.setSelectionView
+    = function(view) {
     this._selectionView = view;
 };
 
 /**
  * @param {tuna.events.EventDispatcher} dispatcher
  */
-AbstractSelectionRule.prototype.setEventDispatcher = function(dispatcher) {
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.setEventDispatcher
+    = function(dispatcher) {
     this._eventDispatcher = dispatcher;
 };
 
 /**
  * @override
  */
-AbstractSelectionRule.prototype.getSelectedIndexes = function() {};
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.getSelectedIndexes
+    = function() {};
 
 /**
  * @override
  */
-AbstractSelectionRule.prototype.selectIndex = function(index) {};
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.selectIndex
+    = function(index) {};
 
 /**
  * @override
  */
-AbstractSelectionRule.prototype.isSelected = function(index) {};
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.isSelected
+    = function(index) {};
 
 /**
  * @override
  */
-AbstractSelectionRule.prototype.clearSelection = function() {};
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.clearSelection
+    = function() {};
 
 
 /**
  * @override
  */
-AbstractSelectionRule.prototype.setIndexEnabled
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.setIndexEnabled
     = function(index, isEnabled) {
+
     var indexPosition = tuna.utils.indexOf(index, this._disabledIndexes);
     if (isEnabled) {
         if (indexPosition !== -1) {
@@ -93,14 +100,9 @@ AbstractSelectionRule.prototype.setIndexEnabled
 /**
  * @override
  */
-AbstractSelectionRule.prototype.isIndexEnabled = function(index) {
+tuna.ui.selection.rule.AbstractSelectionRule.prototype.isIndexEnabled
+    = function(index) {
+
     return this._itemsCollection.getItemAt(index) !== null &&
         tuna.utils.indexOf(index, this._disabledIndexes) === -1;
 };
-
-
-/**
- * @constructor
- * @extends {AbstractSelectionRule}
- */
-tuna.ui.selection.rule.AbstractSelectionRule = AbstractSelectionRule;

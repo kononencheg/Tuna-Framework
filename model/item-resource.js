@@ -13,7 +13,7 @@ var ItemResource = function () {
     this._item = null;
 };
 
-tuna.utils.implement(ItemResource, tuna.model.IResource);
+
 tuna.utils.extend(ItemResource, tuna.events.EventDispatcher);
 
 /**
