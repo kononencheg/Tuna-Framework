@@ -129,8 +129,8 @@ tuna.control.ViewController.prototype._destroyActions = function() {};
  * следующем: зарегистрированные в данном контроллере модули инициалирируются в
  * созданных во время трансформации элементах, и уничтожаются в удаленных.
  *
- * @see tuna.ui.transformers
  * @see tuna.ui.transformers.ITransformHandler
+ * @see tuna.ui.transformers.ITransformHandler.handleTransformComplete
  * @override
  */
 tuna.control.ViewController.prototype.handleTransformComplete
@@ -156,6 +156,7 @@ tuna.control.ViewController.prototype.handleTransformComplete
 /**
  * Метода обработки начала трансформации по-умолчанию не реализован.
  *
+ * @see tuna.ui.transformers.ITransformHandler.handleTransformStart
  * @override
  */
 tuna.control.ViewController.prototype.handleTransformStart
