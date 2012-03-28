@@ -1,45 +1,79 @@
 /**
+ * Класс управления страницей отображения. Страница отображения представляет
+ * собой DOM-элемент, являющийся элементом выделения модуля управлением
+ * навигацией <code>tuna.ui.selection.Navigation</code>.
+ *
+ * В данном классе к базовой логике работы класса управления отображением
+ * добавлена логика обработки "открытия" и "закрытия" станицы отображения.
+ *
+ * @see tuna.ui.selection.Navigation
+ * @see tuna.ui.selection.rule.NavigationSelectionRule
  * @constructor
- * @extends {tuna.control.ViewController}
+ * @extends tuna.control.ViewController
  */
-var PageViewController = function() {
+tuna.control.PageViewController = function() {
     tuna.control.ViewController.call(this);
 
     /**
+     * Модуль упарвления навигацией, страницей которого управляет данный
+     * контроллер.
+     *
      * @protected
      * @type tuna.ui.selection.Navigation
      */
     this._navigation = null;
 };
 
-tuna.utils.extend(PageViewController, tuna.control.ViewController);
+tuna.utils.extend(tuna.control.PageViewController, tuna.control.ViewController);
 
 /**
- * @param {tuna.ui.selection.Navigation} navigation
+ * Установка соответсующего модуля упарвления навигацией.
+ *
+ * @see tuna.ui.selection.rule.NavigationSelectionRule
+ * @param {tuna.ui.selection.Navigation} navigation Модуль упарвления
+ *        навигацией.
  */
-PageViewController.prototype.setNavigation = function(navigation) {
+tuna.control.PageViewController.prototype.setNavigation = function(navigation) {
     this._navigation = navigation;
 };
 
 /**
- * @param {string|number} index
+ * Проверка возможности "закрытия" соответсующей контроллеру страницы
+ * отображения.
+ *
+ * Если возможность закрытия по каким-либо причинам отсутствует, переход к
+ * следующей странице с индеком <code>index</code> не произойдет.
+ *
+ * Реализация проверки возможности закрытия переопределяется в наследниках
+ * класса.
+ *
+ * @see tuna.ui.selection.rule.NavigationSelectionRule
+ * @param {string|number} index Индекс открываемой страницы.
+ * @return {boolean} Возможность закрытия.
  */
-PageViewController.prototype.canClose = function(index) {
+tuna.control.PageViewController.prototype.canClose = function(index) {
     return true;
 };
 
 /**
+ * Обработка закрытия соответсующей страницы отображения.
  *
+ * Реализация обработки закрытия переопределяется в наследниках класса.
+ *
+ * @see tuna.ui.selection.rule.NavigationSelectionRule
  */
-PageViewController.prototype.close = function() {};
+tuna.control.PageViewController.prototype.close = function() {};
 
 /**
- * @param {Object.<string, string>} args
+ * Обработка открытия соответсующей страницы отображения.
+ *
+ * В качестве сопуствующих данных, можуг передаваться дополнительные аргументы
+ * открытия страницы.
+ *
+ * Реализация обработки открытия и обработка сопутствующих данных
+ * переопределяется в наследниках класса.
+ *
+ * @param {Object.<string, string>} args Данные сопуствующие открытию.
  */
-PageViewController.prototype.open = function(args) {};
+tuna.control.PageViewController.prototype.open = function(args) {};
 
-/**
- * @constructor
- * @extends {PageViewController}
- */
-tuna.control.PageViewController = PageViewController;

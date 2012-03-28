@@ -1,11 +1,13 @@
 /**
  * TUNA FRAMEWORK
- * 
+ *
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
 /**
- * @namespace Глобальная область имен.
+ * Глобальная область имен.
+ *
+ * @namespace
  */
 var tuna = {};
 
@@ -15,10 +17,10 @@ var tuna = {};
  * @const
  * @type string
  */
-tuna.VERSION = '3.2.70';
+tuna.VERSION = '3.5.70';
 
 /**
- * Является ли текущий браузер IE.
+ * Является ли текущий браузер Internet Explorer'ом.
  *
  * @const
  * @type boolean
@@ -26,126 +28,119 @@ tuna.VERSION = '3.2.70';
 tuna.IS_IE = !!eval("'\v' == 'v'");
 
 /**
- * @define {boolean}
+ * @namespace Область имен классов управления отображением.
  */
-tuna.IS_COMPILED = true;
+tuna.control = {};
 
 /**
- * @namespace
+ * @namespace Область имен функций для работы с DOM-моделью.
  */
 tuna.dom = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов обработки и генерации событий.
  */
 tuna.events = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов предназначенных для работы с моделью данных
+ * приложения.
  */
 tuna.model = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов реализующих AJAX запросы.
  */
 tuna.net = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов предназначенных для работы с REST
+ * интерфейсом.
  */
 tuna.rest = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов шаблонизатора.
  */
 tuna.tmpl = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов компиляции шаблонов.
  */
 tuna.tmpl.compilers = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов работы с данными шаблонизатора.
  */
 tuna.tmpl.data = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов обработки разметки шаблона.
  */
 tuna.tmpl.markup = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов описывающих шаблон трансформации.
  */
 tuna.tmpl.settings = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов реализующих трансформацию.
  */
 tuna.tmpl.units = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов компонентов отображения.
  */
 tuna.ui = {};
 
 /**
- * @namespace
+ * @namespace Область имен компонентов типа кнопка.
  */
 tuna.ui.buttons = {};
 
 /**
- * @namespace
- */
-tuna.ui.containers = {};
-
-/**
- * @namespace
+ * @namespace Область имен компонентов связанных с Flash.
  */
 tuna.ui.flash = {};
 
 /**
- * @namespace
+ * @namespace Область имен компонентов связанных с формами.
  */
 tuna.ui.forms = {};
 
 /**
- * @namespace
+ * @namespace Область имен компонентов связанных с всплывающими окнами.
  */
 tuna.ui.popups = {};
 
 /**
- * @namespace
+ * @namespace Область имен компонентов связанных с выделением, например, списки
+ * и навигация.
  */
 tuna.ui.selection = {};
 
 /**
- * @namespace
- */
-tuna.ui.transformers = {};
-
-/**
- * @namespace
+ * @namespace Область имен классов-наборов элементов в списках выделения.
  */
 tuna.ui.selection.items = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов-правил выделения элементов.
  */
 tuna.ui.selection.rule = {};
 
 /**
- * @namespace
+ * @namespace Область имен классов управления отображением выделенных элементов.
  */
 tuna.ui.selection.view = {};
 
 /**
- * @namespace
+ * @namespace Область имен компонентов связанных с трансформацией DOM-дерева.
  */
-tuna.utils = {};
+tuna.ui.transformers = {};
 
 /**
- * @namespace
+ * @namespace Область имен вспомогательных функций.
  */
-tuna.control = {};
+tuna.utils = {};

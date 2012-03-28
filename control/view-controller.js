@@ -3,7 +3,7 @@
  * <code>tuna.ui.transformers.ITransformHandler</code> обработчика
  * трансформации отображения.
  *
- * Екземпляры данного класса являются основными сущностями приложения - каждый
+ * Экземпляры данного класса являются основными сущностями приложения - каждый
  * екземпляр привязывается к определенному елементу DOM-дерева с помощью
  * статических методов <code>tuna.control.registerController()</code> и
  * <code>tuna.control.setMainController()</code>.
@@ -62,7 +62,8 @@ tuna.control.ViewController.prototype.isActive = function() {
  * @see tuna.ui.ModuleContainer
  * @see tuna.control.ViewController._initActions()
  * @see tuna.control.ViewController.destroy()
- * @param {!Node} target
+ * @param {!Node} target Элемент DOM-дерева, отображением которого следует
+ *        управлять.
  */
 tuna.control.ViewController.prototype.init = function(target) {
     this.destroy();
@@ -133,8 +134,8 @@ tuna.control.ViewController.prototype._destroyActions = function() {};
  * @see tuna.ui.transformers.ITransformHandler.handleTransformComplete
  * @override
  */
-tuna.control.ViewController.prototype.handleTransformComplete
-    = function(transformer, createdElements, removedElements) {
+tuna.control.ViewController.prototype.handleTransformComplete =
+    function(transformer, createdElements, removedElements) {
 
     var i = 0,
         l = createdElements.length;
@@ -159,5 +160,5 @@ tuna.control.ViewController.prototype.handleTransformComplete
  * @see tuna.ui.transformers.ITransformHandler.handleTransformStart
  * @override
  */
-tuna.control.ViewController.prototype.handleTransformStart
-    = function(transformer) {};
+tuna.control.ViewController.prototype.handleTransformStart =
+    function(transformer) {};
