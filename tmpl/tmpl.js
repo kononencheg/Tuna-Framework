@@ -34,7 +34,7 @@ tuna.tmpl.__compiler = new tuna.tmpl.compilers.TemplateCompiler(document);
 
 /**
  *
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  * @return {tuna.tmpl.units.Template}
  */

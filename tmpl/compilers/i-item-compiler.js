@@ -1,17 +1,13 @@
 /**
  * @interface
  */
-var IItemCompiler = function() {};
+tuna.tmpl.compilers.IItemCompiler = function() {};
 
 /**
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  * @param {tuna.tmpl.units.Template} template
  */
-IItemCompiler.prototype.compile = function(element, settings, template) {};
+tuna.tmpl.compilers.IItemCompiler.prototype.compile =
+    function(element, settings, template) {};
 
-/**
- * @interface
- * @extends {IItemCompiler}
- */
-tuna.tmpl.compilers.IItemCompiler = IItemCompiler;

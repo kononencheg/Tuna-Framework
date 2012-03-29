@@ -7,6 +7,12 @@ tuna.ui.forms.Autocomplete = function(target) {
     tuna.ui.forms.InputFilter.call(this, target);
 
     /**
+     * @type Node
+     * @private
+     */
+    this.__listBody = null;
+
+    /**
      * @private
      * @type Object
      */
@@ -28,13 +34,14 @@ tuna.utils.extend(tuna.ui.forms.Autocomplete, tuna.ui.forms.InputFilter);
 tuna.ui.forms.Autocomplete.prototype.init = function() {
     tuna.ui.forms.InputFilter.prototype.init.call(this);
 
-    var body = tuna.dom.selectOne('.j-autocomplete-body', this._target);
     var self = this;
 
-    var isOpen = false;
+    this.__listBody = tuna.dom.selectOne('.j-autocomplete-body', this._target);
+    if (this.__listBody !== null && this._input !== null) {
 
-    if (this._input !== null) {
-        tuna.dom.addEventListener(this._input, 'focus', function(event) {
+        var isOpen = false;
+
+        tuna.dom.addEventListener(this._input, 'focus', function() {
             if (!isOpen) {
                 if (document.body !== null) {
                     tuna.dom.addOneEventListener(
@@ -45,14 +52,15 @@ tuna.ui.forms.Autocomplete.prototype.init = function() {
                                 self.clear();
                             }
 
-                            tuna.dom.addClass(body, 'hide');
+                            tuna.dom.addClass(self.__listBody, 'hide');
                             isOpen = false;
                         }
                     );
                 }
 
                 self.filter('');
-                tuna.dom.removeClass(body, 'hide');
+
+                tuna.dom.removeClass(self.__listBody, 'hide');
                 isOpen = true;
             }
         });

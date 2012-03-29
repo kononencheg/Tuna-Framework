@@ -12,8 +12,8 @@
  * элемента в DOM-дереве, происходит автоматически, например, при обработке
  * внутренних событий некоторых модулей отображения.
  *
- * @see tuna.control.registerController()
- * @see tuna.control.setMainController()
+ * @see tuna.control.registerController
+ * @see tuna.control.setMainController
  * @see tuna.ui.selection.Navigation
  * @see tuna.ui.transformers.ITransformHandler
  * @constructor
@@ -32,7 +32,7 @@ tuna.control.ViewController = function() {
     /**
      * Список модулей зарегистрированных для инициализации в контейнере.
      *
-     * @type {Array.<string>}
+     * @type Array.<string>
      * @protected
      */
     this._modules = [];
@@ -42,7 +42,7 @@ tuna.control.ViewController = function() {
  * Метод проверки активности контроллера. Активность подразумевает наличие
  * активного контейнера.
  *
- * @see tuna.ui.ModuleContainer.isActive()
+ * @see tuna.ui.ModuleContainer#isActive
  * @return {boolean} Значение активности контроллера.
  */
 tuna.control.ViewController.prototype.isActive = function() {
@@ -60,8 +60,8 @@ tuna.control.ViewController.prototype.isActive = function() {
  * Перед повторной инициализации контроллера происходит уничтожение контроллера.
  *
  * @see tuna.ui.ModuleContainer
- * @see tuna.control.ViewController._initActions()
- * @see tuna.control.ViewController.destroy()
+ * @see tuna.control.ViewController#_initActions
+ * @see tuna.control.ViewController#destroy
  * @param {!Node} target Элемент DOM-дерева, отображением которого следует
  *        управлять.
  */
@@ -85,8 +85,8 @@ tuna.control.ViewController.prototype.init = function(target) {
  * Уничтожение контроллера происходит только в том случае, если он был ранее
  * проинициализирован.
  *
- * @see tuna.control.ViewController._destroyActions()
- * @see tuna.control.ViewController.init()
+ * @see tuna.control.ViewController#_destroyActions
+ * @see tuna.control.ViewController#init
  */
 tuna.control.ViewController.prototype.destroy = function() {
     if (this._container !== null) {
@@ -113,7 +113,7 @@ tuna.control.ViewController.prototype._initActions = function() {};
  * В зависимости от реализации метода <code>_initActions()</code> конкретного
  * контроллера, данным метод должен уничтожать проинициализированное поведение.
  *
- * @see tuna.control.ViewController._initActions()
+ * @see tuna.control.ViewController#_initActions
  * @protected
  */
 tuna.control.ViewController.prototype._destroyActions = function() {};

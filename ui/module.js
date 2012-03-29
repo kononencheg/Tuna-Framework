@@ -1,6 +1,6 @@
 /**
  * @constructor
- * @param {string} selector
+ * @param {!string} selector
  */
 tuna.ui.Module = function(selector) {
     /**
@@ -11,8 +11,8 @@ tuna.ui.Module = function(selector) {
 };
 
 /**
- * @param {Node} context
- * @param {tuna.ui.ModuleContainer} container
+ * @param {!Node} context
+ * @param {!tuna.ui.ModuleContainer} container
  * @return {Array.<tuna.ui.ModuleInstance>}
  */
 tuna.ui.Module.prototype.init = function(context, container) {
@@ -44,19 +44,19 @@ tuna.ui.Module.prototype.init = function(context, container) {
 
 /**
  * @protected
- * @param {Node} context
+ * @param {!Node} context
  */
 tuna.ui.Module.prototype._findTargets = function(context) {
     var targets = tuna.dom.select(this._selector, context);
-    targets = targets.concat(tuna.dom.filter(this._selector, [context]));
+    targets = targets.concat(tuna.dom.matches(this._selector, [context]));
 
     return targets;
 };
 
 /**
  * @private
- * @param {Node} target
- * @param {Node} context
+ * @param {!Node} target
+ * @param {!Node} context
  */
 tuna.ui.Module.prototype.__isInContext = function(target, context) {
     var result = true;

@@ -4,8 +4,6 @@
  */
 var SpotCompiler = function() {};
 
-
-
 /**
  * @override
  */
@@ -46,7 +44,7 @@ SpotCompiler.prototype._createItem = function(rootTemplate) {
 
 /**
  * @protected
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.settings.IItemSettings} settings
  * @param {tuna.tmpl.units.CompiledUnit} item
  */

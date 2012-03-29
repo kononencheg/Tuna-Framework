@@ -33,7 +33,7 @@ TemplateCompiler.prototype.__registerItemCompilers = function() {
 
 /**
  * @param {tuna.tmpl.settings.TemplateSettings} settings
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.units.Template} root
  * @return {tuna.tmpl.units.Template}
  */

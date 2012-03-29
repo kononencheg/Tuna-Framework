@@ -27,7 +27,7 @@ ListCompiler.prototype.compile = function(element, settings, template) {
 
 /**
  * @private
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.settings.IItemSettings} settings
  * @param {tuna.tmpl.units.Template} template
  */

@@ -159,17 +159,21 @@ tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
  * @return {tuna.tmpl.units.Template}
  */
 tuna.tmpl.units.List.prototype.__makeNewItem = function() {
-    var itemElement = this.__itemRenderer.cloneNode(true);
+    var renderer = this.__itemRenderer.cloneNode(true);
 
-    var rootTemplate = this.getRootTemplate();
-    var template = this.__templateCompiler.compileTemplate
-        (this.__itemSettings, itemElement, rootTemplate);
+    if (renderer !== null) {
+        var rootTemplate = this.getRootTemplate();
+        var template = this.__templateCompiler.compileTemplate
+            (this.__itemSettings, renderer, rootTemplate);
 
-    this.__listNodeRouter.append(itemElement);
+        this.__listNodeRouter.append(renderer);
 
-    rootTemplate.registerChildCreation(itemElement);
+        rootTemplate.registerChildCreation(renderer);
 
-    return template;
+        return template;
+    }
+
+    return null;
 };
 
 /**

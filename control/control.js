@@ -7,7 +7,7 @@
  * Точкой входа в приложение является метод <code>_initActions()</code>
  * контроллера установленного как основной.
  *
- * @see tuna.control.ViewController._initActions()
+ * @see tuna.control.ViewController#_initActions
  * @param {!tuna.control.ViewController} controller Контроллер отображения,
  *        устанавливаемый как основной.
  */
@@ -19,7 +19,7 @@ tuna.control.setMainController = function(controller) {
  * Регистрация контроллера управелния отображением DOM-элемента с
  * идентификатором <code>targetId</code>.
  *
- * @see tuna.control.getController()
+ * @see tuna.control.getController
  * @param {!string} targetId Идентификатор DOM-элемента, отображением
  *        которого следует управлять.
  *
@@ -33,7 +33,7 @@ tuna.control.registerController = function(targetId, controller) {
 /**
  * Взятие соответсвующего контроллера по идентификатору DOM-элемента.
  *
- * @see tuna.control.registerController()
+ * @see tuna.control.registerController
  * @param {!string} targetId Идентификатор DOM-элемента.
  * @return {tuna.control.ViewController} Соответсвующий контроллер.
  */

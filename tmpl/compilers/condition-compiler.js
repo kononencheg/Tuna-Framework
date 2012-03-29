@@ -195,7 +195,7 @@ var __ConditionAction = function(data) {
 
 /**
  *
- * @param {Node} element
+ * @param {!Node} element
  * @param {boolean} testResult
  * @param {*} value
  */
