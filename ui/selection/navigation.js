@@ -356,7 +356,7 @@ var NavigationState = function(path, data) {
 NavigationState.prototype.serialize = function() {
     var result = '';
     if (this.__data !== null) {
-        result = tuna.net.encode(this.__data);
+        result = tuna.utils.urlEncode(this.__data);
     }
 
     if (result !== '') {

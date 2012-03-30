@@ -1,24 +1,34 @@
+
+
+
 /**
+ * Интерфейс классов отправки удаленных запросов.
+ *
+ * Данный интерфейс наследует <code>tuna.events.IEventDispatcher</code>. Классы
+ * реализующие данный интерфейс должны генерировать следующие события:
+ *
+ * - <code>complete</code> - При получении ответа на запрос.
+ *
  * @interface
  * @extends {tuna.events.IEventDispatcher}
  */
-var IRequest = function() {};
+tuna.net.IRequest = function() {};
 
-tuna.utils.extend(IRequest, tuna.events.IEventDispatcher);
 
-/**
- * @param {string} url
- */
-IRequest.prototype.send = function(url) {};
+tuna.utils.extend(tuna.net.IRequest, tuna.events.IEventDispatcher);
+
 
 /**
+ * Отслыка запроса.
  *
+ * @param {Object=} opt_data Сопуствующие запросу данные.
  */
-IRequest.prototype.abort = function() {};
+tuna.net.IRequest.prototype.send = function(opt_data) {};
+
 
 /**
- * @interface
- * @extends {IRequest}
+ * Прерывание запроса.
+ *
+ * Прерывание вызывает преждевременное получение ответа на запрос.
  */
-tuna.net.IRequest = IRequest;
-
+tuna.net.IRequest.prototype.abort = function() {};

@@ -1,55 +1,8 @@
-/**
- * @constructor
- * @implements {tuna.rest.IMethodFactory}
- */
-var MethodFactory = function() {
-    /**
-     * @private
-     * @type Object.<string, tuna.rest.IMethod>
-     */
-    this.__methods = {};
-
-    /**
-     * @private
-     * @type tuna.rest.IMethodFactory
-     */
-    this.__commonFactory = null;
-};
-
-
 
 /**
- * @param {tuna.rest.IMethodFactory} factory
+ * @type tuna.rest.MethodFactory
  */
-MethodFactory.prototype.setDefaultFactory = function(factory) {
-    this.__commonFactory = factory;
-};
-
-/**
- * @override
- */
-MethodFactory.prototype.createMethod = function(name) {
-    if (this.__methods[name] !== undefined) {
-        return this.__methods[name].clone();
-    } else if (this.__commonFactory !== null) {
-        return this.__commonFactory.createMethod(name);
-    }
-
-    return null;
-};
-
-/**
- * @param {string} name
- * @param {tuna.rest.IMethod} method
- */
-MethodFactory.prototype.registerMethod = function(name, method) {
-    this.__methods[name] = method;
-};
-
-/**
- * @type MethodFactory
- */
-tuna.rest.methodFactory = new MethodFactory();
+tuna.rest.methodFactory = new tuna.rest.MethodFactory();
 
 /**
  * @param {string} name

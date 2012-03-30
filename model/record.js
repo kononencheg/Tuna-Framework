@@ -26,6 +26,7 @@ tuna.model.Record = function(opt_rawData) {
 /**
  * Клонирование экземпляра класса.
  *
+ * @see tuna.model.RecordFactory
  * @return {!tuna.model.Record} Копия данного экземпляра.
  */
 tuna.model.Record.prototype.clone = function() {

@@ -1,16 +1,12 @@
 /**
+ *
+ * 
  * @interface
  */
-var IMethodFactory = function() {};
+tuna.rest.IMethodFactory = function() {};
 
 /**
  * @param {string} name
  * @return {tuna.rest.IMethod}
  */
-IMethodFactory.prototype.createMethod = function(name) {};
-
-/**
- * @interface
- * @extends {IMethodFactory}
- */
-tuna.rest.IMethodFactory = IMethodFactory;
+tuna.rest.IMethodFactory.prototype.createMethod = function(name) {};

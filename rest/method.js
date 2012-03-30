@@ -1,36 +1,38 @@
+
+
+
 /**
+ * Абстрактный класс реализации интерфейса удаленного метода
+ * <code>tuna.rest.IMethod</code>.
+ *
  * @constructor
  * @implements {tuna.rest.IMethod}
  * @extends {tuna.events.EventDispatcher}
- * @param {string=} name
+ * @param {string=} opt_name Имя удаленного метода.
  */
-var Method = function(name) {
+tuna.rest.Method = function(opt_name) {
     tuna.events.EventDispatcher.call(this);
 
     /**
      * @protected
      * @type ?string
      */
-    this._name = name || null;
+    this._name = opt_name || null;
 };
 
 
-tuna.utils.extend(Method, tuna.events.EventDispatcher);
+tuna.utils.extend(tuna.rest.Method, tuna.events.EventDispatcher);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-Method.prototype.call = function(args) {};
+tuna.rest.Method.prototype.call = function(args) {};
+
 
 /**
- * @override
+ * @inheritDoc
  */
-Method.prototype.clone = function() {
-    return new this.constructor(this._name);
+tuna.rest.Method.prototype.clone = function(opt_name) {
+    return new this.constructor(opt_name || this._name);
 };
-
-/**
- * @constructor
- * @extends {Method}
- */
-tuna.rest.Method = Method;
