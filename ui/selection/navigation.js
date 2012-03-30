@@ -252,7 +252,7 @@ tuna.ui.selection.Navigation.prototype.back = function() {
 };
 
 /**
- * @param {!string|!Array.<string>} path
+ * @param {string|!Array.<string>} path
  * @param {Object.<string, string>=} data
  */
 tuna.ui.selection.Navigation.prototype.navigate = function(path, data) {

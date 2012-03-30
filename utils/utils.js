@@ -8,6 +8,16 @@ tuna.utils.toArray = function(list) {
     return Array.prototype.slice.call(list);
 };
 
+
+/**
+ * @param {!Date} date
+ * @return {string}
+ */
+tuna.utils.dateToString = function(date) {
+  return date.toJSON().substring(0, 16).replace('T', ' ');
+};
+
+
 /**
  * Наследование типа.
  *
@@ -34,7 +44,7 @@ tuna.utils.extend = function(Class, Parent) {
  *
  * Не следует использовать нигде в логике приложенния.
  *
- * @param {!string} code Строка кода.
+ * @param {string} code Строка кода.
  * @return {*} Результат выполнения.
  * @deprecated
  */

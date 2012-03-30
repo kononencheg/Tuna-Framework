@@ -1,11 +1,8 @@
 /**
  * TODO: Template origin in iframe (set current and origin document).
  * @constructor
- * @param {HTMLDocument} doc
  */
-var MarkupTemplateBuilder = function(doc) {
-    this.__doc = doc;
-
+var MarkupTemplateBuilder = function() {
     this.__templatesTable = {};
 
     this.__extractors = [];
@@ -34,7 +31,7 @@ MarkupTemplateBuilder.prototype.buildSettings = function(templateID) {
     if (this.__templatesTable[templateID] !== undefined) {
         template = this.__templatesTable[templateID];
     } else {
-        var templateElement = this.__doc.getElementById(templateID);
+        var templateElement = document.getElementById(templateID);
         if (templateElement !== null) {
             this.__templatesTable[templateID] =
                 template = new tuna.tmpl.settings.TemplateSettings();

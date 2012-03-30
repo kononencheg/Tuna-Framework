@@ -1,3 +1,6 @@
+
+
+
 /**
  * Базовый стандартный класс управления отображением. Реализует интерфейс
  * <code>tuna.ui.transformers.ITransformHandler</code> обработчика
@@ -17,26 +20,27 @@
  * @see tuna.ui.selection.Navigation
  * @see tuna.ui.transformers.ITransformHandler
  * @constructor
- * @implements tuna.ui.transformers.ITransformHandler
+ * @implements {tuna.ui.transformers.ITransformHandler}
  */
 tuna.control.ViewController = function() {
 
-    /**
+  /**
      * Контейнер с модулями.
      *
      * @protected
-     * @type tuna.ui.ModuleContainer
+     * @type {tuna.ui.ModuleContainer}
      */
-    this._container = null;
+  this._container = null;
 
-    /**
+  /**
      * Список модулей зарегистрированных для инициализации в контейнере.
      *
-     * @type Array.<string>
+     * @type {Array.<string>}
      * @protected
      */
-    this._modules = [];
+  this._modules = [];
 };
+
 
 /**
  * Метод проверки активности контроллера. Активность подразумевает наличие
@@ -46,8 +50,9 @@ tuna.control.ViewController = function() {
  * @return {boolean} Значение активности контроллера.
  */
 tuna.control.ViewController.prototype.isActive = function() {
-    return this._container !== null && this._container.isActive();
+  return this._container !== null && this._container.isActive();
 };
+
 
 /**
  * Инициализация контроллера отображения.
@@ -66,14 +71,15 @@ tuna.control.ViewController.prototype.isActive = function() {
  *        управлять.
  */
 tuna.control.ViewController.prototype.init = function(target) {
-    this.destroy();
+  this.destroy();
 
-    this._container = new tuna.ui.ModuleContainer(target);
-    this._container.requireModules(this._modules);
-    this._container.initModules();
+  this._container = new tuna.ui.ModuleContainer(target);
+  this._container.requireModules(this._modules);
+  this._container.initModules();
 
-    this._initActions();
+  this._initActions();
 };
+
 
 /**
  * Уничтожение контроллера отображения.
@@ -89,13 +95,14 @@ tuna.control.ViewController.prototype.init = function(target) {
  * @see tuna.control.ViewController#init
  */
 tuna.control.ViewController.prototype.destroy = function() {
-    if (this._container !== null) {
-        this._destroyActions();
+  if (this._container !== null) {
+    this._destroyActions();
 
-        this._container.destroyModules();
-        this._container = null;
-    }
+    this._container.destroyModules();
+    this._container = null;
+  }
 };
+
 
 /**
  * Инициализация поведения конкретного контроллера.
@@ -107,6 +114,7 @@ tuna.control.ViewController.prototype.destroy = function() {
  */
 tuna.control.ViewController.prototype._initActions = function() {};
 
+
 /**
  * Разрушение поведения конкретного контроллера.
  *
@@ -117,6 +125,7 @@ tuna.control.ViewController.prototype._initActions = function() {};
  * @protected
  */
 tuna.control.ViewController.prototype._destroyActions = function() {};
+
 
 /**
  * Реализация метода обработки завершения трансформаций DOM-дерева внутри
@@ -137,22 +146,23 @@ tuna.control.ViewController.prototype._destroyActions = function() {};
 tuna.control.ViewController.prototype.handleTransformComplete =
     function(transformer, createdElements, removedElements) {
 
-    var i = 0,
-        l = createdElements.length;
+  var i = 0,
+      l = createdElements.length;
 
-    while (i < l) {
-        this._container.initModules(createdElements[i]);
-        i++;
-    }
+  while (i < l) {
+    this._container.initModules(createdElements[i]);
+    i++;
+  }
 
-    i = 0;
-    l = removedElements.length;
+  i = 0;
+  l = removedElements.length;
 
-    while (i < l) {
-        this._container.destroyModules(removedElements[i]);
-        i++;
-    }
+  while (i < l) {
+    this._container.destroyModules(removedElements[i]);
+    i++;
+  }
 };
+
 
 /**
  * Метода обработки начала трансформации по-умолчанию не реализован.

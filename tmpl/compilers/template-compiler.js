@@ -1,15 +1,7 @@
 /**
  * @constructor
- * @param {HTMLDocument} doc
  */
-var TemplateCompiler = function(doc) {
-
-    /**
-     * @private
-     * @type HTMLDocument
-     */
-    this.__doc = doc;
-
+var TemplateCompiler = function() {
     /**
      * @private
      * @type Array.<tuna.tmpl.compilers.IItemCompiler>
@@ -27,8 +19,7 @@ TemplateCompiler.prototype.__registerItemCompilers = function() {
     this.__itemCompilers.push(new tuna.tmpl.compilers.CheckboxCompiler());
     this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
     this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
-    this.__itemCompilers.push
-        (new tuna.tmpl.compilers.ListCompiler(this.__doc, this));
+    this.__itemCompilers.push(new tuna.tmpl.compilers.ListCompiler(this));
 };
 
 /**

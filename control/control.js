@@ -1,3 +1,5 @@
+
+
 /**
  * Установка основного контроллера отображения.
  *
@@ -12,38 +14,41 @@
  *        устанавливаемый как основной.
  */
 tuna.control.setMainController = function(controller) {
-    tuna.control.__mainController = controller;
+  tuna.control.__mainController = controller;
 };
+
 
 /**
  * Регистрация контроллера управелния отображением DOM-элемента с
  * идентификатором <code>targetId</code>.
  *
  * @see tuna.control.getController
- * @param {!string} targetId Идентификатор DOM-элемента, отображением
+ * @param {string} targetId Идентификатор DOM-элемента, отображением
  *        которого следует управлять.
  *
  * @param {!tuna.control.ViewController} controller Контроллер, который будет
  *        управлять отображением DOM-элемента.
  */
 tuna.control.registerController = function(targetId, controller) {
-    tuna.control.__controllerTable[targetId] = controller;
+  tuna.control.__controllerTable[targetId] = controller;
 };
+
 
 /**
  * Взятие соответсвующего контроллера по идентификатору DOM-элемента.
  *
  * @see tuna.control.registerController
- * @param {!string} targetId Идентификатор DOM-элемента.
+ * @param {string} targetId Идентификатор DOM-элемента.
  * @return {tuna.control.ViewController} Соответсвующий контроллер.
  */
 tuna.control.getController = function(targetId) {
-    if (tuna.control.__controllerTable[targetId] !== undefined) {
-        return tuna.control.__controllerTable[targetId];
-    }
+  if (tuna.control.__controllerTable[targetId] !== undefined) {
+    return tuna.control.__controllerTable[targetId];
+  }
 
-    return null;
+  return null;
 };
+
 
 /**
  * Инициализация глобального контроля отображения.
@@ -55,15 +60,19 @@ tuna.control.getController = function(targetId) {
  *        корневого элемента выбирается <code>document.body</code>.
  */
 tuna.control.init = function(target) {
-    tuna.control.__mainController.init(target);
+  tuna.control.__mainController.init(target);
 };
 
+
 /**
- * @type Object.<string, tuna.control.ViewController>
+ * @private
+ * @type {Object.<string, tuna.control.ViewController>}
  */
 tuna.control.__controllerTable = {};
 
+
 /**
- * @type tuna.control.ViewController
+ * @private
+ * @type {tuna.control.ViewController}
  */
 tuna.control.__mainController = null;

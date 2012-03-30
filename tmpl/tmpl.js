@@ -2,7 +2,7 @@
  * @private
  * @type {tuna.tmpl.markup.MarkupTemplateBuilder}
  */
-tuna.tmpl.__markupBuilder = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
+tuna.tmpl.__markupBuilder = new tuna.tmpl.markup.MarkupTemplateBuilder();
 
 /**
  * @type Object.<string, tuna.tmpl.settings.TemplateSettings>
@@ -30,7 +30,7 @@ tuna.tmpl.getTemplateSettingsById = function(id) {
  * @private
  * @type tuna.tmpl.compilers.TemplateCompiler
  */
-tuna.tmpl.__compiler = new tuna.tmpl.compilers.TemplateCompiler(document);
+tuna.tmpl.__compiler = new tuna.tmpl.compilers.TemplateCompiler();
 
 /**
  *

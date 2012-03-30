@@ -1,3 +1,6 @@
+
+
+
 /**
  * Класс управления страницей отображения. Страница отображения представляет
  * собой DOM-элемент, являющийся элементом выделения модуля управлением
@@ -9,22 +12,23 @@
  * @see tuna.ui.selection.Navigation
  * @see tuna.ui.selection.rule.NavigationSelectionRule
  * @constructor
- * @extends tuna.control.ViewController
+ * @extends {tuna.control.ViewController}
  */
 tuna.control.PageViewController = function() {
-    tuna.control.ViewController.call(this);
+  tuna.control.ViewController.call(this);
 
-    /**
+  /**
      * Модуль упарвления навигацией, страницей которого управляет данный
      * контроллер.
      *
      * @protected
-     * @type tuna.ui.selection.Navigation
+     * @type {tuna.ui.selection.Navigation}
      */
-    this._navigation = null;
+  this._navigation = null;
 };
 
 tuna.utils.extend(tuna.control.PageViewController, tuna.control.ViewController);
+
 
 /**
  * Установка соответсующего модуля упарвления навигацией.
@@ -34,8 +38,9 @@ tuna.utils.extend(tuna.control.PageViewController, tuna.control.ViewController);
  *        навигацией.
  */
 tuna.control.PageViewController.prototype.setNavigation = function(navigation) {
-    this._navigation = navigation;
+  this._navigation = navigation;
 };
+
 
 /**
  * Проверка возможности "закрытия" соответсующей контроллеру страницы
@@ -52,8 +57,9 @@ tuna.control.PageViewController.prototype.setNavigation = function(navigation) {
  * @return {boolean} Возможность закрытия.
  */
 tuna.control.PageViewController.prototype.canClose = function(index) {
-    return true;
+  return true;
 };
+
 
 /**
  * Обработка закрытия соответсующей страницы отображения.
@@ -63,6 +69,7 @@ tuna.control.PageViewController.prototype.canClose = function(index) {
  * @see tuna.ui.selection.rule.NavigationSelectionRule
  */
 tuna.control.PageViewController.prototype.close = function() {};
+
 
 /**
  * Обработка открытия соответсующей страницы отображения.

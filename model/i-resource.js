@@ -1,26 +1,21 @@
 
-/**
- * @interface
- */
-var IResource = function() {};
+
 
 /**
- * @param {Object} data
- */
-IResource.prototype.set = function(data) {};
-
-/**
- * @return {Object}
- */
-IResource.prototype.get = function() {};
-
-/**
+ * Интерфейс хранилища модели данных приложения.
  *
+ * Наследует интерфейс <code>tuna.events.IEventDispatcher</code>. Классы
+ * реализующие данный интерфейс должны генерировать следующие события:
+ *
+ * - <code>update</code> - При изменении хранимого набора данных.
+ *
+ * @interface
+ * @extends {tuna.events.IEventDispatcher}
  */
-IResource.prototype.clear = function() {};
+tuna.model.IResource = function() {};
+
 
 /**
- * @interface
- * @extends {IResource}
+ * Очищение хранимого набора данных.
  */
-tuna.model.IResource = IResource;
+tuna.model.IResource.prototype.clear = function() {};

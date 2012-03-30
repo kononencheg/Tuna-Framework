@@ -55,7 +55,7 @@ tuna.rest.methodFactory = new MethodFactory();
  * @param {string} name
  * @param {Object} args
  * @param {function(Object)} callback
- * @param {?string=} recordName
+ * @param {string=} recordName
  */
 tuna.rest.call = function(name, args, callback, recordName) {
 
@@ -81,7 +81,7 @@ tuna.rest.call = function(name, args, callback, recordName) {
 };
 
 /**
- * @param {Object|Array.<Object>} data
+ * @param {!(Object|Array.<Object>)} data
  * @param {string} name
  * @return {tuna.model.Record|Array.<tuna.model.Record>}
  */
@@ -108,7 +108,7 @@ tuna.rest.populateRecords = function(data, name) {
 };
 
 /**
- * @param {Object} data
+ * @param {!Object} data
  * @param {string} name
  * @return {tuna.model.Record}
  */

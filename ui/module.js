@@ -1,6 +1,6 @@
 /**
  * @constructor
- * @param {!string} selector
+ * @param {string} selector
  */
 tuna.ui.Module = function(selector) {
     /**

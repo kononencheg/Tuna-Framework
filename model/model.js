@@ -1,71 +1,42 @@
-/**
- * @constructor
- */
-var RecordFactory = function () {
-    /**
-     * @private
-     * @type Object.<string, tuna.model.Record>
-     */
-    this.__records = {};
-};
+
 
 /**
+ * Обобщенная сериализация экземпряров модели данных.
  *
- * @param {string} name
- * @param {tuna.model.Record} record
- */
-RecordFactory.prototype.registerRecord = function(name, record) {
-    this.__records[name] = record;
-};
-
-/**
+ * В качестве объекда для сериализации может выступать экземпляр данных или
+ * массив экземпляров.
  *
- * @param {string} name
- * @return {tuna.model.Record}
+ * @see tuna.model.Record#serialize
+ * @param {?(tuna.model.Record|Array.<tuna.model.Record>)} records Экземпляр или
+ *        экземпляры данных для сериализации.
+ * @param {!Object=} opt_options Аргументы преобразования.
+ * @return {!*} Результат преобразования.
  */
-RecordFactory.prototype.createRecord = function(name) {
-    return this.__records[name].clone();
-};
+tuna.model.serialize = function(records, opt_options) {
+  if (records instanceof Array) {
+    var result = [];
 
-/**
- * @type RecordFactory
- */
-tuna.model.recordFactory = new RecordFactory();
+    var i = 0,
+            l = records.length;
 
-/**
- * @param {Object|tuna.model.Record|Array.<tuna.model.Record>} object
- * @param {Object=} options
- * @return {Object}
- */
-tuna.model.serialize = function(object, options) {
-    if (object !== null) {
-        if (object instanceof Array) {
-            var result = [];
-
-            var i = 0,
-                l = object.length;
-
-            while (i < l) {
-                result.push(object[i].serialize(options));
-
-                i++;
-            }
-
-            return result;
-        } else if (object instanceof tuna.model.Record) {
-            return object.serialize(options);
-        }
-
-        return object;
+    while (i < l) {
+      result.push(records[i].serialize(opt_options));
+      i++;
     }
 
-    return null;
+    return result;
+  } else if (records instanceof tuna.model.Record) {
+    return records.serialize(opt_options);
+  }
+
+  return null;
 };
 
+
 /**
- * @param {Date} date
- * @return {string}
+ * Основная фабрика экземпляров модели данных приложения.
+ *
+ * @see tuna.model.RecordFactory
+ * @type {!tuna.model.RecordFactory}
  */
-tuna.model.serializeDate = function(date) {
-    return date.toJSON().substring(0, 16).replace('T', ' ');
-};
+tuna.model.recordFactory = new tuna.model.RecordFactory();

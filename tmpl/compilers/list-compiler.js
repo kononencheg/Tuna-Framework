@@ -1,11 +1,9 @@
 /**
  * @constructor
  * @implements {tuna.tmpl.compilers.IItemCompiler}
- * @param {HTMLDocument} doc
  * @param {tuna.tmpl.compilers.TemplateCompiler} compiler
  */
-var ListCompiler = function(doc, compiler) {
-    this.__doc = doc;
+var ListCompiler = function( compiler) {
     this.__templateCompiler = compiler;
 };
 
@@ -68,7 +66,7 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
     list.setCompiler(this.__templateCompiler);
 
     var rendererId = settings.itemRendererID;
-    var renderer = this.__doc.getElementById(rendererId);
+    var renderer = document.getElementById(rendererId);
     if (renderer !== null) {
         renderer = renderer.cloneNode(true);
         renderer.removeAttribute('id');
