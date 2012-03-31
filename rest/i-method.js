@@ -1,3 +1,6 @@
+
+
+
 /**
  * Интерфейс класса удаленного метода.
  *
@@ -15,12 +18,14 @@
  */
 tuna.rest.IMethod = function() {};
 
+
 /**
  * Вызов удаленного метода.
  *
  * @param {Object} args Объект аргументов удаленного метода.
  */
 tuna.rest.IMethod.prototype.call = function(args) {};
+
 
 /**
  * Клонирование удаленного метода.
@@ -32,4 +37,3 @@ tuna.rest.IMethod.prototype.call = function(args) {};
  * @return {tuna.rest.IMethod} Копия метода.
  */
 tuna.rest.IMethod.prototype.clone = function(opt_name) {};
-

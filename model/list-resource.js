@@ -71,15 +71,11 @@ tuna.utils.extend(tuna.model.ListResource, tuna.events.EventDispatcher);
  * @param {boolean=} opt_isForce Флаг вынужденной загрузки.
  */
 tuna.model.ListResource.prototype.load = function(opt_args, opt_isForce) {
-  if (this._methodName !== null &&
-      this._recordName !== null &&
-      tuna.model.recordFactory.isRecordRegistered(this._recordName)) {
-
-    var self = this;
-
+  if (this._methodName !== null && this._recordName !== null) {
     if (opt_isForce || opt_args === undefined ||
         !tuna.utils.isObjectsEquals(this.__lastArgs, opt_args)) {
 
+      var self = this;
       tuna.rest.call(this._methodName, opt_args || null, function(records) {
         self.set(records);
       }, this._recordName);

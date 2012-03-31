@@ -20,7 +20,7 @@ tuna.model.RecordFactory = function() {
 
 
 /**
- * Регистрирование прототипа экземпляра модели данных с определенным именем.
+ * Регистрация прототипа экземпляра модели данных с определенным именем.
  *
  * @see tuna.model.Record
  * @param {string} name Имя экземпляра данных.
@@ -32,13 +32,12 @@ tuna.model.RecordFactory.prototype.registerRecord = function(name, record) {
 
 
 /**
- * Проверка наличия прототипа экземпляра модели данных в библиотеке.
+ * Взятие прототипа экземпляра данных по имени.
  *
- * @param {string} name Имя прототипа.
- * @return {boolean} Результат проверки.
+ * @param {string} name Имя экзампляра.
  */
-tuna.model.RecordFactory.prototype.isRecordRegistered = function(name) {
-  return this.__prototypes[name] !== undefined;
+tuna.model.RecordFactory.prototype.getRecordPrototype = function(name) {
+  return this.__prototypes[name] || null;
 };
 
 
