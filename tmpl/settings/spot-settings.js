@@ -1,31 +1,35 @@
+
+
+
 /**
+ * Настройки элемента шаблонизатора вставки данных в DOM-элемент.
+ *
  * @constructor
  * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var SpotSettings = function() {
+tuna.tmpl.settings.SpotSettings = function() {
     
     /**
-     * @private
-     * @type {string}
-     */
-    this.targetClass = '';
-
-    /**
-     * @private
-     * @type {string}
-     */
-    this.dataPath = '';
-
-    /**
+     * Имя CSS-класса целевых для элемента шаблонизатора DOM-элементов.
      *
-     * @type {Array.<string>}
-     * @private
+     * @public
+     * @type {?string}
      */
-    this.filter = null;
-};
+    this.targetClass = null;
 
-/**
- * @constructor
- * @extends {SpotSettings}
- */
-tuna.tmpl.settings.SpotSettings = SpotSettings;
+    /**
+     * Путь к данным для отображения элементом шаблонизатора.
+     *
+     * @public
+     * @type {?string}
+     */
+    this.dataPath = null;
+
+    /**
+     * Разбитая строка образца отображения данных.
+     *
+     * @public
+     * @type {Array.<string>}
+     */
+    this.pattern = null;
+};

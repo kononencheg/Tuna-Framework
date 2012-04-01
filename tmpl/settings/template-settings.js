@@ -1,112 +1,46 @@
+
+
 /**
+ * Настройки шаблона трансформации.
+ *
  * @constructor
  * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var TemplateSettings = function() {
+tuna.tmpl.settings.TemplateSettings = function() {
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.SpotSettings>
+     * Список элементов вставки данных.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.SpotSettings>}
      */
-    this.__spots = [];
+    this.spots = [];
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.ListSettings>
+     * Список элементов отображения списков.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.ListSettings>}
      */
-    this.__lists = [];
+    this.lists = [];
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.AttributeSettings>
+     * Список элементов установки аттрибута.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.AttributeSettings>}
      */
-    this.__attributes = [];
+    this.attributes = [];
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.ConditionSettings>
+     * Список элементов обработки условий.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.ConditionSettings>}
      */
-    this.__conditions = [];
+    this.conditions = [];
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.CheckboxSettings>
+     * Список элементов отображения данных в DOM-элементы input типа checkbox.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.CheckboxSettings>}
      */
-    this.__checkboxex = [];
+    this.checkboxex = [];
 };
 
-/**
- * @param {tuna.tmpl.settings.CheckboxSettings} checkbox
- */
-TemplateSettings.prototype.addCheckbox = function(checkbox) {
-    this.__checkboxex.push(checkbox);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.CheckboxSettings>}
- */
-TemplateSettings.prototype.getCheckboxes = function() {
-    return this.__checkboxex;
-};
-
-/**
- * @param {tuna.tmpl.settings.ConditionSettings} condition
- */
-TemplateSettings.prototype.addCondition = function(condition) {
-    this.__conditions.push(condition);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.ConditionSettings>}
- */
-TemplateSettings.prototype.getConditions = function() {
-    return this.__conditions;
-};
-
-/**
- * @param {tuna.tmpl.settings.AttributeSettings} attr
- */
-TemplateSettings.prototype.addAttribute = function(attr) {
-    this.__attributes.push(attr);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.AttributeSettings>}
- */
-TemplateSettings.prototype.getAttributes = function() {
-    return this.__attributes;
-};
-
-/**
- * @param {tuna.tmpl.settings.ListSettings} list
- */
-TemplateSettings.prototype.addList = function(list) {
-    this.__lists.push(list);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.ListSettings>}
- */
-TemplateSettings.prototype.getLists = function() {
-    return this.__lists;
-};
-
-/**
- * @param {tuna.tmpl.settings.SpotSettings} spot
- */
-TemplateSettings.prototype.addSpot = function(spot) {
-    this.__spots.push(spot);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.SpotSettings>}
- */
-TemplateSettings.prototype.getSpots = function() {
-    return this.__spots;
-};
-
-/**
- * @constructor
- * @extends {TemplateSettings}
- */
-tuna.tmpl.settings.TemplateSettings = TemplateSettings;

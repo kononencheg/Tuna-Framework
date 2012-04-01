@@ -24,7 +24,7 @@ tuna.rest.call = function(name, args, opt_callback, opt_recordName) {
       };
     } else {
       listener = function(event, data) {
-        if (data !== null && opt_recordName !== undefined) {
+        if (opt_recordName !== undefined) {
           opt_callback(tuna.rest.populateRecords(data, opt_recordName));
         }
 
@@ -53,7 +53,7 @@ tuna.rest.call = function(name, args, opt_callback, opt_recordName) {
  */
 tuna.rest.populateRecords = function(data, name) {
   var recordPrototype = tuna.model.recordFactory.getRecordPrototype(name);
-  if (recordPrototype !== null) {
+  if (recordPrototype !== null && data !== null) {
 
     var record = null;
     if (data instanceof Array) {

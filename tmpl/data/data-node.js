@@ -1,13 +1,13 @@
 /**
  * @constructor
- * @param {*} value
- * @param {tuna.tmpl.data.DataNode=} parent
- * @param {string=} key
+ * @param {!*} value
+ * @param {!tuna.tmpl.data.DataNode=} opt_parent
+ * @param {string=} opt_key
  */
-var DataNode = function(value, parent, key) {
+var DataNode = function(value, opt_parent, opt_key) {
     /**
      * @private
-     * @type *
+     * @type {!*}
      */
     this.__value = value;
 
@@ -15,13 +15,13 @@ var DataNode = function(value, parent, key) {
      * @private
      * @type tuna.tmpl.data.DataNode
      */
-    this.__parent = parent || null;
+    this.__parent = opt_parent || null;
 
     /**
      * @private
      * @type ?string
      */
-    this.__key = key || null;
+    this.__key = opt_key || null;
 
     /**
      * @private
@@ -65,7 +65,18 @@ DataNode.prototype.getRoot = function() {
  * @return  {*}
  */
 DataNode.prototype.getValue = function() {
-    return this.__value;
+  return this.__value;
+};
+
+/**
+ * @return {?string}
+ */
+DataNode.prototype.getStringValue = function() {
+  if (this.__value !== null) {
+    return this.__value.toString();
+  }
+
+  return null;
 };
 
 /**

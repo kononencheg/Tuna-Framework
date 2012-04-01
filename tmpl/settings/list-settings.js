@@ -1,37 +1,40 @@
+
+
+
 /**
+ * Настройки элемента шаблона отображения списка.
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
- * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var ListSettings = function() {
+tuna.tmpl.settings.ListSettings = function() {
     tuna.tmpl.settings.SpotSettings.call(this);
 
     /**
-     * @private
-     * @type string
+     * Путь выборки данных ключа элемента списка.
+     *
+     * @type {?string}
      */
-    this.keyPath = '';
+    this.keyPath = null;
 
     /**
-     * @private
-     * @type string
+     * Идентификатор прототипа элемента списка.
+     *
+     * @type {?string}
      */
-    this.itemRendererID = '';
+    this.itemRendererID = null;
 
     /**
-     * @private
-     * @type tuna.tmpl.settings.TemplateSettings
+     * Настройки шаблона элемента списка.
+     *
+     * @type {tuna.tmpl.settings.TemplateSettings}
      */
     this.itemSettings = null;
 };
 
-tuna.utils.extend(ListSettings, tuna.tmpl.settings.SpotSettings);
 
-/**
- * @constructor
- * @extends {ListSettings}
- */
-tuna.tmpl.settings.ListSettings = ListSettings;
+tuna.utils.extend
+    (tuna.tmpl.settings.ListSettings, tuna.tmpl.settings.SpotSettings);
 
 
 

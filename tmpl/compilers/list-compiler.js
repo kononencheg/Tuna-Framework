@@ -57,7 +57,7 @@ ListCompiler.prototype.__compileLists = function(element, settings, template) {
  * @private
  * @param {Node} element
  * @param {tuna.tmpl.settings.IItemSettings} settings
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root
  * @return {tuna.tmpl.units.List}
  */
 ListCompiler.prototype.__createList = function(element, settings, root) {

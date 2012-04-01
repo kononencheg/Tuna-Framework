@@ -25,22 +25,24 @@ TemplateCompiler.prototype.__registerItemCompilers = function() {
 /**
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  * @param {!Node} element
- * @param {tuna.tmpl.units.Template} root
- * @return {tuna.tmpl.units.Template}
+ * @param {!tuna.tmpl.units.Template=} opt_root
+ * @return {!tuna.tmpl.units.Template}
  */
-TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
-    var template = new tuna.tmpl.units.Template(root);
-    template.setTarget(element);
+TemplateCompiler.prototype.compileTemplate =
+    function(settings, element, opt_root) {
 
-    var i = 0,
-        l = this.__itemCompilers.length;
+  var template = new tuna.tmpl.units.Template(opt_root);
+  template.setTarget(element);
 
-    while (i < l) {
-        this.__itemCompilers[i].compile(element, settings, template);
-        i++;
-    }
+  var i = 0,
+      l = this.__itemCompilers.length;
 
-    return template;
+  while (i < l) {
+      this.__itemCompilers[i].compile(element, settings, template);
+      i++;
+  }
+
+  return template;
 };
 
 /**

@@ -1,40 +1,45 @@
+
+
+
 /**
+ * Настройки элемента обработки условия.
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
- * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var ConditionSettings = function() {
+tuna.tmpl.settings.ConditionSettings = function() {
     tuna.tmpl.settings.SpotSettings.call(this);
 
     /**
-     * @private
-     * @type string
+     * Тип действия обработки условия.
+     *
+     * @see tuna.tmpl.units.condition.ConditionAction
+     * @type {?string}
      */
-    this.actionType = '';
+    this.actionType = null;
 
     /**
-     * @private
-     * @type string
+     * Данные действия обработки условия.
+     *
+     * @type {?string}
      */
-    this.actionData = '';
+    this.actionData = null;
 
     /**
-     * @private
-     * @type string
+     * Тип условия для проверки.
+     *
+     * @type {?string}
      */
-    this.operatorType = '';
+    this.operatorType = null;
 
     /**
-     * @private
-     * @type string
+     * Данные условия.
+     *
+     * @type {?string}
      */
-    this.operatorData = '';
+    this.operatorData = null;
 };
 
-tuna.utils.extend(ConditionSettings, tuna.tmpl.settings.SpotSettings);
 
-/**
- * @constructor
- * @extends {ConditionSettings}
- */
-tuna.tmpl.settings.ConditionSettings = ConditionSettings;
+tuna.utils.extend
+    (tuna.tmpl.settings.ConditionSettings, tuna.tmpl.settings.SpotSettings);

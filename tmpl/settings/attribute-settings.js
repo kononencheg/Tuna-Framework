@@ -1,28 +1,32 @@
+
+
+
 /**
+ * Настройки элемента установки аттрибута.
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
- * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var AttributeSettings = function() {
+tuna.tmpl.settings.AttributeSettings = function() {
     tuna.tmpl.settings.SpotSettings.call(this);
 
     /**
+     * Имя аттрибута.
+     *
      * @private
-     * @type string
+     * @type {?string}
      */
-    this.attributeName = '';
+    this.attributeName = null;
 
     /**
+     * Флаг наличия события.
+     *
      * @private
-     * @type boolean
+     * @type {boolean}
      */
     this.hasEvent = false;
 };
 
-tuna.utils.extend(AttributeSettings, tuna.tmpl.settings.SpotSettings);
 
-/**
- * @constructor
- * @extends {AttributeSettings}
- */
-tuna.tmpl.settings.AttributeSettings = AttributeSettings;
+tuna.utils.extend
+    (tuna.tmpl.settings.AttributeSettings, tuna.tmpl.settings.SpotSettings);

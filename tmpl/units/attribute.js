@@ -1,16 +1,22 @@
+
+
+
 /**
+ * Элемент шаблона трансформации устанавливающий значение определенного
+ * аттрибута в зависимости от данных.
+ *
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
  */
 tuna.tmpl.units.Attribute = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
      * @private
-     * @type {string}
+     * @type {?string}
      */
-    this.__attributeName = '';
+    this.__attributeName = null;
 
     /**
      * @private
@@ -25,24 +31,33 @@ tuna.tmpl.units.Attribute = function(root) {
     this.__dispatchAttribute = tuna.utils.bind(this.__dispatchAttribute, this);
 };
 
+
 tuna.utils.extend(tuna.tmpl.units.Attribute, tuna.tmpl.units.Spot);
 
+
 /**
- * @param {string} attributeName
+ * Установка имени аттрибута.
+ *
+ * @param {string} attributeName Имя аттрибута.
  */
 tuna.tmpl.units.Attribute.prototype.setAttributeName = function(attributeName) {
     this.__attributeName = attributeName;
 };
 
+
 /**
- * @param {boolean} hasEvent
+ * Устанока флага наличия события генерирующегося у элемента при изменении
+ * аттрибута.
+ *
+ * @param {boolean} hasEvent Флаг наличия события.
  */
 tuna.tmpl.units.Attribute.prototype.setEvent = function(hasEvent) {
     this.__hasEvent = hasEvent;
 };
 
+
 /**
- * @override
+ * @inheritDoc
  */
 tuna.tmpl.units.Attribute.prototype._applyValue = function(value) {
     if (value !== null) {
@@ -56,9 +71,12 @@ tuna.tmpl.units.Attribute.prototype._applyValue = function(value) {
     }
 };
 
+
 /**
+ * Установка аттрибута.
+ *
  * @private
- * @param {*} value
+ * @param {*} value Значение аттрибута.
  */
 tuna.tmpl.units.Attribute.prototype.__setAttribute = function(value) {
     var i = this._nodes.length - 1;
@@ -69,12 +87,14 @@ tuna.tmpl.units.Attribute.prototype.__setAttribute = function(value) {
             this._nodes[i].setAttribute(this.__attributeName, value + '');
         }
 
-
         i--;
     }
 };
 
+
 /**
+ * Удаление аттрибута.
+ *
  * @private
  */
 tuna.tmpl.units.Attribute.prototype.__removeAttribute = function() {
@@ -86,8 +106,9 @@ tuna.tmpl.units.Attribute.prototype.__removeAttribute = function() {
     }
 };
 
+
 /**
- * @private
+ * @inheritDoc
  */
 tuna.tmpl.units.Attribute.prototype.__dispatchAttribute = function() {
     var i = this._nodes.length - 1;

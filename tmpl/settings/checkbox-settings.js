@@ -1,16 +1,16 @@
+
+
+
 /**
+ * Настройки элемента отображения данных в DOM-элементы input типа checkbox.
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
- * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var CheckboxSettings = function() {
+tuna.tmpl.settings.CheckboxSettings = function() {
     tuna.tmpl.settings.SpotSettings.call(this);
 };
 
-tuna.utils.extend(CheckboxSettings, tuna.tmpl.settings.SpotSettings);
 
-/**
- * @constructor
- * @extends {CheckboxSettings}
- */
-tuna.tmpl.settings.CheckboxSettings = CheckboxSettings;
+tuna.utils.extend
+    (tuna.tmpl.settings.CheckboxSettings, tuna.tmpl.settings.SpotSettings);

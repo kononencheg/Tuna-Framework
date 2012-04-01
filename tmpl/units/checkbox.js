@@ -1,17 +1,24 @@
+
+
+
 /**
+ * Класс элемента трансформации отображающий даныные с помощью элемента
+ * checkbox.
+ *
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
  */
 tuna.tmpl.units.Checkbox = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 };
 
+
 tuna.utils.extend(tuna.tmpl.units.Checkbox, tuna.tmpl.units.Spot);
 
+
 /**
- * @protected
- * @param {*} value
+ * @inheritDoc
  */
 tuna.tmpl.units.Checkbox.prototype._applyValue = function(value) {
     if (value !== null) {

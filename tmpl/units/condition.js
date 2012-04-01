@@ -1,43 +1,57 @@
+
+
+
 /**
+ * Элемент шаблона трансформации совершающий определенное действие в зависимости
+ * от выполненеия условия.
+ *
  * @private
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
  */
 tuna.tmpl.units.Condition = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
      * @private
-     * @type __ConditionAction
+     * @type {tuna.tmpl.units.condition.ConditionAction}
      */
     this.__action = null;
 
     /**
      * @private
-     * @type __ConditionOperator
+     * @type {tuna.tmpl.units.condition.ConditionOperator}
      */
     this.__operator = null;
 };
 
+
 tuna.utils.extend(tuna.tmpl.units.Condition, tuna.tmpl.units.Spot);
 
+
 /**
- * @param {__ConditionAction} action
+ * Установка объекта действия выполняющего трансформацию.
+ *
+ * @param {tuna.tmpl.units.condition.ConditionAction} action Объект действия.
  */
 tuna.tmpl.units.Condition.prototype.setAction = function(action) {
     this.__action = action;
 };
 
+
 /**
- * @param {__ConditionOperator} operator
+ * Установка объекта условия выполнения действия трансформации.
+ *
+ * @param {tuna.tmpl.units.condition.ConditionOperator} operator Объект условия.
  */
 tuna.tmpl.units.Condition.prototype.setOperator = function(operator) {
     this.__operator = operator;
 };
 
+
 /**
- * @override
+ * @inheritDoc
  */
 tuna.tmpl.units.Condition.prototype._applyValue = function(value) {
     var testResult = this.__operator.test(value);

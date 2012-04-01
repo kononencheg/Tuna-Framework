@@ -2,69 +2,72 @@
  * @constructor
  * @implements {tuna.tmpl.compilers.IItemCompiler}
  */
-var SpotCompiler = function() {};
+tuna.tmpl.compilers.SpotCompiler = function() {};
 
 /**
  * @override
  */
-SpotCompiler.prototype.compile = function(element, settings, template) {
-    var root = template.getRootTemplate();
-    var item = null;
+tuna.tmpl.compilers.SpotCompiler.prototype.compile =
+    function(element, settings, template) {
 
-    var itemsSettings = this._getItemsSettings(settings);
-    var i = itemsSettings.length - 1;
-    while (i >= 0) {
-        item = this._createItem(root);
+  var item = null;
+  var root = template.getRootTemplate();
 
-        this._compileItem(element, itemsSettings[i], item);
+  var itemsSettings = this._getItemsSettings(settings);
+  var i = itemsSettings.length - 1;
+  while (i >= 0) {
+      item = this._createItem(root);
 
-        template.addItems(item);
+      this._compileItem(element, itemsSettings[i], item);
 
-        i--;
-    }
+      template.addItems(item);
 
+      i--;
+  }
 };
 
 /**
  * @protected
- * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * @param {!tuna.tmpl.settings.TemplateSettings} settings
+ * @return {!Array.<!tuna.tmpl.settings.SpotSettings>}
+ * @private
  */
-SpotCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.getSpots();
+tuna.tmpl.compilers.SpotCompiler.prototype._getItemsSettings =
+    function(settings) {
+
+  return settings.getSpots();
 };
 
 /**
  * @protected
- * @param {tuna.tmpl.units.Template} rootTemplate
- * @return {tuna.tmpl.units.CompiledUnit}
+ * @param {!tuna.tmpl.units.Template} rootTemplate
+ * @return {!tuna.tmpl.units.Spot}
  */
-SpotCompiler.prototype._createItem = function(rootTemplate) {
-    return new tuna.tmpl.units.Spot(rootTemplate);
+tuna.tmpl.compilers.SpotCompiler.prototype._createItem =
+    function(rootTemplate) {
+
+  return new tuna.tmpl.units.Spot(rootTemplate);
 };
 
 /**
  * @protected
  * @param {!Node} element
- * @param {tuna.tmpl.settings.IItemSettings} settings
- * @param {tuna.tmpl.units.CompiledUnit} item
+ * @param {!tuna.tmpl.settings.IItemSettings} settings
+ * @param {!tuna.tmpl.units.Spot} item
  */
-SpotCompiler.prototype._compileItem = function(element, settings, item) {
-    item.setPath(settings.dataPath);
+tuna.tmpl.compilers.SpotCompiler.prototype._compileItem =
+    function(element, settings, item) {
 
-    if (settings.filter !== null) {
-        item.setFilter(settings.filter.split('$$'));
-    }
+  item.setPath(settings.dataPath);
 
-    var className = settings.targetClass;
-    if (tuna.dom.hasClass(element, className)) { // Например если шаблоном является элемент списка
-        item.addTargets(element);
-    } else {
-        item.addTargets(tuna.dom.select('.' + className, element));
-    }
+  if (settings.filter !== null) {
+    item.setPattern(settings.filter.split('$$'));
+  }
+
+  var className = settings.targetClass;
+  if (tuna.dom.hasClass(element, className)) { // Например если шаблоном является элемент списка
+    item.addTargets(element);
+  } else {
+    item.addTargets(tuna.dom.select('.' + className, element));
+  }
 };
-
-/**
- * @constructor
- * @extends {SpotCompiler}
- */
-tuna.tmpl.compilers.SpotCompiler = SpotCompiler;

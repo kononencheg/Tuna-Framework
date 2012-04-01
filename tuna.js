@@ -90,6 +90,16 @@ tuna.tmpl.settings = {};
 tuna.tmpl.units = {};
 
 /**
+ * @namespace Область имен классов вспомогательных для элемента списка.
+ */
+tuna.tmpl.units.list = {};
+
+/**
+ * @namespace Область имен классов вспомогательных для элемента условия.
+ */
+tuna.tmpl.units.condition = {};
+
+/**
  * @namespace Область имен классов компонентов отображения.
  */
 tuna.ui = {};
