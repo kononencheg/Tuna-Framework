@@ -15,59 +15,59 @@
  */
 tuna.events.BasicEvent = function(target, type, opt_isBubbling) {
 
-  /**
-   * Объект событие которого произошло.
-   *
-   * @protected
-   * @type {tuna.events.IEventDispatcher}
-   */
-  this._target = target;
+    /**
+     * Объект событие которого произошло.
+     *
+     * @protected
+     * @type {tuna.events.IEventDispatcher}
+     */
+    this._target = target;
 
-  /**
-   * Тип события.
-   *
-   * @protected
-   * @type {string}
-   */
-  this._type = type;
+    /**
+     * Тип события.
+     *
+     * @protected
+     * @type {string}
+     */
+    this._type = type;
 
-  /**
-   * Флаг использования баблинга.
-   *
-   * @protected
-   * @type {boolean}
-   */
-  this._isBubbling = !!opt_isBubbling;
+    /**
+     * Флаг использования баблинга.
+     *
+     * @protected
+     * @type {boolean}
+     */
+    this._isBubbling = !!opt_isBubbling;
 
-  /**
-   * Флаг остановки действие по-умолчанию.
-   *
-   * @see tuna.events.BasicEvent#preventDefault
-   * @see tuna.events.BasicEvent#isDefaultPrevented
-   * @protected
-   * @type {boolean}
-   */
-  this._isCanceled = false;
+    /**
+     * Флаг остановки действие по-умолчанию.
+     *
+     * @see tuna.events.BasicEvent#preventDefault
+     * @see tuna.events.BasicEvent#isDefaultPrevented
+     * @protected
+     * @type {boolean}
+     */
+    this._isCanceled = false;
 
-  /**
-   * Флаг остановки распространения события баблингом.
-   *
-   * @see tuna.events.BasicEvent#stopPropagation
-   * @see tuna.events.BasicEvent#isPropagationStopped
-   * @protected
-   * @type {boolean}
-   */
-  this._isStopped = false;
+    /**
+     * Флаг остановки распространения события баблингом.
+     *
+     * @see tuna.events.BasicEvent#stopPropagation
+     * @see tuna.events.BasicEvent#isPropagationStopped
+     * @protected
+     * @type {boolean}
+     */
+    this._isStopped = false;
 
-  /**
-   * Флаг полной остановки обработки события.
-   *
-   * @see tuna.events.BasicEvent#stopImmediatePropagation
-   * @see tuna.events.BasicEvent#isImmediatePropagationStopped
-   * @protected
-   * @type {boolean}
-   */
-  this._isImmediateStopped = false;
+    /**
+     * Флаг полной остановки обработки события.
+     *
+     * @see tuna.events.BasicEvent#stopImmediatePropagation
+     * @see tuna.events.BasicEvent#isImmediatePropagationStopped
+     * @protected
+     * @type {boolean}
+     */
+    this._isImmediateStopped = false;
 };
 
 
@@ -77,7 +77,7 @@ tuna.events.BasicEvent = function(target, type, opt_isBubbling) {
  * @return {tuna.events.IEventDispatcher} Объект с которым произошло событие.
  */
 tuna.events.BasicEvent.prototype.getTarget = function() {
-  return this._target;
+    return this._target;
 };
 
 
@@ -87,7 +87,7 @@ tuna.events.BasicEvent.prototype.getTarget = function() {
  * @return {string} Тип события.
  */
 tuna.events.BasicEvent.prototype.getType = function() {
-  return this._type;
+    return this._type;
 };
 
 
@@ -97,7 +97,7 @@ tuna.events.BasicEvent.prototype.getType = function() {
  * @return {boolean} Флаг использования баблинга.
  */
 tuna.events.BasicEvent.prototype.isBubbling = function() {
-  return this._isBubbling;
+    return this._isBubbling;
 };
 
 
@@ -105,7 +105,7 @@ tuna.events.BasicEvent.prototype.isBubbling = function() {
  * Отмена обработки события по-умолчанию.
  */
 tuna.events.BasicEvent.prototype.preventDefault = function() {
-  this._isCanceled = true;
+    this._isCanceled = true;
 };
 
 
@@ -115,7 +115,7 @@ tuna.events.BasicEvent.prototype.preventDefault = function() {
  * @return {boolean} Флаг отмены обработки по-умолчанию.
  */
 tuna.events.BasicEvent.prototype.isDefaultPrevented = function() {
-  return this._isCanceled;
+    return this._isCanceled;
 };
 
 
@@ -126,7 +126,7 @@ tuna.events.BasicEvent.prototype.isDefaultPrevented = function() {
  * вызван.
  */
 tuna.events.BasicEvent.prototype.stopImmediatePropagation = function() {
-  this._isImmediateStopped = true;
+    this._isImmediateStopped = true;
 };
 
 
@@ -136,7 +136,7 @@ tuna.events.BasicEvent.prototype.stopImmediatePropagation = function() {
  * @return {boolean} Флаг полной остановки обработки события.
  */
 tuna.events.BasicEvent.prototype.isImmediatePropagationStopped = function() {
-  return this._isImmediateStopped;
+    return this._isImmediateStopped;
 };
 
 
@@ -146,7 +146,7 @@ tuna.events.BasicEvent.prototype.isImmediatePropagationStopped = function() {
  * Обработчики находящиеся выше по иерархии растпростанения вызваны не будут.
  */
 tuna.events.BasicEvent.prototype.stopPropagation = function() {
-  this._isStopped = true;
+    this._isStopped = true;
 };
 
 
@@ -156,5 +156,5 @@ tuna.events.BasicEvent.prototype.stopPropagation = function() {
  * @return {boolean} Флаг остановки баблинга.
  */
 tuna.events.BasicEvent.prototype.isPropagationStopped = function() {
-  return this._isImmediateStopped || this._isStopped;
+    return this._isImmediateStopped || this._isStopped;
 };

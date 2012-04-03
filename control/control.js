@@ -14,7 +14,7 @@
  *        устанавливаемый как основной.
  */
 tuna.control.setMainController = function(controller) {
-  tuna.control.__mainController = controller;
+    tuna.control.__mainController = controller;
 };
 
 
@@ -30,7 +30,7 @@ tuna.control.setMainController = function(controller) {
  *        управлять отображением DOM-элемента.
  */
 tuna.control.registerController = function(targetId, controller) {
-  tuna.control.__controllerTable[targetId] = controller;
+    tuna.control.__controllerTable[targetId] = controller;
 };
 
 
@@ -42,11 +42,11 @@ tuna.control.registerController = function(targetId, controller) {
  * @return {tuna.control.ViewController} Соответсвующий контроллер.
  */
 tuna.control.getController = function(targetId) {
-  if (tuna.control.__controllerTable[targetId] !== undefined) {
-    return tuna.control.__controllerTable[targetId];
-  }
+    if (tuna.control.__controllerTable[targetId] !== undefined) {
+        return tuna.control.__controllerTable[targetId];
+    }
 
-  return null;
+    return null;
 };
 
 
@@ -60,7 +60,7 @@ tuna.control.getController = function(targetId) {
  *        корневого элемента выбирается <code>document.body</code>.
  */
 tuna.control.init = function(target) {
-  tuna.control.__mainController.init(target);
+    tuna.control.__mainController.init(target);
 };
 
 

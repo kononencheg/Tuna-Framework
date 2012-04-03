@@ -12,7 +12,7 @@ tuna.utils.extend(ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
  * @override
  */
 ConditionCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.getConditions();
+    return settings.conditions;
 };
 
 /**

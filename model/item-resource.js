@@ -12,15 +12,15 @@
  * @extends {tuna.events.EventDispatcher}
  */
 tuna.model.ItemResource = function() {
-  tuna.events.EventDispatcher.call(this);
+    tuna.events.EventDispatcher.call(this);
 
-  /**
-   * Хранимый экземпляр модели данных.
-   *
-   * @type {tuna.model.Record}
-   * @private
-   */
-  this._item = null;
+    /**
+     * Хранимый экземпляр модели данных.
+     *
+     * @type {tuna.model.Record}
+     * @private
+     */
+    this._item = null;
 };
 
 
@@ -33,11 +33,11 @@ tuna.utils.extend(tuna.model.ItemResource, tuna.events.EventDispatcher);
  * @param {tuna.model.Record} item Экземпляр модели данных.
  */
 tuna.model.ItemResource.prototype.set = function(item) {
-  if (this._item !== item) {
-    this._item = item;
+    if (this._item !== item) {
+        this._item = item;
 
-    this.dispatch('update', this._item);
-  }
+        this.dispatch('update', this._item);
+    }
 };
 
 
@@ -47,7 +47,7 @@ tuna.model.ItemResource.prototype.set = function(item) {
  * @return {tuna.model.Record} Хранимый экземпляр модели данных.
  */
 tuna.model.ItemResource.prototype.get = function() {
-  return this._item;
+    return this._item;
 };
 
 
@@ -55,6 +55,6 @@ tuna.model.ItemResource.prototype.get = function() {
  * @inheritDoc
  */
 tuna.model.ItemResource.prototype.clear = function() {
-  this.set(null);
+    this.set(null);
 };
 

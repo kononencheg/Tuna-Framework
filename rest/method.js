@@ -10,7 +10,7 @@
  * @extends {tuna.events.EventDispatcher}
  */
 tuna.rest.Method = function() {
-  tuna.events.EventDispatcher.call(this);
+    tuna.events.EventDispatcher.call(this);
 };
 
 
@@ -27,5 +27,5 @@ tuna.rest.Method.prototype.call = function(args) {};
  * @inheritDoc
  */
 tuna.rest.Method.prototype.clone = function() {
-  return new this.constructor();
+    return new this.constructor();
 };

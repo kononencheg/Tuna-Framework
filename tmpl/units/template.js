@@ -11,31 +11,31 @@
  *        элемент.
  */
 tuna.tmpl.units.Template = function(opt_root) {
-  tuna.tmpl.units.Unit.call(this, opt_root || this);
+    tuna.tmpl.units.Unit.call(this, opt_root || this);
 
-  /**
-   * @private
-   * @type {!Array.<!tuna.tmpl.units.IUnit>}
-   */
-  this.__items = [];
+    /**
+     * @private
+     * @type {!Array.<!tuna.tmpl.units.IUnit>}
+     */
+    this.__items = [];
 
-  /**
-   * @private
-   * @type {!Array.<!Node>}
-   */
-  this.__createdChildren = [];
+    /**
+     * @private
+     * @type {!Array.<!Node>}
+     */
+    this.__createdChildren = [];
 
-  /**
-   * @private
-   * @type {!Array.<!Node>}
-   */
-  this.__removedChildren = [];
+    /**
+     * @private
+     * @type {!Array.<!Node>}
+     */
+    this.__removedChildren = [];
 
-  /**
-   * @private
-   * @type {Node}
-   */
-  this.__target = null;
+    /**
+     * @private
+     * @type {Node}
+     */
+    this.__target = null;
 };
 
 
@@ -48,7 +48,7 @@ tuna.utils.extend(tuna.tmpl.units.Template, tuna.tmpl.units.Unit);
  * @return {!tuna.tmpl.units.Template} Корневой элемент шаблона.
  */
 tuna.tmpl.units.Template.prototype.getRootTemplate = function() {
-  return this._rootTemplate;
+    return this._rootTemplate;
 };
 
 
@@ -58,17 +58,17 @@ tuna.tmpl.units.Template.prototype.getRootTemplate = function() {
  * @param {!Node} element DOM-элемента, являющийся контейнером шаблона.
  */
 tuna.tmpl.units.Template.prototype.setTarget = function(element) {
-  this.__target = element;
+    this.__target = element;
 };
 
 
 /**
  * Получение целевого DOM-элемента шаблона трансформации.
  *
- * @return {!Node} DOM-элемент, являющийся контейнером шаблона.
+ * @return {Node} DOM-элемент, являющийся контейнером шаблона.
  */
 tuna.tmpl.units.Template.prototype.getTarget = function() {
-  return this.__target;
+    return this.__target;
 };
 
 
@@ -79,7 +79,7 @@ tuna.tmpl.units.Template.prototype.getTarget = function() {
  *        или набор элементов шаблона трансформации.
  */
 tuna.tmpl.units.Template.prototype.addItems = function(items) {
-  this.__items = this.__items.concat(items);
+    this.__items = this.__items.concat(items);
 };
 
 
@@ -89,7 +89,7 @@ tuna.tmpl.units.Template.prototype.addItems = function(items) {
  * @param {!Node} child Создаваемый DOM-элемент.
  */
 tuna.tmpl.units.Template.prototype.registerChildCreation = function(child) {
-  this.__createdChildren = this.__createdChildren.concat(child);
+    this.__createdChildren = this.__createdChildren.concat(child);
 };
 
 
@@ -99,7 +99,7 @@ tuna.tmpl.units.Template.prototype.registerChildCreation = function(child) {
  * @return {!Array.<!Node>} Массив созданных DOM-элементом.
  */
 tuna.tmpl.units.Template.prototype.fetchCreatedChildren = function() {
-  return this.__createdChildren.splice(0, this.__createdChildren.length);
+    return this.__createdChildren.splice(0, this.__createdChildren.length);
 };
 
 
@@ -109,7 +109,7 @@ tuna.tmpl.units.Template.prototype.fetchCreatedChildren = function() {
  * @param {!Node} child Удаляемый DOM-элемент.
  */
 tuna.tmpl.units.Template.prototype.registerChildRemoval = function(child) {
-  this.__removedChildren = this.__removedChildren.concat(child);
+    this.__removedChildren = this.__removedChildren.concat(child);
 };
 
 
@@ -119,7 +119,7 @@ tuna.tmpl.units.Template.prototype.registerChildRemoval = function(child) {
  * @return {!Array.<!Node>} Массив удаленных DOM-элементом.
  */
 tuna.tmpl.units.Template.prototype.fetchRemovedChildren = function() {
-  return this.__removedChildren.splice(0, this.__removedChildren.length);
+    return this.__removedChildren.splice(0, this.__removedChildren.length);
 };
 
 
@@ -127,12 +127,12 @@ tuna.tmpl.units.Template.prototype.fetchRemovedChildren = function() {
  * @inheritDoc
  */
 tuna.tmpl.units.Template.prototype.applyData = function(dataNode) {
-  var i = this.__items.length - 1;
-  while (i >= 0) {
-    this.__items[i].applyData(dataNode);
+    var i = this.__items.length - 1;
+    while (i >= 0) {
+        this.__items[i].applyData(dataNode);
 
-    i--;
-  }
+        i--;
+    }
 };
 
 
@@ -140,9 +140,9 @@ tuna.tmpl.units.Template.prototype.applyData = function(dataNode) {
  * @inheritDoc
  */
 tuna.tmpl.units.Template.prototype.destroy = function() {
-  while (this.__items.length > 0) {
-    this.__items.shift().destroy();
-  }
+    while (this.__items.length > 0) {
+        this.__items.shift().destroy();
+    }
 
-  this.__target = null;
+    this.__target = null;
 };

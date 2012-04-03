@@ -15,16 +15,16 @@
  * @extends {tuna.control.ViewController}
  */
 tuna.control.PageViewController = function() {
-  tuna.control.ViewController.call(this);
+    tuna.control.ViewController.call(this);
 
-  /**
+    /**
      * Модуль упарвления навигацией, страницей которого управляет данный
      * контроллер.
      *
      * @protected
      * @type {tuna.ui.selection.Navigation}
      */
-  this._navigation = null;
+    this._navigation = null;
 };
 
 tuna.utils.extend(tuna.control.PageViewController, tuna.control.ViewController);
@@ -38,7 +38,7 @@ tuna.utils.extend(tuna.control.PageViewController, tuna.control.ViewController);
  *        навигацией.
  */
 tuna.control.PageViewController.prototype.setNavigation = function(navigation) {
-  this._navigation = navigation;
+    this._navigation = navigation;
 };
 
 
@@ -57,7 +57,7 @@ tuna.control.PageViewController.prototype.setNavigation = function(navigation) {
  * @return {boolean} Возможность закрытия.
  */
 tuna.control.PageViewController.prototype.canClose = function(index) {
-  return true;
+    return true;
 };
 
 

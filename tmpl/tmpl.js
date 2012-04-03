@@ -35,7 +35,7 @@ tuna.tmpl.__compiler = new tuna.tmpl.compilers.TemplateCompiler();
 /**
  *
  * @param {!Node} element
- * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * @param {!tuna.tmpl.settings.TemplateSettings} settings
  * @return {tuna.tmpl.units.Template}
  */
 tuna.tmpl.compile = function(element, settings) {

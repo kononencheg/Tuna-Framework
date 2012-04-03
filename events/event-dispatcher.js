@@ -16,21 +16,21 @@
  */
 tuna.events.EventDispatcher = function(opt_propagationParent) {
 
-  /**
-   * Родительский объект иерархии распростанения (баблинга).
-   *
-   * @protected
-   * @type {tuna.events.IEventDispatcher}
-   */
-  this._propagationParent = opt_propagationParent || null;
+    /**
+     * Родительский объект иерархии распростанения (баблинга).
+     *
+     * @protected
+     * @type {tuna.events.IEventDispatcher}
+     */
+    this._propagationParent = opt_propagationParent || null;
 
-  /**
-   * Таблица слушателей событий определенных типов.
-   *
-   * @protected
-   * @type {Object.<string, Array.<function(tuna.events.BasicEvent, *)>>}
-   */
-  this._listeners = {};
+    /**
+     * Таблица слушателей событий определенных типов.
+     *
+     * @protected
+     * @type {Object.<string, Array.<function(tuna.events.BasicEvent, *)>>}
+     */
+    this._listeners = {};
 };
 
 
@@ -38,35 +38,35 @@ tuna.events.EventDispatcher = function(opt_propagationParent) {
  * @inheritDoc
  */
 tuna.events.EventDispatcher.prototype.dispatch = function(event, opt_data) {
-  if (!(event instanceof tuna.events.BasicEvent)) {
-    event = new tuna.events.BasicEvent(this, event);
-  }
-
-  var data = opt_data !== undefined ? opt_data : null;
-  var type = event.getType();
-
-  if (this._listeners[type] !== undefined) {
-    var i = 0,
-        l = this._listeners[type].length;
-
-    while (i < l) {
-      this._listeners[type][i].call(this, event, data);
-
-      if (event.isImmediatePropagationStopped()) {
-        break;
-      }
-
-      i++;
+    if (!(event instanceof tuna.events.BasicEvent)) {
+        event = new tuna.events.BasicEvent(this, event);
     }
 
-    if (this._propagationParent !== null &&
-        event.isBubbling() && !event.isPropagationStopped()) {
+    var data = opt_data !== undefined ? opt_data : null;
+    var type = event.getType();
 
-      this._propagationParent.dispatch(event);
+    if (this._listeners[type] !== undefined) {
+        var i = 0,
+            l = this._listeners[type].length;
+
+        while (i < l) {
+            this._listeners[type][i].call(this, event, data);
+
+            if (event.isImmediatePropagationStopped()) {
+                break;
+            }
+
+            i++;
+        }
+
+        if (this._propagationParent !== null &&
+            event.isBubbling() && !event.isPropagationStopped()) {
+
+            this._propagationParent.dispatch(event);
+        }
     }
-  }
 
-  return !event.isDefaultPrevented();
+    return !event.isDefaultPrevented();
 };
 
 
@@ -76,11 +76,11 @@ tuna.events.EventDispatcher.prototype.dispatch = function(event, opt_data) {
 tuna.events.EventDispatcher.prototype.addEventListener =
     function(type, listener) {
 
-  if (this._listeners[type] === undefined) {
-    this._listeners[type] = [listener];
-  } else if (!this.hasEventListener(type, listener)) {
-    this._listeners[type].push(listener);
-  }
+    if (this._listeners[type] === undefined) {
+        this._listeners[type] = [listener];
+    } else if (!this.hasEventListener(type, listener)) {
+        this._listeners[type].push(listener);
+    }
 };
 
 
@@ -90,14 +90,14 @@ tuna.events.EventDispatcher.prototype.addEventListener =
 tuna.events.EventDispatcher.prototype.removeEventListener =
     function(type, listener) {
 
-  if (this._listeners[type] !== undefined) {
-    var listenerIndex =
-        tuna.utils.indexOf(listener, this._listeners[type]);
+    if (this._listeners[type] !== undefined) {
+        var listenerIndex =
+            tuna.utils.indexOf(listener, this._listeners[type]);
 
-    if (listenerIndex !== -1) {
-      this._listeners[type].splice(listenerIndex, 1);
+        if (listenerIndex !== -1) {
+            this._listeners[type].splice(listenerIndex, 1);
+        }
     }
-  }
 };
 
 
@@ -107,9 +107,9 @@ tuna.events.EventDispatcher.prototype.removeEventListener =
 tuna.events.EventDispatcher.prototype.hasEventListener =
     function(type, listener) {
 
-  if (this._listeners[type] !== undefined) {
-    return tuna.utils.indexOf(listener, this._listeners[type]) !== -1;
-  }
+    if (this._listeners[type] !== undefined) {
+        return tuna.utils.indexOf(listener, this._listeners[type]) !== -1;
+    }
 
-  return false;
+    return false;
 };

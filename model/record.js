@@ -10,16 +10,16 @@
  */
 tuna.model.Record = function(opt_rawData) {
 
-  /**
-   * Уникальный в своем роде идентификатор экземпляра модели данных.
-   *
-   * @type {?string}
-   */
-  this.id = null;
+    /**
+     * Уникальный в своем роде идентификатор экземпляра модели данных.
+     *
+     * @type {?string}
+     */
+    this.id = null;
 
-  if (opt_rawData !== undefined) {
-    this.populate(opt_rawData);
-  }
+    if (opt_rawData !== undefined) {
+        this.populate(opt_rawData);
+    }
 };
 
 
@@ -30,13 +30,13 @@ tuna.model.Record = function(opt_rawData) {
  * @return {!tuna.model.Record} Копия данного экземпляра.
  */
 tuna.model.Record.prototype.clone = function() {
-  var clone = new this.constructor();
+    var clone = new this.constructor();
 
-  for (var param in this) {
-    clone[param] = this[param];
-  }
+    for (var param in this) {
+        clone[param] = this[param];
+    }
 
-  return clone;
+    return clone;
 };
 
 

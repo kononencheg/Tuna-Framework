@@ -65,7 +65,7 @@ SpotExtractor.prototype._parseElement = function(element, item) {
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
 SpotExtractor.prototype._saveItem = function(item, settings) {
-    settings.addSpot(item);
+    settings.spots.push(item);
 };
 
 /**

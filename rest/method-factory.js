@@ -10,17 +10,17 @@
  */
 tuna.rest.MethodFactory = function() {
 
-  /**
-   * @private
-   * @type {Object.<string, !tuna.rest.IMethod>}
-   */
-  this.__methods = {};
+    /**
+     * @private
+     * @type {Object.<string, !tuna.rest.IMethod>}
+     */
+    this.__methods = {};
 
-  /**
-   * @private
-   * @type {tuna.rest.DefaultMethod}
-   */
-  this.__defaultMethod = null;
+    /**
+     * @private
+     * @type {tuna.rest.DefaultMethod}
+     */
+    this.__defaultMethod = null;
 };
 
 
@@ -34,7 +34,7 @@ tuna.rest.MethodFactory = function() {
  * @param {!tuna.rest.DefaultMethod} method Прототип метода по-умолчанию.
  */
 tuna.rest.MethodFactory.prototype.setDefaultMethod = function(method) {
-  this.__defaultMethod = method;
+    this.__defaultMethod = method;
 };
 
 
@@ -49,16 +49,16 @@ tuna.rest.MethodFactory.prototype.setDefaultMethod = function(method) {
  * @return {tuna.rest.IMethod} Созданный метод либо <code>null</code>.
  */
 tuna.rest.MethodFactory.prototype.createMethod = function(name) {
-  var result = null;
+    var result = null;
 
-  if (this.__methods[name] !== undefined) {
-    result = this.__methods[name].clone();
-  } else if (this.__defaultMethod !== null) {
-    result = this.__defaultMethod.clone();
-    result.setName(name);
-  }
+    if (this.__methods[name] !== undefined) {
+        result = this.__methods[name].clone();
+    } else if (this.__defaultMethod !== null) {
+        result = this.__defaultMethod.clone();
+        result.setName(name);
+    }
 
-  return result;
+    return result;
 };
 
 
@@ -70,5 +70,5 @@ tuna.rest.MethodFactory.prototype.createMethod = function(name) {
  *        метода не задано, регистраця не произойдет.
  */
 tuna.rest.MethodFactory.prototype.registerMethod = function(name, method) {
-  this.__methods[name] = method;
+    this.__methods[name] = method;
 };

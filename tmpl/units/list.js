@@ -143,21 +143,27 @@ tuna.tmpl.units.List.prototype.applyData = function(dataNode) {
     if (sampleNode !== null) {
         var sample = sampleNode.getValue();
 
+        var itemTemplate = null;
         var itemNode = null;
         var key = null;
         for (var index in sample) {
+            itemTemplate = null;
             itemNode = sampleNode.growChild(index);
             key = this.__getKey(itemNode);
 
             if (key !== null) {
                 if (oldItemsTable[key] === undefined) {
-                    this.__itemsTable[key] = this.__makeItemTemplate();
+                    itemTemplate = this.__makeItemTemplate();
                 } else {
-                    this.__itemsTable[key] = oldItemsTable[key];
+                    itemTemplate = oldItemsTable[key];
                     delete oldItemsTable[key];
                 }
 
-                this.__itemsTable[key].applyData(itemNode);
+                if (itemTemplate !== null) {
+                    itemTemplate.applyData(itemNode);
+
+                    this.__itemsTable[key] = itemTemplate;
+                }
             }
         }
     }
@@ -204,9 +210,18 @@ tuna.tmpl.units.List.prototype.__getKey = function(itemNode) {
  *        шаблонов элемента списка.
  */
 tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
+    var template = null;
+    var templateTarget = null;
+
     for (var key in itemsTable) {
-        itemsTable[key].destroy();
-        this.__listNodeRouter.remove(itemsTable[key].getTarget());
+        template = itemsTable[key];
+
+        templateTarget = template.getTarget();
+        if (templateTarget !== null) {
+            this.__listNodeRouter.remove(templateTarget);
+        }
+
+        template.destroy();
     }
 };
 
@@ -214,14 +229,18 @@ tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
 /**
  * Создание шаблона элемента списка.
  *
- * @return {!tuna.tmpl.units.Template} Созданный шаблон элемента списка.
+ * @return {tuna.tmpl.units.Template} Созданный шаблон элемента списка.
  */
 tuna.tmpl.units.List.prototype.__makeItemTemplate = function() {
     var templateTarget = this.__itemRenderer.cloneNode(true);
-    var template = this.__templateCompiler.compileTemplate
-        (this.__itemSettings, templateTarget, this._rootTemplate);
+    if (templateTarget !== null && this.__itemSettings !== null) {
+        var template = this.__templateCompiler.compileTemplate
+            (this.__itemSettings, templateTarget, this._rootTemplate);
 
-    this.__listNodeRouter.append(templateTarget);
+        this.__listNodeRouter.append(templateTarget);
 
-    return template;
+        return template;
+    }
+
+    return null;
 };

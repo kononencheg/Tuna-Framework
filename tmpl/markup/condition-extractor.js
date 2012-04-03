@@ -99,7 +99,7 @@ ConditionExtractor.prototype.__extractOperator = function(element, item) {
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
 ConditionExtractor.prototype._saveItem = function(item, settings) {
-    settings.addCondition(item);
+    settings.conditions.push(item);
 };
 
 /**

@@ -13,11 +13,11 @@
  * @param {string=} opt_name Имя удаленного метода.
  */
 tuna.rest.DefaultMethod = function(opt_name) {
-  tuna.rest.Method.call(this);
+    tuna.rest.Method.call(this);
 
-  if (opt_name !== undefined) {
-    this.setName(opt_name);
-  }
+    if (opt_name !== undefined) {
+        this.setName(opt_name);
+    }
 };
 
 

@@ -45,7 +45,7 @@ ListExtractor.prototype._parseElement = function(element, item) {
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
 ListExtractor.prototype._saveItem = function(item, settings) {
-    settings.addList(item);
+    settings.lists.push(item);
 };
 
 /**

@@ -12,7 +12,7 @@ tuna.utils.extend(CheckboxCompiler, tuna.tmpl.compilers.SpotCompiler);
  * @override
  */
 CheckboxCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.getCheckboxes();
+    return settings.checkboxex;
 };
 
 /**

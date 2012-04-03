@@ -14,9 +14,9 @@ tuna.tmpl.units.Attribute = function(root) {
 
     /**
      * @private
-     * @type {?string}
+     * @type {string}
      */
-    this.__attributeName = null;
+    this.__attributeName = '';
 
     /**
      * @private
@@ -108,7 +108,7 @@ tuna.tmpl.units.Attribute.prototype.__removeAttribute = function() {
 
 
 /**
- * @inheritDoc
+ * @private
  */
 tuna.tmpl.units.Attribute.prototype.__dispatchAttribute = function() {
     var i = this._nodes.length - 1;

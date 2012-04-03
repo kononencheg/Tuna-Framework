@@ -26,7 +26,7 @@ CheckboxExtractor.prototype._createItem = function() {
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
 CheckboxExtractor.prototype._saveItem = function(item, settings) {
-    settings.addCheckbox(item);
+    settings.checkboxex.push(item);
 };
 
 /**

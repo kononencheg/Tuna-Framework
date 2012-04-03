@@ -15,12 +15,17 @@ tuna.tmpl.units.condition.ClassAction = function(data) {
     this.__lastName = null;
 };
 
-tuna.utils.extend(tuna.tmpl.units.condition.ClassAction, tuna.tmpl.units.condition.ConditionAction);
+tuna.utils.extend(
+    tuna.tmpl.units.condition.ClassAction,
+    tuna.tmpl.units.condition.ConditionAction
+);
 
 /**
  * @override
  */
-tuna.tmpl.units.condition.ClassAction.prototype.apply = function(element, testResult, value) {
+tuna.tmpl.units.condition.ClassAction.prototype.apply =
+    function(element, testResult, value) {
+
     var className = this._data;
 
     if (className !== '') {

@@ -16,7 +16,7 @@
  * @param {*} engine Движок CSS-селекторов.
  */
 tuna.dom.setSelectorEngine = function(engine) {
-  tuna.dom.__selectorEngine = engine;
+    tuna.dom.__selectorEngine = engine;
 };
 
 
@@ -30,11 +30,11 @@ tuna.dom.setSelectorEngine = function(engine) {
  * @return {!Array.<!Node>} Массив найденных элементов.
  */
 tuna.dom.select = function(selector, opt_context) {
-  if (tuna.dom.__selectorEngine !== null) {
-    return tuna.dom.__selectorEngine(selector, opt_context);
-  }
+    if (tuna.dom.__selectorEngine !== null) {
+        return tuna.dom.__selectorEngine(selector, opt_context);
+    }
 
-  return [];
+    return [];
 };
 
 
@@ -48,14 +48,14 @@ tuna.dom.select = function(selector, opt_context) {
  * @return {Node} Найденный элемент.
  */
 tuna.dom.selectOne = function(selector, opt_context) {
-  if (tuna.dom.__selectorEngine !== null) {
-    var result = tuna.dom.__selectorEngine(selector, opt_context);
-    if (result.length > 0) {
-      return result[0];
+    if (tuna.dom.__selectorEngine !== null) {
+        var result = tuna.dom.__selectorEngine(selector, opt_context);
+        if (result.length > 0) {
+            return result[0];
+        }
     }
-  }
 
-  return null;
+    return null;
 };
 
 
@@ -69,11 +69,11 @@ tuna.dom.selectOne = function(selector, opt_context) {
  * @return {!Array.<Node>} Отфильтрованный массив элементов.
  */
 tuna.dom.matches = function(selector, elements) {
-  if (tuna.dom.__selectorEngine !== null) {
-    return tuna.dom.__selectorEngine.matches(selector, elements);
-  }
+    if (tuna.dom.__selectorEngine !== null) {
+        return tuna.dom.__selectorEngine.matches(selector, elements);
+    }
 
-  return [];
+    return [];
 };
 
 
@@ -94,26 +94,26 @@ tuna.dom.__selectorEngine = null;
  * @return {boolean} Успех результата оповещения.
  */
 tuna.dom.dispatchEvent = function(element, type) {
-  var result = false;
+    var result = false;
 
-  var event = null;
-  if (document.createEventObject !== undefined) {
-    event = document.createEventObject();
+    var event = null;
+    if (document.createEventObject !== undefined) {
+        event = document.createEventObject();
 
-    var eventName = 'on' + type;
-    if (element[eventName] === undefined) {
-      tuna.dom.__dispatchCustomIEEvent(element, event, type);
+        var eventName = 'on' + type;
+        if (element[eventName] === undefined) {
+            tuna.dom.__dispatchCustomIEEvent(element, event, type);
+        } else {
+            result = element.fireEvent(eventName, event);
+        }
     } else {
-      result = element.fireEvent(eventName, event);
+        event = document.createEvent('UIEvents');
+        event.initUIEvent(type, true, true, window, 1);
+
+        result = !element.dispatchEvent(event);
     }
-  } else {
-    event = document.createEvent('UIEvents');
-    event.initUIEvent(type, true, true, window, 1);
 
-    result = !element.dispatchEvent(event);
-  }
-
-  return result;
+    return result;
 };
 
 
@@ -129,25 +129,25 @@ tuna.dom.dispatchEvent = function(element, type) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.addEventListener = function(element, type, handler) {
-  if (element.addEventListener !== undefined) {
-    element.addEventListener(type, handler, false);
-  } else if (element.attachEvent !== undefined) {
-    var eventName = 'on' + type;
-    if (element[eventName] === undefined) {
-      tuna.dom.__addCustomIEListener(element, type, handler);
-    } else {
-      if (element.__ieTargetId === undefined) {
-        element.__ieTargetId = 'element_' + tuna.dom.__lastElementId++;
-      }
+    if (element.addEventListener !== undefined) {
+        element.addEventListener(type, handler, false);
+    } else if (element.attachEvent !== undefined) {
+        var eventName = 'on' + type;
+        if (element[eventName] === undefined) {
+            tuna.dom.__addCustomIEListener(element, type, handler);
+        } else {
+            if (element.__ieTargetId === undefined) {
+                element.__ieTargetId = 'element_' + tuna.dom.__lastElementId++;
+            }
 
-      var listenerId = element.__ieTargetId + '_' + type;
-      handler[listenerId] = function(event) {
-        handler.call(element, event);
-      };
+            var listenerId = element.__ieTargetId + '_' + type;
+            handler[listenerId] = function(event) {
+                handler.call(element, event);
+            };
 
-      element.attachEvent(eventName, handler[listenerId]);
+            element.attachEvent(eventName, handler[listenerId]);
+        }
     }
-  }
 };
 
 
@@ -160,21 +160,21 @@ tuna.dom.addEventListener = function(element, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.removeEventListener = function(element, type, handler) {
-  if (element.removeEventListener !== undefined) {
-    element.removeEventListener(type, handler, false);
-  } else if (element.detachEvent !== undefined) {
-    var eventName = 'on' + type;
-    if (element[eventName] === undefined) {
-      tuna.dom.__removeCustomIEListener(element, type, handler);
-    } else {
-      var listenerId = element.__ieTargetId + '_' + type;
-      if (handler[listenerId] !== undefined) {
-        element.detachEvent('on' + type, handler[listenerId]);
+    if (element.removeEventListener !== undefined) {
+        element.removeEventListener(type, handler, false);
+    } else if (element.detachEvent !== undefined) {
+        var eventName = 'on' + type;
+        if (element[eventName] === undefined) {
+            tuna.dom.__removeCustomIEListener(element, type, handler);
+        } else {
+            var listenerId = element.__ieTargetId + '_' + type;
+            if (handler[listenerId] !== undefined) {
+                element.detachEvent('on' + type, handler[listenerId]);
 
-        delete handler[listenerId];
-      }
+                delete handler[listenerId];
+            }
+        }
     }
-  }
 };
 
 
@@ -188,17 +188,17 @@ tuna.dom.removeEventListener = function(element, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.addOneEventListener = function(element, type, handler) {
-  if (element.__onceTargetId === undefined) {
-    element.__onceTargetId = 'element_' + tuna.dom.__lastElementId++;
-  }
+    if (element.__onceTargetId === undefined) {
+        element.__onceTargetId = 'element_' + tuna.dom.__lastElementId++;
+    }
 
-  var listenerId = element.__onceTargetId + '_' + type;
-  handler[listenerId] = function(event) {
-    handler.call(element, event);
-    tuna.dom.removeOneEventListener(element, type, handler);
-  };
+    var listenerId = element.__onceTargetId + '_' + type;
+    handler[listenerId] = function(event) {
+        handler.call(element, event);
+        tuna.dom.removeOneEventListener(element, type, handler);
+    };
 
-  tuna.dom.addEventListener(element, type, handler[listenerId]);
+    tuna.dom.addEventListener(element, type, handler[listenerId]);
 };
 
 
@@ -212,13 +212,13 @@ tuna.dom.addOneEventListener = function(element, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.removeOneEventListener = function(element, type, handler) {
-  var listenerId = element.__onceTargetId + '_' + type;
+    var listenerId = element.__onceTargetId + '_' + type;
 
-  if (handler[listenerId] !== undefined) {
-    tuna.dom.removeEventListener(element, type, handler[listenerId]);
+    if (handler[listenerId] !== undefined) {
+        tuna.dom.removeEventListener(element, type, handler[listenerId]);
 
-    delete handler[listenerId];
-  }
+        delete handler[listenerId];
+    }
 };
 
 
@@ -240,29 +240,29 @@ tuna.dom.removeOneEventListener = function(element, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.addChildEventListener = function(element, selector, type, handler) {
-  if (element.__childTargetId === undefined) {
-    element.__childTargetId = 'element_' + tuna.dom.__lastElementId++;
-  }
-
-  var listenerId = element.__childTargetId + '_' + type + '_' + selector;
-  handler[listenerId] = function(event) {
-    var target = event.target || event.srcElement;
-
-    var child = null;
-
-    var matches = tuna.dom.matches(selector, [target]);
-    if (matches.length === 0) {
-      child = tuna.dom.getParentMatches(target, selector, element);
-    } else {
-      child = target;
+    if (element.__childTargetId === undefined) {
+        element.__childTargetId = 'element_' + tuna.dom.__lastElementId++;
     }
 
-    if (child !== null) {
-      handler.call(child, event);
-    }
-  };
+    var listenerId = element.__childTargetId + '_' + type + '_' + selector;
+    handler[listenerId] = function(event) {
+        var target = event.target || event.srcElement;
 
-  tuna.dom.addEventListener(element, type, handler[listenerId]);
+        var child = null;
+
+        var matches = tuna.dom.matches(selector, [target]);
+        if (matches.length === 0) {
+            child = tuna.dom.getParentMatches(target, selector, element);
+        } else {
+            child = target;
+        }
+
+        if (child !== null) {
+            handler.call(child, event);
+        }
+    };
+
+    tuna.dom.addEventListener(element, type, handler[listenerId]);
 };
 
 
@@ -277,12 +277,12 @@ tuna.dom.addChildEventListener = function(element, selector, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.removeChildEventListener = function(element, selector, type, handler) {
-  var listenerId = element.__childTargetId + '_' + type + '_' + selector;
-  if (handler[listenerId] !== undefined) {
-    tuna.dom.removeEventListener(element, type, handler[listenerId]);
+    var listenerId = element.__childTargetId + '_' + type + '_' + selector;
+    if (handler[listenerId] !== undefined) {
+        tuna.dom.removeEventListener(element, type, handler[listenerId]);
 
-    delete handler[listenerId];
-  }
+        delete handler[listenerId];
+    }
 };
 
 
@@ -298,27 +298,27 @@ tuna.dom.removeChildEventListener = function(element, selector, type, handler) {
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 tuna.dom.__addCustomIEListener = function(element, type, handler) {
-  if (element.__customListener === undefined) {
-    element.__customListener = function(event) {
-      if (event.__type !== undefined) {
-        var type = event.__type;
-        delete event.__type;
+    if (element.__customListener === undefined) {
+        element.__customListener = function(event) {
+            if (event.__type !== undefined) {
+                var type = event.__type;
+                delete event.__type;
 
-        var handlers = element['__' + type];
-        for (var i in handlers) {
-          handlers[i].call(element, event);
-        }
-      }
-    };
+                var handlers = element['__' + type];
+                for (var i in handlers) {
+                    handlers[i].call(element, event);
+                }
+            }
+        };
 
-    element.attachEvent('onhelp', element.__customListener);
-  }
+        element.attachEvent('onhelp', element.__customListener);
+    }
 
-  if (element['__' + type] === undefined) {
-    element['__' + type] = [];
-  }
+    if (element['__' + type] === undefined) {
+        element['__' + type] = [];
+    }
 
-  element['__' + type].push(handler);
+    element['__' + type].push(handler);
 };
 
 
@@ -331,17 +331,17 @@ tuna.dom.__addCustomIEListener = function(element, type, handler) {
  * @param {!function(Event)} handler Удаляемая функция-обработчик события.
  */
 tuna.dom.__removeCustomIEListener = function(element, type, handler) {
-  var handlers = element['__' + type];
-  if (handlers !== undefined) {
-    var i = handlers.length - 1;
-    while (i >= 0) {
-      if (handlers[i] === handler) {
-        handlers.splice(i, 1);
-      }
+    var handlers = element['__' + type];
+    if (handlers !== undefined) {
+        var i = handlers.length - 1;
+        while (i >= 0) {
+            if (handlers[i] === handler) {
+                handlers.splice(i, 1);
+            }
 
-      i--;
+            i--;
+        }
     }
-  }
 };
 
 
@@ -358,8 +358,8 @@ tuna.dom.__removeCustomIEListener = function(element, type, handler) {
  * @return {boolean} Успех оповещения о событии.
  */
 tuna.dom.__dispatchCustomIEEvent = function(element, event, type) {
-  event.__type = type;
-  return element.fireEvent('onhelp', event);
+    event.__type = type;
+    return element.fireEvent('onhelp', event);
 };
 
 
@@ -376,11 +376,11 @@ tuna.dom.__lastElementId = 0;
  * @param {!Event} event Объект DOM-события.
  */
 tuna.dom.preventDefault = function(event) {
-  if (event.preventDefault !== undefined) {
-    event.preventDefault();
-  } else {
-    event.returnValue = false;
-  }
+    if (event.preventDefault !== undefined) {
+        event.preventDefault();
+    } else {
+        event.returnValue = false;
+    }
 };
 
 
@@ -390,11 +390,11 @@ tuna.dom.preventDefault = function(event) {
  * @param {!Event} event Объект DOM-события.
  */
 tuna.dom.stopPropagation = function(event) {
-  if (event.stopPropagation !== undefined) {
-    event.stopPropagation();
-  } else {
-    event.cancelBubble = true;
-  }
+    if (event.stopPropagation !== undefined) {
+        event.stopPropagation();
+    } else {
+        event.cancelBubble = true;
+    }
 };
 
 
@@ -410,15 +410,15 @@ tuna.dom.stopPropagation = function(event) {
  * @return {Node} Hайденный родительский элемент или <code>null</code>.
  */
 tuna.dom.getParentMatches = function(element, selector, opt_context) {
-  var parent = element.parentNode;
+    var parent = element.parentNode;
 
-  while (parent !== null && parent !== opt_context &&
-      tuna.dom.matches(selector, [parent]).length === 0) {
+    while (parent !== null && parent !== opt_context &&
+        tuna.dom.matches(selector, [parent]).length === 0) {
 
-    parent = parent.parentNode;
-  }
+        parent = parent.parentNode;
+    }
 
-  return parent === opt_context ? null : parent;
+    return parent === opt_context ? null : parent;
 };
 
 
@@ -432,15 +432,15 @@ tuna.dom.getParentMatches = function(element, selector, opt_context) {
  * @return {Node} Hайденный родительский элемент или <code>null</code>.
  */
 tuna.dom.getParentWithClass = function(element, className, opt_context) {
-  var parent = element.parentNode;
+    var parent = element.parentNode;
 
-  while (parent !== null && parent !== opt_context &&
-      !tuna.dom.hasClass(parent, className)) {
+    while (parent !== null && parent !== opt_context &&
+        !tuna.dom.hasClass(parent, className)) {
 
-    parent = parent.parentNode;
-  }
+        parent = parent.parentNode;
+    }
 
-  return parent === opt_context ? null : parent;
+    return parent === opt_context ? null : parent;
 };
 
 
@@ -452,14 +452,14 @@ tuna.dom.getParentWithClass = function(element, className, opt_context) {
  * @return {boolean} Результат проверки.
  */
 tuna.dom.hasClass = function(element, className) {
-  if (element.classList !== undefined) {
-    return element.classList.contains(className);
-  } else if (element.className !== undefined) {
-    var classRegExp = new RegExp('(\\s|^)' + className + '(\\s|$)');
-    return element.className.match(classRegExp) !== null;
-  }
+    if (element.classList !== undefined) {
+        return element.classList.contains(className);
+    } else if (element.className !== undefined) {
+        var classRegExp = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        return element.className.match(classRegExp) !== null;
+    }
 
-  return false;
+    return false;
 };
 
 
@@ -472,11 +472,11 @@ tuna.dom.hasClass = function(element, className) {
  * @param {string} className CSS-класс который нужно добавить.
  */
 tuna.dom.addClass = function(element, className) {
-  if (element.classList !== undefined) {
-    element.classList.add(className);
-  } else if (!tuna.dom.hasClass(element, className)) {
-    element.className += ' ' + className;
-  }
+    if (element.classList !== undefined) {
+        element.classList.add(className);
+    } else if (!tuna.dom.hasClass(element, className)) {
+        element.className += ' ' + className;
+    }
 };
 
 
@@ -487,12 +487,12 @@ tuna.dom.addClass = function(element, className) {
  * @param {string} className CSS-класс который нужно удалить.
  */
 tuna.dom.removeClass = function(element, className) {
-  if (element.classList !== undefined) {
-    element.classList.remove(className);
-  } else if (tuna.dom.hasClass(element, className)) {
-    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-    element.className = element.className.replace(reg, ' ');
-  }
+    if (element.classList !== undefined) {
+        element.classList.remove(className);
+    } else if (tuna.dom.hasClass(element, className)) {
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        element.className = element.className.replace(reg, ' ');
+    }
 };
 
 
@@ -505,11 +505,11 @@ tuna.dom.removeClass = function(element, className) {
  * @param {boolean} isExist Флаг наличия CSS-класса.
  */
 tuna.dom.setClassExist = function(element, className, isExist) {
-  if (!isExist && tuna.dom.hasClass(element, className)) {
-    tuna.dom.removeClass(element, className);
-  } else if (isExist && !tuna.dom.hasClass(element, className)) {
-    tuna.dom.addClass(element, className);
-  }
+    if (!isExist && tuna.dom.hasClass(element, className)) {
+        tuna.dom.removeClass(element, className);
+    } else if (isExist && !tuna.dom.hasClass(element, className)) {
+        tuna.dom.addClass(element, className);
+    }
 };
 
 
@@ -533,23 +533,23 @@ tuna.dom.setClassExist = function(element, className, isExist) {
  * @return {!Object.<string, string>} Таблица данных элемента.
  */
 tuna.dom.getAttributesData = function(element) {
-  var result = {};
+    var result = {};
 
-  var prefix = 'data-';
+    var prefix = 'data-';
 
-  var attrs = element.attributes;
-  var i = 0,
-      l = attrs.length;
+    var attrs = element.attributes;
+    var i = 0,
+        l = attrs.length;
 
-  while (i < l) {
-    if (attrs[i].name.indexOf(prefix) === 0) {
-      result[attrs[i].name.substr(prefix.length)] = attrs[i].value;
+    while (i < l) {
+        if (attrs[i].name.indexOf(prefix) === 0) {
+            result[attrs[i].name.substr(prefix.length)] = attrs[i].value;
+        }
+
+        i++;
     }
 
-    i++;
-  }
-
-  return result;
+    return result;
 };
 
 
@@ -561,20 +561,20 @@ tuna.dom.getAttributesData = function(element) {
  * @return {DocumentFragment} Экземпляр класса DocumentFragment.
  */
 tuna.dom.createFragment = function(html) {
-  var fragment = document.createDocumentFragment();
+    var fragment = document.createDocumentFragment();
 
-  var tempContainer = document.createElement('div');
-  tempContainer.innerHTML = html;
+    var tempContainer = document.createElement('div');
+    tempContainer.innerHTML = html;
 
-  var children = tempContainer.childNodes;
-  var i = 0,
-      l = children.length;
+    var children = tempContainer.childNodes;
+    var i = 0,
+        l = children.length;
 
-  while (i < l) {
-    fragment.appendChild(children.item(0));
+    while (i < l) {
+        fragment.appendChild(children.item(0));
 
-    i++;
-  }
+        i++;
+    }
 
-  return fragment;
+    return fragment;
 };

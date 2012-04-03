@@ -33,7 +33,7 @@ AttributeExtractor.prototype._parseElement = function(element, item) {
  * @param {tuna.tmpl.settings.TemplateSettings} settings
  */
 AttributeExtractor.prototype._saveItem = function(item, settings) {
-    settings.addAttribute(item);
+    settings.attributes.push(item);
 };
 
 /**

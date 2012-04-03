@@ -22,38 +22,38 @@
  * @param {string=} opt_recordName Имя экземпляра данных.
  */
 tuna.model.ListResource = function(opt_methodName, opt_recordName) {
-  tuna.events.EventDispatcher.call(this);
+    tuna.events.EventDispatcher.call(this);
 
-  /**
+    /**
      * @type {Object}
      * @private
      */
-  this.__lastArgs = null;
+    this.__lastArgs = null;
 
-  /**
+    /**
      * Имя удаленного REST-метода, при вызове которого возвращается
      * соответсвующий набор данных.
      *
      * @type {?string}
      * @protected
      */
-  this._methodName = opt_methodName || null;
+    this._methodName = opt_methodName || null;
 
-  /**
+    /**
      * Имя экземпляра данных.
      *
      * @type {?string}
      * @protected
      */
-  this._recordName = opt_recordName || null;
+    this._recordName = opt_recordName || null;
 
-  /**
+    /**
      * Хранымый набор экземпляров данных.
      *
      * @type {!Array.<!tuna.model.Record>}
      * @private
      */
-  this._list = [];
+    this._list = [];
 };
 
 
@@ -71,18 +71,18 @@ tuna.utils.extend(tuna.model.ListResource, tuna.events.EventDispatcher);
  * @param {boolean=} opt_isForce Флаг вынужденной загрузки.
  */
 tuna.model.ListResource.prototype.load = function(opt_args, opt_isForce) {
-  if (this._methodName !== null && this._recordName !== null) {
-    if (opt_isForce || opt_args === undefined ||
-        !tuna.utils.isObjectsEquals(this.__lastArgs, opt_args)) {
+    if (this._methodName !== null && this._recordName !== null) {
+        if (opt_isForce || opt_args === undefined ||
+            !tuna.utils.isObjectsEquals(this.__lastArgs, opt_args)) {
 
-      var self = this;
-      tuna.rest.call(this._methodName, opt_args || null, function(records) {
-        self.set(records);
-      }, this._recordName);
+            var self = this;
+            tuna.rest.call(this._methodName, opt_args || null, function(records) {
+                self.set(records);
+            }, this._recordName);
+        }
+
+        this.__lastArgs = opt_args || null;
     }
-
-    this.__lastArgs = opt_args || null;
-  }
 };
 
 
@@ -92,11 +92,11 @@ tuna.model.ListResource.prototype.load = function(opt_args, opt_isForce) {
  * @param {!Array.<!tuna.model.Record>} list Новый набор экземпляров.
  */
 tuna.model.ListResource.prototype.set = function(list) {
-  if (this._list !== list) {
-    this._list = list;
+    if (this._list !== list) {
+        this._list = list;
 
-    this.dispatch('update', this._list);
-  }
+        this.dispatch('update', this._list);
+    }
 };
 
 
@@ -106,7 +106,7 @@ tuna.model.ListResource.prototype.set = function(list) {
  * @return {!Array.<!tuna.model.Record>} Хранимый набор экземпляров.
  */
 tuna.model.ListResource.prototype.get = function() {
-  return this._list;
+    return this._list;
 };
 
 
@@ -114,11 +114,11 @@ tuna.model.ListResource.prototype.get = function() {
  * @inheritDoc
  */
 tuna.model.ListResource.prototype.clear = function() {
-  if (this._list.length > 0) {
-    this._list.length = 0;
+    if (this._list.length > 0) {
+        this._list.length = 0;
 
-    this.dispatch('update', this._list);
-  }
+        this.dispatch('update', this._list);
+    }
 };
 
 
@@ -133,20 +133,20 @@ tuna.model.ListResource.prototype.clear = function() {
  *        добавить либо заменить.
  */
 tuna.model.ListResource.prototype.addItem = function(record) {
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    if (this._list[i].id === record.id) {
-      break;
+    while (i < l) {
+        if (this._list[i].id === record.id) {
+            break;
+        }
+
+        i++;
     }
 
-    i++;
-  }
+    this._list[i] = record;
 
-  this._list[i] = record;
-
-  this.dispatch('update', this._list);
+    this.dispatch('update', this._list);
 };
 
 
@@ -160,9 +160,9 @@ tuna.model.ListResource.prototype.addItem = function(record) {
  *        удалить.
  */
 tuna.model.ListResource.prototype.removeItem = function(record) {
-  if (record.id !== null) {
-    this.removeItemById(record.id);
-  }
+    if (record.id !== null) {
+        this.removeItemById(record.id);
+    }
 };
 
 
@@ -173,20 +173,20 @@ tuna.model.ListResource.prototype.removeItem = function(record) {
  * @param {string} id Идентификатор экземпляра, который необходимо удалить.
  */
 tuna.model.ListResource.prototype.removeItemById = function(id) {
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    if (this._list[i].id === id) {
+    while (i < l) {
+        if (this._list[i].id === id) {
 
-      this._list.splice(i, 1);
-      this.dispatch('update', this._list);
+            this._list.splice(i, 1);
+            this.dispatch('update', this._list);
 
-      break;
+            break;
+        }
+
+        i++;
     }
-
-    i++;
-  }
 };
 
 
@@ -197,18 +197,18 @@ tuna.model.ListResource.prototype.removeItemById = function(id) {
  * @return {tuna.model.Record} Найденный экземпляр или <code>null</code>.
  */
 tuna.model.ListResource.prototype.getItemById = function(id) {
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    if (this._list[i].id === id) {
-      return this._list[i];
+    while (i < l) {
+        if (this._list[i].id === id) {
+            return this._list[i];
+        }
+
+        i++;
     }
 
-    i++;
-  }
-
-  return null;
+    return null;
 };
 
 
@@ -223,20 +223,20 @@ tuna.model.ListResource.prototype.getItemById = function(id) {
  * @return {!Array.<!tuna.model.Record>} Массив найденных экземпляров.
  */
 tuna.model.ListResource.prototype.find = function(callback) {
-  var result = [];
+    var result = [];
 
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    if (callback(this._list[i])) {
-      result.push(this._list[i]);
+    while (i < l) {
+        if (callback(this._list[i])) {
+            result.push(this._list[i]);
+        }
+
+        i++;
     }
 
-    i++;
-  }
-
-  return result;
+    return result;
 };
 
 
@@ -248,18 +248,18 @@ tuna.model.ListResource.prototype.find = function(callback) {
  * @return {tuna.model.Record} Найденный экземпляр или <code>null</code>.
  */
 tuna.model.ListResource.prototype.findOne = function(callback) {
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    if (callback(this._list[i])) {
-      return this._list[i];
+    while (i < l) {
+        if (callback(this._list[i])) {
+            return this._list[i];
+        }
+
+        i++;
     }
 
-    i++;
-  }
-
-  return null;
+    return null;
 };
 
 
@@ -269,14 +269,14 @@ tuna.model.ListResource.prototype.findOne = function(callback) {
  * @param {!function(!tuna.model.Record)} callback Функция-обработчик.
  */
 tuna.model.ListResource.prototype.each = function(callback) {
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  while (i < l) {
-    callback(this._list[i]);
+    while (i < l) {
+        callback(this._list[i]);
 
-    i++;
-  }
+        i++;
+    }
 };
 
 
@@ -288,21 +288,21 @@ tuna.model.ListResource.prototype.each = function(callback) {
  * @return {!Array} Массив результатов вызова.
  */
 tuna.model.ListResource.prototype.map = function(callback) {
-  var result = [];
+    var result = [];
 
-  var i = 0,
-      l = this._list.length;
+    var i = 0,
+        l = this._list.length;
 
-  var item = null;
-  while (i < l) {
-    item = callback(this._list[i]);
-    if (item !== null) {
-      result.push(item);
+    var item = null;
+    while (i < l) {
+        item = callback(this._list[i]);
+        if (item !== null) {
+            result.push(item);
+        }
+
+        i++;
     }
 
-    i++;
-  }
-
-  return result;
+    return result;
 };
 

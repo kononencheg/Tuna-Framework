@@ -13,7 +13,7 @@ var ListCompiler = function( compiler) {
  * @override
  */
 ListCompiler.prototype.compile = function(element, settings, template) {
-    var itemsSettings = settings.getLists();
+    var itemsSettings = settings.lists;
     var i = itemsSettings.length - 1;
     while (i >= 0) {
 
@@ -55,7 +55,7 @@ ListCompiler.prototype.__compileLists = function(element, settings, template) {
 
 /**
  * @private
- * @param {Node} element
+ * @param {!Node} element
  * @param {tuna.tmpl.settings.IItemSettings} settings
  * @param {!tuna.tmpl.units.Template} root
  * @return {tuna.tmpl.units.List}
@@ -63,7 +63,9 @@ ListCompiler.prototype.__compileLists = function(element, settings, template) {
 ListCompiler.prototype.__createList = function(element, settings, root) {
     var list = new tuna.tmpl.units.List(root);
 
-    list.setCompiler(this.__templateCompiler);
+    if (this.__templateCompiler !== null) {
+        list.setCompiler(this.__templateCompiler);
+    }
 
     var rendererId = settings.itemRendererID;
     var renderer = document.getElementById(rendererId);
@@ -80,7 +82,8 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
     list.setKeyPath(settings.keyPath);
     list.setPath(settings.dataPath);
 
-    list.setListNodeRouter(new tuna.tmpl.units.ListContainerRouter(element));
+    list.setListNodeRouter
+        (new tuna.tmpl.units.list.ListContainerRouter(element, root));
 
     return list;
 };

@@ -13,23 +13,23 @@
  * @return {!*} Результат преобразования.
  */
 tuna.model.serialize = function(records, opt_options) {
-  if (records instanceof Array) {
-    var result = [];
+    if (records instanceof Array) {
+        var result = [];
 
-    var i = 0,
+        var i = 0,
             l = records.length;
 
-    while (i < l) {
-      result.push(records[i].serialize(opt_options));
-      i++;
+        while (i < l) {
+            result.push(records[i].serialize(opt_options));
+            i++;
+        }
+
+        return result;
+    } else if (records instanceof tuna.model.Record) {
+        return records.serialize(opt_options);
     }
 
-    return result;
-  } else if (records instanceof tuna.model.Record) {
-    return records.serialize(opt_options);
-  }
-
-  return null;
+    return null;
 };
 
 

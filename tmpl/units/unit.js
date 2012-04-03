@@ -12,11 +12,11 @@
  */
 tuna.tmpl.units.Unit = function(root) {
 
-  /**
-   * @type {!tuna.tmpl.units.Template}
-   * @private
-   */
-  this._rootTemplate = root;
+    /**
+     * @type {!tuna.tmpl.units.Template}
+     * @private
+     */
+    this._rootTemplate = root;
 };
 
 
@@ -30,9 +30,3 @@ tuna.tmpl.units.Unit.prototype.applyData = function(dataNode) {};
  * @inheritDoc
  */
 tuna.tmpl.units.Unit.prototype.destroy = function() {};
-
-
-/**
- * @inheritDoc
- */
-tuna.tmpl.units.Unit.prototype.remove = function() {};

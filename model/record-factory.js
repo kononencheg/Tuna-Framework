@@ -11,11 +11,11 @@
  */
 tuna.model.RecordFactory = function() {
 
-  /**
-   * @private
-   * @type {Object.<string, !tuna.model.Record>}
-   */
-  this.__prototypes = {};
+    /**
+     * @private
+     * @type {Object.<string, !tuna.model.Record>}
+     */
+    this.__prototypes = {};
 };
 
 
@@ -27,7 +27,7 @@ tuna.model.RecordFactory = function() {
  * @param {!tuna.model.Record} record Прототип экземпляра данных.
  */
 tuna.model.RecordFactory.prototype.registerRecord = function(name, record) {
-  this.__prototypes[name] = record;
+    this.__prototypes[name] = record;
 };
 
 
@@ -37,7 +37,7 @@ tuna.model.RecordFactory.prototype.registerRecord = function(name, record) {
  * @param {string} name Имя экзампляра.
  */
 tuna.model.RecordFactory.prototype.getRecordPrototype = function(name) {
-  return this.__prototypes[name] || null;
+    return this.__prototypes[name] || null;
 };
 
 
@@ -50,9 +50,9 @@ tuna.model.RecordFactory.prototype.getRecordPrototype = function(name) {
  *         случае если соответсующий прототип не найден.
  */
 tuna.model.RecordFactory.prototype.createRecord = function(name) {
-  if (this.__prototypes[name] !== undefined) {
-    return this.__prototypes[name].clone();
-  }
+    if (this.__prototypes[name] !== undefined) {
+        return this.__prototypes[name].clone();
+    }
 
-  return null;
+    return null;
 };

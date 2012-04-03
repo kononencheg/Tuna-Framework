@@ -10,32 +10,31 @@ tuna.tmpl.compilers.SpotCompiler = function() {};
 tuna.tmpl.compilers.SpotCompiler.prototype.compile =
     function(element, settings, template) {
 
-  var item = null;
-  var root = template.getRootTemplate();
+    var item = null;
+    var root = template.getRootTemplate();
 
-  var itemsSettings = this._getItemsSettings(settings);
-  var i = itemsSettings.length - 1;
-  while (i >= 0) {
-      item = this._createItem(root);
+    var itemsSettings = this._getItemsSettings(settings);
+    var i = itemsSettings.length - 1;
+    while (i >= 0) {
+        item = this._createItem(root);
 
-      this._compileItem(element, itemsSettings[i], item);
+        this._compileItem(element, itemsSettings[i], item);
 
-      template.addItems(item);
+        template.addItems(item);
 
-      i--;
-  }
+        i--;
+    }
 };
 
 /**
  * @protected
  * @param {!tuna.tmpl.settings.TemplateSettings} settings
  * @return {!Array.<!tuna.tmpl.settings.SpotSettings>}
- * @private
  */
 tuna.tmpl.compilers.SpotCompiler.prototype._getItemsSettings =
     function(settings) {
 
-  return settings.getSpots();
+  return settings.spots;
 };
 
 /**

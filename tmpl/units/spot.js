@@ -97,19 +97,19 @@ tuna.tmpl.units.Spot.prototype.applyData = function(dataNode) {
  * @param {!*} value Занчение для отображения.
  */
 tuna.tmpl.units.Spot.prototype._applyValue = function(value) {
-  var html = '';
-  if (value !== null) {
-    html = value.toString();
-  }
-
-  var i = this._nodes.length - 1;
-  while (i >= 0) {
-    if (this._nodes[i].innerHTML !== html) {
-      this._nodes[i].innerHTML = html;
+    var html = '';
+    if (value !== null) {
+        html = value.toString();
     }
 
-    i--;
-  }
+    var i = this._nodes.length - 1;
+    while (i >= 0) {
+        if (this._nodes[i].innerHTML !== html) {
+            this._nodes[i].innerHTML = html;
+        }
+
+        i--;
+    }
 };
 
 
@@ -117,5 +117,5 @@ tuna.tmpl.units.Spot.prototype._applyValue = function(value) {
  * @inheritDoc
  */
 tuna.tmpl.units.Spot.prototype.destroy = function() {
-  this._nodes.length = 0;
+    this._nodes.length = 0;
 };

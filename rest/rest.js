@@ -13,31 +13,32 @@
  *        соответствует результат метода.
  */
 tuna.rest.call = function(name, args, opt_callback, opt_recordName) {
-  var method = tuna.rest.methodFactory.createMethod(name);
+    var method = tuna.rest.methodFactory.createMethod(name);
 
-  var listener = null;
-  if (opt_callback !== undefined) {
-    if (opt_recordName === undefined) {
-      listener = function(event, data) {
-        opt_callback(data);
-        method.removeEventListener('result', listener);
-      };
-    } else {
-      listener = function(event, data) {
-        if (opt_recordName !== undefined) {
-          opt_callback(tuna.rest.populateRecords(data, opt_recordName));
+    var listener = null;
+    if (opt_callback !== undefined) {
+        if (opt_recordName === undefined) {
+            listener = function(event, data) {
+                opt_callback(data);
+                method.removeEventListener('result', listener);
+            };
+        } else {
+            listener = function(event, data) {
+                if (opt_recordName !== undefined) {
+                    opt_callback
+                        (tuna.rest.populateRecords(data, opt_recordName));
+                }
+
+                method.removeEventListener('result', listener);
+            };
         }
-
-        method.removeEventListener('result', listener);
-      };
     }
-  }
 
-  if (listener !== null) {
-    method.addEventListener('result', listener);
-  }
+    if (listener !== null) {
+        method.addEventListener('result', listener);
+    }
 
-  method.call(args);
+    method.call(args);
 };
 
 
@@ -52,37 +53,37 @@ tuna.rest.call = function(name, args, opt_callback, opt_recordName) {
  *         единственный экземпляр данных.
  */
 tuna.rest.populateRecords = function(data, name) {
-  var recordPrototype = tuna.model.recordFactory.getRecordPrototype(name);
-  if (recordPrototype !== null && data !== null) {
+    var recordPrototype = tuna.model.recordFactory.getRecordPrototype(name);
+    if (recordPrototype !== null && data !== null) {
 
-    var record = null;
-    if (data instanceof Array) {
-      var result = [];
+        var record = null;
+        if (data instanceof Array) {
+            var result = [];
 
-      var i = 0,
-          l = data.length;
+            var i = 0,
+                l = data.length;
 
-      while (i < l) {
-        record = recordPrototype.clone();
-        if (data[i] !== null) {
-          record.populate(data[i]);
+            while (i < l) {
+                record = recordPrototype.clone();
+                if (data[i] !== null) {
+                    record.populate(data[i]);
+                }
+
+                result.push(record);
+
+                i++;
+            }
+
+            return result;
+        } else {
+            record = recordPrototype.clone();
+            record.populate(data);
+
+            return record;
         }
-
-        result.push(record);
-
-        i++;
-      }
-
-      return result;
-    } else {
-      record = recordPrototype.clone();
-      record.populate(data);
-
-      return record;
     }
-  }
 
-  return null;
+    return null;
 };
 
 

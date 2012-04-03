@@ -1,7 +1,13 @@
+
+
+
 /**
+ * Интерфейс класс
+ *
  * @interface
  */
 tuna.tmpl.compilers.IItemCompiler = function() {};
+
 
 /**
  * @param {!Node} element

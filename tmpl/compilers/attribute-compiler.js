@@ -16,7 +16,7 @@ tuna.utils.extend(
  */
 tuna.tmpl.compilers.AttributeCompiler.prototype._getItemsSettings =
     function(settings) {
-  return settings.getAttributes();
+  return settings.attributes;
 };
 
 /**
