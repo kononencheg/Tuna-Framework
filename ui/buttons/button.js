@@ -23,7 +23,6 @@ tuna.utils.extend(tuna.ui.buttons.Button, tuna.ui.ModuleInstance);
 tuna.ui.buttons.Button.prototype.init = function() {
     if (!this._isInit) {
         this._isInit = true;
-        // TODO: Stop events in disabled.
 
         var self = this;
         tuna.dom.addEventListener(this._target, 'click', function(event) {
