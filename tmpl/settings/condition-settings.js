@@ -8,38 +8,46 @@
  *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
+ * @param {string} targetSelector CSS-селектор целевых для элемента
+ *        шаблонизатора DOM-элементов.
+ * @param {string} dataPath Путь к данным для отображения элементом
+ *        шаблонизатора.
+ * @param {string} actionType Тип действия.
+ * @param {string} operatorType Тип условия.
  */
-tuna.tmpl.settings.ConditionSettings = function() {
-    tuna.tmpl.settings.SpotSettings.call(this);
+tuna.tmpl.settings.ConditionSettings =
+    function(targetSelector, dataPath, actionType, operatorType) {
+
+    tuna.tmpl.settings.SpotSettings.call(this, targetSelector, dataPath);
 
     /**
      * Тип действия обработки условия.
      *
      * @see tuna.tmpl.units.condition.ConditionAction
-     * @type {?string}
+     * @type {string}
      */
-    this.actionType = null;
-
-    /**
-     * Данные действия обработки условия.
-     *
-     * @type {?string}
-     */
-    this.actionData = null;
+    this.actionType = actionType;
 
     /**
      * Тип условия для проверки.
      *
-     * @type {?string}
+     * @type {string}
      */
-    this.operatorType = null;
+    this.operatorType = operatorType;
+
+    /**
+     * Данные действия обработки условия.
+     *
+     * @type {string}
+     */
+    this.actionData = '';
 
     /**
      * Данные условия.
      *
-     * @type {?string}
+     * @type {string}
      */
-    this.operatorData = null;
+    this.operatorData = '';
 };
 
 
@@ -51,5 +59,5 @@ tuna.utils.extend
  * @inheritDoc
  */
 tuna.tmpl.settings.ConditionSettings.prototype.getType = function() {
-    return 'condition';
+    return tuna.tmpl.units.Condition.NAME;
 };

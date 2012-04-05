@@ -5,9 +5,9 @@
  * Класс оператора условия.
  *
  * @constructor
- * @param {string=} opt_data Данные выполнения проверки.
+ * @param {string} data Данные выполнения проверки.
  */
-tuna.tmpl.units.condition.ConditionOperator = function(opt_data) {
+tuna.tmpl.units.condition.ConditionOperator = function(data) {
 
     /**
      * Данные выполнения проверки.
@@ -15,7 +15,7 @@ tuna.tmpl.units.condition.ConditionOperator = function(opt_data) {
      * @protected
      * @type {string}
      */
-    this._data = opt_data || '';
+    this._data = data;
 };
 
 /**
@@ -30,12 +30,10 @@ tuna.tmpl.units.condition.ConditionOperator.prototype.test = function(value) {};
 /**
  * Клонировние оператора с новыми данными.
  *
- * @param {string=} opt_data Данные оператора.
+ * @param {string=} data Данные оператора.
  * @return {!tuna.tmpl.units.condition.ConditionAction} Копия оператора с новыми
  *         данными.
  */
-tuna.tmpl.units.condition.ConditionOperator.prototype.clone =
-    function(opt_data) {
-
-    return new this.constructor(opt_data);
+tuna.tmpl.units.condition.ConditionOperator.prototype.clone = function(data) {
+    return new this.constructor(data);
 };

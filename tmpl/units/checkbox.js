@@ -18,6 +18,13 @@ tuna.utils.extend(tuna.tmpl.units.Checkbox, tuna.tmpl.units.Spot);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.Checkbox.NAME = 'checkbox';
+
+
+/**
  * @inheritDoc
  */
 tuna.tmpl.units.Checkbox.prototype._applyValue = function(value) {

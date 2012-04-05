@@ -48,7 +48,7 @@ tuna.tmpl.compilers.TemplateCompiler.prototype.compile =
         l = settings.items.length;
 
     var root = opt_root || template;
-    var item = null;
+    var items = null;
     var compiler = null;
     var itemSettings = null;
     while (i < l) {
@@ -56,10 +56,10 @@ tuna.tmpl.compilers.TemplateCompiler.prototype.compile =
         compiler = this.__itemCompilers[itemSettings.getType()];
 
         if (compiler !== undefined) {
-            item = compiler.compile(element, itemSettings, root);
+            items = compiler.compile(element, itemSettings, root);
 
-            if (item !== null) {
-                template.addItems(item);
+            if (items !== null) {
+                template.addItems(items);
             }
         }
 

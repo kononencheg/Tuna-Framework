@@ -37,6 +37,13 @@ tuna.utils.extend(tuna.tmpl.units.Attribute, tuna.tmpl.units.Spot);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.Attribute.NAME = 'attribute';
+
+
+/**
  * Устанока флага наличия события генерирующегося у элемента при изменении
  * аттрибута.
  *

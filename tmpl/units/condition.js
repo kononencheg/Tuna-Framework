@@ -9,21 +9,24 @@
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
  * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
+ * @param {!tuna.tmpl.units.condition.ConditionAction} action Объект действия.
+ * @param {!tuna.tmpl.units.condition.ConditionOperator} operator Объект
+ *        проверки условия.
  */
-tuna.tmpl.units.Condition = function(root) {
+tuna.tmpl.units.Condition = function(root, action, operator) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
      * @private
-     * @type {tuna.tmpl.units.condition.ConditionAction}
+     * @type {!tuna.tmpl.units.condition.ConditionAction}
      */
-    this.__action = null;
+    this.__action = action;
 
     /**
      * @private
-     * @type {tuna.tmpl.units.condition.ConditionOperator}
+     * @type {!tuna.tmpl.units.condition.ConditionOperator}
      */
-    this.__operator = null;
+    this.__operator = operator;
 };
 
 
@@ -31,23 +34,10 @@ tuna.utils.extend(tuna.tmpl.units.Condition, tuna.tmpl.units.Spot);
 
 
 /**
- * Установка объекта действия выполняющего трансформацию.
- *
- * @param {tuna.tmpl.units.condition.ConditionAction} action Объект действия.
+ * @const
+ * @type {string}
  */
-tuna.tmpl.units.Condition.prototype.setAction = function(action) {
-    this.__action = action;
-};
-
-
-/**
- * Установка объекта условия выполнения действия трансформации.
- *
- * @param {tuna.tmpl.units.condition.ConditionOperator} operator Объект условия.
- */
-tuna.tmpl.units.Condition.prototype.setOperator = function(operator) {
-    this.__operator = operator;
-};
+tuna.tmpl.units.Condition.NAME = 'condition';
 
 
 /**

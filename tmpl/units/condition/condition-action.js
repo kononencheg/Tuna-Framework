@@ -6,9 +6,9 @@
  *
  * @see tuna.tmpl.units.Condition
  * @constructor
- * @param {string=} opt_data Данные выполнения действия.
+ * @param {string} data Данные выполнения действия.
  */
-tuna.tmpl.units.condition.ConditionAction = function(opt_data) {
+tuna.tmpl.units.condition.ConditionAction = function(data) {
 
     /**
      * Данные выполнения действия.
@@ -16,7 +16,7 @@ tuna.tmpl.units.condition.ConditionAction = function(opt_data) {
      * @protected
      * @type {string}
      */
-    this._data = opt_data || '';
+    this._data = data;
 };
 
 
@@ -33,10 +33,10 @@ tuna.tmpl.units.condition.ConditionAction.prototype.apply =
 /**
  * Клонировние действия с новыми данными.
  *
- * @param {string=} opt_data Данные выполнения действия.
+ * @param {string} data Данные выполнения действия.
  * @return {!tuna.tmpl.units.condition.ConditionAction} Копия действия с новыми
  *         данными.
  */
-tuna.tmpl.units.condition.ConditionAction.prototype.clone = function(opt_data) {
-    return new this.constructor(opt_data);
+tuna.tmpl.units.condition.ConditionAction.prototype.clone = function(data) {
+    return new this.constructor(data);
 };

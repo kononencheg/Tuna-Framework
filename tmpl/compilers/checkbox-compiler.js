@@ -20,6 +20,16 @@ tuna.utils.extend
 /**
  * @inheritDoc
  */
-tuna.tmpl.compilers.CheckboxCompiler.prototype._createSpot = function(root) {
-    return new tuna.tmpl.units.Checkbox(root);
+tuna.tmpl.compilers.CheckboxCompiler.prototype.compile =
+    function(element, settings, root) {
+
+    if (settings instanceof tuna.tmpl.settings.CheckboxSettings) {
+        var checkbox = new tuna.tmpl.units.Checkbox(root);
+
+        this._setupSpot(checkbox, settings);
+
+        return checkbox;
+    }
+
+    return null;
 };

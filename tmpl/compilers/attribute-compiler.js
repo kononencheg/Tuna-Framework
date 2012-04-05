@@ -22,12 +22,12 @@ tuna.utils.extend
 tuna.tmpl.compilers.AttributeCompiler.prototype.compile =
     function(element, settings, root) {
 
-
     if (settings instanceof tuna.tmpl.settings.AttributeSettings) {
         var attribute =
             new tuna.tmpl.units.Attribute(root, settings.attributeName);
 
         this._setupSpot(attribute, settings);
+
         attribute.setEvent(settings.hasEvent);
 
         return attribute;

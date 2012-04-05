@@ -84,16 +84,13 @@ tuna.tmpl.units.Spot.prototype.addTargets = function(elements) {
  * @inheritDoc
  */
 tuna.tmpl.units.Spot.prototype.applyData = function(dataNode) {
-    var valueNode = this.__pathEvaluator.evaluate(dataNode);
-    if (valueNode !== null) {
-        var value = valueNode.getValue();
+    var value = this.__pathEvaluator.evaluate(dataNode).getValue();
 
-        if (this._pattern !== null) {
-            value = this._pattern.join(value);
-        }
-
-        this._applyValue(value);
+    if (this._pattern !== null && value !== null) {
+        value = this._pattern.join(value);
     }
+
+    this._applyValue(value);
 };
 
 

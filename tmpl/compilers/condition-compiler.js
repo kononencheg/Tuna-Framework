@@ -36,7 +36,7 @@ tuna.utils.extend
  * @param {!tuna.tmpl.units.condition.ConditionAction} action Действие
  *        соответсвующего типа.
  */
-tuna.tmpl.compilers.TemplateCompiler.prototype.registerAction =
+tuna.tmpl.compilers.ConditionCompiler.prototype.registerAction =
     function(type, action) {
 
     this.__actions[type] = action;
@@ -49,7 +49,7 @@ tuna.tmpl.compilers.TemplateCompiler.prototype.registerAction =
  * @param {!tuna.tmpl.units.condition.ConditionOperator} operator Оператор
  *        соответсвующего типа.
  */
-tuna.tmpl.compilers.TemplateCompiler.prototype.registerOperator =
+tuna.tmpl.compilers.ConditionCompiler.prototype.registerOperator =
     function(type, operator) {
 
     this.__operators[type] = operator;
@@ -59,32 +59,25 @@ tuna.tmpl.compilers.TemplateCompiler.prototype.registerOperator =
 /**
  * @inheritDoc
  */
-tuna.tmpl.compilers.ConditionCompiler.prototype._createSpot = function(root) {
-    return new tuna.tmpl.units.Condition(root);
-};
+tuna.tmpl.compilers.ConditionCompiler.prototype.compile =
+    function(element, settings, root) {
 
+    if (settings instanceof tuna.tmpl.settings.ConditionSettings) {
+        var actionPrototype = this.__actions[settings.actionType];
+        var operatorPrototype = this.__operators[settings.operatorType];
 
-/**
- * @inheritDoc
- */
-tuna.tmpl.compilers.ConditionCompiler.prototype._setupSpot =
-    function(spot, settings) {
+        if (actionPrototype !== undefined && operatorPrototype !== undefined) {
+            var action = actionPrototype.clone(settings.actionData);
+            var operator = operatorPrototype.clone(settings.operatorData);
 
-    tuna.tmpl.compilers.SpotCompiler.prototype
-        ._setupSpot.call(this, spot, settings);
+            var condition =
+                new tuna.tmpl.units.Condition(root, action, operator);
 
-    if (spot instanceof tuna.tmpl.units.Condition &&
-        settings instanceof tuna.tmpl.settings.ConditionSettings) {
+            this._setupSpot(condition, settings);
 
-        var actionProtype = this.__actions[settings.actionType];
-        if (actionProtype !== undefined) {
-            spot.setAction(actionProtype.clone(settings.actionData));
-        }
-
-        var operatorProtype = this.__operators[settings.operatorType];
-        if (operatorProtype !== undefined) {
-            spot.setOperator(operatorProtype.clone(settings.operatorData));
+            return condition;
         }
     }
-};
 
+    return null;
+};

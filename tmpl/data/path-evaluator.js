@@ -1,58 +1,77 @@
+
+
+
 /**
+ * Класс объекта взятия данных по выбранному пути.
+ *
  * @constructor
  */
-var PathEvaluator = function() {
+tuna.tmpl.data.PathEvaluator = function() {
 
     /**
      * @private
-     * @type Array.<string>
+     * @type {Array.<string>}
      */
     this.__parsedPath = null;
 };
 
+
 /**
+ * Установление пути к данным.
+ *
+ * @param {string} path Путь к данным.
  */
-PathEvaluator.prototype.setPath = function(path) {
+tuna.tmpl.data.PathEvaluator.prototype.setPath = function(path) {
     this.__parsedPath = path.split('/');
 };
 
+
 /**
- * @param {tuna.tmpl.data.DataNode} dataNode
- * @return {tuna.tmpl.data.DataNode}
+ * Выборка данных из узла по установленному пути.
+ *
+ * @param {!tuna.tmpl.data.DataNode} dataNode Узел данных для выборки.
+ * @return {!tuna.tmpl.data.DataNode} Узел-результат выборки.
  */
-PathEvaluator.prototype.evaluate = function(dataNode) {
-    var node = this.__applyNextToken(this.__parsedPath, dataNode, 0);
-    if (node !== null) {
-        return node;
+tuna.tmpl.data.PathEvaluator.prototype.evaluate = function(dataNode) {
+    if (this.__parsedPath !== null) {
+        return this.__applyNextToken(this.__parsedPath, dataNode, 0);
     }
 
     return tuna.tmpl.data.NULL_NODE;
 };
 
+
 /**
+ * Функция рекурсивной выборки данных.
  *
- * @param {Array.<string>} path
- * @param {tuna.tmpl.data.DataNode} dataNode
- * @param {number} index
- * @return {tuna.tmpl.data.DataNode}
+ * @param {!Array.<string>} path Оставшийся путь выборки.
+ * @param {!tuna.tmpl.data.DataNode} dataNode Узел для выборки.
+ * @param {number} index Индекс элемента пути.
+ * @return {!tuna.tmpl.data.DataNode} Ррезультат выборки.
  */
-PathEvaluator.prototype.__applyNextToken = function(path, dataNode, index) {
+tuna.tmpl.data.PathEvaluator.prototype.__applyNextToken =
+    function(path, dataNode, index) {
+
     var token = path[index];
-    if (dataNode !== null && token !== undefined) {
-        return this.__applyNextToken
-            (path, this.__applyToken(token, dataNode), ++index);
+    if (token !== undefined && dataNode !== tuna.tmpl.data.NULL_NODE) {
+        return this.__applyNextToken(
+            path, this.__applyToken(token, dataNode), ++index
+        );
     }
 
     return dataNode;
 };
 
+
 /**
+ * Применение элемента ключа пути к узлу данных.
  *
- * @param {string} token
- * @param {tuna.tmpl.data.DataNode} dataNode
- * @return {tuna.tmpl.data.DataNode}
+ * @param {string} token Ключ пути.
+ * @param {!tuna.tmpl.data.DataNode} dataNode Узел данных.
+ * @return {!tuna.tmpl.data.DataNode} Результат применения.
  */
-PathEvaluator.prototype.__applyToken = function(token, dataNode) {
+tuna.tmpl.data.PathEvaluator.prototype.__applyToken =
+    function(token, dataNode) {
 
     switch (token) {
         case '': return dataNode.getRoot();
@@ -64,9 +83,3 @@ PathEvaluator.prototype.__applyToken = function(token, dataNode) {
 
     return dataNode.growChild(token);
 };
-
-/**
- * @constructor
- * @extends {PathEvaluator}
- */
-tuna.tmpl.data.PathEvaluator = PathEvaluator;
