@@ -4,6 +4,8 @@
 /**
  * Настройки элемента обработки условия.
  *
+ * TODO: Add conditionPath parameter
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
  */
@@ -43,3 +45,11 @@ tuna.tmpl.settings.ConditionSettings = function() {
 
 tuna.utils.extend
     (tuna.tmpl.settings.ConditionSettings, tuna.tmpl.settings.SpotSettings);
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.ConditionSettings.prototype.getType = function() {
+    return 'condition';
+};

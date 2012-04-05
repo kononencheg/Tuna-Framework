@@ -1,5 +1,6 @@
 
 
+
 /**
  * Настройки шаблона трансформации.
  *
@@ -9,38 +10,17 @@
 tuna.tmpl.settings.TemplateSettings = function() {
 
     /**
-     * Список элементов вставки данных.
+     * Список настроек элементов.
      *
-     * @type {!Array.<!tuna.tmpl.settings.SpotSettings>}
+     * @type {!Array.<!tuna.tmpl.settings.IItemSettings>}
      */
-    this.spots = [];
-
-    /**
-     * Список элементов отображения списков.
-     *
-     * @type {!Array.<!tuna.tmpl.settings.ListSettings>}
-     */
-    this.lists = [];
-
-    /**
-     * Список элементов установки аттрибута.
-     *
-     * @type {!Array.<!tuna.tmpl.settings.AttributeSettings>}
-     */
-    this.attributes = [];
-
-    /**
-     * Список элементов обработки условий.
-     *
-     * @type {!Array.<!tuna.tmpl.settings.ConditionSettings>}
-     */
-    this.conditions = [];
-
-    /**
-     * Список элементов отображения данных в DOM-элементы input типа checkbox.
-     *
-     * @type {!Array.<!tuna.tmpl.settings.CheckboxSettings>}
-     */
-    this.checkboxex = [];
+    this.items = [];
 };
 
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.getType = function() {
+    return tuna.tmpl.units.Template.NAME;
+};

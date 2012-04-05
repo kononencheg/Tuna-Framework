@@ -10,12 +10,12 @@
 tuna.tmpl.settings.SpotSettings = function() {
     
     /**
-     * Имя CSS-класса целевых для элемента шаблонизатора DOM-элементов.
+     * CSS-селектор целевых для элемента шаблонизатора DOM-элементов.
      *
      * @public
      * @type {?string}
      */
-    this.targetClass = null;
+    this.targetSelector = null;
 
     /**
      * Путь к данным для отображения элементом шаблонизатора.
@@ -32,4 +32,12 @@ tuna.tmpl.settings.SpotSettings = function() {
      * @type {Array.<string>}
      */
     this.pattern = null;
+};
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.SpotSettings.prototype.getType = function() {
+    return tuna.tmpl.units.Spot.NAME;
 };

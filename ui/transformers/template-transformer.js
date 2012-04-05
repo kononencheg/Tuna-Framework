@@ -35,7 +35,7 @@ tuna.ui.transformers.TemplateTransformer.prototype.init = function() {
     if (settings !== null) {
         this.__template = tuna.tmpl.compile(this._target, settings);
     } else {
-        alert("Unknown template " + templateId);
+        throw 'Unknown template with id "' + templateId + '"';
     }
 };
 

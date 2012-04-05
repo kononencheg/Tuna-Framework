@@ -37,4 +37,9 @@ tuna.utils.extend
     (tuna.tmpl.settings.ListSettings, tuna.tmpl.settings.SpotSettings);
 
 
-
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.ListSettings.prototype.getType = function() {
+    return 'list';
+};

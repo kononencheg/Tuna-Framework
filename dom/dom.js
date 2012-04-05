@@ -76,6 +76,22 @@ tuna.dom.matches = function(selector, elements) {
     return [];
 };
 
+/**
+ * Проверка соответствия элемента CSS-селектору.
+ *
+ * @param {!Node} element DOM-элемент соответствие которого нужно проверить.
+ * @param {string} selector CSS-селектор которому должен соответсвовать
+ *        элемент.
+ * @return {boolean} Результат проверки.
+ */
+tuna.dom.matchesSelector = function(element, selector) {
+    if (tuna.dom.__selectorEngine !== null) {
+        return tuna.dom.__selectorEngine.matchesSelector(element, selector);
+    }
+
+    return false;
+};
+
 
 /**
  * @private
@@ -413,7 +429,7 @@ tuna.dom.getParentMatches = function(element, selector, opt_context) {
     var parent = element.parentNode;
 
     while (parent !== null && parent !== opt_context &&
-        tuna.dom.matches(selector, [parent]).length === 0) {
+           !tuna.dom.matchesSelector(parent, selector)) {
 
         parent = parent.parentNode;
     }
@@ -435,7 +451,7 @@ tuna.dom.getParentWithClass = function(element, className, opt_context) {
     var parent = element.parentNode;
 
     while (parent !== null && parent !== opt_context &&
-        !tuna.dom.hasClass(parent, className)) {
+           !tuna.dom.hasClass(parent, className)) {
 
         parent = parent.parentNode;
     }

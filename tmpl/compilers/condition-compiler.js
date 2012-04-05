@@ -1,74 +1,90 @@
+
+
+
 /**
+ * Компилятор элемента шаблона выполняющий дейспиве с DOM-элементом в
+ * зависимости от результатат проверки условия.
+ *
  * @constructor
  * @extends {tuna.tmpl.compilers.SpotCompiler}
  */
-var ConditionCompiler = function() {
+tuna.tmpl.compilers.ConditionCompiler = function() {
     tuna.tmpl.compilers.SpotCompiler.call(this);
+
+    /**
+     * @type {Object.<string, !tuna.tmpl.units.condition.ConditionAction>}
+     * @private
+     */
+    this.__actions = {};
+
+
+    /**
+     * @type {Object.<string, !tuna.tmpl.units.condition.ConditionOperator>}
+     * @private
+     */
+    this.__operators = {};
 };
 
-tuna.utils.extend(ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
+tuna.utils.extend
+    (tuna.tmpl.compilers.ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
+
 
 /**
- * @override
+ * Регистрация прототипа действия условия определенного типа.
+ *
+ * @param {string} type Тип действия.
+ * @param {!tuna.tmpl.units.condition.ConditionAction} action Действие
+ *        соответсвующего типа.
  */
-ConditionCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.conditions;
-};
+tuna.tmpl.compilers.TemplateCompiler.prototype.registerAction =
+    function(type, action) {
 
-/**
- * @override
- */
-ConditionCompiler.prototype._createItem = function(rootTemplate) {
-    return new tuna.tmpl.units.Condition(rootTemplate);
-};
-
-/**
- * @override
- */
-ConditionCompiler.prototype._compileItem = function(element, settings, item) {
-    tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
-                                    (this, element, settings, item);
-
-    var action = this.__createAction
-        (settings.actionType, settings.actionData);
-
-    item.setAction(action);
-
-    var operator = this.__createOperator
-        (settings.operatorType, settings.operatorData);
-
-    item.setOperator(operator);
+    this.__actions[type] = action;
 };
 
 /**
- * @private
- * @param {string} type
- * @param {string} data
- * @return {tuna.tmpl.units.condition.ConditionAction}
+ * Регистрация прототипа оператора проверки условия определенного типа.
+ *
+ * @param {string} type Тип действия.
+ * @param {!tuna.tmpl.units.condition.ConditionOperator} operator Оператор
+ *        соответсвующего типа.
  */
-ConditionCompiler.prototype.__createAction = function(type, data) {
-    switch (type) {
-        case 'class': return new tuna.tmpl.units.condition.ClassAction(data);
+tuna.tmpl.compilers.TemplateCompiler.prototype.registerOperator =
+    function(type, operator) {
+
+    this.__operators[type] = operator;
+};
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.compilers.ConditionCompiler.prototype._createSpot = function(root) {
+    return new tuna.tmpl.units.Condition(root);
+};
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.compilers.ConditionCompiler.prototype._setupSpot =
+    function(spot, settings) {
+
+    tuna.tmpl.compilers.SpotCompiler.prototype
+        ._setupSpot.call(this, spot, settings);
+
+    if (spot instanceof tuna.tmpl.units.Condition &&
+        settings instanceof tuna.tmpl.settings.ConditionSettings) {
+
+        var actionProtype = this.__actions[settings.actionType];
+        if (actionProtype !== undefined) {
+            spot.setAction(actionProtype.clone(settings.actionData));
+        }
+
+        var operatorProtype = this.__operators[settings.operatorType];
+        if (operatorProtype !== undefined) {
+            spot.setOperator(operatorProtype.clone(settings.operatorData));
+        }
     }
-
-    return null;
 };
 
-/**
- * @private
- * @param {string} type
- * @param {string} data
- * @return {tuna.tmpl.units.condition.ConditionOperator}
- */
-ConditionCompiler.prototype.__createOperator = function(type, data) {
-    switch (type) {
-        case 'isset': return new tuna.tmpl.units.condition.IsSetOperator();
-        case 'notset': return new tuna.tmpl.units.condition.NotSetOperator();
-        case 'eq': return new tuna.tmpl.units.condition.EqualsOperator(data);
-        case 'ne': return new tuna.tmpl.units.condition.NotEqualsOperator(data);
-    }
-
-    return null;
-};
-
-tuna.tmpl.compilers.ConditionCompiler = ConditionCompiler;

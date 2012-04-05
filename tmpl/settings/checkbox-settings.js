@@ -14,3 +14,11 @@ tuna.tmpl.settings.CheckboxSettings = function() {
 
 tuna.utils.extend
     (tuna.tmpl.settings.CheckboxSettings, tuna.tmpl.settings.SpotSettings);
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.CheckboxSettings.prototype.getType = function() {
+    return 'checkbox';
+};

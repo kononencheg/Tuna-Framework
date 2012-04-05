@@ -40,6 +40,13 @@ tuna.utils.extend(tuna.tmpl.units.Spot, tuna.tmpl.units.Unit);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.Spot.NAME = 'spot';
+
+
+/**
  * Установка образца отображения данных.
  *
  * Образец представляет собой разбитую строку разрывы которой предназначены для

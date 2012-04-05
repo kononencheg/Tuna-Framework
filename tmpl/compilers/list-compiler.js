@@ -1,81 +1,78 @@
+
+
+
 /**
+ * Компилятор элемента шаблона отображения списка.
+ *
  * @constructor
  * @implements {tuna.tmpl.compilers.IItemCompiler}
- * @param {tuna.tmpl.compilers.TemplateCompiler} compiler
+ * @param {!tuna.tmpl.compilers.TemplateCompiler} compiler Компилятор шаблона,
+ *        необходимый для компиляции элементов списка.
  */
-var ListCompiler = function( compiler) {
+tuna.tmpl.compilers.ListCompiler = function(compiler) {
+
+    /**
+     * @type {!tuna.tmpl.compilers.TemplateCompiler}
+     * @private
+     */
     this.__templateCompiler = compiler;
 };
 
 
-
 /**
- * @override
+ * @inheritDoc
  */
-ListCompiler.prototype.compile = function(element, settings, template) {
-    var itemsSettings = settings.lists;
-    var i = itemsSettings.length - 1;
-    while (i >= 0) {
+tuna.tmpl.compilers.ListCompiler.prototype.compile =
+    function(element, settings, root) {
 
-        this.__compileLists(element, itemsSettings[i], template);
-
-        i--;
-    }
-};
-
-/**
- * @private
- * @param {!Node} element
- * @param {tuna.tmpl.settings.IItemSettings} settings
- * @param {tuna.tmpl.units.Template} template
- */
-ListCompiler.prototype.__compileLists = function(element, settings, template) {
-    var root = template.getRootTemplate();
     var lists = [];
 
-    var className = settings.targetClass;
-    if (tuna.dom.hasClass(element, className)) {
-        lists.push(this.__createList(element, settings, root));
-    } else {
-        var elements = tuna.dom.select('.' + className, element);
+    if (settings instanceof tuna.tmpl.settings.ListSettings) {
+        var selector = settings.targetSelector;
+        if (tuna.dom.matchesSelector(element, selector)) {
+            lists.push(this.__compileList(element, settings, root));
+        } else {
+            var elements = tuna.dom.select(selector, element);
 
-        var i = elements.length - 1;
-        while (i >= 0) {
+            var i = elements.length - 1;
+            while (i >= 0) {
 
-            if (tuna.dom.getParentWithClass(elements[i], className, element) === null) {
-                lists.push(this.__createList(elements[i], settings, root));
+                if (tuna.dom.getParentMatches(elements[i], selector, element)
+                    === null) {
+
+                    lists.push(this.__compileList(elements[i], settings, root));
+                }
+
+                i--;
             }
-
-            i--;
         }
     }
 
-    template.addItems(lists);
+    return lists;
 };
+
 
 /**
  * @private
  * @param {!Node} element
- * @param {tuna.tmpl.settings.IItemSettings} settings
+ * @param {!tuna.tmpl.settings.ListSettings} settings
  * @param {!tuna.tmpl.units.Template} root
- * @return {tuna.tmpl.units.List}
+ * @return {!tuna.tmpl.units.List}
  */
-ListCompiler.prototype.__createList = function(element, settings, root) {
+tuna.tmpl.compilers.ListCompiler.prototype.__compileList =
+    function(element, settings, root) {
+
     var list = new tuna.tmpl.units.List(root);
+    list.setCompiler(this.__templateCompiler);
 
-    if (this.__templateCompiler !== null) {
-        list.setCompiler(this.__templateCompiler);
-    }
-
-    var rendererId = settings.itemRendererID;
-    var renderer = document.getElementById(rendererId);
+    var renderer = document.getElementById(settings.itemRendererID);
     if (renderer !== null) {
         renderer = renderer.cloneNode(true);
         renderer.removeAttribute('id');
 
         list.setItemRenderer(renderer);
     } else {
-        alert('Cannot find item renderer with id: ' + rendererId);
+        throw 'Cannot find item renderer with id: "' + settings.itemRendererID + '"';
     }
 
     list.setItemSettings(settings.itemSettings);
@@ -88,8 +85,3 @@ ListCompiler.prototype.__createList = function(element, settings, root) {
     return list;
 };
 
-/**
- * @constructor
- * @extends {ListCompiler}
- */
-tuna.tmpl.compilers.ListCompiler = ListCompiler;

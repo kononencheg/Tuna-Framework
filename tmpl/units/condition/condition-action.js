@@ -1,23 +1,42 @@
 
+
+
 /**
- * @private
+ * Действие выполняемое после проверки условия.
+ *
+ * @see tuna.tmpl.units.Condition
  * @constructor
- * @param {string=} data
+ * @param {string=} opt_data Данные выполнения действия.
  */
-tuna.tmpl.units.condition.ConditionAction = function(data) {
+tuna.tmpl.units.condition.ConditionAction = function(opt_data) {
 
     /**
-     * @private
-     * @type string
+     * Данные выполнения действия.
+     *
+     * @protected
+     * @type {string}
      */
-    this._data = data || '';
+    this._data = opt_data || '';
 };
 
+
 /**
+ * Выполенение действия.
  *
- * @param {!Node} element
- * @param {boolean} testResult
- * @param {*} value
+ * @param {!Node} element DOM-элемент действие с которым необходимо произвести.
+ * @param {boolean} testResult Результат проверки условия.
+ * @param {!*} value Значение узла данных переданного шаблону для трансформации.
  */
 tuna.tmpl.units.condition.ConditionAction.prototype.apply =
     function(element, testResult, value) {};
+
+/**
+ * Клонировние действия с новыми данными.
+ *
+ * @param {string=} opt_data Данные выполнения действия.
+ * @return {!tuna.tmpl.units.condition.ConditionAction} Копия действия с новыми
+ *         данными.
+ */
+tuna.tmpl.units.condition.ConditionAction.prototype.clone = function(opt_data) {
+    return new this.constructor(opt_data);
+};

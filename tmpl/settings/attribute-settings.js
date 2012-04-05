@@ -30,3 +30,11 @@ tuna.tmpl.settings.AttributeSettings = function() {
 
 tuna.utils.extend
     (tuna.tmpl.settings.AttributeSettings, tuna.tmpl.settings.SpotSettings);
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.CheckboxSettings.prototype.getType = function() {
+    return 'attribute';
+};
