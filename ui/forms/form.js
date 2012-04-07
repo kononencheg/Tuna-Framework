@@ -69,7 +69,7 @@ tuna.ui.forms.Form.prototype.init = function() {
 
 /**
  * @param {string} name
- * @return {null|string|Array.<string>}
+ * @return {?string|Array.<string>}
  */
 tuna.ui.forms.Form.prototype.getValue = function(name) {
     var result = null;
@@ -156,6 +156,37 @@ tuna.ui.forms.Form.prototype.setValue = function(name, value) {
                 element.checked = element.value === value;
             } else {
                 element.value = value;
+            }
+        }
+    }
+};
+
+/**
+ *
+ * @param {string} name
+ * @param {boolean} isEnabled
+ */
+tuna.ui.forms.Form.prototype.setInputEnabled = function(name, isEnabled) {
+    var element = this._target.elements[name];
+    if (element !== undefined) {
+        if (element.value === undefined) {
+            var i = 0,
+                l = element.length;
+
+            while (i < l) {
+                if (isEnabled) {
+                    element[i].removeAttribute('disabled');
+                } else {
+                    element[i].setAttribute('disabled', true);
+                }
+
+                i++;
+            }
+        } else {
+            if (isEnabled) {
+                element.removeAttribute('disabled');
+            } else {
+                element.setAttribute('disabled', true);
             }
         }
     }
