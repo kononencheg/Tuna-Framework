@@ -1,43 +1,44 @@
+
+
+
 /**
+ * Объект извлечения настроек элемента шаблона отображения аттрибута.
+ *
  * @constructor
  * @extends {tuna.tmpl.markup.SpotExtractor}
  */
-var AttributeExtractor = function() {
+tuna.tmpl.markup.AttributeExtractor = function() {
     tuna.tmpl.markup.SpotExtractor.call(this);
 
+    /**
+     * @inheritDoc
+     */
     this._tagName = 'attr';
 };
 
-tuna.utils.extend(AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
+
+tuna.utils.extend
+    (tuna.tmpl.markup.AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-AttributeExtractor.prototype._createItem = function() {
-    return new tuna.tmpl.settings.AttributeSettings();
+tuna.tmpl.markup.AttributeExtractor.prototype._createItem = function(element) {
+    var selector = element.getAttribute(this._ns + 'target');
+    var dataPath = element.getAttribute(this._ns + 'path');
+    var attributeName = element.getAttribute(this._ns + 'name');
+
+    if (selector !== null && dataPath !== null && attributeName !== null) {
+        var attribute = new tuna.tmpl.settings.AttributeSettings
+            (selector, dataPath, attributeName);
+
+        attribute.pattern = element.getAttribute(this._ns + 'pattern');
+        attribute.hasEvent = !!element.getAttribute(this._ns + 'event');
+
+        return attribute;
+    }
+
+    return null;
 };
 
-/**
- * @override
- */
-AttributeExtractor.prototype._parseElement = function(element, item) {
-    tuna.tmpl.markup.SpotExtractor.prototype.
-        _parseElement.call(this, element, item);
-
-    item.attributeName = element.getAttribute(this._ns + 'name');
-    item.hasEvent = !!element.getAttribute(this._ns + 'event');
-};
-
-/**
- * @param {tuna.tmpl.settings.AttributeSettings} item
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- */
-AttributeExtractor.prototype._saveItem = function(item, settings) {
-    settings.attributes.push(item);
-};
-
-/**
- * @constructor
- * @extends {ListExtractor}
- */
-tuna.tmpl.markup.AttributeExtractor = AttributeExtractor;

@@ -45,14 +45,14 @@ tuna.tmpl.compilers.TemplateCompiler.prototype.compile =
     template.setTarget(element);
 
     var i = 0,
-        l = settings.items.length;
+        l = settings.getItemsCount();
 
     var root = opt_root || template;
     var items = null;
     var compiler = null;
     var itemSettings = null;
     while (i < l) {
-        itemSettings = settings.items[i];
+        itemSettings = settings.getItemAt(i);
         compiler = this.__itemCompilers[itemSettings.getType()];
 
         if (compiler !== undefined) {

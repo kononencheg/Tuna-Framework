@@ -14,9 +14,39 @@ tuna.tmpl.settings.TemplateSettings = function() {
      *
      * @type {!Array.<!tuna.tmpl.settings.IItemSettings>}
      */
-    this.items = [];
+    this.__items = [];
 };
 
+
+/**
+ * Добавление элементов настроек.
+ *
+ * @param {!Array.<!tuna.tmpl.settings.IItemSettings>} items Элемент настроек
+ *        либо массив элементов.
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.additems = function(items) {
+    this.__items = this.__items.concat(items);
+};
+
+
+/**
+ * Получение числа элементов настроек.
+ *
+ * @return {number} Число элементов настроек.
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.getItemsCount = function() {
+    return this.__items.length;
+};
+
+/**
+ * Получение элемента по индексу.
+ *
+ * @param {number} index Индекс элемента.
+ * @return {!tuna.tmpl.settings.IItemSettings} Элемент настройки.
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.getItemAt = function(index) {
+    return this.__items[index];
+};
 
 /**
  * @inheritDoc

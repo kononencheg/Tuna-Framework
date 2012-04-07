@@ -2,7 +2,7 @@
  * @constructor
  * @extends {tuna.tmpl.markup.SpotExtractor}
  */
-var ConditionExtractor = function() {
+tuna.tmpl.markup.ConditionExtractor = function() {
     tuna.tmpl.markup.SpotExtractor.call(this);
 
     /**
@@ -23,14 +23,31 @@ var ConditionExtractor = function() {
     this.__actionAttrs = ['class'];
 };
 
-tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+tuna.utils.extend(tuna.tmpl.markup.ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-ConditionExtractor.prototype._createItem = function() {
-    return new tuna.tmpl.settings.ConditionSettings();
+tuna.tmpl.markup.ConditionExtractor.prototype._createItem = function(element) {
+    var selector = element.getAttribute(this._ns + 'target');
+    var dataPath = element.getAttribute(this._ns + 'path');
+    //var actionType =  l;
+    //var operatorType =l;
+
+
+    if (selector !== null && dataPath !== null) {
+        var checkbox = new tuna.tmpl.settings.ConditionSettings
+            (selector, dataPath, actionType, operatorType);
+
+        checkbox.pattern = element.getAttribute(this._ns + 'pattern');
+
+        return checkbox;
+    }
+
+    return null;
 };
+
 
 /**
  * @override
@@ -101,9 +118,3 @@ ConditionExtractor.prototype.__extractOperator = function(element, item) {
 ConditionExtractor.prototype._saveItem = function(item, settings) {
     settings.conditions.push(item);
 };
-
-/**
- * @constructor
- * @extends {ConditionExtractor}
- */
-tuna.tmpl.markup.ConditionExtractor = ConditionExtractor;
