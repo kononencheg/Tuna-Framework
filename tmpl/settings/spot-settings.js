@@ -33,7 +33,7 @@ tuna.tmpl.settings.SpotSettings = function(targetSelector, dataPath) {
      * Разбитая строка образца отображения данных.
      *
      * @public
-     * @type {Array.<string>}
+     * @type {?string}
      */
     this.pattern = null;
 };

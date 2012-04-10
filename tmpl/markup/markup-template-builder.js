@@ -9,7 +9,7 @@
 tuna.tmpl.markup.MarkupTemplateBuilder = function() {
 
     /**
-     * @type {!Object.<string, !tuna.tmpl.markup.MarkupTemplateBuilder>}
+     * @type {!Object.<string, !tuna.tmpl.settings.TemplateSettings>}
      * @private
      */
     this.__templatesTable = {};

@@ -26,7 +26,7 @@ tuna.tmpl.compilers.CheckboxCompiler.prototype.compile =
     if (settings instanceof tuna.tmpl.settings.CheckboxSettings) {
         var checkbox = new tuna.tmpl.units.Checkbox(root);
 
-        this._setupSpot(checkbox, settings);
+        this._setupSpot(element, checkbox, settings);
 
         return checkbox;
     }

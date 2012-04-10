@@ -5,9 +5,9 @@
  * Класс оператора условия.
  *
  * @constructor
- * @param {string} data Данные выполнения проверки.
+ * @param {string=} opt_data Данные выполнения проверки.
  */
-tuna.tmpl.units.condition.ConditionOperator = function(data) {
+tuna.tmpl.units.condition.ConditionOperator = function(opt_data) {
 
     /**
      * Данные выполнения проверки.
@@ -15,7 +15,7 @@ tuna.tmpl.units.condition.ConditionOperator = function(data) {
      * @protected
      * @type {string}
      */
-    this._data = data;
+    this._data = opt_data || '';
 };
 
 /**

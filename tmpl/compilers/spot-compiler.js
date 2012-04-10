@@ -20,7 +20,7 @@ tuna.tmpl.compilers.SpotCompiler.prototype.compile =
     if (settings instanceof tuna.tmpl.settings.SpotSettings) {
         var spot = new tuna.tmpl.units.Spot(root);
 
-        this._setupSpot(spot, settings);
+        this._setupSpot(element, spot, settings);
 
         return spot;
     }
@@ -36,11 +36,12 @@ tuna.tmpl.compilers.SpotCompiler.prototype.compile =
  * <code>tuna.tmpl.units.Spot</code>.
  *
  * @protected
+ * @param {!Node} element DOM-узел элемента.
  * @param {tuna.tmpl.units.Spot} spot Элемент шаблона.
  * @param {!tuna.tmpl.settings.SpotSettings} settings Настройки элемента.
  */
 tuna.tmpl.compilers.SpotCompiler.prototype._setupSpot =
-    function(spot, settings) {
+    function(element, spot, settings) {
 
     spot.setPath(settings.dataPath);
 

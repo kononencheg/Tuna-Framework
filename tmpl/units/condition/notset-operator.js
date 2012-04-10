@@ -18,6 +18,15 @@ tuna.utils.extend(
 
 
 /**
+ * Имя типа оператора.
+ *
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.condition.NotSetOperator.NAME = 'notset';
+
+
+/**
  * @override
  */
 tuna.tmpl.units.condition.NotSetOperator.prototype.test = function(value) {

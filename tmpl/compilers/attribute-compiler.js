@@ -26,7 +26,7 @@ tuna.tmpl.compilers.AttributeCompiler.prototype.compile =
         var attribute =
             new tuna.tmpl.units.Attribute(root, settings.attributeName);
 
-        this._setupSpot(attribute, settings);
+        this._setupSpot(element, attribute, settings);
 
         attribute.setEvent(settings.hasEvent);
 

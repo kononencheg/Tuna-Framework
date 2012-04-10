@@ -73,7 +73,7 @@ tuna.tmpl.compilers.ConditionCompiler.prototype.compile =
             var condition =
                 new tuna.tmpl.units.Condition(root, action, operator);
 
-            this._setupSpot(condition, settings);
+            this._setupSpot(element, condition, settings);
 
             return condition;
         }

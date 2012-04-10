@@ -13,6 +13,15 @@ tuna.utils.extend(
     tuna.tmpl.units.condition.ConditionOperator
 );
 
+
+/**
+ * Имя типа оператора.
+ *
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.condition.IsSetOperator.NAME = 'isset';
+
 /**
  * @override
  */

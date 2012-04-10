@@ -19,6 +19,14 @@ tuna.utils.extend(
 );
 
 /**
+ * Имя типа действия.
+ *
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.condition.ClassAction.NAME = 'class';
+
+/**
  * @inheritDoc
  */
 tuna.tmpl.units.condition.ClassAction.prototype.apply =

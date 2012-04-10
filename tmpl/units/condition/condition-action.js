@@ -6,9 +6,9 @@
  *
  * @see tuna.tmpl.units.Condition
  * @constructor
- * @param {string} data Данные выполнения действия.
+ * @param {string=} opt_data Данные выполнения действия.
  */
-tuna.tmpl.units.condition.ConditionAction = function(data) {
+tuna.tmpl.units.condition.ConditionAction = function(opt_data) {
 
     /**
      * Данные выполнения действия.
@@ -16,7 +16,7 @@ tuna.tmpl.units.condition.ConditionAction = function(data) {
      * @protected
      * @type {string}
      */
-    this._data = data;
+    this._data = opt_data || '';
 };
 
 
