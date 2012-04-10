@@ -40,6 +40,13 @@ tuna.utils.extend(tuna.tmpl.units.Spot, tuna.tmpl.units.Unit);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.Spot.NAME = 'spot';
+
+
+/**
  * Установка образца отображения данных.
  *
  * Образец представляет собой разбитую строку разрывы которой предназначены для
@@ -77,16 +84,13 @@ tuna.tmpl.units.Spot.prototype.addTargets = function(elements) {
  * @inheritDoc
  */
 tuna.tmpl.units.Spot.prototype.applyData = function(dataNode) {
-    var valueNode = this.__pathEvaluator.evaluate(dataNode);
-    if (valueNode !== null) {
-        var value = valueNode.getValue();
+    var value = this.__pathEvaluator.evaluate(dataNode).getValue();
 
-        if (this._pattern !== null) {
-            value = this._pattern.join(value);
-        }
-
-        this._applyValue(value);
+    if (this._pattern !== null && value !== null) {
+        value = this._pattern.join(value);
     }
+
+    this._applyValue(value);
 };
 
 

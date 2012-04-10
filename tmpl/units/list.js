@@ -64,6 +64,13 @@ tuna.utils.extend(tuna.tmpl.units.List, tuna.tmpl.units.Unit);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.List.NAME = 'list';
+
+
+/**
  * Установка объекта управления порядком отображения списка.
  *
  * @param {!tuna.tmpl.units.list.IListItemRouter} router Объект управления
@@ -140,33 +147,32 @@ tuna.tmpl.units.List.prototype.applyData = function(dataNode) {
     this.__itemsTable = {};
 
     var sampleNode = this.__pathEvaluator.evaluate(dataNode);
-    if (sampleNode !== null) {
-        var sample = sampleNode.getValue();
+    var sample = sampleNode.getValue();
 
-        var itemTemplate = null;
-        var itemNode = null;
-        var key = null;
-        for (var index in sample) {
-            itemTemplate = null;
-            itemNode = sampleNode.growChild(index);
-            key = this.__getKey(itemNode);
+    var itemTemplate = null;
+    var itemNode = null;
+    var key = null;
+    for (var index in sample) {
+        itemTemplate = null;
+        itemNode = sampleNode.growChild(index);
 
-            if (key !== null) {
-                if (oldItemsTable[key] === undefined) {
-                    itemTemplate = this.__makeItemTemplate();
-                } else {
-                    itemTemplate = oldItemsTable[key];
-                    delete oldItemsTable[key];
-                }
+        key = this.__keyPathEvaluator.evaluate(itemNode).getStringValue();
+        if (key !== null) {
+            if (oldItemsTable[key] === undefined) {
+                itemTemplate = this.__makeItemTemplate();
+            } else {
+                itemTemplate = oldItemsTable[key];
+                delete oldItemsTable[key];
+            }
 
-                if (itemTemplate !== null) {
-                    itemTemplate.applyData(itemNode);
+            if (itemTemplate !== null) {
+                itemTemplate.applyData(itemNode);
 
-                    this.__itemsTable[key] = itemTemplate;
-                }
+                this.__itemsTable[key] = itemTemplate;
             }
         }
     }
+
 
     this.__removeItems(oldItemsTable);
 
@@ -182,23 +188,6 @@ tuna.tmpl.units.List.prototype.destroy = function() {
     }
 
     this.__itemsTable = {};
-};
-
-
-/**
- * Получение ключа элемента списка по соответсвующим данным.
- *
- * @private
- * @param {!tuna.tmpl.data.DataNode} itemNode Узел соответсвующих данных.
- * @return {?string} Ключ элемента.
- */
-tuna.tmpl.units.List.prototype.__getKey = function(itemNode) {
-    var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
-    if (keyNode !== null) {
-        return keyNode.getStringValue();
-    }
-
-    return null;
 };
 
 
@@ -234,7 +223,7 @@ tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
 tuna.tmpl.units.List.prototype.__makeItemTemplate = function() {
     var templateTarget = this.__itemRenderer.cloneNode(true);
     if (templateTarget !== null && this.__itemSettings !== null) {
-        var template = this.__templateCompiler.compileTemplate
+        var template = this.__templateCompiler.compile
             (this.__itemSettings, templateTarget, this._rootTemplate);
 
         this.__listNodeRouter.append(templateTarget);

@@ -31,11 +31,13 @@ tuna.utils.extend
 tuna.ui.transformers.TemplateTransformer.prototype.init = function() {
     var templateId = this.getStringOption('template-id');
 
-    var settings = tuna.tmpl.getTemplateSettingsById(templateId);
-    if (settings !== null) {
-        this.__template = tuna.tmpl.compile(this._target, settings);
-    } else {
-        alert("Unknown template " + templateId);
+    if (templateId !== null) {
+        var settings = tuna.tmpl.getTemplateSettingsById(templateId);
+        if (settings !== null) {
+            this.__template = tuna.tmpl.compile(this._target, settings);
+        } else {
+            throw 'Unknown template with id "' + templateId + '"';
+        }
     }
 };
 

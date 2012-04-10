@@ -1,72 +1,58 @@
+
+
+
 /**
+ * Класс объектов компилирующих элементы шаблона отображающие данные в целевом
+ * DOM-элементе.
+ *
  * @constructor
  * @implements {tuna.tmpl.compilers.IItemCompiler}
  */
 tuna.tmpl.compilers.SpotCompiler = function() {};
 
+
 /**
- * @override
+ * @inheritDoc
  */
 tuna.tmpl.compilers.SpotCompiler.prototype.compile =
-    function(element, settings, template) {
+    function(element, settings, root) {
 
-    var item = null;
-    var root = template.getRootTemplate();
+    if (settings instanceof tuna.tmpl.settings.SpotSettings) {
+        var spot = new tuna.tmpl.units.Spot(root);
 
-    var itemsSettings = this._getItemsSettings(settings);
-    var i = itemsSettings.length - 1;
-    while (i >= 0) {
-        item = this._createItem(root);
+        this._setupSpot(element, spot, settings);
 
-        this._compileItem(element, itemsSettings[i], item);
-
-        template.addItems(item);
-
-        i--;
+        return spot;
     }
+
+    return null;
 };
 
-/**
- * @protected
- * @param {!tuna.tmpl.settings.TemplateSettings} settings
- * @return {!Array.<!tuna.tmpl.settings.SpotSettings>}
- */
-tuna.tmpl.compilers.SpotCompiler.prototype._getItemsSettings =
-    function(settings) {
-
-  return settings.spots;
-};
 
 /**
+ * Установка настроек элемента.
+ *
+ * Элемент шаблона должен наследовать от класса
+ * <code>tuna.tmpl.units.Spot</code>.
+ *
  * @protected
- * @param {!tuna.tmpl.units.Template} rootTemplate
- * @return {!tuna.tmpl.units.Spot}
+ * @param {!Node} element DOM-узел элемента.
+ * @param {tuna.tmpl.units.Spot} spot Элемент шаблона.
+ * @param {!tuna.tmpl.settings.SpotSettings} settings Настройки элемента.
  */
-tuna.tmpl.compilers.SpotCompiler.prototype._createItem =
-    function(rootTemplate) {
+tuna.tmpl.compilers.SpotCompiler.prototype._setupSpot =
+    function(element, spot, settings) {
 
-  return new tuna.tmpl.units.Spot(rootTemplate);
-};
+    spot.setPath(settings.dataPath);
 
-/**
- * @protected
- * @param {!Node} element
- * @param {!tuna.tmpl.settings.IItemSettings} settings
- * @param {!tuna.tmpl.units.Spot} item
- */
-tuna.tmpl.compilers.SpotCompiler.prototype._compileItem =
-    function(element, settings, item) {
+    if (settings.pattern !== null) {
+        spot.setPattern(settings.pattern.split('$$'));
+    }
 
-  item.setPath(settings.dataPath);
-
-  if (settings.filter !== null) {
-    item.setPattern(settings.filter.split('$$'));
-  }
-
-  var className = settings.targetClass;
-  if (tuna.dom.hasClass(element, className)) { // Например если шаблоном является элемент списка
-    item.addTargets(element);
-  } else {
-    item.addTargets(tuna.dom.select('.' + className, element));
-  }
+    var selector = settings.targetSelector;
+    if (tuna.dom.matchesSelector(element, selector)) {
+        spot.addTargets(element);
+    } else {
+        spot.addTargets(tuna.dom.select(selector, element));
+    }
 };

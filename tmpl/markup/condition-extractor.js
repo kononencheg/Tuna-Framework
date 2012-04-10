@@ -1,8 +1,14 @@
+
+
+
 /**
+ * Объект извлечения настроек элемента шаблона выполнения дествия в зависимости
+ * от условия.
+ *
  * @constructor
  * @extends {tuna.tmpl.markup.SpotExtractor}
  */
-var ConditionExtractor = function() {
+tuna.tmpl.markup.ConditionExtractor = function() {
     tuna.tmpl.markup.SpotExtractor.call(this);
 
     /**
@@ -12,98 +18,99 @@ var ConditionExtractor = function() {
 
     /**
      * @private
-     * @type Array.<string>
+     * @type {!Array.<string>}
      */
-    this.__operatorAttrs = ['isset', 'notset','eq', 'ne'];
+    this.__operators = [];// = ['isset', 'notset','eq', 'ne'];
 
     /**
      * @private
-     * @type Array.<string>
+     * @type {!Array.<string>}
      */
-    this.__actionAttrs = ['class'];
+    this.__actions = [];// ['class'];
 };
 
-tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+
+tuna.utils.extend
+    (tuna.tmpl.markup.ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+
 
 /**
- * @override
+ * Установка типа оператора и соотвественно имени аттрибута.
+ *
+ * @param {string} type Тип оператора - имя аттрибута.
  */
-ConditionExtractor.prototype._createItem = function() {
-    return new tuna.tmpl.settings.ConditionSettings();
+tuna.tmpl.markup.ConditionExtractor.prototype.addOperatorType = function(type) {
+    this.__operators.push(type);
 };
 
-/**
- * @override
- */
-ConditionExtractor.prototype._parseElement = function(element, item) {
-    tuna.tmpl.markup.SpotExtractor.prototype._parseElement.call(this, element, item);
 
-    this.__extractOperator(element, item);
-    this.__extractAction(element, item);
+/**
+ * Установка типа действия и соотвественно имени аттрибута.
+ *
+ * @param {string} type Тип действия.
+ */
+tuna.tmpl.markup.ConditionExtractor.prototype.addActionType = function(type) {
+    this.__actions.push(type);
+};
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.markup.ConditionExtractor.prototype._createItem = function(element) {
+    var selector = element.getAttribute(this._ns + 'target');
+    var dataPath = element.getAttribute(this._ns + 'path');
+
+    var actionAttribute = this.__extractActionAttribute(element);
+    var operatorAttribute = this.__extractOperatorAttribute(element);
+
+    if (selector !== null && dataPath !== null &&
+        actionAttribute !== null && operatorAttribute !== null) {
+
+        var condition = new tuna.tmpl.settings.ConditionSettings
+            (selector, dataPath, actionAttribute.name, operatorAttribute.name);
+
+        condition.pattern = element.getAttribute(this._ns + 'pattern');
+        condition.actionData = actionAttribute.value;
+        condition.operatorData = operatorAttribute.value;
+
+        return condition;
+    }
+
+    return null;
+};
+
+
+/**
+ * @private
+ * @param {!Node} element
+ * @return {Attr}
+ */
+tuna.tmpl.markup.ConditionExtractor.prototype.__extractActionAttribute =
+    function(element) {
+
+    for (var name in this.__actions) {
+        if (element.attributes[name]) {
+            return element.attributes[name];
+        }
+    }
+
+    return null;
 };
 
 /**
  * @private
  * @param {Node} element
- * @param {tuna.tmpl.settings.IItemSettings} item
+ * @return {Attr}
  */
-ConditionExtractor.prototype.__extractAction = function(element, item) {
-    var i = 0,
-        l = this.__actionAttrs.length;
+tuna.tmpl.markup.ConditionExtractor.prototype.__extractOperatorAttribute =
+    function(element) {
 
-    var attr = null,
-        value = null;
-    while (i < l) {
-        attr = this.__actionAttrs[i];
-        value = element.getAttribute('tuna:' + attr);
-
-        if (value !== null) {
-            item.actionType  = attr;
-            item.actionData  = value;
-
-            break;
+    for (var name in this.__operators) {
+        if (element.attributes[name]) {
+            return element.attributes[name];
         }
-
-        i++;
     }
+
+    return null;
 };
-
-/**
- * @private
- * @param {Node} element
- * @param {tuna.tmpl.settings.IItemSettings} item
- */
-ConditionExtractor.prototype.__extractOperator = function(element, item) {
-    var i = 0,
-        l = this.__operatorAttrs.length;
-
-    var attr = null,
-        value = null;
-    while (i < l) {
-        attr = this.__operatorAttrs[i];
-        value = element.getAttribute('tuna:' + attr);
-
-        if (value !== null) {
-            item.operatorType  = attr;
-            item.operatorData  = value;
-
-            break;
-        }
-
-        i++;
-    }
-};
-
-/**
- * @param {tuna.tmpl.settings.ConditionSettings} item
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- */
-ConditionExtractor.prototype._saveItem = function(item, settings) {
-    settings.conditions.push(item);
-};
-
-/**
- * @constructor
- * @extends {ConditionExtractor}
- */
-tuna.tmpl.markup.ConditionExtractor = ConditionExtractor;

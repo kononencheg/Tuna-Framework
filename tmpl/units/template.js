@@ -43,6 +43,13 @@ tuna.utils.extend(tuna.tmpl.units.Template, tuna.tmpl.units.Unit);
 
 
 /**
+ * @const
+ * @type {string}
+ */
+tuna.tmpl.units.Template.NAME = 'template';
+
+
+/**
  * Получение корневого элемента шаблона.
  *
  * @return {!tuna.tmpl.units.Template} Корневой элемент шаблона.

@@ -66,7 +66,7 @@ tuna.ui.ModuleContainer.prototype.initModules = function(target) {
 
             instances[type] = instances[type].concat(module.init(target, this));
         } else {
-            alert('Unknown module "' + type + '"');
+            throw 'Unknown module "' + type + '"';
         }
 
         i++;

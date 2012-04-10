@@ -8,15 +8,16 @@
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
  * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
+ * @param {string} attributeName Корневой элемент трансформации.
  */
-tuna.tmpl.units.Attribute = function(root) {
+tuna.tmpl.units.Attribute = function(root, attributeName) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
      * @private
      * @type {string}
      */
-    this.__attributeName = '';
+    this.__attributeName = attributeName;
 
     /**
      * @private
@@ -36,13 +37,10 @@ tuna.utils.extend(tuna.tmpl.units.Attribute, tuna.tmpl.units.Spot);
 
 
 /**
- * Установка имени аттрибута.
- *
- * @param {string} attributeName Имя аттрибута.
+ * @const
+ * @type {string}
  */
-tuna.tmpl.units.Attribute.prototype.setAttributeName = function(attributeName) {
-    this.__attributeName = attributeName;
-};
+tuna.tmpl.units.Attribute.NAME = 'attribute';
 
 
 /**

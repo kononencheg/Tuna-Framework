@@ -1,8 +1,14 @@
+
+
+
 /**
+ * Объект извлечения настроек элемента шаблона отображения данных в содержимом
+ * DOM-элемента.
+ *
  * @constructor
  * @implements {tuna.tmpl.markup.IMarkupExtractor}
  */
-var SpotExtractor = function() {
+tuna.tmpl.markup.SpotExtractor = function() {
 
     /**
      * @protected
@@ -18,58 +24,50 @@ var SpotExtractor = function() {
 };
 
 
-
 /**
- * @override
+ * @inheritDoc
  */
-SpotExtractor.prototype.extract = function(element, settings) {
+tuna.tmpl.markup.SpotExtractor.prototype.extract = function(element) {
+    var result = [];
+
     var tagName = tuna.IS_IE ? this._tagName : (this._ns + this._tagName);
-    var elements = element.getElementsByTagName(tagName);
+    var elements = tuna.utils.toArray(element.getElementsByTagName(tagName));
 
     var i = 0,
         l = elements.length;
 
     var item = null;
     while (i < l) {
-        item = this._createItem();
+        item = this._createItem(elements[i]);
 
-        this._parseElement(elements.item(i), item);
-        this._saveItem(item, settings);
+        if (item !== null) {
+            result.push(item);
+        }
 
         i++;
     }
+
+    return result;
 };
 
+
 /**
+ * Создание настроек элементов шаблона.
+ *
  * @protected
- * @return tuna.tmpl.settings.IItemSettings
+ * @param {!Node} element DOM-элемент настроек шаблона.
+ * @return {tuna.tmpl.settings.IItemSettings} Настройки элементов шаблона.
  */
-SpotExtractor.prototype._createItem = function() {
-    return new tuna.tmpl.settings.SpotSettings();
-};
+tuna.tmpl.markup.SpotExtractor.prototype._createItem = function(element) {
+    var selector = element.getAttribute(this._ns + 'target');
+    var dataPath = element.getAttribute(this._ns + 'path');
 
-/**
- * @protected
- * @param {Node} element
- * @param {tuna.tmpl.settings.IItemSettings} item
- */
-SpotExtractor.prototype._parseElement = function(element, item) {
-    item.targetClass = element.getAttribute(this._ns + 'target');
-    item.dataPath = element.getAttribute(this._ns + 'path');
-    item.filter = element.getAttribute(this._ns + 'filter');
-};
+    if (selector !== null && dataPath !== null) {
+        var spot = new tuna.tmpl.settings.SpotSettings(selector, dataPath);
+        spot.pattern = element.getAttribute(this._ns + 'pattern');
 
-/**
- * @protected
- * @param {tuna.tmpl.settings.SpotSettings} item
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- */
-SpotExtractor.prototype._saveItem = function(item, settings) {
-    settings.spots.push(item);
-};
+        return spot;
+    }
 
-/**
- * @constructor
- * @extends {SpotExtractor}
- */
-tuna.tmpl.markup.SpotExtractor = SpotExtractor;
+    return null;
+};

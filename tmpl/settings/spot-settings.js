@@ -6,30 +6,42 @@
  *
  * @constructor
  * @implements {tuna.tmpl.settings.IItemSettings}
+ * @param {string} targetSelector CSS-селектор целевых для элемента
+ *        шаблонизатора DOM-элементов.
+ * @param {string} dataPath Путь к данным для отображения элементом
+ *        шаблонизатора.
  */
-tuna.tmpl.settings.SpotSettings = function() {
+tuna.tmpl.settings.SpotSettings = function(targetSelector, dataPath) {
     
     /**
-     * Имя CSS-класса целевых для элемента шаблонизатора DOM-элементов.
+     * CSS-селектор целевых для элемента шаблонизатора DOM-элементов.
      *
      * @public
-     * @type {?string}
+     * @type {string}
      */
-    this.targetClass = null;
+    this.targetSelector = targetSelector;
 
     /**
      * Путь к данным для отображения элементом шаблонизатора.
      *
      * @public
-     * @type {?string}
+     * @type {string}
      */
-    this.dataPath = null;
+    this.dataPath = dataPath;
 
     /**
      * Разбитая строка образца отображения данных.
      *
      * @public
-     * @type {Array.<string>}
+     * @type {?string}
      */
     this.pattern = null;
+};
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.settings.SpotSettings.prototype.getType = function() {
+    return tuna.tmpl.units.Spot.NAME;
 };
