@@ -9,7 +9,6 @@
  * @return {!tuna.tmpl.units.Template} Созданный шаблон.
  */
 tuna.tmpl.compile = function(element, settings) {
-    debugger;
     return tuna.tmpl.getCompiler().compile(settings, element);
 };
 
