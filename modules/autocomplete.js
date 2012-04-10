@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ AutocompleteModule.prototype.initInstance = function(target) {
     return new tuna.ui.forms.Autocomplete(target);
 };
 
-tuna.ui.modules.register('autocomplete', new AutocompleteModule());
+tuna.ui.registerModule('autocomplete', new AutocompleteModule());

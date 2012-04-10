@@ -1,19 +1,33 @@
+
+
+
 /**
+ * Класс элемента трансформации отображающий даныные с помощью элемента
+ * checkbox.
+ *
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
  */
-var Checkbox = function(root) {
+tuna.tmpl.units.Checkbox = function(root) {
     tuna.tmpl.units.Spot.call(this, root);
 };
 
-tuna.utils.extend(Checkbox, tuna.tmpl.units.Spot);
+
+tuna.utils.extend(tuna.tmpl.units.Checkbox, tuna.tmpl.units.Spot);
+
 
 /**
- * @protected
- * @param {*} value
+ * @const
+ * @type {string}
  */
-Checkbox.prototype._applyValue = function(value) {
+tuna.tmpl.units.Checkbox.NAME = 'checkbox';
+
+
+/**
+ * @inheritDoc
+ */
+tuna.tmpl.units.Checkbox.prototype._applyValue = function(value) {
     if (value !== null) {
         var i = this._nodes.length - 1;
 
@@ -41,9 +55,3 @@ Checkbox.prototype._applyValue = function(value) {
         }
     }
 };
-
-/**
- * @constructor
- * @extends {Checkbox}
- */
-tuna.tmpl.units.Checkbox = Checkbox;

@@ -1,84 +1,139 @@
+
+
+
 /**
+ * Класс элемента шаблона - контейнер шаблона.
+ *
  * @constructor
- * @extends {tuna.tmpl.units.CompiledUnit}
- * @param {tuna.tmpl.units.Template} root
+ * @extends {tuna.tmpl.units.Unit}
+ * @param {!tuna.tmpl.units.Template=} opt_root Корневой элемент шаблона. Если
+ *        параметр не задан, то в качестве корневого элемента выступает сам
+ *        элемент.
  */
-var Template = function(root) {
-    tuna.tmpl.units.CompiledUnit.call(this, root || this);
+tuna.tmpl.units.Template = function(opt_root) {
+    tuna.tmpl.units.Unit.call(this, opt_root || this);
 
     /**
      * @private
-     * @type Array.<tuna.tmpl.units.CompiledUnit>
+     * @type {!Array.<!tuna.tmpl.units.IUnit>}
      */
     this.__items = [];
 
     /**
      * @private
-     * @type Array.<Node>
+     * @type {!Array.<!Node>}
      */
     this.__createdChildren = [];
 
     /**
      * @private
-     * @type Array.<Node>
+     * @type {!Array.<!Node>}
      */
     this.__removedChildren = [];
 
     /**
      * @private
-     * @type Node
+     * @type {Node}
      */
     this.__target = null;
 };
 
-tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
+
+tuna.utils.extend(tuna.tmpl.units.Template, tuna.tmpl.units.Unit);
+
 
 /**
- * @param {Node} element
+ * @const
+ * @type {string}
  */
-Template.prototype.setTarget = function(element) {
+tuna.tmpl.units.Template.NAME = 'template';
+
+
+/**
+ * Получение корневого элемента шаблона.
+ *
+ * @return {!tuna.tmpl.units.Template} Корневой элемент шаблона.
+ */
+tuna.tmpl.units.Template.prototype.getRootTemplate = function() {
+    return this._rootTemplate;
+};
+
+
+/**
+ * Установка целевого DOM-элемента шаблона трансформации.
+ *
+ * @param {!Node} element DOM-элемента, являющийся контейнером шаблона.
+ */
+tuna.tmpl.units.Template.prototype.setTarget = function(element) {
     this.__target = element;
 };
 
+
 /**
- * @param {Array.<tuna.tmpl.units.CompiledUnit>|tuna.tmpl.units.CompiledUnit} items
+ * Получение целевого DOM-элемента шаблона трансформации.
+ *
+ * @return {Node} DOM-элемент, являющийся контейнером шаблона.
  */
-Template.prototype.addItems = function(items) {
+tuna.tmpl.units.Template.prototype.getTarget = function() {
+    return this.__target;
+};
+
+
+/**
+ * Добавление элементов трансформации в шаблон.
+ *
+ * @param {!Array.<!tuna.tmpl.units.IUnit>|!tuna.tmpl.units.IUnit} items Элемент
+ *        или набор элементов шаблона трансформации.
+ */
+tuna.tmpl.units.Template.prototype.addItems = function(items) {
     this.__items = this.__items.concat(items);
 };
 
+
 /**
- * @param {Node} child
+ * Регистрация создания DOM-элемента в шаблоне трансформации.
+ *
+ * @param {!Node} child Создаваемый DOM-элемент.
  */
-Template.prototype.registerChildCreation = function(child) {
+tuna.tmpl.units.Template.prototype.registerChildCreation = function(child) {
     this.__createdChildren = this.__createdChildren.concat(child);
 };
 
+
 /**
- * @return {Array.<Node>}
+ * Извлечение созданных DOM-элементов в ходе работы трансформации.
+ *
+ * @return {!Array.<!Node>} Массив созданных DOM-элементом.
  */
-Template.prototype.fetchCreatedChildren = function() {
+tuna.tmpl.units.Template.prototype.fetchCreatedChildren = function() {
     return this.__createdChildren.splice(0, this.__createdChildren.length);
 };
 
+
 /**
- * @param {Node} child
+ * Регистрация удаления DOM-элемента в шаблоне трансформации.
+ *
+ * @param {!Node} child Удаляемый DOM-элемент.
  */
-Template.prototype.registerChildRemoval = function(child) {
+tuna.tmpl.units.Template.prototype.registerChildRemoval = function(child) {
     this.__removedChildren = this.__removedChildren.concat(child);
 };
 
+
 /**
- * @return {Array.<Node>}
+ * Извлечение удаленных DOM-элементов в ходе работы трансформации.
+ *
+ * @return {!Array.<!Node>} Массив удаленных DOM-элементом.
  */
-Template.prototype.fetchRemovedChildren = function() {
+tuna.tmpl.units.Template.prototype.fetchRemovedChildren = function() {
     return this.__removedChildren.splice(0, this.__removedChildren.length);
 };
 
+
 /**
- * @override
+ * @inheritDoc
  */
-Template.prototype.applyData = function(dataNode) {
+tuna.tmpl.units.Template.prototype.applyData = function(dataNode) {
     var i = this.__items.length - 1;
     while (i >= 0) {
         this.__items[i].applyData(dataNode);
@@ -87,24 +142,14 @@ Template.prototype.applyData = function(dataNode) {
     }
 };
 
+
 /**
- * @override
+ * @inheritDoc
  */
-Template.prototype.destroy = function(isHard) {
-    var i = this.__items.length - 1;
-    while (i >= 0) {
-        this.__items[i].destroy(isHard);
-
-        i--;
+tuna.tmpl.units.Template.prototype.destroy = function() {
+    while (this.__items.length > 0) {
+        this.__items.shift().destroy();
     }
 
-    if (isHard) {
-        this.__target.parentNode.removeChild(this.__target);
-    }
+    this.__target = null;
 };
-
-/**
- * @constructor
- * @extends {Template}
- */
-tuna.tmpl.units.Template = Template;

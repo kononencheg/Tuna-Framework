@@ -1,50 +1,60 @@
+
+
+
 /**
+ * Класс хранилища единственного экземпляра модели данных приложения.
+ *
+ * Данный клас может быть полезен для хранения объектов состояния приложения.
+ * Например информацию о пользователе.
+ *
  * @constructor
  * @implements {tuna.model.IResource}
  * @extends {tuna.events.EventDispatcher}
  */
-var ItemResource = function () {
+tuna.model.ItemResource = function() {
     tuna.events.EventDispatcher.call(this);
 
     /**
-     * @type {Object|tuna.model.Record}
+     * Хранимый экземпляр модели данных.
+     *
+     * @type {tuna.model.Record}
      * @private
      */
     this._item = null;
 };
 
-tuna.utils.implement(ItemResource, tuna.model.IResource);
-tuna.utils.extend(ItemResource, tuna.events.EventDispatcher);
+
+tuna.utils.extend(tuna.model.ItemResource, tuna.events.EventDispatcher);
+
 
 /**
- * @override
+ * Установка экземпляра модели данных.
+ *
+ * @param {tuna.model.Record} item Экземпляр модели данных.
  */
-ItemResource.prototype.set = function(item) {
+tuna.model.ItemResource.prototype.set = function(item) {
     if (this._item !== item) {
         this._item = item;
+
         this.dispatch('update', this._item);
     }
 };
 
+
 /**
- * @override
+ * Взятие экземпляра модели данных.
+ *
+ * @return {tuna.model.Record} Хранимый экземпляр модели данных.
  */
-ItemResource.prototype.get = function() {
+tuna.model.ItemResource.prototype.get = function() {
     return this._item;
 };
 
-/**
- * @override
- */
-ItemResource.prototype.clear = function() {
-    this._item = null;
 
-    this.dispatch('update', this._item);
+/**
+ * @inheritDoc
+ */
+tuna.model.ItemResource.prototype.clear = function() {
+    this.set(null);
 };
-
-/**
- * @constructor
- * @extends {ItemResource}
- */
-tuna.model.ItemResource = ItemResource;
 

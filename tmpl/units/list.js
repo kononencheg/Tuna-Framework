@@ -1,198 +1,235 @@
+
+
+
 /**
+ * Элемент шаблона трансформации отображающий массив данных в виде набора
+ * DOM-элементов.
+ *
+ * Порядком отображения управляют классы реализующие интерфейс
+ * <code>tuna.tmpl.units.list.IListItemRouter</code>
+ *
+ * @see tuna.tmpl.units.list.IListItemRouter
  * @constructor
- * @extends {tuna.tmpl.units.CompiledUnit}
- * @param {tuna.tmpl.units.Template} root
+ * @extends {tuna.tmpl.units.Unit}
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
  */
-var List = function(root) {
-    tuna.tmpl.units.CompiledUnit.call(this, root);
+tuna.tmpl.units.List = function(root) {
+    tuna.tmpl.units.Unit.call(this, root);
 
     /**
      * @private
-     * @type tuna.tmpl.compilers.TemplateCompiler
+     * @type {tuna.tmpl.compilers.TemplateCompiler}
      */
     this.__templateCompiler = null;
 
     /**
      * @private
-     * @type Node
+     * @type {Node}
      */
     this.__itemRenderer = null;
 
     /**
      * @private
-     * @type tuna.tmpl.settings.TemplateSettings
+     * @type {tuna.tmpl.settings.TemplateSettings}
      */
     this.__itemSettings = null;
 
     /**
      * @private
-     * @type Object.<*, tuna.tmpl.units.Template>
+     * @type {!Object.<string, !tuna.tmpl.units.Template>}
      */
     this.__itemsTable = {};
 
     /**
      * @private
-     * @type tuna.tmpl.data.PathEvaluator
+     * @type {!tuna.tmpl.data.PathEvaluator}
      */
     this.__pathEvaluator = new tuna.tmpl.data.PathEvaluator();
 
     /**
      * @private
-     * @type tuna.tmpl.data.PathEvaluator
+     * @type {!tuna.tmpl.data.PathEvaluator}
      */
     this.__keyPathEvaluator = new tuna.tmpl.data.PathEvaluator();
 
     /**
      * @private
-     * @type tuna.tmpl.units.IListItemRouter
+     * @type {tuna.tmpl.units.list.IListItemRouter}
      */
     this.__listNodeRouter = null;
 };
 
-tuna.utils.extend(List, tuna.tmpl.units.CompiledUnit);
+
+tuna.utils.extend(tuna.tmpl.units.List, tuna.tmpl.units.Unit);
+
 
 /**
- * @param {tuna.tmpl.units.IListItemRouter} router
+ * @const
+ * @type {string}
  */
-List.prototype.setListNodeRouter = function(router) {
+tuna.tmpl.units.List.NAME = 'list';
+
+
+/**
+ * Установка объекта управления порядком отображения списка.
+ *
+ * @param {!tuna.tmpl.units.list.IListItemRouter} router Объект управления
+ *        отображением списка.
+ */
+tuna.tmpl.units.List.prototype.setListNodeRouter = function(router) {
     this.__listNodeRouter = router;
 };
 
+
 /**
- * @param {string} path
+ * Установка пути извлечения данных для отображения.
+ *
+ * @see tuna.tmpl.data.PathEvaluator
+ * @param {string} path Строка пути извлечения данных.
  */
-List.prototype.setPath = function(path) {
+tuna.tmpl.units.List.prototype.setPath = function(path) {
     this.__pathEvaluator.setPath(path);
 };
 
+
 /**
- * @param {string} path
+ * Установка пути извлечения ключа элемента списка.
+ *
+ * Ключ элемента списка необходим для сохранения неизменных элементов списка. То
+ * есть, при измененнии элемента с указанным ключем, он не будет создаваться
+ * заново.
+ *
+ * @param {string} path трока пути извлечения данных.
  */
-List.prototype.setKeyPath = function(path) {
+tuna.tmpl.units.List.prototype.setKeyPath = function(path) {
     this.__keyPathEvaluator.setPath(path);
 };
 
+
 /**
- * @param {tuna.tmpl.compilers.TemplateCompiler} compiler
+ * Установка компилятора шаблонов.
+ *
+ * Компилятор шаблона необходим для, компиляции шаблонов элемента списка.
+ *
+ * @param {!tuna.tmpl.compilers.TemplateCompiler} compiler Компилятор шаблонов.
  */
-List.prototype.setCompiler = function(compiler) {
+tuna.tmpl.units.List.prototype.setCompiler = function(compiler) {
     this.__templateCompiler = compiler;
 };
 
+
 /**
- * @param {Node} element
+ * Установка элемента-прототипа элементов списка.
+ *
+ * @param {!Node} element DOM-элемент списка, прототип элементов списка.
  */
-List.prototype.setItemRenderer = function(element) {
+tuna.tmpl.units.List.prototype.setItemRenderer = function(element) {
     this.__itemRenderer = element;
 };
 
+
 /**
- * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * Уствновка настроек шаблона элемента списка.
+ *
+ * @param {!tuna.tmpl.settings.TemplateSettings} settings Настройки шаблона
+ *        элемента списка.
  */
-List.prototype.setItemSettings = function(settings) {
+tuna.tmpl.units.List.prototype.setItemSettings = function(settings) {
     this.__itemSettings = settings;
 };
 
-/**
- * @param {tuna.tmpl.units.Template} compiledItem
- * @param {*} key
- */
-List.prototype.addItem = function(compiledItem, key) {
-    this.__itemsTable[key] = compiledItem;
-};
 
 /**
- * @override
+ * @inheritDoc
  */
-List.prototype.applyData = function(dataNode) {
+tuna.tmpl.units.List.prototype.applyData = function(dataNode) {
+    var oldItemsTable = this.__itemsTable;
+    this.__itemsTable = {};
+
     var sampleNode = this.__pathEvaluator.evaluate(dataNode);
-    if (sampleNode !== null) {
-        var sample = sampleNode.getValue();
-        var oldItemsTable = this.__itemsTable;
+    var sample = sampleNode.getValue();
 
-        this.__itemsTable = {};
-        for (var index in sample) {
-            this.__updateItem(sampleNode.growChild(index), oldItemsTable);
-        }
+    var itemTemplate = null;
+    var itemNode = null;
+    var key = null;
+    for (var index in sample) {
+        itemTemplate = null;
+        itemNode = sampleNode.growChild(index);
 
-        this.__destroyItems(oldItemsTable);
-    } else {
-        this.__destroyItems(this.__itemsTable);
-    }
-};
-
-/**
- * @private
- * @param {tuna.tmpl.data.DataNode} itemNode
- * @param {Object.<*, tuna.tmpl.units.Template>} oldItemsTable
- */
-List.prototype.__updateItem = function(itemNode, oldItemsTable) {
-    var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
-    if (keyNode !== null) {
-        var key = keyNode.getValue();
+        key = this.__keyPathEvaluator.evaluate(itemNode).getStringValue();
         if (key !== null) {
-
             if (oldItemsTable[key] === undefined) {
-                this.addItem(this.__makeNewItem(), key);
+                itemTemplate = this.__makeItemTemplate();
             } else {
-                this.__itemsTable[key] = oldItemsTable[key];
+                itemTemplate = oldItemsTable[key];
                 delete oldItemsTable[key];
             }
 
-            this.__itemsTable[key].applyData(itemNode);
+            if (itemTemplate !== null) {
+                itemTemplate.applyData(itemNode);
 
+                this.__itemsTable[key] = itemTemplate;
+            }
         }
     }
+
+
+    this.__removeItems(oldItemsTable);
+
 };
 
-/**
- * @private
- * @param {Object.<*, tuna.tmpl.units.Template>} itemsTable
- */
-List.prototype.__destroyItems = function(itemsTable) {
-    for (var key in itemsTable) {
-        itemsTable[key].destroy(true);
-        delete itemsTable[key];
-    }
-};
 
 /**
- * @return {tuna.tmpl.units.Template}
+ * @inheritDoc
  */
-List.prototype.__makeNewItem = function() {
-    var itemElement = this.__itemRenderer.cloneNode(true);
-
-    var rootTemplate = this.getRootTemplate();
-    var template = this.__templateCompiler.compileTemplate
-        (this.__itemSettings, itemElement, rootTemplate);
-
-    this.__listNodeRouter.append(itemElement);
-
-    rootTemplate.registerChildCreation(itemElement);
-
-    return template;
-};
-
-/**
- * @override
- */
-List.prototype.destroy = function(isHard) {
+tuna.tmpl.units.List.prototype.destroy = function() {
     for (var key in this.__itemsTable) {
-        this.__itemsTable[key].destroy(isHard);
-        this.__itemsTable[key] = null;
+        this.__itemsTable[key].destroy();
     }
 
-    this.__templateCompiler = null;
-    this.__itemRenderer = null;
-    this.__itemSettings = null;
-    this.__pathEvaluator = null;
-    this.__keyPathEvaluator = null;
-    this.__listNodeRouter = null;
-    this.__itemsTable = null;
+    this.__itemsTable = {};
 };
 
+
 /**
- * @constructor
- * @extends {List}
+ * Удаление элементов списка и разрушения их шаблонов.
+ *
+ * @private
+ * @param {!Object.<string, !tuna.tmpl.units.Template>} itemsTable Таблица
+ *        шаблонов элемента списка.
  */
-tuna.tmpl.units.List = List;
+tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
+    var template = null;
+    var templateTarget = null;
+
+    for (var key in itemsTable) {
+        template = itemsTable[key];
+
+        templateTarget = template.getTarget();
+        if (templateTarget !== null) {
+            this.__listNodeRouter.remove(templateTarget);
+        }
+
+        template.destroy();
+    }
+};
+
+
+/**
+ * Создание шаблона элемента списка.
+ *
+ * @return {tuna.tmpl.units.Template} Созданный шаблон элемента списка.
+ */
+tuna.tmpl.units.List.prototype.__makeItemTemplate = function() {
+    var templateTarget = this.__itemRenderer.cloneNode(true);
+    if (templateTarget !== null && this.__itemSettings !== null) {
+        var template = this.__templateCompiler.compile
+            (this.__itemSettings, templateTarget, this._rootTemplate);
+
+        this.__listNodeRouter.append(templateTarget);
+
+        return template;
+    }
+
+    return null;
+};

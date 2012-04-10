@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -16,4 +17,4 @@ PopupModule.prototype.initInstance = function(target) {
     return tuna.ui.popups.create(target);
 };
 
-tuna.ui.modules.register('popup', new PopupModule());
+tuna.ui.registerModule('popup', new PopupModule());

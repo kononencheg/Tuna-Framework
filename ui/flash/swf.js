@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var SWF = function(target) {
+tuna.ui.flash.SWF = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -24,12 +24,12 @@ var SWF = function(target) {
     this._setDefaultOption('allow-script-access', 'always');
 };
 
-tuna.utils.extend(SWF, tuna.ui.ModuleInstance);
+tuna.utils.extend(tuna.ui.flash.SWF, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-SWF.prototype.init = function() {
+tuna.ui.flash.SWF.prototype.init = function() {
     this.__movieId = 'swf_' + tuna.ui.flash.__lastId++;
 
     this._target.innerHTML = '<div id="' + this.__movieId + '"></div>';
@@ -50,7 +50,7 @@ SWF.prototype.init = function() {
 /**
  *
  */
-SWF.prototype.destroy = function() {
+tuna.ui.flash.SWF.prototype.destroy = function() {
     this._target.innerHTML = '';
     this.__movieId = null;
     this.__movie = null;
@@ -59,7 +59,7 @@ SWF.prototype.destroy = function() {
 /**
  *
  */
-SWF.prototype.reset = function() {
+tuna.ui.flash.SWF.prototype.reset = function() {
     this.destroy();
     this.init();
 };
@@ -67,17 +67,10 @@ SWF.prototype.reset = function() {
 /**
  * @return {HTMLObjectElement}
  */
-SWF.prototype.getMovie = function() {
+tuna.ui.flash.SWF.prototype.getMovie = function() {
     if (this.__movieId !== null && this.__movie === null) {
         this.__movie = swfobject.getObjectById(this.__movieId);
     }
 
     return this.__movie;
 };
-
-
-/**
- * @constructor
- * @extends {SWF}
- */
-tuna.ui.flash.SWF = SWF;

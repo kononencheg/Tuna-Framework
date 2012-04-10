@@ -8,30 +8,15 @@ tuna.utils.toArray = function(list) {
     return Array.prototype.slice.call(list);
 };
 
+
 /**
- * Объявление реализации интерфейса.
- *
- * Добавление либо замена (уже существующих) методов прототипа класса
- * 'интерфейса', неоходимое для оповещения о не реализованных методах.
- *
- * При объявлении интерфейса в каждом объявленном методе следует
- * генерировать ошибку типа <code>InterfaceMethodError</code>.
- *
- * Данную функцию следует вызывать перез вызовом функции
- * <code>tuna.utils.extend</code>.
- *
- * @param {!Object} Class Класс который должен реализовать интерфейс.
- * @param {!Object} Interface Класс "интерфейс" для реализации.
+ * @param {!Date} date
+ * @return {string}
  */
-tuna.utils.implement = function(Class, Interface) {
-    if (!tuna.IS_COMPILED) {
-        for (var method in Interface.prototype) {
-            if (typeof Interface.prototype[method] === 'function') {
-                Class.prototype[method] = Interface.prototype[method];
-            }
-        }
-    }
+tuna.utils.dateToString = function(date) {
+  return date.toJSON().substring(0, 16).replace('T', ' ');
 };
+
 
 /**
  * Наследование типа.
@@ -44,6 +29,7 @@ tuna.utils.implement = function(Class, Interface) {
  */
 tuna.utils.extend = function(Class, Parent) {
     /**
+     * @private
      * @constructor
      */
     var Link = function() {};
@@ -58,7 +44,7 @@ tuna.utils.extend = function(Class, Parent) {
  *
  * Не следует использовать нигде в логике приложенния.
  *
- * @param {!string} code Строка кода.
+ * @param {string} code Строка кода.
  * @return {*} Результат выполнения.
  * @deprecated
  */
@@ -162,6 +148,101 @@ tuna.utils.indexOf = function(element, array) {
     }
 
     return -1;
+};
+
+/**
+ * Кодирование объекта в x-www-form-urlencoded форму.
+ *
+ * @param {Object} object Объект кодирования.
+ * @return {string} Перекодированный в строку объект.
+ */
+tuna.utils.urlEncode = function(object) {
+  return tuna.utils.__splitUrlData(object).join('&');
+};
+
+/**
+ * Рекурсивное разбиение объекта н данные для кодирования в x-www-form-urlencoded.
+ *
+ * @private
+ * @param {Object} object Объект кодирования.
+ * @param {Object=} path Путь к элементарной единице данных.
+ * @return {Array} Массив элементарных данных составляющих объект
+ */
+tuna.utils.__splitUrlData = function(object, path) {
+  var result = [];
+
+  if (path === undefined) {
+    path = [];
+  }
+
+  if (object !== null && !(object instanceof Function)) {
+    if (object instanceof Object) {
+      for (var key in object) {
+        var newPath = path.length === 0 ?
+          [key] : (path.join(',') + ',' + key).split(',');
+
+        result = result.concat(tuna.utils.__splitUrlData(object[key], newPath));
+      }
+    } else {
+      result = [
+        path.shift() + (path.length > 0 ? '[' + path.join('][') + ']=' : '=') +
+          encodeURIComponent('' + object)
+      ];
+    }
+  }
+
+  return result;
+};
+
+/**
+ * @private
+ * @const
+ * @type {string}
+ */
+tuna.utils.__DECODE_HELPER = '|';
+
+/**
+ * @param {string} search
+ * @return {Object}
+ */
+tuna.utils.urlDecode = function(search) {
+  var result = {};
+
+  var parsedSearch = search.split('][').join(tuna.utils.__DECODE_HELPER);
+  parsedSearch = parsedSearch.split('[').join(tuna.utils.__DECODE_HELPER);
+  parsedSearch = parsedSearch.split(']').join('');
+
+  var vars = parsedSearch.split('&');
+  var i = 0,
+    l = vars.length;
+
+  var pair = null;
+  var path = null;
+  var pathToken = null;
+
+  var context = null;
+  while (i < l) {
+    pair = vars[i].split('=');
+    path = pair.shift().split(tuna.utils.__DECODE_HELPER);
+
+    context = result;
+
+    while (path.length > 0) {
+      pathToken = path.shift();
+
+      if (path.length === 0) {
+        context[pathToken] = decodeURIComponent(pair.shift());
+      } else if (context[pathToken] === undefined) {
+        context[pathToken] = {};
+      }
+
+      context = context[pathToken];
+    }
+
+    i++;
+  }
+
+  return result;
 };
 
 /**

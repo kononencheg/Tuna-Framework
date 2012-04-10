@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @implements {tuna.ui.selection.items.IItemsCollection}
+ * @implements tuna.ui.selection.items.IItemsCollection
  * @param {string} indexAttribute
  */
-var NamedElementsCollection = function(indexAttribute) {
+tuna.ui.selection.items.NamedElementsCollection = function(indexAttribute) {
     /**
      * @private
      * @type string
@@ -17,13 +17,12 @@ var NamedElementsCollection = function(indexAttribute) {
     this.__items = {};
 };
 
-tuna.utils.implement
-    (NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
-
 /**
  * @override
  */
-NamedElementsCollection.prototype.addItem = function(item) {
+tuna.ui.selection.items.NamedElementsCollection.prototype.addItem
+    = function(item) {
+
     var index = item.getAttribute(this.__indexAttribute);
     if (index !== null) {
         this.__items[index] = item;
@@ -35,7 +34,9 @@ NamedElementsCollection.prototype.addItem = function(item) {
 /**
  * @override
  */
-NamedElementsCollection.prototype.getItemIndex = function(item) {
+tuna.ui.selection.items.NamedElementsCollection.prototype.getItemIndex
+    = function(item) {
+
     var index = item.getAttribute(this.__indexAttribute);
     if (index !== null && this.__items[index] !== undefined) {
         return index;
@@ -47,21 +48,25 @@ NamedElementsCollection.prototype.getItemIndex = function(item) {
 /**
  * @override
  */
-NamedElementsCollection.prototype.getItemAt = function(index) {
+tuna.ui.selection.items.NamedElementsCollection.prototype.getItemAt
+    = function(index) {
+
     return this.__items[index] || null;
 };
 
 /**
  * @override
  */
-NamedElementsCollection.prototype.clear = function() {
+tuna.ui.selection.items.NamedElementsCollection.prototype.clear = function() {
     this.__items = {};
 };
 
 /**
  * @override
  */
-NamedElementsCollection.prototype.mapItems = function(callback) {
+tuna.ui.selection.items.NamedElementsCollection.prototype.mapItems
+    = function(callback) {
+
     for (var index in this.__items) {
         callback(index, this.__items[index]);
     }
@@ -71,18 +76,13 @@ NamedElementsCollection.prototype.mapItems = function(callback) {
 /**
  * @override
  */
-NamedElementsCollection.prototype.getItemsCount = function() {
+tuna.ui.selection.items.NamedElementsCollection.prototype.getItemsCount
+    = function() {
+
     var i = 0;
-    for (var index in this.__items) {
+    for (var _ in this.__items) {
         i++;
     }
 
     return i;
 };
-
-
-/**
- * @constructor
- * @extends {NamedElementsCollection}
- */
-tuna.ui.selection.items.NamedElementsCollection = NamedElementsCollection;

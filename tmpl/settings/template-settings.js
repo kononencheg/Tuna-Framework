@@ -1,112 +1,56 @@
+
+
+
 /**
+ * Настройки шаблона трансформации.
+ *
  * @constructor
  * @implements {tuna.tmpl.settings.IItemSettings}
  */
-var TemplateSettings = function() {
+tuna.tmpl.settings.TemplateSettings = function() {
 
     /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.SpotSettings>
+     * Список настроек элементов.
+     *
+     * @type {!Array.<!tuna.tmpl.settings.IItemSettings>}
      */
-    this.__spots = [];
+    this.__items = [];
+};
 
-    /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.ListSettings>
-     */
-    this.__lists = [];
 
-    /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.AttributeSettings>
-     */
-    this.__attributes = [];
+/**
+ * Добавление элементов настроек.
+ *
+ * @param {!Array.<!tuna.tmpl.settings.IItemSettings>} items Элемент настроек
+ *        либо массив элементов.
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.additems = function(items) {
+    this.__items = this.__items.concat(items);
+};
 
-    /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.ConditionSettings>
-     */
-    this.__conditions = [];
 
-    /**
-     * @private
-     * @type Array.<tuna.tmpl.settings.CheckboxSettings>
-     */
-    this.__checkboxex = [];
+/**
+ * Получение числа элементов настроек.
+ *
+ * @return {number} Число элементов настроек.
+ */
+tuna.tmpl.settings.TemplateSettings.prototype.getItemsCount = function() {
+    return this.__items.length;
 };
 
 /**
- * @param {tuna.tmpl.settings.CheckboxSettings} checkbox
+ * Получение элемента по индексу.
+ *
+ * @param {number} index Индекс элемента.
+ * @return {!tuna.tmpl.settings.IItemSettings} Элемент настройки.
  */
-TemplateSettings.prototype.addCheckbox = function(checkbox) {
-    this.__checkboxex.push(checkbox);
+tuna.tmpl.settings.TemplateSettings.prototype.getItemAt = function(index) {
+    return this.__items[index];
 };
 
 /**
- * @return {Array.<tuna.tmpl.settings.CheckboxSettings>}
+ * @inheritDoc
  */
-TemplateSettings.prototype.getCheckboxes = function() {
-    return this.__checkboxex;
+tuna.tmpl.settings.TemplateSettings.prototype.getType = function() {
+    return tuna.tmpl.units.Template.NAME;
 };
-
-/**
- * @param {tuna.tmpl.settings.ConditionSettings} condition
- */
-TemplateSettings.prototype.addCondition = function(condition) {
-    this.__conditions.push(condition);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.ConditionSettings>}
- */
-TemplateSettings.prototype.getConditions = function() {
-    return this.__conditions;
-};
-
-/**
- * @param {tuna.tmpl.settings.AttributeSettings} attr
- */
-TemplateSettings.prototype.addAttribute = function(attr) {
-    this.__attributes.push(attr);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.AttributeSettings>}
- */
-TemplateSettings.prototype.getAttributes = function() {
-    return this.__attributes;
-};
-
-/**
- * @param {tuna.tmpl.settings.ListSettings} list
- */
-TemplateSettings.prototype.addList = function(list) {
-    this.__lists.push(list);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.ListSettings>}
- */
-TemplateSettings.prototype.getLists = function() {
-    return this.__lists;
-};
-
-/**
- * @param {tuna.tmpl.settings.SpotSettings} spot
- */
-TemplateSettings.prototype.addSpot = function(spot) {
-    this.__spots.push(spot);
-};
-
-/**
- * @return {Array.<tuna.tmpl.settings.SpotSettings>}
- */
-TemplateSettings.prototype.getSpots = function() {
-    return this.__spots;
-};
-
-/**
- * @constructor
- * @extends {TemplateSettings}
- */
-tuna.tmpl.settings.TemplateSettings = TemplateSettings;

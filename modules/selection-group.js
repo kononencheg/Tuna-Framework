@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -34,4 +35,4 @@ SelectionGroupModule.prototype.initInstance = function(target) {
 
 
 
-tuna.ui.modules.register('selection-group', new SelectionGroupModule());
+tuna.ui.registerModule('selection-group', new SelectionGroupModule());

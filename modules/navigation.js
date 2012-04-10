@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ NavigationModule.prototype.initInstance = function(target) {
     return new tuna.ui.selection.Navigation(target);
 };
 
-tuna.ui.modules.register('navigation', new NavigationModule());
+tuna.ui.registerModule('navigation', new NavigationModule());

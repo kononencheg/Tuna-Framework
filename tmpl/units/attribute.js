@@ -1,51 +1,63 @@
+
+
+
 /**
+ * Элемент шаблона трансформации устанавливающий значение определенного
+ * аттрибута в зависимости от данных.
+ *
  * @constructor
  * @extends {tuna.tmpl.units.Spot}
- * @param {tuna.tmpl.units.Template} root
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент трансформации.
+ * @param {string} attributeName Корневой элемент трансформации.
  */
-var Attribute = function(root) {
+tuna.tmpl.units.Attribute = function(root, attributeName) {
     tuna.tmpl.units.Spot.call(this, root);
 
     /**
      * @private
      * @type {string}
      */
-    this.__attributeName = '';
-
-    /**
-     * @private
-     * @type {string}
-     */
-    this.__eventName = '';
+    this.__attributeName = attributeName;
 
     /**
      * @private
      * @type {boolean}
      */
     this.__hasEvent = false;
+
+    /**
+     * @type {function()}
+     * @private
+     */
+    this.__dispatchAttribute = tuna.utils.bind(this.__dispatchAttribute, this);
 };
 
-tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
+
+tuna.utils.extend(tuna.tmpl.units.Attribute, tuna.tmpl.units.Spot);
+
 
 /**
- * @param {string} attributeName
+ * @const
+ * @type {string}
  */
-Attribute.prototype.setAttributeName = function(attributeName) {
-    this.__attributeName = attributeName;
-    this.__eventName = attributeName + '-change';
-};
+tuna.tmpl.units.Attribute.NAME = 'attribute';
+
 
 /**
- * @param {boolean} hasEvent
+ * Устанока флага наличия события генерирующегося у элемента при изменении
+ * аттрибута.
+ *
+ * @param {boolean} hasEvent Флаг наличия события.
  */
-Attribute.prototype.setEvent = function(hasEvent) {
+tuna.tmpl.units.Attribute.prototype.setEvent = function(hasEvent) {
     this.__hasEvent = hasEvent;
 };
 
+
 /**
- * @override
+ * @inheritDoc
  */
-Attribute.prototype._applyValue = function(value) {
+tuna.tmpl.units.Attribute.prototype._applyValue = function(value) {
     if (value !== null) {
         this.__setAttribute(value);
     } else {
@@ -53,18 +65,18 @@ Attribute.prototype._applyValue = function(value) {
     }
 
     if (this.__hasEvent) {
-        var self = this;
-        setTimeout(function() {
-            self.__dispatchAttribute(value);
-        }, 0);
+        tuna.utils.nextTick(this.__dispatchAttribute);
     }
 };
 
+
 /**
+ * Установка аттрибута.
+ *
  * @private
- * @param {*} value
+ * @param {*} value Значение аттрибута.
  */
-Attribute.prototype.__setAttribute = function(value) {
+tuna.tmpl.units.Attribute.prototype.__setAttribute = function(value) {
     var i = this._nodes.length - 1;
     while (i >= 0) {
         if (this._nodes[i][this.__attributeName] !== undefined) {
@@ -77,10 +89,13 @@ Attribute.prototype.__setAttribute = function(value) {
     }
 };
 
+
 /**
+ * Удаление аттрибута.
+ *
  * @private
  */
-Attribute.prototype.__removeAttribute = function() {
+tuna.tmpl.units.Attribute.prototype.__removeAttribute = function() {
     var i = this._nodes.length - 1;
     while (i >= 0) {
         if (this._nodes[i][this.__attributeName] !== undefined) {
@@ -93,21 +108,15 @@ Attribute.prototype.__removeAttribute = function() {
     }
 };
 
+
 /**
  * @private
- * @param {*} value
  */
-Attribute.prototype.__dispatchAttribute = function(value) {
+tuna.tmpl.units.Attribute.prototype.__dispatchAttribute = function() {
     var i = this._nodes.length - 1;
     while (i >= 0) {
-        tuna.dom.dispatchEvent(this._nodes[i], this.__eventName, '' + value);
+        tuna.dom.dispatchEvent(this._nodes[i], this.__attributeName);
 
         i--;
     }
 };
-
-/**
- * @constructor
- * @extends {Attribute}
- */
-tuna.tmpl.units.Attribute = Attribute;

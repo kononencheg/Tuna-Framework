@@ -1,16 +1,18 @@
-/**
- * @interface
- */
-var IMethodFactory = function() {};
+
+
 
 /**
- * @param {string} name
- * @return {tuna.rest.IMethod}
+ * Интефейс класса фабрики удаленных методов.
+ *
+ * @interface
  */
-IMethodFactory.prototype.createMethod = function(name) {};
+tuna.rest.IMethodFactory = function() {};
+
 
 /**
- * @interface
- * @extends {IMethodFactory}
+ * Создание метода по имени.
+ *
+ * @param {string} name Имя метода.
+ * @return {tuna.rest.IMethod} Созданный метод либо <code>null</code>.
  */
-tuna.rest.IMethodFactory = IMethodFactory;
+tuna.rest.IMethodFactory.prototype.createMethod = function(name) {};

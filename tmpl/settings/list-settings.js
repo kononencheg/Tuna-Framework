@@ -1,37 +1,55 @@
+
+
+
 /**
+ * Настройки элемента шаблона отображения списка.
+ *
  * @constructor
  * @extends {tuna.tmpl.settings.SpotSettings}
- * @implements {tuna.tmpl.settings.IItemSettings}
+ * @param {string} targetSelector CSS-селектор целевых для элемента
+ *        шаблонизатора DOM-элементов.
+ * @param {string} dataPath Путь к данным для отображения элементом
+ *        шаблонизатора.
+ * @param {string} keyPath Путь к ключу элемента списка.
+ * @param {string} itemRendererID Идектификатор DOM-элемента прототипа списка.
+ * @param {!tuna.tmpl.settings.TemplateSettings} itemSettings Настройки шаблона
+ *        элемента списка.
  */
-var ListSettings = function() {
-    tuna.tmpl.settings.SpotSettings.call(this);
+tuna.tmpl.settings.ListSettings =
+    function(targetSelector, dataPath, keyPath, itemRendererID, itemSettings) {
+
+    tuna.tmpl.settings.SpotSettings.call(this, targetSelector, dataPath);
 
     /**
-     * @private
-     * @type string
+     * Путь выборки данных ключа элемента списка.
+     *
+     * @type {string}
      */
-    this.keyPath = '';
+    this.keyPath = keyPath;
 
     /**
-     * @private
-     * @type string
+     * Идентификатор прототипа элемента списка.
+     *
+     * @type {string}
      */
-    this.itemRendererID = '';
+    this.itemRendererID = itemRendererID;
 
     /**
-     * @private
-     * @type tuna.tmpl.settings.TemplateSettings
+     * Настройки шаблона элемента списка.
+     *
+     * @type {!tuna.tmpl.settings.TemplateSettings}
      */
-    this.itemSettings = null;
+    this.itemSettings = itemSettings;
 };
 
-tuna.utils.extend(ListSettings, tuna.tmpl.settings.SpotSettings);
+
+tuna.utils.extend
+    (tuna.tmpl.settings.ListSettings, tuna.tmpl.settings.SpotSettings);
+
 
 /**
- * @constructor
- * @extends {ListSettings}
+ * @inheritDoc
  */
-tuna.tmpl.settings.ListSettings = ListSettings;
-
-
-
+tuna.tmpl.settings.ListSettings.prototype.getType = function() {
+    return tuna.tmpl.units.List.NAME;
+};

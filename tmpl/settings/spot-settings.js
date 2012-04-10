@@ -1,31 +1,47 @@
+
+
+
 /**
+ * Настройки элемента шаблонизатора вставки данных в DOM-элемент.
+ *
  * @constructor
  * @implements {tuna.tmpl.settings.IItemSettings}
+ * @param {string} targetSelector CSS-селектор целевых для элемента
+ *        шаблонизатора DOM-элементов.
+ * @param {string} dataPath Путь к данным для отображения элементом
+ *        шаблонизатора.
  */
-var SpotSettings = function() {
+tuna.tmpl.settings.SpotSettings = function(targetSelector, dataPath) {
     
     /**
-     * @private
-     * @type {string}
-     */
-    this.targetClass = '';
-
-    /**
-     * @private
-     * @type {string}
-     */
-    this.dataPath = '';
-
-    /**
+     * CSS-селектор целевых для элемента шаблонизатора DOM-элементов.
      *
-     * @type {Array.<string>}
-     * @private
+     * @public
+     * @type {string}
      */
-    this.filter = null;
+    this.targetSelector = targetSelector;
+
+    /**
+     * Путь к данным для отображения элементом шаблонизатора.
+     *
+     * @public
+     * @type {string}
+     */
+    this.dataPath = dataPath;
+
+    /**
+     * Разбитая строка образца отображения данных.
+     *
+     * @public
+     * @type {?string}
+     */
+    this.pattern = null;
 };
 
+
 /**
- * @constructor
- * @extends {SpotSettings}
+ * @inheritDoc
  */
-tuna.tmpl.settings.SpotSettings = SpotSettings;
+tuna.tmpl.settings.SpotSettings.prototype.getType = function() {
+    return tuna.tmpl.units.Spot.NAME;
+};

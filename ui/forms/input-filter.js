@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var InputFilter = function(target) {
+tuna.ui.forms.InputFilter = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -39,18 +39,18 @@ var InputFilter = function(target) {
     this._transformer = new tuna.ui.transformers.TemplateTransformer(target);
 };
 
-tuna.utils.extend(InputFilter, tuna.ui.ModuleInstance);
+tuna.utils.extend(tuna.ui.forms.InputFilter, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-InputFilter.prototype.init = function() {
+tuna.ui.forms.InputFilter.prototype.init = function() {
     this._input = tuna.dom.selectOne('input.j-filtration', this._target);
     if (this._input !== null) {
         var self = this;
 
         var lastValue = null;
-        tuna.dom.addEventListener(this._input, 'keyup', function(event) {
+        tuna.dom.addEventListener(this._input, 'keyup', function() {
             if (this.value !== lastValue) {
                 self.filter(this.value);
                 lastValue = this.value;
@@ -64,14 +64,14 @@ InputFilter.prototype.init = function() {
 /**
  * @param {function(Object):string} callback
  */
-InputFilter.prototype.setItemSerializeCallback = function(callback) {
+tuna.ui.forms.InputFilter.prototype.setItemSerializeCallback = function(callback) {
     this._itemSerializeCallback = callback;
 };
 
 /**
  * @param {Array.<Object>} data
  */
-InputFilter.prototype.setData = function(data) {
+tuna.ui.forms.InputFilter.prototype.setData = function(data) {
     this._currentData = this._data = data;
     this.update();
 };
@@ -79,7 +79,7 @@ InputFilter.prototype.setData = function(data) {
 /**
  * @param {string} term
  */
-InputFilter.prototype.filter = function(term) {
+tuna.ui.forms.InputFilter.prototype.filter = function(term) {
     this._currentData = this._filterData(term);
     this.update();
 };
@@ -87,14 +87,14 @@ InputFilter.prototype.filter = function(term) {
 /**
  *
  */
-InputFilter.prototype.update = function() {
+tuna.ui.forms.InputFilter.prototype.update = function() {
     this._transformer.applyTransform(this._currentData);
 };
 
 /**
  *
  */
-InputFilter.prototype.clear = function() {
+tuna.ui.forms.InputFilter.prototype.clear = function() {
     this._input.value = '';
     this.filter('');
 };
@@ -103,7 +103,7 @@ InputFilter.prototype.clear = function() {
  * @protected
  * @param {string} term
  */
-InputFilter.prototype._filterData = function(term) {
+tuna.ui.forms.InputFilter.prototype._filterData = function(term) {
     var result = [];
 
     if (!term || term.length === 0) {
@@ -128,9 +128,3 @@ InputFilter.prototype._filterData = function(term) {
 
     return result;
 };
-
-/**
- * @constructor
- * @extends {InputFilter}
- */
-tuna.ui.forms.InputFilter = InputFilter;

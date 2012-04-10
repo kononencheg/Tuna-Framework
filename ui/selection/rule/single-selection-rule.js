@@ -1,8 +1,8 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.rule.AbstractSelectionRule}
+ * @extends tuna.ui.selection.rule.AbstractSelectionRule
  */
-var SingleSelectionRule = function() {
+tuna.ui.selection.rule.SingleSelectionRule = function() {
     tuna.ui.selection.rule.AbstractSelectionRule.call(this);
 
     /**
@@ -12,12 +12,17 @@ var SingleSelectionRule = function() {
     this.__currentIndex = null;
 };
 
-tuna.utils.extend(SingleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
+tuna.utils.extend(
+    tuna.ui.selection.rule.SingleSelectionRule,
+    tuna.ui.selection.rule.AbstractSelectionRule
+);
 
 /**
  * @override
  */
-SingleSelectionRule.prototype.getSelectedIndexes = function() {
+tuna.ui.selection.rule.SingleSelectionRule.prototype.getSelectedIndexes
+    = function() {
+
     if (this.__currentIndex !== null) {
         return [this.__currentIndex];
     }
@@ -28,7 +33,9 @@ SingleSelectionRule.prototype.getSelectedIndexes = function() {
 /**
  * @override
  */
-SingleSelectionRule.prototype.selectIndex = function(index) {
+tuna.ui.selection.rule.SingleSelectionRule.prototype.selectIndex
+    = function(index) {
+
     if (this.isIndexEnabled(index) &&
         this.__currentIndex !== index &&
         this.__dispatchSelect(index)) {
@@ -59,7 +66,9 @@ SingleSelectionRule.prototype.selectIndex = function(index) {
  * @private
  * @param {string|number} newIndex
  */
-SingleSelectionRule.prototype.__dispatchSelect = function(newIndex) {
+tuna.ui.selection.rule.SingleSelectionRule.prototype.__dispatchSelect
+    = function(newIndex) {
+
     var oldIndex = this.__currentIndex;
 
     return (oldIndex === null ||
@@ -70,22 +79,20 @@ SingleSelectionRule.prototype.__dispatchSelect = function(newIndex) {
 /**
  * @override
  */
-SingleSelectionRule.prototype.isSelected = function(index) {
+tuna.ui.selection.rule.SingleSelectionRule.prototype.isSelected
+    = function(index) {
+
     return index === this.__currentIndex;
 };
 
 /**
  * @override
  */
-SingleSelectionRule.prototype.clearSelection = function() {
+tuna.ui.selection.rule.SingleSelectionRule.prototype.clearSelection
+    = function() {
+
     if (this.__currentIndex !== null) {
         this._selectionView.destroySelectionAt(this.__currentIndex);
         this.__currentIndex = null;
     }
 };
-
-/**
- * @constructor
- * @extends {SingleSelectionRule}
- */
-tuna.ui.selection.rule.SingleSelectionRule = SingleSelectionRule;

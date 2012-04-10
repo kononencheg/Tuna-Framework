@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ ButtonModule.prototype.initInstance = function(target) {
     return tuna.ui.buttons.create(target);
 };
 
-tuna.ui.modules.register('button', new ButtonModule());
+tuna.ui.registerModule('button', new ButtonModule());

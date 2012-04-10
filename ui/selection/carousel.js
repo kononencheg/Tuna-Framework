@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.SelectionGroup}
+ * @extends tuna.ui.selection.SelectionGroup
  * @param {!Node} target
  */
-var Carousel = function(target) {
+tuna.ui.selection.Carousel = function(target) {
     tuna.ui.selection.SelectionGroup.call(this, target, null);
 
     /**
@@ -17,12 +17,12 @@ var Carousel = function(target) {
     this._setDefaultOption('back-button-selector', '.j-carousel-back');
 };
 
-tuna.utils.extend(Carousel, tuna.ui.selection.SelectionGroup);
+tuna.utils.extend(tuna.ui.selection.Carousel, tuna.ui.selection.SelectionGroup);
 
 /**
  * @override
  */
-Carousel.prototype.init = function() {
+tuna.ui.selection.Carousel.prototype.init = function() {
     tuna.ui.selection.SelectionGroup.prototype.init.call(this);
 
     var self = this;
@@ -40,7 +40,7 @@ Carousel.prototype.init = function() {
         );
     }
 
-    var backButtonSelector = this.getStringOption('back-button-selector')
+    var backButtonSelector = this.getStringOption('back-button-selector');
     if (backButtonSelector !== null) {
         tuna.dom.addChildEventListener(
             this._target, backButtonSelector, 'click',
@@ -56,7 +56,7 @@ Carousel.prototype.init = function() {
 /**
  *
  */
-Carousel.prototype.next = function() {
+tuna.ui.selection.Carousel.prototype.next = function() {
     this.__shiftIndex++;
     if (this.getItemAt(this.__shiftIndex) === null) {
         this.__shiftIndex = 0;
@@ -68,7 +68,7 @@ Carousel.prototype.next = function() {
 /**
  *
  */
-Carousel.prototype.back = function() {
+tuna.ui.selection.Carousel.prototype.back = function() {
     this.__shiftIndex--;
     if (this.getItemAt(this.__shiftIndex) === null) {
         this.__shiftIndex = this._itemsCollection.getItemsCount() - 1;
@@ -76,9 +76,3 @@ Carousel.prototype.back = function() {
 
     this.selectIndex(this.__shiftIndex);
 };
-
-/**
- * @constructor
- * @extends {Carousel}
- */
-tuna.ui.selection.Carousel = Carousel;

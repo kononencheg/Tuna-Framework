@@ -1,20 +1,16 @@
 /**
  * @interface
  */
-var ITransformer = function() {};
+tuna.ui.transformers.ITransformer = function() {};
 
 /**
  * @param {Object} data
  */
-ITransformer.prototype.applyTransform = function(data) {};
+tuna.ui.transformers.ITransformer.prototype.applyTransform
+    = function(data) {};
 
 /**
  * @param {tuna.ui.transformers.ITransformHandler} handler
  */
-ITransformer.prototype.setTransformHandler = function(handler) {};
-
-/**
- * @interface
- * @extends {ITransformer}
- */
-tuna.ui.transformers.ITransformer = ITransformer;
+tuna.ui.transformers.ITransformer.prototype.setTransformHandler
+    = function(handler) {};

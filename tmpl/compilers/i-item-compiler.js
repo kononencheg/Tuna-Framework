@@ -1,17 +1,25 @@
-/**
- * @interface
- */
-var IItemCompiler = function() {};
+
+
 
 /**
- * @param {Node} element
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- * @param {tuna.tmpl.units.Template} template
+ * Интерфейс класса компилятора элементов шаблона.
+ *
+ * @interface
  */
-IItemCompiler.prototype.compile = function(element, settings, template) {};
+tuna.tmpl.compilers.IItemCompiler = function() {};
+
 
 /**
- * @interface
- * @extends {IItemCompiler}
+ * Компиляция элемента шаблона.
+ *
+ * @param {!Node} element Целевой DOM-элемент элемента шаблона.
+ * @param {!tuna.tmpl.settings.IItemSettings} settings Настройки элемента
+ *        шаблона.
+ * @param {!tuna.tmpl.units.Template} root Корневой элемент шаблона.
+ * @return {!Array.<!tuna.tmpl.units.IUnit>|tuna.tmpl.units.IUnit}
+ *         Скомпилированный элемент, массив элементов или <code>null</code> в
+ *         случае неудачи.
  */
-tuna.tmpl.compilers.IItemCompiler = IItemCompiler;
+tuna.tmpl.compilers.IItemCompiler.prototype.compile =
+    function(element, settings, root) {};
+

@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var ButtonGroup = function(target) {
+tuna.ui.buttons.ButtonGroup = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -21,26 +21,28 @@ var ButtonGroup = function(target) {
     this._setDefaultOption('button-selector', '.j-button');
 };
 
-tuna.utils.extend(ButtonGroup, tuna.ui.ModuleInstance);
+tuna.utils.extend(tuna.ui.buttons.ButtonGroup, tuna.ui.ModuleInstance);
 
 /**
  * @param {string} action
  */
-ButtonGroup.prototype.setDefaultAction = function(action) {
+tuna.ui.buttons.ButtonGroup.prototype.setDefaultAction = function(action) {
     this.__defaultAction = action;
 };
 
 /**
  * @param {boolean} isPreventDefault
  */
-ButtonGroup.prototype.setPreventDefault = function(isPreventDefault) {
+tuna.ui.buttons.ButtonGroup.prototype.setPreventDefault
+    = function(isPreventDefault) {
+
     this.__isPreventDefault = isPreventDefault;
 };
 
 /**
  * @override
  */
-ButtonGroup.prototype.init = function() {
+tuna.ui.buttons.ButtonGroup.prototype.init = function() {
     var self = this;
 
     var buttonSelector = this.getStringOption('button-selector');
@@ -66,10 +68,3 @@ ButtonGroup.prototype.init = function() {
         );
     }
 };
-
-
-/**
- * @constructor
- * @extends {ButtonGroup}
- */
-tuna.ui.buttons.ButtonGroup = ButtonGroup;

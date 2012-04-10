@@ -1,29 +1,35 @@
+
+
+
 /**
+ * Компилятор элемента шаблона устанавливающий данные в элемент input типа
+ * checkbox.
+ *
  * @constructor
  * @extends {tuna.tmpl.compilers.SpotCompiler}
  */
-var CheckboxCompiler = function() {
+tuna.tmpl.compilers.CheckboxCompiler = function() {
     tuna.tmpl.compilers.SpotCompiler.call(this);
 };
 
-tuna.utils.extend(CheckboxCompiler, tuna.tmpl.compilers.SpotCompiler);
+
+tuna.utils.extend
+    (tuna.tmpl.compilers.CheckboxCompiler, tuna.tmpl.compilers.SpotCompiler);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-CheckboxCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.getCheckboxes();
+tuna.tmpl.compilers.CheckboxCompiler.prototype.compile =
+    function(element, settings, root) {
+
+    if (settings instanceof tuna.tmpl.settings.CheckboxSettings) {
+        var checkbox = new tuna.tmpl.units.Checkbox(root);
+
+        this._setupSpot(element, checkbox, settings);
+
+        return checkbox;
+    }
+
+    return null;
 };
-
-/**
- * @override
- */
-CheckboxCompiler.prototype._createItem = function(rootTemplate) {
-    return new tuna.tmpl.units.Checkbox(rootTemplate);
-};
-
-/**
- * @constructor
- * @extends {CheckboxCompiler}
- */
-tuna.tmpl.compilers.CheckboxCompiler = CheckboxCompiler;

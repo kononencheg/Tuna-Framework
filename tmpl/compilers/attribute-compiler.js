@@ -1,40 +1,38 @@
+
+
+
 /**
+ * Компилятор элемента шаблона устанавливающий данные в аттрибут.
+ *
  * @constructor
  * @extends {tuna.tmpl.compilers.SpotCompiler}
  */
-var AttributeCompiler = function() {
+tuna.tmpl.compilers.AttributeCompiler = function() {
     tuna.tmpl.compilers.SpotCompiler.call(this);
 };
 
-tuna.utils.extend(AttributeCompiler, tuna.tmpl.compilers.SpotCompiler);
+
+tuna.utils.extend
+    (tuna.tmpl.compilers.AttributeCompiler, tuna.tmpl.compilers.SpotCompiler);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-AttributeCompiler.prototype._getItemsSettings = function(settings) {
-    return settings.getAttributes();
+tuna.tmpl.compilers.AttributeCompiler.prototype.compile =
+    function(element, settings, root) {
+
+    if (settings instanceof tuna.tmpl.settings.AttributeSettings) {
+        var attribute =
+            new tuna.tmpl.units.Attribute(root, settings.attributeName);
+
+        this._setupSpot(element, attribute, settings);
+
+        attribute.setEvent(settings.hasEvent);
+
+        return attribute;
+    }
+
+    return null;
 };
 
-/**
- * @override
- */
-AttributeCompiler.prototype._createItem = function(rootTemplate) {
-    return new tuna.tmpl.units.Attribute(rootTemplate);
-};
-
-/**
- * @override
- */
-AttributeCompiler.prototype._compileItem = function(element, settings, item) {
-    tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
-                                    (this, element, settings, item);
-
-    item.setAttributeName(settings.attributeName);
-    item.setEvent(settings.hasEvent);
-};
-
-/**
- * @constructor
- * @extends {AttributeCompiler}
- */
-tuna.tmpl.compilers.AttributeCompiler = AttributeCompiler;

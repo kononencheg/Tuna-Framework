@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.buttons.Button}
+ * @extends tuna.ui.buttons.Button
  * @param {!Node} target
  */
-var PopupButton = function(target) {
+tuna.ui.buttons.PopupButton = function(target) {
     tuna.ui.buttons.Button.call(this, target);
 
     /**
@@ -14,12 +14,12 @@ var PopupButton = function(target) {
     this._popup = null;
 };
 
-tuna.utils.extend(PopupButton, tuna.ui.buttons.Button);
+tuna.utils.extend(tuna.ui.buttons.PopupButton, tuna.ui.buttons.Button);
 
 /**
  * @override
  */
-PopupButton.prototype.init = function() {
+tuna.ui.buttons.PopupButton.prototype.init = function() {
     var popupId = this.getOption('popup-id');
     if (popupId !== null) {
         var popupTarget = tuna.dom.selectOne('#' + popupId);
@@ -43,12 +43,6 @@ PopupButton.prototype.init = function() {
 /**
  * @return {tuna.ui.popups.Popup}
  */
-PopupButton.prototype.getPopup = function() {
+tuna.ui.buttons.PopupButton.prototype.getPopup = function() {
     return this._popup;
 };
-
-/**
- * @constructor
- * @extends {PopupButton}
- */
-tuna.ui.buttons.PopupButton = PopupButton;

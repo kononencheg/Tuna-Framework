@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,5 +16,4 @@ TemplateTransformerModule.prototype.initInstance = function(target) {
     return new tuna.ui.transformers.TemplateTransformer(target);
 };
 
-tuna.ui.modules.register
-    ('template-transformer', new TemplateTransformerModule());
+tuna.ui.registerModule('template-transformer', new TemplateTransformerModule());

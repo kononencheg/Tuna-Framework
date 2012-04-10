@@ -1,8 +1,8 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.rule.AbstractSelectionRule}
+ * @extends tuna.ui.selection.rule.AbstractSelectionRule
  */
-var MultipleSelectionRule = function() {
+tuna.ui.selection.rule.MultipleSelectionRule = function() {
     tuna.ui.selection.rule.AbstractSelectionRule.call(this);
 
     /**
@@ -12,20 +12,26 @@ var MultipleSelectionRule = function() {
     this.__selectedIndexes = [];
 };
 
-tuna.utils.extend
-    (MultipleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
+tuna.utils.extend(
+    tuna.ui.selection.rule.MultipleSelectionRule,
+    tuna.ui.selection.rule.AbstractSelectionRule
+);
 
 /**
  * @override
  */
-MultipleSelectionRule.prototype.getSelectedIndexes = function() {
+tuna.ui.selection.rule.MultipleSelectionRule.prototype.getSelectedIndexes
+    = function() {
+
     return tuna.utils.cloneArray(this.__selectedIndexes);
 };
 
 /**
  * @override
  */
-MultipleSelectionRule.prototype.selectIndex = function(index) {
+tuna.ui.selection.rule.MultipleSelectionRule.prototype.selectIndex
+    = function(index) {
+
     if (this.isIndexEnabled(index)) {
         var indexPosition = tuna.utils.indexOf(index, this.__selectedIndexes);
         if (indexPosition === -1) {
@@ -53,22 +59,20 @@ MultipleSelectionRule.prototype.selectIndex = function(index) {
 /**
  * @override
  */
-MultipleSelectionRule.prototype.isSelected = function(index) {
+tuna.ui.selection.rule.MultipleSelectionRule.prototype.isSelected
+    = function(index) {
+
     return tuna.utils.indexOf(index, this.__selectedIndexes) !== -1;
 };
 
 /**
  * @override
  */
-MultipleSelectionRule.prototype.clearSelection = function() {
+tuna.ui.selection.rule.MultipleSelectionRule.prototype.clearSelection
+    = function() {
+
     while (this.__selectedIndexes.length > 0) {
         this._selectionView.destroySelectionAt
             (this.__selectedIndexes.shift());
     }
 };
-
-/**
- * @constructor
- * @extends {MultipleSelectionRule}
- */
-tuna.ui.selection.rule.MultipleSelectionRule = MultipleSelectionRule;

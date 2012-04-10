@@ -1,16 +1,20 @@
-/**
- * @interface
- */
-var IMarkupExtractor = function() {};
+
+
 
 /**
- * @param {Node} element
- * @param {tuna.tmpl.settings.TemplateSettings} settings
+ * Класс объектов извлечения данных шаблона из верстки.
+ *
+ * @interface
  */
-IMarkupExtractor.prototype.extract = function(element, settings) {};
+tuna.tmpl.markup.IMarkupExtractor = function() {};
+
+
 
 /**
- * @interface
- * @extends {IMarkupExtractor}
+ * Извлечение настроек элемента шаблона из узла верстки.
+ *
+ * @param {!Node} element DOM-элемент разметки шаблона.
+ * @return {!Array.<tuna.tmpl.settings.IItemSettings>} settings Настройки
+ *         элементов шаблона.
  */
-tuna.tmpl.markup.IMarkupExtractor = IMarkupExtractor;
+tuna.tmpl.markup.IMarkupExtractor.prototype.extract = function(element) {};

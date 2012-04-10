@@ -1,55 +1,59 @@
+
+
+
 /**
+ * Объект извлечения настроек элемента шаблона отображения списка.
+ *
  * @constructor
  * @extends {tuna.tmpl.markup.SpotExtractor}
- * @param {tuna.tmpl.markup.MarkupTemplateBuilder} templateBuilder
+ * @param {!tuna.tmpl.markup.MarkupTemplateBuilder} templateBuilder Объект
+ *        извлечения шаблона из верстки.
  */
-var ListExtractor = function(templateBuilder) {
+tuna.tmpl.markup.ListExtractor = function(templateBuilder) {
     tuna.tmpl.markup.SpotExtractor.call(this);
 
     /**
-     * @override
+     * @inheritDoc
      */
     this._tagName = 'list';
 
     /**
      * @private
-     * @type tuna.tmpl.markup.MarkupTemplateBuilder
+     * @type {!tuna.tmpl.markup.MarkupTemplateBuilder}
      */
     this.__templateBuilder = templateBuilder
 };
 
-tuna.utils.extend(ListExtractor, tuna.tmpl.markup.SpotExtractor);
+
+tuna.utils.extend
+    (tuna.tmpl.markup.ListExtractor, tuna.tmpl.markup.SpotExtractor);
+
 
 /**
- * @override
+ * @inheritDoc
  */
-ListExtractor.prototype._createItem = function() {
-    return new tuna.tmpl.settings.ListSettings();
-};
+tuna.tmpl.markup.ListExtractor.prototype._createItem = function(element) {
+    var selector = element.getAttribute(this._ns + 'target');
+    var dataPath = element.getAttribute(this._ns + 'path');
+    var keyPath = element.getAttribute(this._ns + 'key-path');
+    var itemRendererID = element.getAttribute(this._ns + 'item-renderer-id');
 
-/**
- * @override
- */
-ListExtractor.prototype._parseElement = function(element, item) {
-    tuna.tmpl.markup.SpotExtractor.prototype._parseElement.call(this, element, item);
-
-    item.itemRendererID = element.getAttribute(this._ns + 'item-renderer-id');
-    item.keyPath = element.getAttribute(this._ns + 'key-path');
-
+    var itemSettings = null;
     var templateID = element.getAttribute(this._ns + 'item-template-id');
-    item.itemSettings = this.__templateBuilder.buildSettings(templateID);
-};
+    if (templateID !== null) {
+        itemSettings = this.__templateBuilder.buildSettings(templateID);
+    }
 
-/**
- * @param {tuna.tmpl.settings.ListSettings} item
- * @param {tuna.tmpl.settings.TemplateSettings} settings
- */
-ListExtractor.prototype._saveItem = function(item, settings) {
-    settings.addList(item);
-};
+    if (selector !== null && dataPath !== null && keyPath !== null &&
+        itemRendererID !== null && itemSettings !== null) {
 
-/**
- * @constructor
- * @extends {ListExtractor}
- */
-tuna.tmpl.markup.ListExtractor = ListExtractor;
+        var list = new tuna.tmpl.settings.ListSettings
+            (selector, dataPath, keyPath, itemRendererID, itemSettings);
+
+        list.pattern = element.getAttribute(this._ns + 'pattern');
+
+        return list;
+    }
+
+    return null;
+};

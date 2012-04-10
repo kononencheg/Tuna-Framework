@@ -1,10 +1,10 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
- * @implements {tuna.ui.transformers.ITransformer}
+ * @extends tuna.ui.ModuleInstance
+ * @implements tuna.ui.transformers.ITransformer
  * @param {!Node} target
  */
-var TemplateTransformer = function (target) {
+tuna.ui.transformers.TemplateTransformer = function (target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -21,43 +21,50 @@ var TemplateTransformer = function (target) {
     this.__transformHandler = null;
 };
 
-tuna.utils.extend(TemplateTransformer, tuna.ui.ModuleInstance);
-tuna.utils.implement(TemplateTransformer, tuna.ui.transformers.ITransformer);
+tuna.utils.extend
+    (tuna.ui.transformers.TemplateTransformer, tuna.ui.ModuleInstance);
+
 
 /**
  * @override
  */
-TemplateTransformer.prototype.init = function() {
+tuna.ui.transformers.TemplateTransformer.prototype.init = function() {
     var templateId = this.getStringOption('template-id');
 
-    var settings = tuna.tmpl.getTemplateSettingsById(templateId);
-    if (settings !== null) {
-        this.__template = tuna.tmpl.compile(this._target, settings);
-    } else {
-        alert("Unknown template " + templateId);
+    if (templateId !== null) {
+        var settings = tuna.tmpl.getTemplateSettingsById(templateId);
+        if (settings !== null) {
+            this.__template = tuna.tmpl.compile(this._target, settings);
+        } else {
+            throw 'Unknown template with id "' + templateId + '"';
+        }
     }
 };
 
 /**
  * @override
  */
-TemplateTransformer.prototype.setTransformHandler = function(handler) {
+tuna.ui.transformers.TemplateTransformer.prototype.setTransformHandler
+    = function(handler) {
+
     this.__transformHandler = handler;
 };
 
 /**
  * @override
  */
-TemplateTransformer.prototype.applyTransform = function(data) {
+tuna.ui.transformers.TemplateTransformer.prototype.applyTransform
+    = function(data) {
+
     if (this.__transformHandler !== null) {
-        this.__transformHandler.handleTransformStart(this._target);
+        this.__transformHandler.handleTransformStart(this);
     }
 
     this.__template.applyData(new tuna.tmpl.data.DataNode(data));
 
     if (this.__transformHandler !== null) {
         this.__transformHandler.handleTransformComplete(
-            this._target,
+            this,
             this.__template.fetchCreatedChildren(),
             this.__template.fetchRemovedChildren()
         );
@@ -67,14 +74,8 @@ TemplateTransformer.prototype.applyTransform = function(data) {
 /**
  * @override
  */
-TemplateTransformer.prototype.destroy = function() {
+tuna.ui.transformers.TemplateTransformer.prototype.destroy = function() {
     this.__template.destroy();
-
-    if (this.__transformHandler !== null) {
-        this.__transformHandler.handleDestroy
-            (this._target, this.__template.fetchRemovedChildren());
-    }
-
     this.__template = null;
     this.__transformHandler = null;
 };
@@ -82,7 +83,7 @@ TemplateTransformer.prototype.destroy = function() {
 /**
  *
  */
-TemplateTransformer.prototype.reset = function() {
+tuna.ui.transformers.TemplateTransformer.prototype.reset = function() {
     var transformHandler = this.__transformHandler;
 
     this.destroy();
@@ -90,9 +91,3 @@ TemplateTransformer.prototype.reset = function() {
 
     this.__transformHandler = transformHandler;
 };
-
-/**
- * @constructor
- * @extends {TemplateTransformer}
- */
-tuna.ui.transformers.TemplateTransformer = TemplateTransformer;

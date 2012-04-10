@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ CarouselModule.prototype.initInstance = function(target) {
     return new tuna.ui.selection.Carousel(target);
 };
 
-tuna.ui.modules.register('carousel', new CarouselModule());
+tuna.ui.registerModule('carousel', new CarouselModule());

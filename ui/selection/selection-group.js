@@ -1,10 +1,10 @@
 /**
  * @constructor
- * @extends {tuna.ui.selection.AbstractSelectionGroup}
+ * @extends tuna.ui.selection.AbstractSelectionGroup
  * @param {!Node} target
  * @param {?string} indexAttribute
  */
-var SelectionGroup = function(target, indexAttribute) {
+tuna.ui.selection.SelectionGroup = function(target, indexAttribute) {
     tuna.ui.selection.AbstractSelectionGroup.call(this, target);
 
     this._setDefaultOption('item-selector', '.j-selection-item');
@@ -14,12 +14,13 @@ var SelectionGroup = function(target, indexAttribute) {
     this._setDefaultOption('selection-event', 'click');
 };
 
-tuna.utils.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
+tuna.utils.extend(tuna.ui.selection.SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
 
 /**
  * @override
  */
-SelectionGroup.prototype.init = function() {
+tuna.ui.selection.SelectionGroup.prototype.init = function() {
+
     var indexAttribute = this.getStringOption('index-attribute');
 
     this._itemsCollection = indexAttribute === null ?
@@ -47,14 +48,8 @@ SelectionGroup.prototype.init = function() {
  * @return {tuna.ui.selection.rule.ISelectionRule}
  * @protected
  */
-SelectionGroup.prototype._createSelectionRule = function() {
+tuna.ui.selection.SelectionGroup.prototype._createSelectionRule = function() {
     return this.getBooleanOption('is-multiple') ?
                 new tuna.ui.selection.rule.MultipleSelectionRule() :
                 new tuna.ui.selection.rule.SingleSelectionRule();
 };
-
-/**
- * @constructor
- * @extends {SelectionGroup}
- */
-tuna.ui.selection.SelectionGroup = SelectionGroup;

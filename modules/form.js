@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ FormModule.prototype.initInstance = function(target) {
     return new tuna.ui.forms.Form(target);
 };
 
-tuna.ui.modules.register('form', new FormModule());
+tuna.ui.registerModule('form', new FormModule());

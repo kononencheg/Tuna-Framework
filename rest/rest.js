@@ -1,119 +1,96 @@
-/**
- * @constructor
- * @implements {tuna.rest.IMethodFactory}
- */
-var MethodFactory = function() {
-    /**
-     * @private
-     * @type Object.<string, tuna.rest.IMethod>
-     */
-    this.__methods = {};
 
-    /**
-     * @private
-     * @type tuna.rest.IMethodFactory
-     */
-    this.__commonFactory = null;
-};
-
-tuna.utils.implement(MethodFactory, tuna.rest.IMethodFactory);
 
 /**
- * @param {tuna.rest.IMethodFactory} factory
+ * Вызов удаленного метода по имени, зарегистриррованному в основной фабрике
+ * методов.
+ *
+ * @see tuna.rest.methodFactory
+ * @see tuna.rest.MethodFactory
+ * @param {string} name Имя метода.
+ * @param {Object} args Аргументы вызова метода.
+ * @param {function(Object)=} opt_callback Слушатель результата метода.
+ * @param {string=} opt_recordName Имя экземпляра модели данных, которому
+ *        соответствует результат метода.
  */
-MethodFactory.prototype.setDefaultFactory = function(factory) {
-    this.__commonFactory = factory;
-};
-
-/**
- * @override
- */
-MethodFactory.prototype.createMethod = function(name) {
-    if (this.__methods[name] !== undefined) {
-        return this.__methods[name].clone();
-    } else if (this.__commonFactory !== null) {
-        return this.__commonFactory.createMethod(name);
-    }
-
-    return null;
-};
-
-/**
- * @param {string} name
- * @param {tuna.rest.IMethod} method
- */
-MethodFactory.prototype.registerMethod = function(name, method) {
-    this.__methods[name] = method;
-};
-
-/**
- * @type MethodFactory
- */
-tuna.rest.methodFactory = new MethodFactory();
-
-/**
- * @param {string} name
- * @param {Object} args
- * @param {function(Object)} callback
- * @param {?string=} recordName
- */
-tuna.rest.call = function(name, args, callback, recordName) {
-
+tuna.rest.call = function(name, args, opt_callback, opt_recordName) {
     var method = tuna.rest.methodFactory.createMethod(name);
 
-    if (callback !== undefined) {
-        var listener = function(event, data) {
-            var result = data;
+    var listener = null;
+    if (opt_callback !== undefined) {
+        if (opt_recordName === undefined) {
+            listener = function(event, data) {
+                opt_callback(data);
+                method.removeEventListener('result', listener);
+            };
+        } else {
+            listener = function(event, data) {
+                if (opt_recordName !== undefined) {
+                    opt_callback
+                        (tuna.rest.populateRecords(data, opt_recordName));
+                }
 
-            if (recordName !== null && recordName !== undefined) {
-                result = tuna.rest.populateRecords(data, recordName);
-            }
+                method.removeEventListener('result', listener);
+            };
+        }
+    }
 
-            callback(result);
-
-            method.removeEventListener('result', listener);
-        };
-
+    if (listener !== null) {
         method.addEventListener('result', listener);
     }
 
     method.call(args);
 };
 
+
 /**
- * @param {Object|Array.<Object>} data
- * @param {string} name
- * @return {tuna.model.Record|Array.<tuna.model.Record>}
+ * Создание единственного или набора экземпляров модели даннных соответственно
+ * типу передаваемых данных.
+ *
+ * @param {!(Object|Array.<Object>)} data Данные которые необходимо
+ *        преобразовать в экземпляры наборов данных.
+ * @param {string} name Имя экземпляра набора данных.
+ * @return {tuna.model.Record|Array.<tuna.model.Record>} Массив либо
+ *         единственный экземпляр данных.
  */
 tuna.rest.populateRecords = function(data, name) {
-    if (data !== null) {
-        if (data.splice !== undefined) {
+    var recordPrototype = tuna.model.recordFactory.getRecordPrototype(name);
+    if (recordPrototype !== null && data !== null) {
+
+        var record = null;
+        if (data instanceof Array) {
             var result = [];
 
             var i = 0,
                 l = data.length;
 
             while (i < l) {
-                result.push(tuna.rest.__populateRecord(data[i], name));
+                record = recordPrototype.clone();
+                if (data[i] !== null) {
+                    record.populate(data[i]);
+                }
+
+                result.push(record);
+
                 i++;
             }
 
             return result;
         } else {
-            return tuna.rest.__populateRecord(data, name);
+            record = recordPrototype.clone();
+            record.populate(data);
+
+            return record;
         }
     }
 
     return null;
 };
 
+
 /**
- * @param {Object} data
- * @param {string} name
- * @return {tuna.model.Record}
+ * Основная фабрика методов приложения.
+ *
+ * @see tuna.rest.MethodFactory
+ * @type {tuna.rest.MethodFactory}
  */
-tuna.rest.__populateRecord = function(data, name) {
-    var record = tuna.model.recordFactory.createRecord(name);
-    record.populate(data);
-    return record;
-};
+tuna.rest.methodFactory = new tuna.rest.MethodFactory();

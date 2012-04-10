@@ -1,119 +1,160 @@
+
+
+
 /**
+ * Класс базового события событийной модели объектов реализующих интерфейс
+ * <code>tuna.events.IEventDispatcher</code>.
+ *
+ * @see tuna.events.IEventDispatcher
+ * @see tuna.events.EventDispatcher
  * @constructor
- * @param {!string} type
- * @param {boolean=} isBubbling
+ * @param {!tuna.events.IEventDispatcher} target Объект, событие которого
+ *        произошло.
+ * @param {string} type Тип события.
+ * @param {boolean=} opt_isBubbling Флаг использования баблинга.
  */
-var BasicEvent = function(type, isBubbling) {
+tuna.events.BasicEvent = function(target, type, opt_isBubbling) {
 
     /**
+     * Объект событие которого произошло.
+     *
      * @protected
-     * @type tuna.events.IEventDispatcher
+     * @type {tuna.events.IEventDispatcher}
      */
-    this._target = null;
+    this._target = target;
 
     /**
+     * Тип события.
+     *
      * @protected
-     * @type string
+     * @type {string}
      */
     this._type = type;
 
     /**
+     * Флаг использования баблинга.
+     *
      * @protected
-     * @type boolean
+     * @type {boolean}
      */
-    this._isBubbling = !!isBubbling;
+    this._isBubbling = !!opt_isBubbling;
 
     /**
+     * Флаг остановки действие по-умолчанию.
+     *
+     * @see tuna.events.BasicEvent#preventDefault
+     * @see tuna.events.BasicEvent#isDefaultPrevented
      * @protected
-     * @type boolean
+     * @type {boolean}
      */
     this._isCanceled = false;
 
     /**
+     * Флаг остановки распространения события баблингом.
+     *
+     * @see tuna.events.BasicEvent#stopPropagation
+     * @see tuna.events.BasicEvent#isPropagationStopped
      * @protected
-     * @type boolean
+     * @type {boolean}
      */
     this._isStopped = false;
 
     /**
+     * Флаг полной остановки обработки события.
+     *
+     * @see tuna.events.BasicEvent#stopImmediatePropagation
+     * @see tuna.events.BasicEvent#isImmediatePropagationStopped
      * @protected
-     * @type boolean
+     * @type {boolean}
      */
     this._isImmediateStopped = false;
 };
 
-/**
- * @param {tuna.events.IEventDispatcher} target
- */
-BasicEvent.prototype.setTarget = function(target) {
-    this._target = target;
-};
 
 /**
- * @return tuna.events.IEventDispatcher
+ * Возврвщение объекта, с которым произошло событие.
+ *
+ * @return {tuna.events.IEventDispatcher} Объект с которым произошло событие.
  */
-BasicEvent.prototype.getTarget = function() {
+tuna.events.BasicEvent.prototype.getTarget = function() {
     return this._target;
 };
 
+
 /**
- * @return string
+ * Возвращение типа события.
+ *
+ * @return {string} Тип события.
  */
-BasicEvent.prototype.getType = function() {
+tuna.events.BasicEvent.prototype.getType = function() {
     return this._type;
 };
 
+
 /**
- * @return boolean
+ * Используется ли баблинг для данного события.
+ *
+ * @return {boolean} Флаг использования баблинга.
  */
-BasicEvent.prototype.isBubbling = function() {
+tuna.events.BasicEvent.prototype.isBubbling = function() {
     return this._isBubbling;
 };
 
+
 /**
- *
+ * Отмена обработки события по-умолчанию.
  */
-BasicEvent.prototype.preventDefault = function() {
+tuna.events.BasicEvent.prototype.preventDefault = function() {
     this._isCanceled = true;
 };
 
+
 /**
- * @return boolean
+ * Отменена ли обработка события по-умолчанию.
+ *
+ * @return {boolean} Флаг отмены обработки по-умолчанию.
  */
-BasicEvent.prototype.isDefaultPrevented = function() {
+tuna.events.BasicEvent.prototype.isDefaultPrevented = function() {
     return this._isCanceled;
 };
 
+
 /**
+ * Полная остановка обработки события.
  *
+ * Полная остановка означает, что ни один обработчик данного события не будет
+ * вызван.
  */
-BasicEvent.prototype.stopImmediatePropagation = function() {
+tuna.events.BasicEvent.prototype.stopImmediatePropagation = function() {
     this._isImmediateStopped = true;
 };
 
-/**
- * @return boolean
- */
-BasicEvent.prototype.isImmediatePropagationStopped = function() {
-     return this._isImmediateStopped;
-};
 
 /**
+ * Остановлена ли полностью обработка события.
  *
+ * @return {boolean} Флаг полной остановки обработки события.
  */
-BasicEvent.prototype.stopPropagation = function() {
+tuna.events.BasicEvent.prototype.isImmediatePropagationStopped = function() {
+    return this._isImmediateStopped;
+};
+
+
+/**
+ * Остановка баблинга события.
+ *
+ * Обработчики находящиеся выше по иерархии растпростанения вызваны не будут.
+ */
+tuna.events.BasicEvent.prototype.stopPropagation = function() {
     this._isStopped = true;
 };
 
-/**
- * @return boolean
- */
-BasicEvent.prototype.isPropagationStopped = function() {
-    return this._isImmediateStopped || this._isStopped;
-};
 
 /**
- * @constructor
- * @extends {BasicEvent}
+ * Остановлен ли баблинг события.
+ *
+ * @return {boolean} Флаг остановки баблинга.
  */
-tuna.events.BasicEvent = BasicEvent;
+tuna.events.BasicEvent.prototype.isPropagationStopped = function() {
+    return this._isImmediateStopped || this._isStopped;
+};

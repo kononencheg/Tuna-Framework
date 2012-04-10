@@ -1,9 +1,9 @@
 /**
  * @constructor
- * @extends {tuna.ui.ModuleInstance}
+ * @extends tuna.ui.ModuleInstance
  * @param {!Node} target
  */
-var Form = function(target) {
+tuna.ui.forms.Form = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 
     /**
@@ -25,18 +25,12 @@ var Form = function(target) {
     this.__recordName = null;
 };
 
-tuna.utils.extend(Form, tuna.ui.ModuleInstance);
-
-/**
- * @const
- * @type string
- */
-Form.CALLBACK_PREFIX = 'form_callback';
+tuna.utils.extend(tuna.ui.forms.Form, tuna.ui.ModuleInstance);
 
 /**
  * @override
  */
-Form.prototype.init = function() {
+tuna.ui.forms.Form.prototype.init = function() {
     this.__recordName = this.getStringOption('record-type');
     this.__formMessage = tuna.dom.selectOne('.j-form-message', this._target);
 
@@ -51,7 +45,7 @@ Form.prototype.init = function() {
     tuna.dom.addEventListener(this._target, 'submit', function(event) {
         if (self.isEnabled()) {
             callbackInput.value
-                = Form.CALLBACK_PREFIX + (Math.random() + '').substr(2);
+                = 'form_callback' + (Math.random() + '').substr(2);
 
             window[callbackInput.value] = function(response) {
                 self.__handleResponse(tuna.utils.clone(response));
@@ -75,9 +69,9 @@ Form.prototype.init = function() {
 
 /**
  * @param {string} name
- * @return {null|string|Array.<string>}
+ * @return {?string|Array.<string>}
  */
-Form.prototype.getValue = function(name) {
+tuna.ui.forms.Form.prototype.getValue = function(name) {
     var result = null;
 
     var element = this._target.elements[name];
@@ -119,7 +113,7 @@ Form.prototype.getValue = function(name) {
  * @param {string} name
  * @param {string|Array.<string>} value
  */
-Form.prototype.setValue = function(name, value) {
+tuna.ui.forms.Form.prototype.setValue = function(name, value) {
     var element = this._target.elements[name];
     if (element !== undefined) {
         if (element.value === undefined) {
@@ -168,9 +162,40 @@ Form.prototype.setValue = function(name, value) {
 };
 
 /**
+ *
+ * @param {string} name
+ * @param {boolean} isEnabled
+ */
+tuna.ui.forms.Form.prototype.setInputEnabled = function(name, isEnabled) {
+    var element = this._target.elements[name];
+    if (element !== undefined) {
+        if (element.value === undefined) {
+            var i = 0,
+                l = element.length;
+
+            while (i < l) {
+                if (isEnabled) {
+                    element[i].removeAttribute('disabled');
+                } else {
+                    element[i].setAttribute('disabled', true);
+                }
+
+                i++;
+            }
+        } else {
+            if (isEnabled) {
+                element.removeAttribute('disabled');
+            } else {
+                element.setAttribute('disabled', true);
+            }
+        }
+    }
+};
+
+/**
  * 
  */
-Form.prototype.submit = function() {
+tuna.ui.forms.Form.prototype.submit = function() {
     this.__prepareTo('submit');
     this._target.submit();
 };
@@ -178,7 +203,7 @@ Form.prototype.submit = function() {
 /**
  *
  */
-Form.prototype.reset = function() {
+tuna.ui.forms.Form.prototype.reset = function() {
     this.__prepareTo('reset');
     this._target.reset();
 };
@@ -186,15 +211,15 @@ Form.prototype.reset = function() {
 /**
  * @return {Object}
  */
-Form.prototype.serialize = function() {
+tuna.ui.forms.Form.prototype.serialize = function() {
     return tuna.ui.forms.serialize(this._target);
 };
 
 /**
  * @param {string} type
- * @param {Event=} event
+ * @param {!Event=} event
  */
-Form.prototype.__prepareTo = function(type, event) {
+tuna.ui.forms.Form.prototype.__prepareTo = function(type, event) {
     if (this.dispatch(type)) {
         this.__clearMessage();
         this.__clearInputs();
@@ -207,7 +232,7 @@ Form.prototype.__prepareTo = function(type, event) {
  * @private
  * @param {Object} data
  */
-Form.prototype.__handleResponse = function(data) {
+tuna.ui.forms.Form.prototype.__handleResponse = function(data) {
     var response = data['response'];
     var errors = data['errors'];
 
@@ -227,7 +252,7 @@ Form.prototype.__handleResponse = function(data) {
  * @private
  * @param {Array.<Object>} errors
  */
-Form.prototype.__showErrors = function(errors) {
+tuna.ui.forms.Form.prototype.__showErrors = function(errors) {
     var i = 0,
         l = errors.length;
 
@@ -249,7 +274,7 @@ Form.prototype.__showErrors = function(errors) {
  * @param {string} name
  * @return {tuna.ui.forms.FormInput}
  */
-Form.prototype.__getFormInput = function(name) {
+tuna.ui.forms.Form.prototype.__getFormInput = function(name) {
     var result = null;
 
     if (this.__inputTable[name] === undefined) {
@@ -274,7 +299,7 @@ Form.prototype.__getFormInput = function(name) {
 /**
  * @private
  */
-Form.prototype.__clearMessage = function() {
+tuna.ui.forms.Form.prototype.__clearMessage = function() {
     if (this.__formMessage !== null) {
         this.__formMessage.innerHTML = '';
         tuna.dom.addClass(this.__formMessage, 'hide');
@@ -285,7 +310,7 @@ Form.prototype.__clearMessage = function() {
  * @private
  * @param {string} message
  */
-Form.prototype.__showErrorMessage = function(message) {
+tuna.ui.forms.Form.prototype.__showErrorMessage = function(message) {
     if (this.__formMessage !== null) {
         this.__formMessage.innerHTML += message + '<br />';
         tuna.dom.removeClass(this.__formMessage, 'hide');
@@ -297,7 +322,7 @@ Form.prototype.__showErrorMessage = function(message) {
  * @param {string} name
  * @param {string} message
  */
-Form.prototype.__showInputError = function(name, message) {
+tuna.ui.forms.Form.prototype.__showInputError = function(name, message) {
     var formInput = this.__getFormInput(name);
     if (formInput !== null) {
         formInput.showErrorMessage(message);
@@ -309,14 +334,8 @@ Form.prototype.__showInputError = function(name, message) {
 /**
  * @private
  */
-Form.prototype.__clearInputs = function() {
+tuna.ui.forms.Form.prototype.__clearInputs = function() {
     for (var name in this.__inputTable) {
         this.__inputTable[name].cleanup();
     }
 };
-
-/**
- * @constructor
- * @extends {Form}
- */
-tuna.ui.forms.Form = Form;

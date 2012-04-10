@@ -1,4 +1,5 @@
 /**
+ * @private
  * @constructor
  * @extends {tuna.ui.Module}
  */
@@ -15,4 +16,4 @@ InputFilterModule.prototype.initInstance = function(target) {
     return new tuna.ui.forms.InputFilter(target);
 };
 
-tuna.ui.modules.register('input-filter', new InputFilterModule());
+tuna.ui.registerModule('input-filter', new InputFilterModule());
