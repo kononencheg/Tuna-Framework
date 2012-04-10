@@ -31,8 +31,8 @@ tuna.tmpl.units.condition.ConditionOperator.prototype.test = function(value) {};
  * Клонировние оператора с новыми данными.
  *
  * @param {string=} data Данные оператора.
- * @return {!tuna.tmpl.units.condition.ConditionAction} Копия оператора с новыми
- *         данными.
+ * @return {!tuna.tmpl.units.condition.ConditionOperator} Копия оператора с
+ *         новыми данными.
  */
 tuna.tmpl.units.condition.ConditionOperator.prototype.clone = function(data) {
     return new this.constructor(data);

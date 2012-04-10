@@ -9,6 +9,7 @@
  * @return {!tuna.tmpl.units.Template} Созданный шаблон.
  */
 tuna.tmpl.compile = function(element, settings) {
+    debugger;
     return tuna.tmpl.getCompiler().compile(settings, element);
 };
 
@@ -145,7 +146,7 @@ tuna.tmpl.__settingsTable = {};
 tuna.tmpl.getTemplateSettingsById = function(id) {
     if (tuna.tmpl.__settingsTable[id] === undefined) {
         tuna.tmpl.__settingsTable[id]
-            = tuna.tmpl.__markupBuilder.buildSettings(id);
+            = tuna.tmpl.getMarkupBuilder().buildSettings(id);
     }
 
     return tuna.tmpl.__settingsTable[id];
