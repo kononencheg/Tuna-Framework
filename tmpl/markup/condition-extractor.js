@@ -67,8 +67,11 @@ tuna.tmpl.markup.ConditionExtractor.prototype._createItem = function(element) {
     if (selector !== null && dataPath !== null &&
         actionAttribute !== null && operatorAttribute !== null) {
 
+        var actionName = actionAttribute.name.substr(this._ns.length);
+        var operatorName = operatorAttribute.name.substr(this._ns.length);
+
         var condition = new tuna.tmpl.settings.ConditionSettings
-            (selector, dataPath, actionAttribute.name, operatorAttribute.name);
+            (selector, dataPath, actionName, operatorName);
 
         condition.pattern = element.getAttribute(this._ns + 'pattern');
         condition.actionData = actionAttribute.value;
@@ -89,7 +92,10 @@ tuna.tmpl.markup.ConditionExtractor.prototype._createItem = function(element) {
 tuna.tmpl.markup.ConditionExtractor.prototype.__extractActionAttribute =
     function(element) {
 
-    for (var name in this.__actions) {
+    var name = null;
+    for (var key in this.__actions) {
+        name = this._ns + this.__actions[key];
+
         if (element.attributes[name]) {
             return element.attributes[name];
         }
@@ -106,7 +112,10 @@ tuna.tmpl.markup.ConditionExtractor.prototype.__extractActionAttribute =
 tuna.tmpl.markup.ConditionExtractor.prototype.__extractOperatorAttribute =
     function(element) {
 
-    for (var name in this.__operators) {
+    var name = null;
+    for (var key in this.__operators) {
+        name = this._ns + this.__operators[key];
+
         if (element.attributes[name]) {
             return element.attributes[name];
         }

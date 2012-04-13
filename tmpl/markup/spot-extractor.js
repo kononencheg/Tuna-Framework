@@ -31,7 +31,7 @@ tuna.tmpl.markup.SpotExtractor.prototype.extract = function(element) {
     var result = [];
 
     var tagName = tuna.IS_IE ? this._tagName : (this._ns + this._tagName);
-    var elements = tuna.utils.toArray(element.getElementsByTagName(tagName));
+    var elements = element.getElementsByTagName(tagName);
 
     var i = 0,
         l = elements.length;
