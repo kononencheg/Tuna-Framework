@@ -20,13 +20,13 @@ tuna.tmpl.markup.ConditionExtractor = function() {
      * @private
      * @type {!Array.<string>}
      */
-    this.__operators = [];// = ['isset', 'notset','eq', 'ne'];
+    this.__operators = [];
 
     /**
      * @private
      * @type {!Array.<string>}
      */
-    this.__actions = [];// ['class'];
+    this.__actions = [];
 };
 
 
