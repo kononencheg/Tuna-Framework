@@ -23,6 +23,7 @@
         <ul>
             <li><a href="#overwiev">Обзор</a></li>
             <li><a href="#structure">Структура библиотеки</a></li>
+            <li><a href="#requirements">Зависимости</a></li>
             <li><a href="#hello-world">Простейшее приложение</a></li>
         </ul>
 
@@ -72,13 +73,20 @@
                 компонентам Tuna Framework.
             </li>
             <li>
-                <em>Строгость</em> - код библиотеки компилируется с помощью <a
-                    href="https://developers.google.com/closure/compiler/">Closure
-                Compiler</a> в режиме продвинутой оптимизации (<code>ADVANCED_OPTIMIZATIONS</code>).
+                <em>Строгость</em> - код библиотеки компилируется с помощью
+                <a href="https://developers.google.com/closure/compiler/"
+                   target="_blank">
+                    Closure Compiler
+                </a>
+                в режиме продвинутой оптимизации (<code>ADVANCED_OPTIMIZATIONS</code>).
             </li>
             <li>
                 <em>Компактность</em> - после сжатия с помощью Closure
                 Compiler'а код ужимается до 50кб - 16кб gzip (92% - 97.5% gzip).
+            </li>
+            <li>
+                <em>Кросс браузерность</em> - библиотека работает во всех современных
+                (возможно и не современных) браузерах.
             </li>
         </ol>
 
@@ -145,7 +153,7 @@
             <li>
                 <code>tuna.dom</code> - функции работы с DOM-моделью браузера,
                 для обеспечения полной функциональности требуется установить
-                движок CSS-селекторов, например <a href="http://sizzlejs.com/">Sizzle</a>;
+                движок CSS-селекторов, например <a href="http://sizzlejs.com/" target="_blank">Sizzle</a>;
             </li>
             <li>
                 <code>tuna.net</code> - классы обращения к удаленным источникам
@@ -157,21 +165,86 @@
         </ul>
 
         <h2>
+            <a name="requirements"></a> Зависимости
+        </h2>
+
+        <p>
+            На данный момент, для корректной работы, библиотека требует движок
+            CSS-селекторов соответсвующий внешнему интерфейсу движка
+            <a href="http://sizzlejs.com/" target="_blank">Sizzle</a>.
+        </p>
+
+        <p>
+            Список необходимых методов движка CSS-селекторов:
+        </p>
+
+        <ul>
+            <li>
+                <code>selectorEngine(selector, context)</code> - Поиск элементов
+                соотвествующих указанному селектору в указанном контексте.
+            </li>
+            <li>
+                <code>selectorEngine.matches(selector, elements)</code> -
+                Фильтрация элементов соотвествующих указанному селектору.
+            </li>
+            <li>
+                <code>selectorEngine.matchesSelector(element, selector)</code> -
+                Проверка соответствия элемента селектору.
+            </li>
+        </ul>
+
+        <p>
+            Так же, в качестве используемых имен утилитарных CSS-классов,
+            используются имена соответсвующие классам библиотеки
+            <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
+        </p>
+
+        <p>
+            Например:
+        </p>
+
+        <ul>
+            <li>
+                <code>hide</code> - спрятанный элемент,
+            </li>
+            <li>
+                <code>show</code> - отображенный элемент,
+            </li>
+            <li>
+                <code>active</code> - активный элемент,
+            </li>
+            <li>
+                <code>...</code>
+            </li>
+        </ul>
+
+
+        <h2>
             <a name="hello-world"></a> Простейшее приложение
         </h2>
 
         <p>
             Для созданий простейшего приложения используем базовый шаблон
             проекта
-            <a href="http://github.com/kononencheg/Hello-Tuna-Framework">
+            <a href="http://github.com/kononencheg/Hello-Tuna-Framework" target="_blank">
                 Hello Tuna Framework
             </a>.
         </p>
+
         <p>
             Клонируем репозиторий проекта:
         </p>
 
         <pre><code>$ git clone git://github.com/kononencheg/Hello-Tuna-Framework.git</code></pre>
+
+        <p>
+            ...
+        </p>
+<!--
+    // Установка CSS-класса, изолирующего компоненты отображения во вложенных
+    // контейнерах.
+    tuna.ui.addIsolator('j-control-container');
+ -->
 
     </section>
 
