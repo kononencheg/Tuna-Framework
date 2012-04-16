@@ -1,104 +1,160 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Tuna Framework by kononencheg</title>
-    
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
+</head>
+<body>
+<div class="wrapper">
+    <header>
         <h1>Tuna Framework</h1>
+
         <p>Удобный каркас для клиентских веб-приложений</p>
-        <p class="view"><a href="https://github.com/kononencheg/Tuna-Framework">View the Project on GitHub <small>kononencheg/Tuna-Framework</small></a></p>
+
         <ul>
-          <li><a href="https://github.com/kononencheg/Tuna-Framework/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/kononencheg/Tuna-Framework/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/kononencheg/Tuna-Framework">Fork On <strong>GitHub</strong></a></li>
+            <li><a href="#overwiev">Обзор</a></li>
+            <li><a href="#structure">Структура</a></li>
         </ul>
-      </header>
-      <section>
+
+        <p class="view">
+            <a href="https://github.com/kononencheg/Tuna-Framework">
+                Открыть проект на GitHub
+                <small>kononencheg/Tuna-Framework</small>
+            </a>
+        </p>
+        <ul>
+            <li>
+                <a href="https://github.com/kononencheg/Tuna-Framework/zipball/master">Download
+                    <strong>ZIP File</strong></a></li>
+            <li>
+                <a href="https://github.com/kononencheg/Tuna-Framework/tarball/master">Download
+                    <strong>TAR Ball</strong></a></li>
+            <li><a href="https://github.com/kononencheg/Tuna-Framework">Fork On
+                <strong>GitHub</strong></a></li>
+        </ul>
+    </header>
+    <section>
         <h1>
-<a name="top"></a> Tuna Framework</h1>
+            <a name="top"></a> Tuna Framework</h1>
 
-<h2>
-<a name="overwiev"></a> Обзор</h2>
+        <h2>
+            <a name="overwiev"></a> Обзор</h2>
 
-<p>Tuna Framework предоставляет удобную и надежную основу для сложных веб приложений. Основными преимуществами библиотеки являются:</p>
+        <p>Tuna Framework предоставляет удобную и надежную основу для сложных
+            веб приложений. Основными преимуществами библиотеки являются:</p>
 
-<ol>
-<li>
-<em>Удобство</em> - для написания простейшего приложения требуется лишь указать список используемых на странице модулей-компонентов.</li>
-<li>
-<em>Скорость</em> - структура приложения максимально оптимизированна на каждом уровне.</li>
-<li>
-<em>Расширяемость</em> - для добавления нового функционала можно использовать любые библиотеки - нет строгой привязки к компонентам Tuna Framework.</li>
-<li>
-<em>Строгость</em> - код библиотеки компилируется с помощью <a href="https://developers.google.com/closure/compiler/">Closure Compiler</a> в режиме продвинутой оптимизации (<code>ADVANCED_OPTIMIZATIONS</code>).</li>
-<li>
-<em>Компактность</em> - после сжатия с помощью Closure Compiler'а код ужимается до 50кб - 16кб gzip (92% - 97.5% gzip).</li>
-</ol><h3>Навигация</h3>
+        <ol>
+            <li>
+                <em>Удобство</em> - для написания простейшего приложения
+                требуется лишь указать список используемых на странице
+                модулей-компонентов.
+            </li>
+            <li>
+                <em>Скорость</em> - структура приложения максимально
+                оптимизированна на каждом уровне.
+            </li>
+            <li>
+                <em>Расширяемость</em> - для добавления нового функционала можно
+                использовать любые библиотеки - нет строгой привязки к
+                компонентам Tuna Framework.
+            </li>
+            <li>
+                <em>Строгость</em> - код библиотеки компилируется с помощью <a
+                    href="https://developers.google.com/closure/compiler/">Closure
+                Compiler</a> в режиме продвинутой оптимизации (<code>ADVANCED_OPTIMIZATIONS</code>).
+            </li>
+            <li>
+                <em>Компактность</em> - после сжатия с помощью Closure
+                Compiler'а код ужимается до 50кб - 16кб gzip (92% - 97.5% gzip).
+            </li>
+        </ol>
 
-<ul>
-<li><a href="#overwiev">Обзор</a></li>
-<li><a href="#structure">Структура</a></li>
-</ul><h2>
-<a name="structure"></a> Структура</h2>
+        <h2>
+            <a name="structure"></a> Структура</h2>
 
-<p>Tuna Framework применяет концепцию MVC, компоненты которой реализуются в соответсвующих областях имен:</p>
+        <p>Tuna Framework применяет концепцию MVC, компоненты которой
+            реализуются в соответсвующих областях имен:</p>
 
-<ul>
-<li>Отображение
+        <ul>
+            <li>Отображение
 
-<ul>
-<li>
-<code>tuna.ui</code> - классы-компоненты отображения, такие как кнопки, всплывающие окна, списки выделения и тд.</li>
-</ul>
-</li>
-<li>Модель
+                <ul>
+                    <li>
+                        <code>tuna.ui</code> - классы-компоненты отображения,
+                        такие как кнопки, всплывающие окна, списки выделения и
+                        тд.
+                    </li>
+                </ul>
+            </li>
+            <li>Модель
 
-<ul>
-<li>
-<code>tuna.model</code> - классы для работы с моделью данных приложения.</li>
-<li>
-<code>tuna.rest</code> - классы для работы с удаленной моделью данных приложения через REST-интерфейс.</li>
-</ul>
-</li>
-<li>Контроллер
+                <ul>
+                    <li>
+                        <code>tuna.model</code> - классы для работы с моделью
+                        данных приложения.
+                    </li>
+                    <li>
+                        <code>tuna.rest</code> - классы для работы с удаленной
+                        моделью данных приложения через REST-интерфейс.
+                    </li>
+                </ul>
+            </li>
+            <li>Контроллер
 
-<ul>
-<li>
-<code>tuna.control</code> - базовые классы управления логикой приложения.</li>
-</ul>
-</li>
-</ul><p>Дополнительно библиотека содержит вспомогательный функционал, используемый в основных компонентах библиотеки:</p>
+                <ul>
+                    <li>
+                        <code>tuna.control</code> - базовые классы управления
+                        логикой приложения.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p>Дополнительно библиотека содержит вспомогательный функционал,
+            используемый в основных компонентах библиотеки:</p>
 
-<ul>
-<li>
-<code>tuna.events</code> - классы реализующие событийную модель используемую в приложении;</li>
-<li>
-<code>tuna.tpml</code> - классы очень быстрого шаблонизатора;</li>
-<li>
-<code>tuna.dom</code> - функции работы с DOM-моделью браузера, для обеспечения полной функциональности требуется установить движок CSS-селекторов, например <a href="http://sizzlejs.com/">Sizzle</a>;</li>
-<li>
-<code>tuna.net</code> - классы обращения к удаленным источникам данных;</li>
-<li>
-<code>tuna.utils</code> - общие вспомогательные функции;</li>
-</ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/kononencheg">kononencheg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+        <ul>
+            <li>
+                <code>tuna.events</code> - классы реализующие событийную модель
+                используемую в приложении;
+            </li>
+            <li>
+                <code>tuna.tpml</code> - классы очень быстрого шаблонизатора;
+            </li>
+            <li>
+                <code>tuna.dom</code> - функции работы с DOM-моделью браузера,
+                для обеспечения полной функциональности требуется установить
+                движок CSS-селекторов, например <a href="http://sizzlejs.com/">Sizzle</a>;
+            </li>
+            <li>
+                <code>tuna.net</code> - классы обращения к удаленным источникам
+                данных;
+            </li>
+            <li>
+                <code>tuna.utils</code> - общие вспомогательные функции;
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <p>This project is maintained by <a
+                href="https://github.com/kononencheg">kononencheg</a></p>
+
+        <p>
+            <small>Hosted on GitHub Pages &mdash; Theme by <a
+                    href="https://github.com/orderedlist">orderedlist</a>
+            </small>
+        </p>
+    </footer>
+</div>
+<script src="javascripts/scale.fix.js"></script>
+
+</body>
 </html>
