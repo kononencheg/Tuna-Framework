@@ -19,7 +19,7 @@ var tuna = {};
  * @const
  * @type string
  */
-tuna.VERSION = '1.0.570';
+tuna.VERSION = '1.0.571';
 
 
 /**
