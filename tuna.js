@@ -17,7 +17,7 @@ var tuna = {};
  * @const
  * @type string
  */
-tuna.VERSION = '3.5.70';
+tuna.VERSION = '1.0.570';
 
 /**
  * Является ли текущий браузер Internet Explorer'ом.
