@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
     <title>Tuna Framework by kononencheg</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -24,6 +26,7 @@
             <li><a href="#overwiev">Обзор</a></li>
             <li><a href="#structure">Структура библиотеки</a></li>
             <li><a href="#requirements">Зависимости</a></li>
+            <li><a href="#app-structure">Структура приложения</a></li>
             <li><a href="#hello-world">Простейшее приложение</a></li>
         </ul>
 
@@ -218,6 +221,39 @@
             </li>
         </ul>
 
+        <h2>
+            <a name="app-structure"></a> Структруа приложения
+        </h2>
+
+        <p>
+            Репозиторий приложения обычно имеет следующую структуру:
+        </p>
+
+        <ul>
+            <li>
+                <code>application</code> - папка содержащая исходные коды
+                конкретного приложения.
+            </li>
+            <li>
+                <code>library</code> - папка содержащая исходные коды
+                библиотек, используемых в приложении.
+            </li>
+            <li>
+                <code>public</code> - корневая папка веб-приложения, в которую
+                "собираются" исходники приложения.
+            </li>
+            <li>
+                <code>templates</code> - папка содержащая html-шаблоны
+                приложения.
+            </li>
+            <li>
+                <code>utils</code> - папка с утилитами для сборки приложения.
+            </li>
+            <li>
+                <code>Makefile</code> - файл сценария сборки приложения из
+                исходников.
+            </li>
+        </ul>
 
         <h2>
             <a name="hello-world"></a> Простейшее приложение
@@ -238,13 +274,33 @@
         <pre><code>$ git clone git://github.com/kononencheg/Hello-Tuna-Framework.git</code></pre>
 
         <p>
-            ...
+            Основной код приложения содержится в файле
+            <code>application/control/main-controller.js</code>:
         </p>
-<!--
-    // Установка CSS-класса, изолирующего компоненты отображения во вложенных
-    // контейнерах.
-    tuna.ui.addIsolator('j-control-container');
- -->
+
+        <pre><code> 1  var MainController = function() {
+ 2      tuna.control.ViewController.call(this);
+ 3      this._modules = [ 'popup' ];
+ 4  };
+ 5
+ 6  tuna.utils.extend(MainController, tuna.control.ViewController);
+ 7
+ 8  MainController.prototype._initActions = function() {
+ 9      // Логика приложения инициализируется тут
+10  };
+11
+12  tuna.control.setMainController(new MainController());</code></pre>
+
+        <p>
+            Список имен модулей-компонентов отображения, которые необходимо
+            проинициализировать в соответствующем контейнере находятся в массиве
+            <code>this._modules</code>.
+        </p>
+
+        <p>
+            В данном примере в основном контейнере приложения следует
+            проинициализировать модуль отображения <code>'popup'</code>.
+        </p>
 
     </section>
 

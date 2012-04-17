@@ -58,7 +58,7 @@ blockquote {
 }
 
 code, pre {
-  font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
+  /*font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;*/
   color:#333;
   font-size:12px;
 }
@@ -68,7 +68,7 @@ pre {
   background: #f8f8f8;  
   border-radius:5px;
   border:1px solid #e5e5e5;
-  overflow-x: auto;
+  /*overflow-x: auto;*/
 }
 
 table {
