@@ -90,10 +90,11 @@
             </li>
             <li>
                 <em>Компактность</em> - после сжатия с помощью Closure
-                Compiler'а код ужимается до 50кб - 16кб gzip (92% - 97.5% gzip).
+                Compiler'а <code>ADVANCED</code> режиме код ужимается до
+                50кб (92%), в режиме обычного сжатия - до 90кб (85%).
             </li>
             <li>
-                <em>Кросс браузерность</em> - библиотека работает во всех современных
+                <em>Кросс-браузерность</em> - библиотека работает во всех современных
                 (возможно и не современных) браузерах.
             </li>
         </ol>
@@ -114,8 +115,7 @@
                 <ul>
                     <li>
                         <code>tuna.ui</code> - классы-компоненты отображения,
-                        такие как кнопки, всплывающие окна, списки выделения и
-                        тд.
+                        такие как кнопки, всплывающие окна, списки выделения и тд.
                     </li>
                 </ul>
             </li>
@@ -161,7 +161,8 @@
             <li>
                 <code>tuna.dom</code> - функции работы с DOM-моделью браузера,
                 для обеспечения полной функциональности требуется установить
-                движок CSS-селекторов, например <a href="http://sizzlejs.com/" target="_blank">Sizzle</a>;
+                движок CSS-селекторов, например
+                <a href="http://sizzlejs.com/" target="_blank">Sizzle</a>;
             </li>
             <li>
                 <code>tuna.net</code> - классы обращения к удаленным источникам
@@ -227,7 +228,7 @@
         </ul>
 
         <h2>
-            <a name="app-structure"></a> Структруа приложения
+            <a name="app-structure"></a> Структура приложения
         </h2>
 
         <p>
@@ -266,7 +267,8 @@
 
         <p>
             Для сборки приложения удобно использовать утилиту
-            <a href="http://www.gnu.org/software/make/">GNU Make</a> (для <a href="http://gnuwin32.sourceforge.net/packages/make.htm" target="_blank">windows</a>)
+            <a href="http://www.gnu.org/software/make/">GNU Make</a> (для
+            <a href="http://gnuwin32.sourceforge.net/packages/make.htm" target="_blank">windows</a>)
             в связке с приложениями для сжатия/объединения <code>javascript</code>
             (например <a href="https://developers.google.com/closure/compiler/" target="_blank">Closure Compiler</a>,
             <a href="https://github.com/mishoo/UglifyJS">Uglify JS</a>, ...)
