@@ -278,18 +278,18 @@
             <code>application/control/main-controller.js</code>:
         </p>
 
-        <pre><code> 1  var MainController = function() {
- 2      tuna.control.ViewController.call(this);
- 3      this._modules = [ 'popup' ];
- 4  };
- 5
- 6  tuna.utils.extend(MainController, tuna.control.ViewController);
- 7
- 8  MainController.prototype._initActions = function() {
- 9      // Логика приложения инициализируется тут
-10  };
-11
-12  tuna.control.setMainController(new MainController());</code></pre>
+        <pre><code>var MainController = function() {
+    tuna.control.ViewController.call(this);
+    this._modules = [ 'popup' ];
+};
+
+tuna.utils.extend(MainController, tuna.control.ViewController);
+
+MainController.prototype._initActions = function() {
+    // Логика приложения инициализируется тут
+};
+
+tuna.control.setMainController(new MainController());</code></pre>
 
         <p>
             Список имен модулей-компонентов отображения, которые необходимо
@@ -298,10 +298,75 @@
         </p>
 
         <p>
-            В данном примере в основном контейнере приложения следует
-            проинициализировать модуль отображения <code>'popup'</code>.
+            В данном примере в основном контейнере приложения проинициализируется
+            модуль отображения <code>popup</code>.
         </p>
 
+        <p>
+            Разметка контейнера отображения (<code>body</code>
+            для основного контроллера) расположена в файле
+            <code>public/index.html</code>:
+        </p>
+
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;Hello Tuna Framework!&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;
+          href=&quot;css/bootstrap.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;j-popup hide&quot; data-name=&quot;hello-popup&quot;&gt;
+        &lt;div class=&quot;modal&quot;&gt;
+            &lt;div class=&quot;modal-header&quot;&gt;
+                &lt;h3&gt;Hello Tuna Framework!&lt;/h3&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;modal-body&quot;&gt;
+                &lt;a class=&quot;j-popup-close btn pull-right&quot;&gt;
+                    Close
+                &lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;modal-backdrop&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!--[if IE]&gt;--&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;js/json.js&quot;&gt;&lt;/script&gt;
+    &lt;!--&lt;![endif]--&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/sizzle.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/app.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        main(document.body);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p>
+            Блок <code>div</code> c CSS-классом <code>j-popup</code> при
+            инициализации отображения будет являться целевым DOM-элементом для
+            модуля <code>popup</code>. Для корректной работы модуля
+            <code>popup</code>, целевой контейнер в исходном состоянии должен быть
+            спрятан, для этого используется класс <code>hide</code>.
+        </p>
+
+        <p>
+            Чтобы показать всплывающее окно, необходимо добавить следующий код в
+            тело метода <code>_initActions()</code> класса <code>MainController</code>:
+        </p>
+
+        <pre><code>MainController.prototype._initActions = function() {
+    // По типу модуля и имени получаем экземпляр класса всплывающего окна.
+    var popup = this._container.getModuleInstanceByName('popup', 'hello-popup');
+
+    // Показываем окно
+    popup.open();
+};</code></pre>
+
+        <p>
+            И проверяем работающий пример!
+        </p>
     </section>
 
     <footer>
