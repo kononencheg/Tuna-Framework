@@ -26,7 +26,12 @@
             <li><a href="#overwiev">Обзор</a></li>
             <li><a href="#structure">Структура библиотеки</a></li>
             <li><a href="#requirements">Зависимости</a></li>
-            <li><a href="#app-structure">Структура приложения</a></li>
+            <li>
+                <a href="#app-structure">Структура приложения</a>
+                <ul class="submenu">
+                    <li><a href="#build">Сборка приложения</a></li>
+                </ul>
+            </li>
             <li><a href="#hello-world">Простейшее приложение</a></li>
         </ul>
 
@@ -255,6 +260,24 @@
             </li>
         </ul>
 
+        <h3>
+            <a name="build"></a> Сборка приложения
+        </h3>
+
+        <p>
+            Для сборки приложения удобно использовать утилиту
+            <a href="http://www.gnu.org/software/make/">GNU Make</a> (или похожие)
+            в связке с приложениями для сжатия/объединения <code>javascript</code>
+            (например <a href="https://developers.google.com/closure/compiler/" target="_blank">Closure Compiler</a>,
+            <a href="https://github.com/mishoo/UglifyJS">Uglify JS</a>, ...)
+            и для сбоки <code>html</code>-шаблонов (например <a href="http://mustache.github.com/">mustache</a>).
+        </p>
+
+        <p>
+            Пример <a href="https://gist.github.com/2405728" target="_blank">make-файла</a> для "компиляции" приложения
+            использующего Tuna Framework.
+        </p>
+
         <h2>
             <a name="hello-world"></a> Простейшее приложение
         </h2>
@@ -365,8 +388,12 @@ tuna.control.setMainController(new MainController());</code></pre>
 };</code></pre>
 
         <p>
-            И проверяем работающий пример!
+            <a href="#build">Собираем</a> приложение и проверяем
+            <a href="http://kononencheg.github.com/Hello-Tuna-Framework/" target="_blank">работающий пример</a>!
         </p>
+
+        <pre><code>$ make && firefox public/index.html</code></pre>
+
     </section>
 
     <footer>

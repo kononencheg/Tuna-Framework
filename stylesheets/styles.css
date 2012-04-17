@@ -16,6 +16,10 @@ p, ul, ol, table, pre, dl {
   margin:0 0 20px;
 }
 
+ul ul {
+   padding-left: 20px;
+}
+
 h1, h2, h3 {
   line-height:1.1;
 }
@@ -96,9 +100,13 @@ img {
 }
 
 header {
-  width:270px;
-  float:left;
-  position:fixed;
+    width:270px;
+    float:left;
+    position:fixed;
+}
+
+header ul.submenu {
+    margin: 0;
 }
 
 header ul.downloads {
