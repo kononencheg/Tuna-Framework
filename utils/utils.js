@@ -252,7 +252,7 @@ var Config = function() {
 
     /**
      * @private
-     * @type {Object.<(string|number), (string|number|boolean)>}
+     * @type {Object.<(string|number), *>}
      */
     this.__data = null;
 };
@@ -265,9 +265,9 @@ Config.prototype.init = function(data) {
 };
 
 /**
- * @param {!(string|number)} key
+ * @param {string|number} key
  * @param {(string|number)=} subKey
- * @return {?(string|number|boolean)}
+ * @return {*}
  */
 Config.prototype.get = function(key, subKey) {
     if (this.__data[key] !== undefined) {
@@ -279,6 +279,14 @@ Config.prototype.get = function(key, subKey) {
     }
 
     return null;
+};
+
+/**
+ * @param {string|number} key
+ * @param {*} value
+ */
+Config.prototype.set = function(key, value) {
+    this.__data[key] = value;
 };
 
 /**
