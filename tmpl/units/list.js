@@ -223,12 +223,10 @@ tuna.tmpl.units.List.prototype.__removeItems = function(itemsTable) {
 tuna.tmpl.units.List.prototype.__makeItemTemplate = function() {
     var templateTarget = this.__itemRenderer.cloneNode(true);
     if (templateTarget !== null && this.__itemSettings !== null) {
-        var template = this.__templateCompiler.compile
-            (this.__itemSettings, templateTarget, this._rootTemplate);
-
         this.__listNodeRouter.append(templateTarget);
 
-        return template;
+        return this.__templateCompiler.compile
+            (this.__itemSettings, templateTarget, this._rootTemplate);
     }
 
     return null;

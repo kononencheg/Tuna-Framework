@@ -265,16 +265,16 @@ tuna.dom.addChildEventListener = function(element, selector, type, handler) {
         var target = event.target || event.srcElement;
 
         var child = null;
-
-        var matches = tuna.dom.matches(selector, [target]);
-        if (matches.length === 0) {
-            child = tuna.dom.getParentMatches(target, selector, element);
-        } else {
+        if (tuna.dom.matchesSelector(target, selector)) {
             child = target;
+        } else {
+            child = tuna.dom.getParentMatches(target, selector, element);
         }
 
         if (child !== null) {
             handler.call(child, event);
+
+            tuna.dom.stopPropagation(event);
         }
     };
 
