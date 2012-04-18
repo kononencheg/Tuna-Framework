@@ -32,7 +32,5 @@ tuna.tmpl.units.condition.ClassAction.NAME = 'class';
 tuna.tmpl.units.condition.ClassAction.prototype.apply =
     function(element, testResult, value) {
 
-    if (this._data !== '') {
-        tuna.dom.setClassExist(element, this._data, testResult);
-    }
+    tuna.dom.setClassExist(element, this._data, testResult);
 };
