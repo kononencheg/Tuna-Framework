@@ -34,18 +34,27 @@ tuna.ui.flash.SWF.prototype.init = function() {
 
     this._target.innerHTML = '<div id="' + this.__movieId + '"></div>';
 
-    var flashvars = tuna.utils.urlDecode(this.getStringOption('flashvars'));
+    var flashvars = null;
+    var flashvarsStr = this.getStringOption('flashvars');
+    if (flashvarsStr !== null) {
+        flashvars = tuna.utils.urlDecode(flashvarsStr);
+    }
 
-    swfobject.embedSWF(
-        this.getStringOption('src'), this.__movieId,
-        this.getStringOption('width'), this.getStringOption('height'),
-        '10.0.0', null, flashvars, {
-            'wmode': this.getStringOption('wmode'),
-            'allowfullscreen': this.getStringOption('allow-fullscreen'),
-            'allowscriptaccess': this.getStringOption('allow-script-access'),
-            'menu': this.getStringOption('menu')
-        }
-    );
+    var src = this.getStringOption('src');
+    var width = this.getStringOption('width');
+    var height = this.getStringOption('height');
+    if (src !== null && width !== null && height !== null) {
+        swfobject.embedSWF(
+            src, this.__movieId,
+            width, height, '10.0.0', null,
+            flashvars, {
+                'wmode': this.getStringOption('wmode'),
+                'allowfullscreen': this.getStringOption('allow-fullscreen'),
+                'allowscriptaccess': this.getStringOption('allow-script-access'),
+                'menu': this.getStringOption('menu')
+            }
+        );
+    }
 };
 
 /**

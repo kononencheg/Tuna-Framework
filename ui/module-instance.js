@@ -27,7 +27,7 @@ tuna.ui.ModuleInstance = function(target) {
      * Настройки экземпляра по-умолчанию.
      *
      * @private
-     * @type Object.<string, null|string|boolean|number>
+     * @type Object.<string, string|boolean|number>
      */
     this.__defaultOptions = {};
 };
@@ -144,15 +144,15 @@ tuna.ui.ModuleInstance.prototype.getOption = function(name) {
  * Получение строкового параметра настроек экземпляра.
  *
  * @param {string} name Имя параметра настроек.
- * @return {string} Строковое значение параметра.
+ * @return {?string} Строковое значение параметра.
  */
 tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
     if (option === null && this.__defaultOptions[name] !== undefined) {
-        option = this.__defaultOptions[name];
+        option = this.__defaultOptions[name] || '';
     }
 
-    return option || '';
+    return option;
 };
 
 
