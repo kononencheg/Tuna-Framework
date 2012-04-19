@@ -80,7 +80,7 @@ tuna.control.ViewController.prototype.init = function(target) {
 
     this._container = new tuna.ui.ModuleContainer(target);
     this._container.requireModules(this._modules);
-    this._container.initModules();
+    this._container.init();
 
     this._initActions();
 };
@@ -103,17 +103,25 @@ tuna.control.ViewController.prototype.destroy = function() {
     if (this._container !== null) {
         this._destroyActions();
 
-        this._container.destroyModules();
+        this._container.destroy();
         this._container = null;
     }
 };
 
 
+//
 /**
  * Инициализация поведения конкретного контроллера.
  *
+ * Данные метод является частью стратегии инициализации контроллера и
+ * вызывается после инициализации модулей отображения указанных в массиве
+ * <code>this._modules</code>.
+ *
  * Основная логика работы приложения приложения определяется реализацией именно
  * данного метода в наследниках класса.
+ *
+ * Задачей данного метода является организация логики управления отображением
+ * и данными той части приложения, к которому относиться контроллер.
  *
  * @protected
  */
@@ -146,7 +154,7 @@ tuna.control.ViewController.prototype._destroyActions = function() {};
  *
  * @see tuna.ui.transformers.ITransformHandler
  * @see tuna.ui.transformers.ITransformHandler.handleTransformComplete
- * @override
+ * @inheritDoc
  */
 tuna.control.ViewController.prototype.handleTransformComplete =
     function(transformer, createdElements, removedElements) {
@@ -173,7 +181,7 @@ tuna.control.ViewController.prototype.handleTransformComplete =
  * Метода обработки начала трансформации по-умолчанию не реализован.
  *
  * @see tuna.ui.transformers.ITransformHandler.handleTransformStart
- * @override
+ * @inheritDoc
  */
 tuna.control.ViewController.prototype.handleTransformStart =
     function(transformer) {};

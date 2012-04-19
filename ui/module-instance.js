@@ -1,35 +1,70 @@
+
+
+
 /**
+ * Базовый абстрактный класс экземпляра модуля отображения - сущности
+ * управления изолированным элементом отображения.
+ *
+ * Экземпляром модуля отображения может быть всплывающее окно, кнопка, список
+ * отображения и тд.
+ *
  * @constructor
  * @extends tuna.events.EventDispatcher
- * @param {!Node} target
+ * @param {!Node} target Целевой DOM-элемент.
  */
 tuna.ui.ModuleInstance = function(target) {
     tuna.events.EventDispatcher.call(this);
 
     /**
+     * Целевой DOM-элемент экземпляра модуля отображения.
+     *
      * @protected
-     * @type !Node
+     * @type {!Node}
      */
     this._target = target;
 
     /**
+     * Настройки экземпляра по-умолчанию.
+     *
      * @private
      * @type Object.<string, null|string|boolean|number>
      */
     this.__defaultOptions = {};
 };
 
+
 tuna.utils.extend(tuna.ui.ModuleInstance, tuna.events.EventDispatcher);
 
+
 /**
- * @return {Node}
+ * Инициализация логики экземпляра модуля отображения.
+ */
+tuna.ui.ModuleInstance.prototype.init = function() {};
+
+
+/**
+ * Удаление логики экземпляра модуля отображения.
+ */
+tuna.ui.ModuleInstance.prototype.destroy = function() {};
+
+
+/**
+ * Получение целевого DOM-элемента экземпляра модуля.
+ *
+ * @return {!Node} Целевой DOM-элемент.
  */
 tuna.ui.ModuleInstance.prototype.getTarget = function() {
     return this._target;
 };
 
+
 /**
- * @return {string}
+ * Получение имени экземпляра отображения.
+ *
+ * Имя экземпляра отображения устанавливается в аттрибуте целевого DOM-элемента
+ * <code>data-name</code>.
+ *
+ * @return {?string} Имя экземпляра.
  */
 tuna.ui.ModuleInstance.prototype.getName = function() {
     return this._target.getAttribute('data-name');
@@ -37,47 +72,63 @@ tuna.ui.ModuleInstance.prototype.getName = function() {
 
 
 /**
- * @param {boolean} isEnabled
+ * Установка работоспособности экземпляра модуля.
+ *
+ * Работоспособность экземпляра устанавливается отсутствием CSS-класса
+ * <code>disabled</code> у целевого DOM-элемента.
+ *
+ * @param {boolean} isEnabled Флаг работоспособности.
  */
 tuna.ui.ModuleInstance.prototype.setEnabled = function(isEnabled) {
     tuna.dom.setClassExist(this._target, 'disabled', !isEnabled);
 };
 
 /**
- * @return {boolean}
+ * Проверка работоспособности модуля отображения.
+ *
+ * @return {boolean} Результат проверки.
  */
 tuna.ui.ModuleInstance.prototype.isEnabled = function() {
     return !tuna.dom.hasClass(this._target, 'disabled');
 };
 
+
 /**
+ * Устанока параметра настроек экземпляра по умолчанию.
+ *
  * @protected
- * @param {string} name
- * @param {null|string|boolean|number} option
+ * @param {string} name Имя параметра настроек.
+ * @param {null|string|boolean|number} value Значение параметра.
  */
-tuna.ui.ModuleInstance.prototype._setDefaultOption = function(name, option) {
-    if (option === null) {
+tuna.ui.ModuleInstance.prototype._setDefaultOption = function(name, value) {
+    if (value === null) {
         delete this.__defaultOptions[name];
     } else {
-        this.__defaultOptions[name] = option;
+        this.__defaultOptions[name] = value;
     }
 };
 
+
 /**
- * @param {string} name
- * @param {null|string|boolean|number} option
+ * Установка параметра настроек экземпляра.
+ *
+ * @param {string} name Имя параметра настроек.
+ * @param {null|string|boolean|number} value Значение параметра.
  */
-tuna.ui.ModuleInstance.prototype.setOption = function(name, option) {
-    if (option) {
-        this._target.setAttribute('data-' + name, option);
+tuna.ui.ModuleInstance.prototype.setOption = function(name, value) {
+    if (value) {
+        this._target.setAttribute('data-' + name, value);
     } else {
-        this._target.removeAttribute('data-' + name);
+        this._target.removeAttribute('data-' + value);
     }
 };
 
+
 /**
- * @param {string} name
- * @return {null|string|boolean|number}
+ * Получение параметра настроек экземпляра.
+ *
+ * @param {string} name Имя параметра настроек.
+ * @return {null|string|boolean|number} Значение параметра.
  */
 tuna.ui.ModuleInstance.prototype.getOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -88,9 +139,12 @@ tuna.ui.ModuleInstance.prototype.getOption = function(name) {
     return option;
 };
 
+
 /**
- * @param {string} name
- * @return {null|string}
+ * Получение строкового параметра настроек экземпляра.
+ *
+ * @param {string} name Имя параметра настроек.
+ * @return {?string} Строковое значение параметра.
  */
 tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -101,9 +155,12 @@ tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
     return option;
 };
 
+
 /**
- * @param {string} name
- * @return {null|number}
+ * Получение числового параметра настроек экземпляра.
+ *
+ * @param {string} name Имя параметра настроек.
+ * @return {number} Строковое значение параметра.
  */
 tuna.ui.ModuleInstance.prototype.getNumberOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -111,12 +168,15 @@ tuna.ui.ModuleInstance.prototype.getNumberOption = function(name) {
         option = this.__defaultOptions[name];
     }
 
-    return Number(option);
+    return option * 1 || 0;
 };
 
+
 /**
- * @param {string} name
- * @return {boolean}
+ * Получение булева параметра настроек экземпляра.
+ *
+ * @param {string} name Имя параметра настроек.
+ * @return {boolean} Булево значение параметра.
  */
 tuna.ui.ModuleInstance.prototype.getBooleanOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -129,18 +189,10 @@ tuna.ui.ModuleInstance.prototype.getBooleanOption = function(name) {
 
 
 /**
- * @return {Object}
+ * Получение таблицы настроек экземпляра.
+ *
+ * @return {!Object.<string, string>} Таблица настроек.
  */
 tuna.ui.ModuleInstance.prototype.getOptions = function() {
     return tuna.dom.getAttributesData(this._target);
 };
-
-/**
- *
- */
-tuna.ui.ModuleInstance.prototype.init = function() {};
-
-/**
- *
- */
-tuna.ui.ModuleInstance.prototype.destroy = function() {};
