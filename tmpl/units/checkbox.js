@@ -48,7 +48,6 @@ tuna.tmpl.units.Checkbox.prototype._applyValue = function(value) {
 };
 
 
-
 /**
  * @private
  */
