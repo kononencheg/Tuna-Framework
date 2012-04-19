@@ -7,6 +7,15 @@
 tuna.ui.selection.SelectionGroup = function(target, indexAttribute) {
     tuna.ui.selection.AbstractSelectionGroup.call(this, target);
 
+    /**
+     * @inheritDoc
+     */
+    this._defaultOptions = {
+        'selection-class': '.active',
+        'item-selector': '.j-navigation-page',
+        'menu-selector': '.j-navigation-menu'
+    };
+
     this._setDefaultOption('item-selector', '.j-selection-item');
     this._setDefaultOption('index-attribute', indexAttribute);
     this._setDefaultOption('is-multiple', null);
