@@ -90,7 +90,7 @@ tuna.ui.ModuleInstance.prototype.getOption = function(name) {
 
 /**
  * @param {string} name
- * @return {null|string}
+ * @return {string}
  */
 tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
     var option = this._target.getAttribute('data-' + name);
@@ -98,7 +98,7 @@ tuna.ui.ModuleInstance.prototype.getStringOption = function(name) {
         option = this.__defaultOptions[name];
     }
 
-    return option;
+    return option || '';
 };
 
 /**

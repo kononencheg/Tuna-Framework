@@ -34,11 +34,12 @@ tuna.ui.flash.SWF.prototype.init = function() {
 
     this._target.innerHTML = '<div id="' + this.__movieId + '"></div>';
 
+    var flashvars = tuna.utils.urlDecode(this.getStringOption('flashvars'));
+
     swfobject.embedSWF(
         this.getStringOption('src'), this.__movieId,
-        this.getNumberOption('width'), this.getNumberOption('height'),
-        '10.0.0', null,
-        this.getStringOption('flashvars'), {
+        this.getStringOption('width'), this.getStringOption('height'),
+        '10.0.0', null, flashvars, {
             'wmode': this.getStringOption('wmode'),
             'allowfullscreen': this.getStringOption('allow-fullscreen'),
             'allowscriptaccess': this.getStringOption('allow-script-access'),
