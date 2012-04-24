@@ -95,8 +95,35 @@
             <a name="hello-world"></a> Простейшее приложение
         </h2>
 
-        
-		
+        <p>
+            Для использования Tuna Templates практически нет необходимости
+            менять готовую верстку. Для примера возьмем разметку информации
+            пользователя из одной популярной соц. сети:
+        </p>
+
+        <pre><code>&lt;div id=&quot;user_info&quot;&gt;
+    &lt;a class=&quot;avatar&quot; href&gt;
+        &lt;img width=&quot;50&quot; height=&quot;50&quot; src /&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;name&quot;&gt;
+        &lt;a href&gt;
+            &lt;span&gt;First Name&lt;/span&gt;
+            &lt;br/&gt;
+            &lt;small&gt;Last Name&lt;/small&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>
+            Выберем формат данных для вставки, например:
+        </p>
+
+        <pre><code>{
+    "firstName": "...",
+    "lastName": "...",
+    "avatarUrl": "http://...",
+}</code></pre>
+
     </section>
 
     <footer>
@@ -109,3 +136,5 @@
 
 </body>
 </html>
+
+
