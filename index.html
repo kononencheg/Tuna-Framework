@@ -431,8 +431,10 @@ tuna.control.setMainController(new MainController());</code></pre>
                     </p>
 
                     <pre class="prettyprint linenums"><code>MainController.prototype._initActions = function() {
-    // По типу модуля и имени получаем экземпляр класса всплывающего окна.
-    var popup = this._container.getModuleInstanceByName('popup', 'hello-popup');
+    // По типу модуля и имени получаем экземпляр класса
+    // всплывающего окна.
+    var popup = this._container.getModuleInstanceByName
+                                    ('popup', 'hello-popup');
 
     // Показываем окно
     popup.open();
