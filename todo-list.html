@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:tuna>
+    <head>
+        <meta charset="utf-8" />
+
+        <title>Список задач</title>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <style type="text/css">
+            .done-task { text-decoration: line-through }
+        </style>
+    </head>
+    <body>
+
+        <!-- Контетнт -->
+
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    Список задач
+                </h1>
+            </div>
+
+            <form class="j-form well form-inline"
+                  data-name="add-task">
+
+                <input type="text" class="input" name="task" placeholder="Что нужно сделать?" />
+                <button type="submit" class="btn">Добавить</button>
+            </form>
+
+            <div class="j-template-transformer t-list-body hide well"
+                 data-name="todo-list"
+                 data-template-id="todo_list_template">
+
+                <div class="t-list-state alert alert-error">
+                    Осталось задач: <strong class="t-new-count">3</strong>
+                    <span class="t-new-controls">
+                        (<a href="#" class="j-button"
+                            data-name="all-done">всё сделано</a>)
+                    </span>
+                </div>
+
+                <ul class="j-button-group t-list nav nav-list"
+                    data-name="task-controls"></ul>
+
+                <div class="t-done-controls">
+                    <hr />
+                    <button class="j-button btn" data-name="remove-done-tasks">
+                        Удалить выполненные (<span class="t-done-count">0</span>)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Шаблоны -->
+
+        <div class="j-isolator hide">
+
+            <tuna:template id="todo_list_template">
+
+                <tuna:spot tuna:target="t-new-count" tuna:path="newCount" />
+
+                <tuna:spot tuna:target="t-done-count" tuna:path="doneCount" />
+
+                <tuna:if tuna:target="t-list-body"
+                         tuna:path="list/length" tuna:eq="0"
+                         tuna:class="hide" />
+                
+                <tuna:if tuna:target="t-list-state"
+                         tuna:path="newCount" tuna:ne="0"
+                         tuna:class="alert-error" />
+
+                <tuna:if tuna:target="t-list-state"
+                         tuna:path="newCount" tuna:eq="0"
+                         tuna:class="alert-success" />
+
+                <tuna:if tuna:target="t-done-controls"
+                         tuna:path="doneCount" tuna:eq="0"
+                         tuna:class="hide" />
+
+                <tuna:if tuna:target="t-new-controls"
+                         tuna:path="newCount" tuna:eq="0"
+                         tuna:class="hide" />
+
+                <tuna:list tuna:target="t-list"
+                           tuna:path="list"
+                           tuna:item-renderer-id="task_renderer"
+                           tuna:item-template-id="task_template"
+                           tuna:key-path="$key" />
+
+            </tuna:template>
+
+            <tuna:template id="task_template">
+
+                <tuna:spot tuna:target="t-task-text" tuna:path="text" />
+
+                <tuna:checkbox tuna:target="t-is-task-done" tuna:path="isDone" />
+
+                <tuna:attr tuna:name="data-task-index"
+                           tuna:target="t-key-data"
+                           tuna:path="$key" />
+
+                <tuna:if tuna:target="t-task-text"
+                         tuna:path="isDone" tuna:eq="true"
+                         tuna:class="done-task" />
+
+            </tuna:template>
+
+            <ul>
+                <li id="task_renderer">
+                    <a href="#" class="clearfix">
+                        <label class="j-button t-key-data checkbox pull-left"
+                               data-action="done">
+
+                            <input type="checkbox" class="t-is-task-done" />
+                            <span class="t-task-text"></span>
+                        </label>
+                        <i class="j-button t-key-data icon-trash pull-right"
+                           data-action="remove"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+
+        <!--[if IE]>
+            <script type="text/javascript" src="js/json.js"></script>
+        <![endif]-->
+
+        <script type="text/javascript" src="js/sizzle.js"></script>
+        <script type="text/javascript" src="js/todo-list.js"></script>
+        <script type="text/javascript">
+            main(document.body);
+        </script>
+
+    </body>
+</html>
+
