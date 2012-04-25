@@ -84,8 +84,8 @@
                         <li>
                             <strong>Скорость</strong> - Tuna Templates работает очень быстро так как является <em>ленивым</em>
                             шаблонизатором. Ленивость подразумевает то, что отображения не
-                            перестраивается заново при каждой трансформации - изменяются только
-                            указанные элементы.
+                            перестраивается заново при каждой трансформации -
+                            обновляются отображение только изменившихся данных.
                         </li>
                         <li>
                             <strong>Сохранность DOM-дерева</strong> - при отображении данных ссылки
@@ -252,7 +252,7 @@ var templateContainer = document.getElementById('user_info');
 var tunaTemplate =
     tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
     // Устанавливаем движок CSS-селекторов
-    tuna.dom.setSelectorEngine(Sizzle);
+    tuna.dom.setSelectorEngine(jQuery.find);
 
 // Отображение данных
 tunaTemplate.processTransform({
