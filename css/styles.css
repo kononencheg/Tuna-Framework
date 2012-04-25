@@ -1,0 +1,23 @@
+.fork-me-ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+.page-header {
+    float:left;
+    position:fixed;
+}
+
+.container {
+    padding-top: 30px;
+}
+
+h2 {
+    padding-top: 42px;
+}
+
+pre {
+    margin-top: 15px;
+}

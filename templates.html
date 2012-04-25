@@ -1,109 +1,140 @@
 <!doctype html>
 <html xmlns:tuna>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <head>
+        <meta charset="utf-8">
 
-    <title>Tuna Templates</title>
+        <title>Tuna Templates</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="css/prettify.css" />
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/styles.css">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-<body>
+        <!--[if lt IE 9]>
+            <script type="text/javascript"
+                    src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <a href="http://github.com/kononencheg/Tuna-Templates">
+            <img class="fork-me-ribbon"
+                 src="http://goo.gl/O5hru"
+                 alt="Fork me on GitHub">
+        </a>
+
+        <div class="container">
+            <div class="page-header span4">
+
+                <h1>
+                    Tuna Templates <br/>
+                    <small>Шаблонизатор Tuna Framework.</small>
+                </h1>
+
+                <hr />
+
+                <div class="well">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Навигация</li>
+
+                        <li><a href="#overwiev">Обзор</a></li>
+                        <li><a href="#benchmarks">Тесты скорости</a></li>
+                        <li><a href="#hello-world">Простейшее приложение</a></li>
+                        <li><a href="#example">Пример работы</a></li>
+
+                        <li class="divider"></li>
+
+                        <li class="nav-header">
+                            <a href="index.html">Tuna Framework</a>
+                        </li>
+
+                        <li><a href="https://github.com/kononencheg/Tuna-Common">Tuna Common</a></li>
+                        <li><a href="templates.html">Tuna Templates</a></li>
+                        <li><a href="https://github.com/kononencheg/Tuna-MVC">Tuna MVC</a></li>
+                    </ul>
+                </div>
+
+                <hr />
+
+                <address>
+                    <strong>Сергей Кононенко</strong><br>
+                    <a href="mailto:kononencheg@gmail.com">
+                        kononencheg@gmail.com
+                    </a>
+                </address>
+
+            </div>
+
+            <div class="row">
+                <div class="span7 offset5">
+                    <h2>
+                        <a name="overwiev"></a> Обзор
+                    </h2>
+
+                    <hr />
+
+                    <p>
+                        Шаблонизатор является частью библиотеки
+                        <a href="index.html">Tuna Framework</a>.
+                        Его основными плюсами являются:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Скорость</strong> - Tuna Templates работает очень быстро так как является <em>ленивым</em>
+                            шаблонизатором. Ленивость подразумевает то, что отображения не
+                            перестраивается заново при каждой трансформации - изменяются только
+                            указанные элементы.
+                        </li>
+                        <li>
+                            <strong>Сохранность DOM-дерева</strong> - при отображении данных ссылки
+                            на DOM-элементы и слушатели событий сохраняются.
+                        </li>
+                    </ul>
+
+                    <p>
+                        Для работы требует наличия
+                        <a href="https://github.com/kononencheg/Tuna-Common">Tuna Common</a>.
+                    </p>
 
 
-<a href="http://github.com/kononencheg/Tuna-Templates">
-<img style="position: fixed; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub"></a>
+                    <h2>
+                        <a name="benchmarks"></a> Тесты скорости
+                    </h2>
 
-<div class="wrapper">
-    <header>
-        <h1>Tuna Templates</h1>
+                    <hr />
 
-        <p>Шаблонизатор Tuna Framework.</p>
+                    <p>
+                        Тесты для сравнения скорости:
+                    </p>
 
-        <ul>
-            <li><a href="#overwiev">Обзор</a></li>
-            <li><a href="#requirements">Зависимости</a></li>
-            <li><a href="#benchmarks">Тесты скорости</a></li>
-            <li><a href="#hello-world">Простейшее приложение</a></li>
-            <li><a href="#example">Пример работы</a></li>
-        </ul>
-    </header>
-    <section>
-        <a name="top"></a>
-        
-		<h2>
-			<a name="overwiev"></a> Обзор
-		</h2>
+                    <ul>
+                        <li>
+                            <a href="http://jsperf.com/tuna-templates-vs-inner-html">
+                                Tuna Templates VS Inner HTML
+                            </a>- сравнение скорости шаблонизатора со вставкой строки контента.
+                        </li>
+                        <li>
+                            <a href="http://jsperf.com/tuna-templates-vs-mustache-vs-pure-vs-underscore">
+                                Tuna Templates VS Mustache VS Pure VS Underscore
+                            </a>- сравнение скоростей популярных шаблонизаторов.
+                        </li>
+                    </ul>
 
-		<p>
-			Шаблонизатор является частью библиотеки 
-			<a href="http://kononencheg.github.com/Tuna-Framework/">Tuna Framework</a>.
-            Основными плюсами шаблонизатора являются:
+                    <h2>
+                        <a name="hello-world"></a> Простейшее приложение
+                    </h2>
 
+                    <hr />
 
-		</p>
+                    <p>
+                        Для использования Tuna Templates практически нет необходимости
+                        менять готовую верстку. Для примера возьмем разметку информации
+                        пользователя из одной популярной соц. сети:
+                    </p>
 
-        <ul>
-            <li>
-                <em>Скорость</em> - Tuna Templates работает очень быстро так как является <em>ленивым</em>
-                шаблонизатором. Ленивость подразумевает то, что отображения не
-                перестраивается заново при каждой трансформации - изменяются только
-                указанные элементы.
-            </li>
-            <li>
-                <em>Сохранность DOM-дерева</em> - при отображении данных ссылки
-                на DOM-элементы и слушатели событий сохраняются.
-            </li>
-        </ul>
-
-		<h2>
-			<a name="requirements"></a> Зависимости
-		</h2>
-
-		<p>
-			Tuna Templates для работы требует наличия 
-			<a href="https://github.com/kononencheg/Tuna-Common">Tuna Common</a>.
-		</p>
-
-		<h2>
-			<a name="benchmarks"></a> Тесты скорости
-		</h2>
-		
-		<p>
-			Тесты для сравнения скорости:
-		</p>
-
-        <ul>
-            <li>
-                <a href="http://jsperf.com/tuna-templates-vs-inner-html">
-                    Tuna Templates VS Inner HTML
-                </a>
-            </li> - сравнение скорости шаблонизатора со вставкой строки контента.
-            <li>
-                <a href="http://jsperf.com/tuna-templates-vs-mustache-vs-pure-vs-underscore">
-                    Tuna Templates VS Mustache VS Pure VS Underscore
-                </a>
-            </li> - сравнение скоростей популярных шаблонизаторов.
-        </ul>
-
-        <h2>
-            <a name="hello-world"></a> Простейшее приложение
-        </h2>
-
-        <p>
-            Для использования Tuna Templates практически нет необходимости
-            менять готовую верстку. Для примера возьмем разметку информации
-            пользователя из одной популярной соц. сети:
-        </p>
-
-        <pre><code>&lt;div id="user_info"&gt;
+                    <pre class="prettyprint linenums"><code>&lt;div id="user_info"&gt;
     &lt;a class="avatar" href&gt;
         &lt;img width="50" height="50" /&gt;
     &lt;/a&gt;
@@ -116,23 +147,23 @@
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-        <p>
-            Выберем формат данных для вставки, например:
-        </p>
+                    <p>
+                        Выберем формат данных для вставки, например:
+                    </p>
 
-        <pre><code>{
+                    <pre class="prettyprint linenums"><code>{
     "firstName": "...",
     "lastName": "...",
     "avatarUrl": "http://..."
 }</code></pre>
 
-        <p>
-            Далее необходимо отметить элементы, в которых будут отображаться
-            данные. Для отметки используем специальные CSS-классы
-            (удобно начинать их с префиксом <code>t-</code>):
-        </p>
+                    <p>
+                        Далее необходимо отметить элементы, в которых будут отображаться
+                        данные. Для отметки используем специальные CSS-классы
+                        (удобно начинать их с префиксом <code>t-</code>):
+                    </p>
 
-        <pre><code>&lt;div id="user_info"&gt;
+                    <pre class="prettyprint linenums"><code>&lt;div id="user_info"&gt;
     &lt;a class="avatar" href&gt;
         &lt;img class="<b>t-avatar</b>" width="50" height="50" /&gt;
     &lt;/a&gt;
@@ -145,26 +176,29 @@
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-        <p>
-            Затем необходимо задать правило, указывающее на то как данные
-            должны отображаться. Для задания правила используется специальная
-            XML разметка.
-        </p>
+                    <p>
+                        Затем необходимо задать правило, указывающее на то как данные
+                        должны отображаться. Для задания правила используется специальная
+                        XML разметка.
+                    </p>
 
-        <blockquote>
-            <p>
-                Для того чтобы специальная разметка работала в IE тег
-                <code>html</code> должен содержать аттрибут <code>xmlns:tuna</code>.
-            </p>
-            <pre><code>&lt;html xmlns:tuna &gt; ... &lt;/html&gt;</code></pre>
-        </blockquote>
+                    <div class="alert alert-danger">
+                        <h4 class="alert-heading">Внимание!</h4>
+                        <p>
+                            Для того чтобы специальная разметка работала в IE тег
+                            <code>html</code> должен содержать аттрибут <code>xmlns:tuna</code>.
+                        </p>
+                        <p>
+                            Вот так: <code>&lt;html xmlns:tuna&gt; ... &lt;/html&gt;</code>
+                        </p>
+                    </div>
 
-        <p>
-            Добавим на страницу приложения спрятанный контейнер со следующим
-            содержанием:
-        </p>
+                    <p>
+                        Добавим на страницу приложения спрятанный контейнер со следующим
+                        содержанием:
+                    </p>
 
-        <pre><code>&lt;tuna:template id="user_template"&gt;
+                    <pre class="prettyprint linenums"><code>&lt;tuna:template id="user_template"&gt;
 
     &lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;
 
@@ -175,39 +209,40 @@
 
 &lt;/tuna:template&gt;</code></pre>
 
-        <p>
-            Данная разметка представляет собой правило распределения данных,
-            по сути - шаблон.
-        </p>
+                    <p>
+                        Данная разметка представляет собой правило распределения данных,
+                        по сути - шаблон. Шаблон состоит из следующих частей.
+                    </p>
 
-        <pre><code>&lt;tuna:template id="user_template"&gt; ... &lt;/tuna:template&gt;</code></pre>
+                    <p>
+                        Объявление шаблона с идентификатором <code>user_template</code>.
+                    </p>
 
-        <p>
-            Объявление шаблона с идентификатором <code>user_template</code>.
-        </p>
+                    <pre class="prettyprint linenums"><code>&lt;tuna:template id="user_template"&gt; ... &lt;/tuna:template&gt;</code></pre>
 
-        <pre><code>&lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;</code></pre>
+                    <p>
+                        Объявление <em>точки</em> для вставки данных - в
+                        <code>innerHTML</code> элемента с классом <code>t-last-name</code>
+                        вставить свойство <code>lastName</code>.
+                    </p>
 
-        <p>
-            Объявление <em>точки</em> для вставки данных - в
-            <code>innerHTML</code> элемента с классом <code>t-last-name</code>
-            вставить свойство <code>lastName</code>.
-        </p>
+                    <pre class="prettyprint linenums"><code>&lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;</code></pre>
 
-        <pre><code>&lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
+                    <p>
+                        Объявление аттрибута для вставки данных - в аттрибут
+                        <code>src</code> элемента с классом <code>t-avatar</code>
+                        вставить свойство <code>avatarUrl</code>.
+                    </p>
+
+                    <pre class="prettyprint linenums"><code>&lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
            tuna:name="<b>src</b>" /&gt;</code></pre>
 
-        <p>
-            Объявление аттрибута для вставки данных - в аттрибут
-            <code>src</code> элемента с классом <code>t-avatar</code>
-            вставить свойство <code>avatarUrl</code>.
-        </p>
 
-        <p>
-            Теперь код для того чтобы шаблон заработал:
-        </p>
+                    <p>
+                        Теперь код для того чтобы шаблон заработал:
+                    </p>
 
-        <pre><code>// Устанавливаем движок CSS-селекторов
+                    <pre class="prettyprint linenums"><code>// Устанавливаем движок CSS-селекторов
 tuna.dom.setSelectorEngine(Sizzle);
 
 // Элемент для отображения данных
@@ -225,78 +260,82 @@ tunaTemplate.processTransform({
     "lastName": "Kononenko",
     "avatarUrl": "http://goo.gl/2pRFN"
 });</code></pre>
+                    <p>
+                        Вот и все! Теперь можно посмотреть на пример работы.
+                    </p>
+
+                    <h2>
+                        <a name="example"></a> Пример работы
+                        <small><a href="#example" onclick="example();">Запустить!</a></small>
+                    </h2>
+
+                    <hr />
+
+                    <div class="well" id="user_info">
+                        <p class="avatar">
+                            <img class="t-avatar" width="50" height="50" />
+                        </p>
+                        <div class="name">
+                            <a href="#example">
+                                <span class="t-first-name">First Name</span>
+                                <br/>
+                                <small class="t-last-name">Last Name</small>
+                            </a>
+                        </div>
+                    </div>
 
 
-        <h2>
-            <a name="example"></a> Пример работы
-
-        </h2>
-
-        <p><a href="#example" onclick="example();">Запустить!</a></p>
-
-        <div id="user_info">
-            <a class="avatar" href>
-                <img class="t-avatar" width="50" height="50" />
-            </a>
-            <div class="name">
-                <a href="#">
-                    <span class="t-first-name">First Name</span>
-                    <br/>
-                    <small class="t-last-name">Last Name</small>
-                </a>
+                </div>
             </div>
+
+            <hr />
+
         </div>
 
-    </section>
+        <div style="display: none;">
+            <tuna:template id="user_template">
 
-    <footer>
-        <p>
-            Автор: <a href="https://github.com/kononencheg">kononencheg</a>
-        </p>
-    </footer>
-</div>
+                <tuna:spot tuna:target="t-last-name" tuna:path="lastName" />
 
-<div style="display: none;">
-    <tuna:template id="user_template">
+                <tuna:spot tuna:target="t-first-name" tuna:path="firstName" />
 
-        <tuna:spot tuna:target="t-last-name" tuna:path="lastName" />
+                <tuna:attr tuna:target="t-avatar" tuna:path="avatarUrl"
+                           tuna:name="src" />
 
-        <tuna:spot tuna:target="t-first-name" tuna:path="firstName" />
+            </tuna:template>
+        </div>
 
-        <tuna:attr tuna:target="t-avatar" tuna:path="avatarUrl"
-                   tuna:name="src" />
+        <script src="js/json.js"></script>
+        <script src="js/sizzle.js"></script>
+        <script src="js/tuna-common.js"></script>
+        <script src="js/tuna-templates.js"></script>
+        <script src="js/prettify.js"></script>
 
-    </tuna:template>
-</div>
+        <script>
+            prettyPrint();
 
-<script src="js/json.js"></script>
-<script src="js/sizzle.js"></script>
-<script src="js/tuna-common.js"></script>
-<script src="js/tuna-templates.js"></script>
+            // Устанавливаем движок CSS-селекторов
+            tuna.dom.setSelectorEngine(Sizzle);
 
-<script>
-    // Устанавливаем движок CSS-селекторов
-    tuna.dom.setSelectorEngine(Sizzle);
+            // Элемент для отображения данных
+            var templateContainer = document.getElementById('user_info');
 
-    // Элемент для отображения данных
-    var templateContainer = document.getElementById('user_info');
+            // Создание шаблона из разметки
+            var tunaTemplate =
+                    tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
 
-    // Создание шаблона из разметки
-    var tunaTemplate =
-            tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
+            function example() {
+                // Отображение данных
+                tunaTemplate.processTransform({
+                    "firstName": "Sergey",
+                    "lastName": "Kononenko",
+                    "avatarUrl": "http://goo.gl/2pRFN"
+                });
+            }
 
-    function example() {
-        // Отображение данных
-        tunaTemplate.processTransform({
-            "firstName": "Sergey",
-            "lastName": "Kononenko",
-            "avatarUrl": "http://goo.gl/2pRFN"
-        });
-    }
+        </script>
 
-</script>
-
-</body>
+    </body>
 </html>
 
 
