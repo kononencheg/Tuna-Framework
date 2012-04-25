@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:tuna>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -31,6 +31,8 @@
             <li><a href="#overwiev">Обзор</a></li>
             <li><a href="#requirements">Зависимости</a></li>
             <li><a href="#benchmarks">Тесты скорости</a></li>
+            <li><a href="#hello-world">Простейшее приложение</a></li>
+            <li><a href="#example">Пример работы</a></li>
         </ul>
     </header>
     <section>
@@ -101,12 +103,12 @@
             пользователя из одной популярной соц. сети:
         </p>
 
-        <pre><code>&lt;div id=&quot;user_info&quot;&gt;
-    &lt;a class=&quot;avatar&quot; href&gt;
-        &lt;img width=&quot;50&quot; height=&quot;50&quot; src /&gt;
+        <pre><code>&lt;div id="user_info"&gt;
+    &lt;a class="avatar" href&gt;
+        &lt;img width="50" height="50" /&gt;
     &lt;/a&gt;
-    &lt;div class=&quot;name&quot;&gt;
-        &lt;a href&gt;
+    &lt;div class="name"&gt;
+        &lt;a href="#"&gt;
             &lt;span&gt;First Name&lt;/span&gt;
             &lt;br/&gt;
             &lt;small&gt;Last Name&lt;/small&gt;
@@ -121,8 +123,129 @@
         <pre><code>{
     "firstName": "...",
     "lastName": "...",
-    "avatarUrl": "http://...",
+    "avatarUrl": "http://..."
 }</code></pre>
+
+        <p>
+            Далее необходимо отметить элементы, в которых будут отображаться
+            данные. Для отметки используем специальные CSS-классы
+            (удобно начинать их с префиксом <code>t-</code>):
+        </p>
+
+        <pre><code>&lt;div id="user_info"&gt;
+    &lt;a class="avatar" href&gt;
+        &lt;img class="<b>t-avatar</b>" width="50" height="50" /&gt;
+    &lt;/a&gt;
+    &lt;div class="name"&gt;
+        &lt;a href="#"&gt;
+            &lt;span class="<b>t-first-name</b>" &gt;&lt;/span&gt;
+            &lt;br/&gt;
+            &lt;small class="<b>t-last-name</b>"&gt;&lt;/small&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>
+            Затем необходимо задать правило, указывающее на то как данные
+            должны отображаться. Для задания правила используется специальная
+            XML разметка.
+        </p>
+
+        <blockquote>
+            <p>
+                Для того чтобы специальная разметка работала в IE тег
+                <code>html</code> должен содержать аттрибут <code>xmlns:tuna</code>.
+            </p>
+            <pre><code>&lt;html xmlns:tuna &gt; ... &lt;/html&gt;</code></pre>
+        </blockquote>
+
+        <p>
+            Добавим на страницу приложения спрятанный контейнер со следующим
+            содержанием:
+        </p>
+
+        <pre><code>&lt;tuna:template id="user_template"&gt;
+
+    &lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;
+
+    &lt;tuna:spot tuna:target="<b>t-first-name</b>" tuna:path="<b>firstName</b>" /&gt;
+
+    &lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
+               tuna:name="<b>src</b>" /&gt;
+
+&lt;/tuna:template&gt;</code></pre>
+
+        <p>
+            Данная разметка представляет собой правило распределения данных,
+            по сути - шаблон.
+        </p>
+
+        <pre><code>&lt;tuna:template id="user_template"&gt; ... &lt;/tuna:template&gt;</code></pre>
+
+        <p>
+            Объявление шаблона с идентификатором <code>user_template</code>.
+        </p>
+
+        <pre><code>&lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;</code></pre>
+
+        <p>
+            Объявление <em>точки</em> для вставки данных - в
+            <code>innerHTML</code> элемента с классом <code>t-last-name</code>
+            вставить свойство <code>lastName</code>.
+        </p>
+
+        <pre><code>&lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
+           tuna:name="<b>src</b>" /&gt;</code></pre>
+
+        <p>
+            Объявление аттрибута для вставки данных - в аттрибут
+            <code>src</code> элемента с классом <code>t-avatar</code>
+            вставить свойство <code>avatarUrl</code>.
+        </p>
+
+        <p>
+            Теперь код для того чтобы шаблон заработал:
+        </p>
+
+        <pre><code>// Устанавливаем движок CSS-селекторов
+tuna.dom.setSelectorEngine(Sizzle);
+
+// Элемент для отображения данных
+var templateContainer = document.getElementById('user_info');
+
+// Создание шаблона из разметки
+var tunaTemplate =
+    tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
+    // Устанавливаем движок CSS-селекторов
+    tuna.dom.setSelectorEngine(Sizzle);
+
+// Отображение данных
+tunaTemplate.processTransform({
+    "firstName": "Sergey",
+    "lastName": "Kononenko",
+    "avatarUrl": "http://goo.gl/2pRFN"
+});</code></pre>
+
+
+        <h2>
+            <a name="example"></a> Пример работы
+
+        </h2>
+
+        <p><a href="javascript: example();">Запустить!</a></p>
+
+        <div id="user_info">
+            <a class="avatar" href>
+                <img class="t-avatar" width="50" height="50" />
+            </a>
+            <div class="name">
+                <a href="#">
+                    <span class="t-first-name">First Name</span>
+                    <br/>
+                    <small class="t-last-name">Last Name</small>
+                </a>
+            </div>
+        </div>
 
     </section>
 
@@ -132,9 +255,49 @@
         </p>
     </footer>
 </div>
-<script src="javascripts/scale.fix.js"></script>
+
+<div style="display: none;">
+    <tuna:template id="user_template">
+
+        <tuna:spot tuna:target="t-last-name" tuna:path="lastName" />
+
+        <tuna:spot tuna:target="t-first-name" tuna:path="firstName" />
+
+        <tuna:attr tuna:target="t-avatar" tuna:path="avatarUrl"
+                   tuna:name="src" />
+
+    </tuna:template>
+</div>
+
+<script src="js/json.js"></script>
+<script src="js/sizzle.js"></script>
+<script src="js/tuna-common.js"></script>
+<script src="js/tuna-templates.js"></script>
+
+<script>
+    // Устанавливаем движок CSS-селекторов
+    tuna.dom.setSelectorEngine(Sizzle);
+
+    // Элемент для отображения данных
+    var templateContainer = document.getElementById('user_info');
+
+    // Создание шаблона из разметки
+    var tunaTemplate =
+            tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
+
+    function example() {
+        // Отображение данных
+        tunaTemplate.processTransform({
+            "firstName": "Sergey",
+            "lastName": "Kononenko",
+            "avatarUrl": "http://goo.gl/2pRFN"
+        });
+    }
+
+</script>
 
 </body>
 </html>
+
 
 
