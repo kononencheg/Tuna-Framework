@@ -1,0 +1,18 @@
+{% import "macro/common.twig" as common %}
+
+{% extends "layout.twig" %}
+
+{% set page = { 'name': 'index',
+                'title': 'Tuna Framework',
+                'tagline': 'Архитектурная библиотека.',
+                'projectUrl': 'https://github.com/kononencheg/Tuna-Framework' } %}
+
+{% block navigation %}
+{{ common.nav_link('Преимущества', 'benefits') }}
+{{ common.nav_link('Структура библиотеки', 'structure') }}
+{% endblock %}
+
+{% block content %}
+{{ common.section('Преимущества', 'benefits', 'index') }}
+{{ common.section('Структура библиотеки', 'structure', 'index') }}
+{% endblock %}

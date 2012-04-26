@@ -21,3 +21,15 @@ h2 {
 pre {
     margin-top: 15px;
 }
+
+address {
+    margin-bottom: 0;
+}
+
+.paragraph-list li {
+    margin-bottom: 9px;
+}
+
+.alert-heading {
+    margin-bottom: 9px;
+}

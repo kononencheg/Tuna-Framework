@@ -1,0 +1,152 @@
+
+<p>
+    Для использования Tuna Templates практически нет необходимости
+    менять готовую верстку. Для примера возьмем разметку информации
+    пользователя из одной популярной соц. сети:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;div id="user_info"&gt;
+    &lt;a class="avatar" href&gt;
+        &lt;img width="50" height="50" /&gt;
+    &lt;/a&gt;
+    &lt;div class="name"&gt;
+        &lt;a href="#"&gt;
+            &lt;span&gt;First Name&lt;/span&gt;
+            &lt;br/&gt;
+            &lt;small&gt;Last Name&lt;/small&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>
+    Выберем формат данных для вставки, например:
+</p>
+
+<pre class="prettyprint linenums"><code>{
+    "firstName": "...",
+    "lastName": "...",
+    "avatarUrl": "http://..."
+}</code></pre>
+
+<p>
+    Далее необходимо отметить элементы, в которых будут отображаться
+    данные. Для отметки используем специальные CSS-классы
+    (удобно начинать их с префиксом <code>t-</code>):
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;div id="user_info"&gt;
+    &lt;a class="avatar" href&gt;
+        &lt;img class="<b>t-avatar</b>" width="50" height="50" /&gt;
+    &lt;/a&gt;
+    &lt;div class="name"&gt;
+        &lt;a href="#"&gt;
+            &lt;span class="<b>t-first-name</b>" &gt;&lt;/span&gt;
+            &lt;br/&gt;
+            &lt;small class="<b>t-last-name</b>"&gt;&lt;/small&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>
+    Затем необходимо задать правило, указывающее на то как данные
+    должны отображаться. Для задания правила используется специальная
+    XML разметка.
+</p>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading">Внимание!</h4>
+
+    <p>
+        Для того чтобы специальная разметка работала в IE тег
+        <code>html</code> должен содержать аттрибут <code>xmlns:tuna</code>.
+    </p>
+
+    Вот так: <code>&lt;html xmlns:tuna&gt; ... &lt;/html&gt;</code>
+</div>
+
+<p>
+    Добавим на страницу приложения спрятанный контейнер со следующим
+    содержанием:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:template id="user_template"&gt;
+
+    &lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;
+
+    &lt;tuna:spot tuna:target="<b>t-first-name</b>" tuna:path="<b>firstName</b>" /&gt;
+
+    &lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
+               tuna:name="<b>src</b>" /&gt;
+
+&lt;/tuna:template&gt;</code></pre>
+
+<p>
+    Данная разметка представляет собой правило распределения данных,
+    по сути - шаблон. Шаблон состоит из следующих частей.
+</p>
+
+<p>
+    Объявление шаблона с идентификатором <code>user_template</code>.
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:template id="user_template"&gt; ... &lt;/tuna:template&gt;</code></pre>
+
+<p>
+    Объявление <em>точки</em> для вставки данных - в
+    <code>innerHTML</code> элемента с классом <code>t-last-name</code>
+    вставить свойство <code>lastName</code>.
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:spot tuna:target="<b>t-last-name</b>" tuna:path="<b>lastName</b>" /&gt;</code></pre>
+
+<p>
+    Объявление аттрибута для вставки данных - в аттрибут
+    <code>src</code> элемента с классом <code>t-avatar</code>
+    вставить свойство <code>avatarUrl</code>.
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:attr tuna:target="<b>t-avatar</b>" tuna:path="<b>avatarUrl</b>"
+           tuna:name="<b>src</b>" /&gt;</code></pre>
+
+
+<p>
+    Теперь код для того чтобы шаблон заработал:
+</p>
+
+<pre class="prettyprint linenums"><code>// Устанавливаем движок CSS-селекторов
+tuna.dom.setSelectorEngine(jQuery.find);
+
+// Элемент для отображения данных
+var templateContainer = document.getElementById('user_info');
+
+// Создание шаблона из разметки
+var tunaTemplate =
+    tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
+
+// Отображение данных
+tunaTemplate.processTransform({
+    "firstName": "Sergey",
+    "lastName": "Kononenko",
+    "avatarUrl": "http://goo.gl/2pRFN"
+});</code></pre>
+
+<p>
+    <a name="example"></a>
+
+    Вот и все! Теперь можно посмотреть на то, как это работает
+    (<a href="#example" onclick="example();">запустить</a>):
+</p>
+
+
+<div class="well" id="user_info">
+    <p class="avatar">
+        <img class="t-avatar" width="50" height="50" />
+    </p>
+    <div class="name">
+        <a href="#example">
+            <span class="t-first-name">First Name</span>
+            <br/>
+            <small class="t-last-name">Last Name</small>
+        </a>
+    </div>
+</div>

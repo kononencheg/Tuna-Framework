@@ -1,0 +1,114 @@
+
+<p>
+    Для созданий простейшего приложения используем базовый шаблон
+    проекта
+    <a href="http://github.com/kononencheg/Hello-Tuna-Framework" target="_blank">
+        Hello Tuna Framework
+    </a>.
+</p>
+
+<p>
+    Клонируем репозиторий проекта:
+</p>
+
+<pre class="prettyprint linenums"><code>$ git clone git://github.com/kononencheg/Hello-Tuna-Framework.git</code></pre>
+
+<p>
+    Основной код приложения содержится в файле
+    <code>application/control/main-controller.js</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>var MainController = function() {
+    tuna.control.ViewController.call(this);
+    this._modules = [ 'popup' ];
+};
+
+tuna.utils.extend(MainController, tuna.control.ViewController);
+
+MainController.prototype._initActions = function() {
+    // Логика приложения инициализируется тут
+};
+
+tuna.control.setMainController(new MainController());</code></pre>
+
+<p>
+    Список имен модулей-компонентов отображения, которые необходимо
+    проинициализировать в соответствующем контейнере находятся в массиве
+    <code>this._modules</code>.
+</p>
+
+<p>
+    В данном примере в основном контейнере приложения проинициализируется
+    модуль отображения <code>popup</code>.
+</p>
+
+<p>
+    Разметка контейнера отображения (<code>body</code>
+    для основного контроллера) расположена в файле
+    <code>public/index.html</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;Hello Tuna Framework!&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css"
+          href="css/bootstrap.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="j-popup hide" data-name="hello-popup"&gt;
+        &lt;div class="modal"&gt;
+            &lt;div class="modal-header"&gt;
+                &lt;h3&gt;Hello Tuna Framework!&lt;/h3&gt;
+            &lt;/div&gt;
+
+            &lt;div class="modal-body"&gt;
+                &lt;a class="j-popup-close btn pull-right"&gt;
+                    Close
+                &lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-backdrop"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!--[if IE]&gt;--&gt;
+        &lt;script type="text/javascript" src="js/json.js"&gt;&lt;/script&gt;
+    &lt;!--&lt;![endif]--&gt;
+    &lt;script type="text/javascript" src="js/sizzle.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/app.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        main(document.body);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>
+    Блок <code>div</code> c CSS-классом <code>j-popup</code> при
+    инициализации отображения будет являться целевым DOM-элементом для
+    модуля <code>popup</code>. Для корректной работы модуля
+    <code>popup</code>, целевой контейнер в исходном состоянии должен быть
+    спрятан, для этого используется класс <code>hide</code>.
+</p>
+
+<p>
+    Чтобы показать всплывающее окно, необходимо добавить следующий код в
+    тело метода <code>_initActions()</code> класса <code>MainController</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>MainController.prototype._initActions = function() {
+    // По типу модуля и имени получаем экземпляр класса
+    // всплывающего окна.
+    var popup = this._container.getModuleInstanceByName
+                                    ('popup', 'hello-popup');
+
+    // Показываем окно
+    popup.open();
+};</code></pre>
+
+<p>
+    <a href="#build">Собираем</a> приложение и проверяем
+    <a href="http://kononencheg.github.com/Hello-Tuna-Framework/" target="_blank">работающий пример</a>!
+</p>
+
+<pre><code>$ make && firefox public/index.html</code></pre>

@@ -1,0 +1,14 @@
+{% macro header(name, anchor) %}
+<h2><a name="{{ anchor }}"></a> {{ name }}</h2><hr />
+{% endmacro %}
+
+{% macro section(name, anchor, page) %}
+{{ _self.header(name, anchor) }}
+<div>
+    {% include 'pages/' ~ page ~ '/' ~ anchor ~ '.twig' %}
+</div>
+{% endmacro %}
+
+{% macro nav_link(name, anchor) %}
+<li><a href="#{{ anchor }}">{{ name }}</a></li>
+{% endmacro %}

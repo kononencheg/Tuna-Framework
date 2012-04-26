@@ -1,0 +1,71 @@
+{% import "macro/common.twig" as common %}
+
+{% extends "layout.twig" %}
+
+{% set page = { 'name': 'templates',
+                'title': 'Tuna Templates',
+                'tagline': 'Быстрый шаблонизатор.',
+                'projectUrl': 'https://github.com/kononencheg/Tuna-Templates' } %}
+
+{% block navigation %}
+{{ common.nav_link('Преимущества', 'benefits') }}
+{{ common.nav_link('Тесты скорости', 'benchmarks') }}
+{{ common.nav_link('Пример использования', 'hello-world') }}
+{% endblock %}
+
+{% block content %}
+{{ common.section('Преимущества', 'benefits', 'templates') }}
+{{ common.section('Тесты скорости', 'benchmarks', 'templates') }}
+{{ common.section('Пример использования', 'hello-world', 'templates') }}
+
+
+<div style="display: none;">
+    <tuna:template id="user_template">
+
+        <tuna:spot tuna:target="t-last-name" tuna:path="lastName" />
+
+        <tuna:spot tuna:target="t-first-name" tuna:path="firstName" />
+
+        <tuna:attr tuna:target="t-avatar" tuna:path="avatarUrl"
+                   tuna:name="src" />
+
+    </tuna:template>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="js/prettify.js"></script>
+<script>
+    prettyPrint();
+</script>
+
+<script src="js/json.js"></script>
+<script src="js/sizzle.js"></script>
+<script src="js/tuna-common.js"></script>
+<script src="js/tuna-templates.js"></script>
+
+<script>
+
+    // Устанавливаем движок CSS-селекторов
+    tuna.dom.setSelectorEngine(Sizzle);
+
+    // Элемент для отображения данных
+    var templateContainer = document.getElementById('user_info');
+
+    // Создание шаблона из разметки
+    var tunaTemplate =
+            tuna.tmpl.compileFromMarkup(templateContainer, 'user_template');
+
+    function example() {
+        // Отображение данных
+        tunaTemplate.processTransform({
+            "firstName": "Sergey",
+            "lastName": "Kononenko",
+            "avatarUrl": "http://goo.gl/2pRFN"
+        });
+    }
+
+</script>
+
+{% endblock %}
