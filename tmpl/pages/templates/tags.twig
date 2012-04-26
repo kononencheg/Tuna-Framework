@@ -1,0 +1,268 @@
+{% import "macro/common.twig" as common %}
+
+<p>
+    Для разметки шаблона Tuna Templates существуют следующие теги:
+</p>
+
+<ul class="paragraph-list">
+    {{ common.nav_link('<tuna:template />', 'tuna:template') }}
+    {{ common.nav_link('<tuna:spot />', 'tuna:spot') }}
+    {{ common.nav_link('<tuna:attr />', 'tuna:attr') }}
+    {{ common.nav_link('<tuna:checkbox />', 'tuna:checkbox') }}
+    {{ common.nav_link('<tuna:if />', 'tuna:if') }}
+    {{ common.nav_link('<tuna:list />', 'tuna:list') }}
+</ul>
+
+<p>
+    В качестве примера, при описании тегов шаблонизатора будет использоваться
+    набор данных следующего вида:
+</p>
+
+<pre class="prettyprint linenums"><code>{ "users": [
+    { "name": "Сергей Кононенко",
+      "isSelected": true,
+      "imageUrl": "http://goo.gl/2pRFN" },
+    { "name": "Милый котик",
+      "isSelected": true,
+      "imageUrl": "http://goo.gl/RHuA3" }
+]}</code></pre>
+
+<h3>
+    <a name="tuna:template"></a> tuna:template
+</h3>
+
+<p>
+    Тег разметки шаблона, все остальные теги расположены в теле этого тега.
+    Необходимые аттрибуты:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>id</code> - идентификатор шаблона, необходим для получения
+        разметки данных из верстки.
+    </li>
+</ul>
+
+<p>
+    <strong>Пример:</strong> объявление шаблона с идентификатором <code>template_id</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:template id="template_id"&gt;
+    &lt;!-- теги разметки --&gt;
+&lt;/tuna:template&gt;</code></pre>
+
+<h3>
+    <a name="tuna:spot"></a>  tuna:spot
+</h3>
+
+<p>
+    Тег объявления DOM-элемента для отображения данных во внутренней разметке.
+    Должен содержать следующие аттрибуты:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>tuna:target</code> - имя CSS-класса DOM-элементов, в
+        разметке которых необходимо отобразить данные.
+    </li>
+    <li>
+        <code>tuna:path</code> - путь выбоки данных, например: <code>/users/length</code>.
+        <a href="#path">Подробнее...</a>
+    </li>
+</ul>
+
+<p>
+    <strong>Пример:</strong> у всех элементов с CSS-классом <code>t-second-user</code>
+    будут отображать имя второго пользователя в массиве <code>users</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:spot tuna:target="t-second-user" tuna:path="users/1/name" /&gt;</code></pre>
+
+<h3>
+    <a name="tuna:attr"></a> tuna:attr
+</h3>
+
+
+<p>
+    Тег объявления DOM-элемента для установки данных в аттрибут элемента.
+    Должен содержать теже аттрибуты, что и тег <a href="#tuna:spot">tuna:spot</a>, и
+    дополнительно:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>tuna:name</code> - имя аттрибута, в который должны устанавливаться
+        данные.
+    </li>
+</ul>
+
+<p>
+    <strong>Пример:</strong> у всех элементов с CSS-классом <code>t-second-user-picture</code>
+    в аттрибут <code>src</code> будет установленно значение поля <code>imageUrl</code>
+    второго пользователя в массиве:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:attr tuna:target="t-second-user-picture"
+           tuna:path="users/1/imageUrl"
+           tuna:name="src" /&gt;</code></pre>
+
+<h3>
+    <a name="tuna:checkbox"></a> tuna:checkbox
+</h3>
+
+<p>
+    Тег объявления DOM-элемента <code>INPUT</code> типа <code>checkbox</code>
+    для установки аттрибута <code>checked</code> в зависимости от переданных
+    данных:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        В том случае если в качестве данных передан <strong>массив</strong>,
+        выделены те элементы, аттрибут <code>name</code>, которых найден среди
+        элементов массива.
+    </li>
+    <li>
+        Если в качестве данных передано <strong>булево значение</strong> оно
+        будет определять выделенность всех элементов.
+    </li>
+    <li>
+        Во всех остальных случаях будут выделены те элементы аттрибут
+        <code>name</code>, которых совпадает со строковым представлением данных.
+    </li>
+</ul>
+
+<p>
+    Должен содержать теже аттрибуты, что и тег <a href="#tuna:spot">tuna:spot</a>
+</p>
+
+<p>
+    <strong>Пример:</strong> у всех элементов с CSS-классом <code>t-second-selection</code>
+    будет устанавливаться выделенность в зависимости от значения поля <code>isSelected</code>
+    первого пользователя в массиве:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:checkbox tuna:target="t-user-selection"
+               tuna:path="users/0/isSelected" /&gt;</code></pre>
+
+<h3>
+    <a name="tuna:if"></a> tuna:if
+</h3>
+
+
+<p>
+    Тег объявления условия в зависимости от выполнения которого, будет
+    выполняться определенное действие с выбранными DOM-элементами.
+</p>
+
+<p>
+    Должен содержать теже аттрибуты, что и тег <a href="#tuna:spot">tuna:spot</a>,
+    а также один из возможных аттрибутов условия и один - действия с элементом.
+</p>
+
+<p>
+    Возможные аттрибуты условия:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>tuna:eq</code> - условие равенства строковых значений данных и
+        указанного в аттрибуте значения.
+    </li>
+    <li>
+        <code>tuna:ne</code> - условие неравенства строковых значений данных и
+        указанного в аттрибуте значения.
+    </li>
+    <li>
+        <code>tuna:isset</code> - условие наличия данных по заданному пути.
+    </li>
+    <li>
+        <code>tuna:notset</code> - условие отсутствия данных по заданному пути.
+    </li>
+</ul>
+
+
+<div class="alert alert-info">
+    <h4 class="alert-heading">Информация!</h4>
+
+    <p>
+        Аттрибуты условий <code>tuna:isset</code> и <code>tuna:notset</code>
+        могут указываться с отсутствующим значением.
+    </p>
+
+    Вот так: <code>&lt;tuna:if ... tuna:isset ... /&gt;</code>
+</div>
+
+
+<p>
+    Возможные аттрибуты действия:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>tuna:class</code> - установка CSS-класса при успешном результате
+        проверки условия и удаление, при провале.
+    </li>
+</ul>
+
+<p>
+    <strong>Пример:</strong> всем элементам с CSS-классом <code>t-hide-if-selected</code>
+    будет устанавливаться CSS-класс <code>hide</code> в том случае если значение поля
+    <code>isSelected</code> первого пользователя в массиве будет равно <code>true</code>:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:if tuna:target="t-not-selected"
+         tuna:path="users/0/isSelected" tuna:eq="true"
+         tuna:class="hide" /&gt;</code></pre>
+
+<h3>
+    <a name="tuna:list"></a> tuna:list
+</h3>
+
+<p>
+    Тег объявления DOM-элемента отображения списка соотвествующего выбранным данным.
+    Для отображения списка необходим DOM-элемент <em>прототип</em> элемента списка и
+    шаблон для отображения данных в элементе.
+</p>
+
+<p>
+    Тег спсика должен содержать теже аттрибуты, что и тег
+    <a href="#tuna:spot">tuna:spot</a>, а также:
+</p>
+
+<ul class="paragraph-list">
+    <li>
+        <code>tuna:item-renderer-id</code> - идентификатор прототипа элемента списка.
+    </li>
+    <li>
+        <code>tuna:item-tempalte-id</code> - идентификатор шаблона элемента списка.
+    </li>
+    <li>
+        <code>tuna:key-path</code> - путь данных к ключу элемента в списке.
+        При перерисовке списка элементы не создаются заново, поэтому каждый
+        элемент должен иметь уникальный ключ. Практически всегда достаточно в
+        качестве пути к ключу указывать индекс элемента - <code>$key</code>.
+    </li>
+</ul>
+
+<p>
+    <strong>Пример:</strong> во всех элементов с CSS-классом <code>t-users-list</code>
+    отобразить список имен пользователей:
+</p>
+
+<pre class="prettyprint linenums"><code>&lt;tuna:template id="list_template"&gt;
+    &lt;tuna:list tuna:target="t-users-list" tuna:path="users"
+               tuna:item-renderer-id="users_list_item"
+               tuna:item-tempalte-id="user_template"
+               tuna:key-path="$key" /&gt;
+&lt;/tuna:template&gt;
+
+&lt;tuna:template id="user_template"&gt;
+    &lt;tuna:spot tuna:target="t-name" tuna:path="name" /&gt;
+&lt;/tuna:template&gt;
+
+&lt;ul&gt;
+    &lt;li id="users_list_item" class="t-name"&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+

@@ -18,6 +18,11 @@ h2 {
     padding-top: 42px;
 }
 
+h3 {
+    padding-top: 15px;
+    padding-bottom: 9px;
+}
+
 pre {
     margin-top: 15px;
 }

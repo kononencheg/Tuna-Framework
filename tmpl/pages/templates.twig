@@ -11,13 +11,18 @@
 {{ common.nav_link('Преимущества', 'benefits') }}
 {{ common.nav_link('Тесты скорости', 'benchmarks') }}
 {{ common.nav_link('Пример использования', 'hello-world') }}
+{{ common.nav_link('Теги разметки', 'tags') }}
 {% endblock %}
 
 {% block content %}
 {{ common.section('Преимущества', 'benefits', 'templates') }}
 {{ common.section('Тесты скорости', 'benchmarks', 'templates') }}
 {{ common.section('Пример использования', 'hello-world', 'templates') }}
+{{ common.section('Теги разметки', 'tags', 'templates') }}
+{% endblock %}
 
+
+{% block script %}
 
 <div style="display: none;">
     <tuna:template id="user_template">
@@ -32,9 +37,6 @@
     </tuna:template>
 </div>
 
-{% endblock %}
-
-{% block script %}
 <script src="js/prettify.js"></script>
 <script>
     prettyPrint();
