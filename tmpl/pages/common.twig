@@ -1,0 +1,17 @@
+{% import "macro/common.twig" as common %}
+
+{% extends "layout.twig" %}
+
+{% set page = { 'name': 'common',
+                'title': 'Tuna Common',
+                'tagline': 'Ядро Tuna Framework.',
+                'projectUrl': 'https://github.com/kononencheg/Tuna-Common' } %}
+
+{% block navigation %}
+{{ common.nav_link('Преимущества', 'benefits') }}
+{{ common.nav_link('Преимущества', 'benefits') }}
+{% endblock %}
+
+{% block content %}
+{{ common.section('Преимущества', 'benefits', 'common') }}
+{% endblock %}
