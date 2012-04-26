@@ -1,31 +1,23 @@
 {% import "macro/common.twig" as common %}
 
 <p>
-    Для разметки шаблона Tuna Templates существуют следующие теги:
-</p>
-
-<ul class="paragraph-list">
-    {{ common.nav_link('<tuna:template />', 'tuna:template') }}
-    {{ common.nav_link('<tuna:spot />', 'tuna:spot') }}
-    {{ common.nav_link('<tuna:attr />', 'tuna:attr') }}
-    {{ common.nav_link('<tuna:checkbox />', 'tuna:checkbox') }}
-    {{ common.nav_link('<tuna:if />', 'tuna:if') }}
-    {{ common.nav_link('<tuna:list />', 'tuna:list') }}
-</ul>
-
-<p>
     В качестве примера, при описании тегов шаблонизатора будет использоваться
     набор данных следующего вида:
 </p>
 
 <pre class="prettyprint linenums"><code>{ "users": [
     { "name": "Сергей Кононенко",
-      "isSelected": true,
-      "imageUrl": "http://goo.gl/2pRFN" },
+        "isSelected": true,
+        "imageUrl": "http://goo.gl/2pRFN" },
     { "name": "Милый котик",
-      "isSelected": true,
-      "imageUrl": "http://goo.gl/RHuA3" }
+        "isSelected": true,
+        "imageUrl": "http://goo.gl/RHuA3" }
 ]}</code></pre>
+
+<p>
+    Для разметки шаблона Tuna Templates существуют следующие теги:
+</p>
+
 
 <h3>
     <a name="tuna:template"></a> tuna:template
