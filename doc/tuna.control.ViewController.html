@@ -40,13 +40,13 @@
 
 
    <p>Базовый стандартный класс управления отображением. Реализует интерфейс
-<code>tuna.ui.transformers.ITransformHandler</code> обработчика
+<a href="tuna.ui.transformers.ITransformHandler.html">tuna.ui.transformers.ITransformHandler</a> обработчика
 трансформации отображения.
 
 Экземпляры данного класса являются основными сущностями приложения - каждый
 екземпляр привязывается к определенному елементу DOM-дерева с помощью
-статических методов <code>tuna.control.registerController()</code> и
-<code>tuna.control.setMainController()</code>.
+статических методов <a href="tuna.control.html#registerController">tuna.control.registerController</a> и
+<a href="tuna.control.html#setMainController">tuna.control.setMainController</a>.
 
 Обычно инициализация екземпляра, привязанного к определенному идентификатору
 элемента в DOM-дереве, происходит автоматически, например, при обработке
@@ -418,6 +418,86 @@
 
 
 
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>transformer</code></td>
+            
+            
+            <td class="type">
+            <a href="tuna.ui.transformers.ITransformer.html">tuna.ui.transformers.ITransformer</a>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Экземпляр объекта
+       трансформации DOM-дерева.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>createdElements</code></td>
+            
+            
+            <td class="type">
+            Array.&lt;!Node>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Созданные DOM-элементы.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>removedElements</code></td>
+            
+            
+            <td class="type">
+            Array.&lt;!Node>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Удаленные DOM-элементы.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
 
 
 
@@ -455,7 +535,7 @@
         
         <li><a href="tuna.ui.transformers.ITransformHandler.html">tuna.ui.transformers.ITransformHandler</a></li>
         
-        <li>tuna.ui.transformers.ITransformHandler.handleTransformComplete</li>
+        <li><a href="tuna.ui.transformers.ITransformHandler.html#handleTransformComplete">tuna.ui.transformers.ITransformHandler#handleTransformComplete</a></li>
         
     </ul>
 
@@ -473,6 +553,50 @@
    <p>Метода обработки начала трансформации по-умолчанию не реализован.</p>
 
 
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>transformer</code></td>
+            
+            
+            <td class="type">
+            <a href="tuna.ui.transformers.ITransformer.html">tuna.ui.transformers.ITransformer</a>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Экземпляр объекта
+       трансформации DOM-дерева.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
 
 
 
@@ -509,7 +633,7 @@
     <h4>См. также:</h4>
     <ul>
         
-        <li>tuna.ui.transformers.ITransformHandler.handleTransformStart</li>
+        <li><a href="tuna.ui.transformers.ITransformHandler.html#handleTransformStart">tuna.ui.transformers.ITransformHandler#handleTransformStart</a></li>
         
     </ul>
 

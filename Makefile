@@ -1,4 +1,6 @@
 
+all: index common templates
+
 index:
 	  php -f utils/twig.php -- $@ > $@.html
 

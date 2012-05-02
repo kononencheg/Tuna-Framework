@@ -71,19 +71,19 @@
                 
                 <li><a href="tuna.control.PageViewController.html">PageViewController</a> - Класс управления страницей отображения. Страница отображения представляет
 собой DOM-элемент, являющийся элементом выделения модуля управлением
-навигацией <code>tuna.ui.selection.Navigation</code>.
+навигацией <a href="tuna.ui.selection.Navigation.html">tuna.ui.selection.Navigation</a>.
 
 В данном классе к базовой логике работы класса управления отображением
 добавлена логика обработки "открытия" и "закрытия" станицы отображения.</li>
                 
                 <li><a href="tuna.control.ViewController.html">ViewController</a> - Базовый стандартный класс управления отображением. Реализует интерфейс
-<code>tuna.ui.transformers.ITransformHandler</code> обработчика
+<a href="tuna.ui.transformers.ITransformHandler.html">tuna.ui.transformers.ITransformHandler</a> обработчика
 трансформации отображения.
 
 Экземпляры данного класса являются основными сущностями приложения - каждый
 екземпляр привязывается к определенному елементу DOM-дерева с помощью
-статических методов <code>tuna.control.registerController()</code> и
-<code>tuna.control.setMainController()</code>.
+статических методов <a href="tuna.control.html#registerController">tuna.control.registerController</a> и
+<a href="tuna.control.html#setMainController">tuna.control.setMainController</a>.
 
 Обычно инициализация екземпляра, привязанного к определенному идентификатору
 элемента в DOM-дереве, происходит автоматически, например, при обработке
@@ -430,7 +430,7 @@ DOM-элемента <code>target</code>.</p>
    <p>Установка основного контроллера отображения.
 
 Инициализация основного контроллера отображения вызывается функцией
-<code>tuna.control.init()</code>.
+<a href="tuna.control.html#init">tuna.control.init</a>.
 
 Точкой входа в приложение является метод <code>_initActions()</code>
 контроллера установленного как основной.</p>
