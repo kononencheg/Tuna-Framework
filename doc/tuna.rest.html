@@ -29,6 +29,7 @@
 
     <div class="span9">
 
+
         <div>
             
                 
@@ -64,6 +65,39 @@
             
         </div>
 
+        
+            <h2>Классы</h2>
+
+            <ul class="paragraph-list">
+                
+                <li><a href="tuna.rest.DefaultMethod.html">DefaultMethod</a> - Абстрактный класс метода по-умлочанию.
+
+Отличие данного метода от класса <code>tuna.rest.Method</code>, в
+возможности установки имени метода.</li>
+                
+                <li><a href="tuna.rest.IMethod.html">IMethod</a> - Интерфейс класса удаленного метода.
+
+Вызов удаленного метода может представлять собой обращение к удаленному
+REST-интерфейсу напрямую либо через XDM.
+
+Данный интерфейс наследует <code>tuna.events.IEventDispatcher</code>. Классы
+реализующие данный интерфейс должны генерировать следующие события:
+
+- <code>result</code> - При успешном результатате запроса.
+- <code>error</code> - При ошибке запроса.</li>
+                
+                <li><a href="tuna.rest.IMethodFactory.html">IMethodFactory</a> - Интефейс класса фабрики удаленных методов.</li>
+                
+                <li><a href="tuna.rest.Method.html">Method</a> - Абстрактный класс реализации интерфейса удаленного метода
+<code>tuna.rest.IMethod</code>.</li>
+                
+                <li><a href="tuna.rest.MethodFactory.html">MethodFactory</a> - Класс фабрики удаленных методов, реализует интерфейс
+<code>tuna.rest.IMethodFactory</code>.</li>
+                
+            </ul>
+        
+
+        
 
         
             <h2>Свойства</h2>
@@ -451,39 +485,7 @@
         
 
 
-        
-            <h2>Классы</h2>
 
-            <ul class="paragraph-list">
-                
-                    <li><a href="tuna.rest.DefaultMethod.html">DefaultMethod</a> - Абстрактный класс метода по-умлочанию.
-
-Отличие данного метода от класса <code>tuna.rest.Method</code>, в
-возможности установки имени метода.</li>
-                
-                    <li><a href="tuna.rest.IMethod.html">IMethod</a> - Интерфейс класса удаленного метода.
-
-Вызов удаленного метода может представлять собой обращение к удаленному
-REST-интерфейсу напрямую либо через XDM.
-
-Данный интерфейс наследует <code>tuna.events.IEventDispatcher</code>. Классы
-реализующие данный интерфейс должны генерировать следующие события:
-
-- <code>result</code> - При успешном результатате запроса.
-- <code>error</code> - При ошибке запроса.</li>
-                
-                    <li><a href="tuna.rest.IMethodFactory.html">IMethodFactory</a> - Интефейс класса фабрики удаленных методов.</li>
-                
-                    <li><a href="tuna.rest.Method.html">Method</a> - Абстрактный класс реализации интерфейса удаленного метода
-<code>tuna.rest.IMethod</code>.</li>
-                
-                    <li><a href="tuna.rest.MethodFactory.html">MethodFactory</a> - Класс фабрики удаленных методов, реализует интерфейс
-<code>tuna.rest.IMethodFactory</code>.</li>
-                
-            </ul>
-        
-
-        
 
     </div>
 </div>
