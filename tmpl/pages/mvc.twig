@@ -1,0 +1,16 @@
+{% import "macro/common.twig" as common %}
+
+{% extends "layout.twig" %}
+
+{% set page = { 'name': 'mvc',
+                'title': 'Tuna MVC',
+                'tagline': 'MVC архитектура.',
+                'projectUrl': 'https://github.com/kononencheg/Tuna-MVC' } %}
+
+{% block navigation %}
+{{ common.nav_link('Преимущества', 'benefits') }}
+{% endblock %}
+
+{% block content %}
+{{ common.section('Преимущества', 'benefits', 'mvc') }}
+{% endblock %}
