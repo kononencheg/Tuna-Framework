@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>dom</title>
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+        <link type="text/css" rel="stylesheet" href="css/styles.css">
+    </head>
+
+    <body>
+        <div class="container">
+
+            
+
+
+<div class="page-header clearfix">
+    <h1 class="pull-right">
+        <span class="ancestors"><a href="tuna.html">tuna</a>.</span>dom
+        
+    </h1>
+</div>
+
+<div class="row">
+    <div class="span3">
+        <ul class="nav nav-list">
+            <li class="nav-header"><a href="tuna.html">tuna</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.control.html">tuna.control</a></li><li><a href="tuna.control.PageViewController.html">PageViewController</a></li><li><a href="tuna.control.ViewController.html">ViewController</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.dom.html">tuna.dom</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.events.html">tuna.events</a></li><li><a href="tuna.events.BasicEvent.html">BasicEvent</a></li><li><a href="tuna.events.EventDispatcher.html">EventDispatcher</a></li><li><a href="tuna.events.IEventDispatcher.html">IEventDispatcher</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.model.html">tuna.model</a></li><li><a href="tuna.model.IResource.html">IResource</a></li><li><a href="tuna.model.ItemResource.html">ItemResource</a></li><li><a href="tuna.model.ListResource.html">ListResource</a></li><li><a href="tuna.model.Record.html">Record</a></li><li><a href="tuna.model.RecordFactory.html">RecordFactory</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.net.html">tuna.net</a></li><li><a href="tuna.net.IRequest.html">IRequest</a></li><li><a href="tuna.net.Request.html">Request</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.rest.html">tuna.rest</a></li><li><a href="tuna.rest.DefaultMethod.html">DefaultMethod</a></li><li><a href="tuna.rest.IMethod.html">IMethod</a></li><li><a href="tuna.rest.IMethodFactory.html">IMethodFactory</a></li><li><a href="tuna.rest.Method.html">Method</a></li><li><a href="tuna.rest.MethodFactory.html">MethodFactory</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.html">tuna.tmpl</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.compilers.html">tuna.tmpl.compilers</a></li><li><a href="tuna.tmpl.compilers.AttributeCompiler.html">AttributeCompiler</a></li><li><a href="tuna.tmpl.compilers.CheckboxCompiler.html">CheckboxCompiler</a></li><li><a href="tuna.tmpl.compilers.ConditionCompiler.html">ConditionCompiler</a></li><li><a href="tuna.tmpl.compilers.IItemCompiler.html">IItemCompiler</a></li><li><a href="tuna.tmpl.compilers.ListCompiler.html">ListCompiler</a></li><li><a href="tuna.tmpl.compilers.SpotCompiler.html">SpotCompiler</a></li><li><a href="tuna.tmpl.compilers.TemplateCompiler.html">TemplateCompiler</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.data.html">tuna.tmpl.data</a></li><li><a href="tuna.tmpl.data.DataNode.html">DataNode</a></li><li><a href="tuna.tmpl.data.PathEvaluator.html">PathEvaluator</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.markup.html">tuna.tmpl.markup</a></li><li><a href="tuna.tmpl.markup.AttributeExtractor.html">AttributeExtractor</a></li><li><a href="tuna.tmpl.markup.CheckboxExtractor.html">CheckboxExtractor</a></li><li><a href="tuna.tmpl.markup.ConditionExtractor.html">ConditionExtractor</a></li><li><a href="tuna.tmpl.markup.IMarkupExtractor.html">IMarkupExtractor</a></li><li><a href="tuna.tmpl.markup.ListExtractor.html">ListExtractor</a></li><li><a href="tuna.tmpl.markup.MarkupTemplateBuilder.html">MarkupTemplateBuilder</a></li><li><a href="tuna.tmpl.markup.SpotExtractor.html">SpotExtractor</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.settings.html">tuna.tmpl.settings</a></li><li><a href="tuna.tmpl.settings.AttributeSettings.html">AttributeSettings</a></li><li><a href="tuna.tmpl.settings.CheckboxSettings.html">CheckboxSettings</a></li><li><a href="tuna.tmpl.settings.ConditionSettings.html">ConditionSettings</a></li><li><a href="tuna.tmpl.settings.IItemSettings.html">IItemSettings</a></li><li><a href="tuna.tmpl.settings.ListSettings.html">ListSettings</a></li><li><a href="tuna.tmpl.settings.SpotSettings.html">SpotSettings</a></li><li><a href="tuna.tmpl.settings.TemplateSettings.html">TemplateSettings</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.units.html">tuna.tmpl.units</a></li><li><a href="tuna.tmpl.units.Attribute.html">Attribute</a></li><li><a href="tuna.tmpl.units.Checkbox.html">Checkbox</a></li><li><a href="tuna.tmpl.units.IUnit.html">IUnit</a></li><li><a href="tuna.tmpl.units.List.html">List</a></li><li><a href="tuna.tmpl.units.Spot.html">Spot</a></li><li><a href="tuna.tmpl.units.Template.html">Template</a></li><li><a href="tuna.tmpl.units.Unit.html">Unit</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.units.condition.html">tuna.tmpl.units.condition</a></li><li><a href="tuna.tmpl.units.condition.ClassAction.html">ClassAction</a></li><li><a href="tuna.tmpl.units.condition.ConditionAction.html">ConditionAction</a></li><li><a href="tuna.tmpl.units.condition.ConditionOperator.html">ConditionOperator</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.tmpl.units.list.html">tuna.tmpl.units.list</a></li><li><a href="tuna.tmpl.units.list.IListItemRouter.html">IListItemRouter</a></li><li><a href="tuna.tmpl.units.list.ListContainerRouter.html">ListContainerRouter</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.html">tuna.ui</a></li><li><a href="tuna.ui.Module.html">Module</a></li><li><a href="tuna.ui.ModuleContainer.html">ModuleContainer</a></li><li><a href="tuna.ui.ModuleInstance.html">ModuleInstance</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.buttons.html">tuna.ui.buttons</a></li><li><a href="tuna.ui.buttons.Button.html">Button</a></li><li><a href="tuna.ui.buttons.ButtonGroup.html">ButtonGroup</a></li><li><a href="tuna.ui.buttons.PopupButton.html">PopupButton</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.flash.html">tuna.ui.flash</a></li><li><a href="tuna.ui.flash.SWF.html">SWF</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.forms.html">tuna.ui.forms</a></li><li><a href="tuna.ui.forms.Autocomplete.html">Autocomplete</a></li><li><a href="tuna.ui.forms.Form.html">Form</a></li><li><a href="tuna.ui.forms.FormInput.html">FormInput</a></li><li><a href="tuna.ui.forms.InputFilter.html">InputFilter</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.popups.html">tuna.ui.popups</a></li><li><a href="tuna.ui.popups.Popup.html">Popup</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.selection.html">tuna.ui.selection</a></li><li><a href="tuna.ui.selection.AbstractSelectionGroup.html">AbstractSelectionGroup</a></li><li><a href="tuna.ui.selection.Carousel.html">Carousel</a></li><li><a href="tuna.ui.selection.ISelectionGroup.html">ISelectionGroup</a></li><li><a href="tuna.ui.selection.Navigation.html">Navigation</a></li><li><a href="tuna.ui.selection.SelectionGroup.html">SelectionGroup</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.selection.items.html">tuna.ui.selection.items</a></li><li><a href="tuna.ui.selection.items.ElementsCollection.html">ElementsCollection</a></li><li><a href="tuna.ui.selection.items.IItemsCollection.html">IItemsCollection</a></li><li><a href="tuna.ui.selection.items.NamedElementsCollection.html">NamedElementsCollection</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.selection.rule.html">tuna.ui.selection.rule</a></li><li><a href="tuna.ui.selection.rule.AbstractSelectionRule.html">AbstractSelectionRule</a></li><li><a href="tuna.ui.selection.rule.ISelectionRule.html">ISelectionRule</a></li><li><a href="tuna.ui.selection.rule.MultipleSelectionRule.html">MultipleSelectionRule</a></li><li><a href="tuna.ui.selection.rule.NavigationSelectionRule.html">NavigationSelectionRule</a></li><li><a href="tuna.ui.selection.rule.SingleSelectionRule.html">SingleSelectionRule</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.selection.view.html">tuna.ui.selection.view</a></li><li><a href="tuna.ui.selection.view.AbstractSelectionView.html">AbstractSelectionView</a></li><li><a href="tuna.ui.selection.view.ClassSelectionView.html">ClassSelectionView</a></li><li><a href="tuna.ui.selection.view.ISelectionView.html">ISelectionView</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.ui.transformers.html">tuna.ui.transformers</a></li><li><a href="tuna.ui.transformers.ITransformer.html">ITransformer</a></li><li><a href="tuna.ui.transformers.ITransformHandler.html">ITransformHandler</a></li><li><a href="tuna.ui.transformers.TemplateTransformer.html">TemplateTransformer</a></li><li class="divider"></li><li class="nav-header"><a href="tuna.utils.html">tuna.utils</a></li><li><a href="tuna.utils.Config.html">Config</a></li><li class="divider"></li>
+        </ul>
+    </div>
+
+    <div class="span9">
+
+        <div>
+            
+                
+                    <div class="description">Область имен функций для работы с DOM-моделью.</div>
+                
+
+                
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+            
+        </div>
+
+
+        
+
+
+        
+            <h2>Методы</h2>
+
+            
+                
+
+
+    <h3 class="name" id="addChildEventListener"><em>[static] </em>addChildEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Установка обработчика событий дочерних элементов выбранного DOM-элемента.
+
+Данный обработчик возможно использовать лишь для тех событий, для которых
+возможен баблинг.
+
+Для указания дочерних элементов, события которых необходимо отлавливать
+используется CSS-селектор. В случае если выбранный DOM-элемент удовлетворяет
+селектору дочерних элементов обработчик не срабатывает.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, событие дочерних элементов которого
+       нужно обрабатывать.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор дочерних элементов.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#getParentMatches">tuna.dom.getParentMatches</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="addClass"><em>[static] </em>addClass<small>:</small></h3>
+
+
+
+
+
+   <p>Добавление CSS-класса элементу.
+
+В случае наличия класса у элемента ничего не происходит.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент класс которому нужно добавить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-класс который нужно добавить.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="addEventListener"><em>[static] </em>addEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Добавление обработчика события DOM-елемента.
+
+Все обработчик событий вызываются в контексте элемента, оповещение о событии
+которого произошло.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, событие которого нужно обрабатывать.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#dispatchEvent">tuna.dom.dispatchEvent</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="addOneEventListener"><em>[static] </em>addOneEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Добавление единовременного обработчика события.
+
+После первого вызова обработчик события удаляется.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, событие которого нужно обрабатывать.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="createFragment"><em>[static] </em>createFragment<small>:DocumentFragment</small></h3>
+
+
+
+
+
+   <p>Создание экземпряра класса DocumentFragment cожержащий указанный HTML
+контент.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>html</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Строка HTML-верстки контента.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Экземпляр класса DocumentFragment.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="dispatchEvent"><em>[static] </em>dispatchEvent<small>:boolean</small></h3>
+
+
+
+
+
+   <p>Оповещение слушателей о событии DOM-элемента типа <code>type</code>.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент о событии которого необходимо оповестить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Успех результата оповещения.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#addEventListener">tuna.dom.addEventListener</a></li>
+        
+        <li><a href="tuna.dom.html#removeEventListener">tuna.dom.removeEventListener</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="getAttributesData"><em>[static] </em>getAttributesData<small>:Object.<string,&nbsp;string></small></h3>
+
+
+
+
+
+   <p>Извлечение данных DOM-элемента установленных в аттрибутах с префиксом
+<code>data-</code>.
+
+Результатом извлечения является хеш-таблица в которой ключами являются имена
+аттрибутов без префикса <code>data-</code>.
+
+Например, для элемента
+<code>
+    <p data-name="Paragraph" data-some-value="23"></p>
+</code>
+извлеченные данные будут иметь вид:
+<code>
+    { 'name': 'Paragraph', 'some-value': '23' }
+</code></p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, данные которого необходимо извлечь.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Таблица данных элемента.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="getElementsByClassName"><em>[static] </em>getElementsByClassName<small>:Array.<!Node></small></h3>
+
+
+
+
+
+   <p>Поиск элементов с указанным CSS-классом, в указанном контексте.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Название CSS-класса.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент в котором необходимо провести поиск.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Массив  найденных элементов.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="getParentMatches"><em>[static] </em>getParentMatches<small>:Node</small></h3>
+
+
+
+
+
+   <p>Взятие ближайшего родителя DOM-элемента соответсвующего выбранному
+CSS-селектору.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент родителя которого нужно найти.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор которому должен соответсовать
+       родительский элемент.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>opt_context</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент ограничивающий поиск родителя.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Hайденный родительский элемент или <code>null</code>.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#matches">tuna.dom.matches</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="getParentWithClass"><em>[static] </em>getParentWithClass<small>:Node</small></h3>
+
+
+
+
+
+   <p>Взятие ближайшего родителя DOM-элемента который имеет выбранный CSS-класс.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент родителя которого нужно найти.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Название CSS-класса родителя с которым необходимо
+       найти.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>opt_context</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент ограничивающий поиск родителя.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Hайденный родительский элемент или <code>null</code>.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="hasClass"><em>[static] </em>hasClass<small>:boolean</small></h3>
+
+
+
+
+
+   <p>Проверка наличия CSS-класса элемента.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент наличие класса которого нужно проверить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Название CSS-класса.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Результат проверки.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="matches"><em>[static] </em>matches<small>:Array.<Node></small></h3>
+
+
+
+
+
+   <p>Фильтрация набора элементов с условием соответствия CSS-селектору.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор которому должны соответсвовать
+       элементы.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>elements</code></td>
+            
+            
+            <td class="type">
+            Array.&lt;Node>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Массив элементов, которые необходимо
+       отфильтровать.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Отфильтрованный массив элементов.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="matchesSelector"><em>[static] </em>matchesSelector<small>:boolean</small></h3>
+
+
+
+
+
+   <p>Проверка соответствия элемента CSS-селектору.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент соответствие которого нужно проверить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор которому должен соответсвовать
+       элемент.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Результат проверки.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="preventDefault"><em>[static] </em>preventDefault<small>:</small></h3>
+
+
+
+
+
+   <p>Кросс-браузерная обертка остановки дествия события по-умолчанию.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            Event
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Объект DOM-события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="removeChildEventListener"><em>[static] </em>removeChildEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Удаление обработчика событий дочерних элементов выбранного DOM-элемента.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, обработчик события дочерних элементов
+       которого нужно удалить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор дочерних элементов.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#addChildEventListener">tuna.dom.addChildEventListener</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="removeClass"><em>[static] </em>removeClass<small>:</small></h3>
+
+
+
+
+
+   <p>Удаление CSS-класса у элемента.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент класс готорого нужно удалить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-класс который нужно удалить.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="removeEventListener"><em>[static] </em>removeEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Удаление обработчика события DOM-элемента.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, обработчик события которого нужно
+       удалить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="removeOneEventListener"><em>[static] </em>removeOneEventListener<small>:</small></h3>
+
+
+
+
+
+   <p>Удаление единовременного обработчика события.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент, единовременный обработчик события
+       которого нужно удалить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Тип обрабатываемого события.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
+            
+            
+            <td class="type">
+            function(Event)
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Функция-обработчик события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.dom.html#addOneEventListener">tuna.dom.addOneEventListener</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="select"><em>[static] </em>select<small>:Array.<!Node></small></h3>
+
+
+
+
+
+   <p>Поиск элементов с помощью CSS-селектора в определенном контексте.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор которому должны соответсвовать
+       найденные элементы.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>opt_context</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Контекст поиска - DOM-элемент в котором должен
+       производиться поиск элементов.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Массив найденных элементов.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="selectOne"><em>[static] </em>selectOne<small>:Node</small></h3>
+
+
+
+
+
+   <p>Поиск единственного элемента соответсующего CSS-селектору.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор которому должны соответсвовать
+       найденный элемент.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>opt_context</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Контекст поиска - DOM-элемент в котором должен
+       производиться поиск элемента.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Найденный элемент.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="setClassExist"><em>[static] </em>setClassExist<small>:</small></h3>
+
+
+
+
+
+   <p>Установка наличия CSS-класса у DOM-элемента.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">DOM-элемент наличие CSS-класса которого необходимо
+       установить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-класс наличие которого необходимо установить.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>isExist</code></td>
+            
+            
+            <td class="type">
+            boolean
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Флаг наличия CSS-класса.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="setSelectorEngine"><em>[static] </em>setSelectorEngine<small>:</small></h3>
+
+
+
+
+
+   <p>Установка движка поиска элементов с помощью CSS-селекторов.
+
+Объект установленный с помощью этой функции используется во многих функциях
+работающих с DOM-моделью.
+
+Интерфейс устанавливаемого объекта должен соответсвовать внешнему интерфейсу
+класса Sizzle.
+
+В случае если движок не установлен, методы, которые его используют возвратят
+пустой результат при вызове.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>engine</code></td>
+            
+            
+            <td class="type">
+            *
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Движок CSS-селекторов.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="http://sizzlejs.com">Sizzle</a>.</li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="stopPropagation"><em>[static] </em>stopPropagation<small>:</small></h3>
+
+
+
+
+
+   <p>Кросс-браузерная обертка остановки распространения события.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+            
+            <td class="type">
+            Event
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Объект DOM-события.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+        
+
+
+        
+
+        
+
+    </div>
+</div>
+
+
+
+
+            <hr />
+
+            <div>
+                <p>Tuna Framework 2012</p>
+            </div>
+
+        </div>
+    </body>
+</html>
