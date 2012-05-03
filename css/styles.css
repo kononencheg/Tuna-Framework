@@ -38,3 +38,10 @@ address {
 .alert-heading {
     margin-bottom: 9px;
 }
+
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+}

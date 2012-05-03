@@ -4,13 +4,15 @@
 
 {% set page = { 'name': 'mvc',
                 'title': 'Tuna MVC',
-                'tagline': 'MVC архитектура.',
+                'tagline': 'Архитектурная библиотека.',
                 'projectUrl': 'https://github.com/kononencheg/Tuna-MVC' } %}
 
 {% block navigation %}
 {{ common.nav_link('Преимущества', 'benefits') }}
+{{ common.nav_link('Контейнеры и модули отображения', 'view-modules') }}
 {% endblock %}
 
 {% block content %}
 {{ common.section('Преимущества', 'benefits', 'mvc') }}
+{{ common.section('Контейнеры и модули отображения', 'view-modules', 'mvc') }}
 {% endblock %}

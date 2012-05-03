@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>AbstractSelectionView</title>
+        <title>WidgetFactory</title>
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="css/styles.css">
     </head>
@@ -15,7 +15,7 @@
 
 <div class="page-header clearfix">
     <h1 class="pull-right">
-        <span class="ancestors"><a href="tuna.html">tuna</a>.<a href="tuna.ui.html">ui</a>.<a href="tuna.ui.selection.html">selection</a>.<a href="tuna.ui.selection.view.html">view</a>.</span>AbstractSelectionView
+        <span class="ancestors"><a href="tuna.html">tuna</a>.<a href="tuna.ui.html">ui</a>.</span>WidgetFactory
         
     </h1>
 </div>
@@ -39,7 +39,57 @@
 
 
 
+   <p>Базовый класс фабрики виджетов.
 
+Наследники данного класса служат для инициализации конкретных виджетов
+в выбранном контейнере.</p>
+
+
+
+    <h4>Аргументы конструктора:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            string
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">CSS-селектор элементов целевых для инициализации
+       виджетов. Для всех DOM-элементов соответсвующих данному селектору
+       проиницициализуется экземпляр соответсующего виджета.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
 
 
 
@@ -73,16 +123,17 @@
 
 
 
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.ui.Widget.html">tuna.ui.Widget</a></li>
+        
+        <li><a href="tuna.ui.WidgetContainer.html">tuna.ui.WidgetContainer</a></li>
+        
+    </ul>
 
 
-                
-                    <h4>Реализует и наследует:</h4>
 
-                    <ul>
-                        
-                        <li><a href="tuna.ui.selection.view.ISelectionView.html">tuna.ui.selection.view.ISelectionView</a></li>
-                        
-                    </ul>
                 
             
         </div>
@@ -97,50 +148,17 @@
             
                 
 
-<h3 class="name" id="_itemsCollection">
-    _itemsCollection<small>:<a href="tuna.ui.selection.items.IItemsCollection.html">tuna.ui.selection.items.IItemsCollection</a></small>
+<h3 class="name" id="_triggerSelector">
+    _triggerSelector<small>:string</small>
 </h3>
 
 
 
 
-
-
-    
-        
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
-    
-	
-
-	
-	
-
-
-
-            
-                
-
-<h3 class="name" id="_selectionRule">
-    _selectionRule<small>:<a href="tuna.ui.selection.rule.ISelectionRule.html">tuna.ui.selection.rule.ISelectionRule</a></small>
-</h3>
-
-
-
+    <p>
+        <em>[protected] </em>
+        CSS-селектор целевых элементов виджета.
+    </p>
 
 
 
@@ -181,11 +199,15 @@
                 
 
 
-    <h3 class="name" id="setItemsCollection"><em></em>setItemsCollection<small>:</small></h3>
+    <h3 class="name" id="_findTargets"><em>[protected] </em>_findTargets<small>:Array.<!Node></small></h3>
 
 
 
 
+
+   <p>Поиск элементов соответсвующих CSS-селектору
+<a href="tuna.ui.WidgetFactory.html#_triggerSelector">tuna.ui.WidgetFactory#_triggerSelector</a> в выбранном контексте,
+включая указанный элемент.</p>
 
 
 
@@ -214,18 +236,116 @@
 	
         <tr>
             
-                <td class="name"><code>collection</code></td>
+                <td class="name"><code>context</code></td>
             
             
             <td class="type">
-            <a href="tuna.ui.selection.items.IItemsCollection.html">tuna.ui.selection.items.IItemsCollection</a>
+            Node
             </td>
             
             
             
             
             
-            <td class="description last"></td>
+            <td class="description last">DOM-элемент для поиска элементов.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Массив найденных элементов.</li>
+        
+    </ul>
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+
+            
+                
+
+
+    <h3 class="name" id="destroy"><em></em>destroy<small>:</small></h3>
+
+
+
+
+
+   <p>Уничтожение виждетов всех в выбранном массиве.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>instances</code></td>
+            
+            
+            <td class="type">
+            Array.&lt;!tuna.ui.Widget>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Массив виджетов.</td>
         </tr>
 	
 	
@@ -269,11 +389,13 @@
                 
 
 
-    <h3 class="name" id="setSelectionRule"><em></em>setSelectionRule<small>:</small></h3>
+    <h3 class="name" id="destroyInstance"><em></em>destroyInstance<small>:</small></h3>
 
 
 
 
+
+   <p>Уничтожение экземпляра виджета.</p>
 
 
 
@@ -302,18 +424,18 @@
 	
         <tr>
             
-                <td class="name"><code>rule</code></td>
+                <td class="name"><code>instance</code></td>
             
             
             <td class="type">
-            <a href="tuna.ui.selection.rule.ISelectionRule.html">tuna.ui.selection.rule.ISelectionRule</a>
+            <a href="tuna.ui.Widget.html">tuna.ui.Widget</a>
             </td>
             
             
             
             
             
-            <td class="description last"></td>
+            <td class="description last">Экземпляр виджета.</td>
         </tr>
 	
 	
@@ -357,15 +479,207 @@
                 
 
 
-    <h3 class="name" id="update"><em></em>update<small>:</small></h3>
+    <h3 class="name" id="init"><em></em>init<small>:</small></h3>
 
 
 
 
 
+   <p>Инициализация всех виджетов контейнера в указанном контексте.</p>
 
 
 
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Контекст инициализации - DOM-элемент в котром
+       необходимо проинициализировать виджеты.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            <a href="tuna.ui.WidgetContainer.html">tuna.ui.WidgetContainer</a>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Контейнер управления виджетами.
+ Массив созданных виджетов.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+
+
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+	
+
+	
+	
+
+
+
+
+
+    <h4>См. также:</h4>
+    <ul>
+        
+        <li><a href="tuna.ui.WidgetContainer.html">tuna.ui.WidgetContainer</a></li>
+        
+    </ul>
+
+
+            
+                
+
+
+    <h3 class="name" id="initInstance"><em></em>initInstance<small>:tuna.ui.Widget</small></h3>
+
+
+
+
+
+   <p>Инициализация экземпляра для целевого DOM-элемента виджета.
+
+В случае, если виждет не соотвествует интерфейсу класса
+<a href="tuna.ui.Widget.html">tuna.ui.Widget</a>, данный метод вернет <code>null</code>.</p>
+
+
+
+    <h4>Аргументы:</h4>
+    
+
+<table class="table table-bordered table-striped">
+    <thead>
+	<tr>
+		
+		<th>Имя</th>
+		
+		
+		<th>Тип</th>
+		
+		
+		
+		
+		
+		<th class="last">Описание</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            Node
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Целевой элемент виджета</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            <a href="tuna.ui.WidgetContainer.html">tuna.ui.WidgetContainer</a>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Контейнер в котором
+       инициализируется виджет.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+
+
+
+    <h4>Возвращает:</h4>
+
+    <ul class="paragraph-list">
+        
+        <li>Созданный виджет.</li>
+        
+    </ul>
 
 
 
