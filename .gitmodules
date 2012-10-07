@@ -1,0 +1,9 @@
+[submodule "deps/util"]
+	path = deps/util
+	url = git@github.com:kononencheg/Tuna-Util
+[submodule "deps/events"]
+	path = deps/events
+	url = git@github.com:kononencheg/Tuna-Events
+[submodule "deps/net"]
+	path = deps/net
+	url = git@github.com:kononencheg/Tuna-Net
