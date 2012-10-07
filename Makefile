@@ -6,7 +6,7 @@
 #   Variables
 #
 
-BUILD_DIR = $(CURDIR)/bin
+BUILD_DIR ?= $(CURDIR)/bin
 DEPS_DIR = $(CURDIR)/deps
 
 UTIL_OUT = $(BUILD_DIR)/util.js
