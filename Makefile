@@ -1,65 +1,34 @@
 
 
-
-
 #
-#   Variables
+#	Variables
 #
 
-BUILD_DIR ?= $(CURDIR)/bin
-DEPS_DIR = $(CURDIR)/deps
+JS_BUILD_HOME ?= /usr/lib/js-build-tools
 
-UTIL_OUT = $(BUILD_DIR)/util.js
-EVENTS_OUT = $(BUILD_DIR)/events.js
-NET_OUT = $(BUILD_DIR)/net.js
+DESTDIR = 
 
-UTIL_DIR = $(DEPS_DIR)/util/
-EVENTS_DIR = $(DEPS_DIR)/events/
-NET_DIR = $(DEPS_DIR)/net/
+JS_ROOT_DIR  = ./
+JS_DEPS_DIRS =
+JS_DEFAULT_ENV = browser
+
+include $(JS_BUILD_HOME)/js-variables.mk
 
 
-UTIL_MAKE_CMD = $(MAKE) -C $(UTIL_DIR) \
-                    JS_DEFAULT_OUT=$(UTIL_OUT)
-
-EVENTS_MAKE_CMD = $(MAKE) -C $(EVENTS_DIR) \
-                      JS_DEFAULT_OUT=$(EVENTS_OUT) \
-                      JS_DEPS_DIRS="$(UTIL_DIR)"
-
-NET_MAKE_CMD = $(MAKE) -C $(NET_DIR) \
-                   JS_DEFAULT_OUT=$(NET_OUT) \
-                   JS_DEPS_DIRS="$(UTIL_DIR) $(EVENTS_DIR)"
+MODULE_NAME ?= tuna
+INSTALL_PREFIX ?= /usr/lib/
 
 
 
 #
-#   Rules
+#	Rules
 #
 
-all : test util events net
+all : js-externs js-export
+
+check : js-test-compile js-test-lint
+
+clean : js-clean
 
 
-test : util-test events-test net-test
-
-
-net-test :
-	$(NET_MAKE_CMD) clean && $(NET_MAKE_CMD) test
-
-
-net :
-	$(NET_MAKE_CMD)
-
-
-events-test :
-	$(EVENTS_MAKE_CMD) clean && $(EVENTS_MAKE_CMD) test
-
-
-events :
-	$(EVENTS_MAKE_CMD)
-
-
-util-test :
-	$(UTIL_MAKE_CMD) clean && $(UTIL_MAKE_CMD) test
-
-
-util :
-	$(UTIL_MAKE_CMD)
+include $(JS_BUILD_HOME)/js-rules.mk
