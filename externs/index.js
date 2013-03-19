@@ -1,4 +1,4 @@
-/**
+ /**
  * TUNA FRAMEWORK
  *
  * Copyright (c) 2012, Sergey Kononenko
@@ -26,43 +26,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 /**
  * @namespace
  */
 var util = {};
 
-
 /**
  * Версия библиотеки.
  *
- * @const
  * @type {string}
  */
 util.VERSION = '0.0.1';
 
-
 /**
  * Является ли текущий браузер Internet Explorer'ом.
  *
- * @const
  * @type {boolean}
  */
 util.IS_IE = !!eval("'\v' == 'v'");
-
 
 /**
  * @namespace
  */
 util.dom = {};
-
-
-
-/**
- * @constructor
- */
-util.__ExtendLink = function() {};
-
 
 /**
  * Наследование типа.
@@ -73,8 +59,6 @@ util.__ExtendLink = function() {};
  * @param {!Object} Class Класс который должен наследовать тип.
  * @param {!Object} Parent Родительский класс.
  */
-util.inherits = function(Class, Parent) {};
-
 
 /**
  * Привязывание определенного контекста к функции или методу.
@@ -85,7 +69,6 @@ util.inherits = function(Class, Parent) {};
  */
 util.bind = function(func, context) {};
 
-
 /**
  * Отложенное выполнение функции.
  *
@@ -93,12 +76,10 @@ util.bind = function(func, context) {};
  */
 util.async = function(callback) {};
 
-
 /**
  * Ничего не выполняющая функция.
  */
 util.nop = function() {};
-
 
 /**
  * Клонирование объекта.
@@ -108,13 +89,11 @@ util.nop = function() {};
  */
 util.clone = function(object) {};
 
-
 /**
  * @param {!Object} base Базовый объект.
  * @param {!Object} target Объект для наложения на базовый.
  */
 util.merge = function(base, target) {};
-
 
 /**
  * @param {Object} first Объект для сравнения.
@@ -122,7 +101,6 @@ util.merge = function(base, target) {};
  * @return {boolean} Результат сравнения.
  */
 util.areEqual = function(first, second) {};
-
 
 /**
  * Преобразование объекта с индесами в массив.
@@ -132,7 +110,6 @@ util.areEqual = function(first, second) {};
  */
 util.toArray = function(list) {};
 
-
 /**
  * Клонирование массива.
  *
@@ -140,7 +117,6 @@ util.toArray = function(list) {};
  * @return {!Array} Копия массива.
  */
 util.cloneArray = function(array) {};
-
 
 /**
  * Поиск индекса объекта в массиве.
@@ -151,20 +127,17 @@ util.cloneArray = function(array) {};
  */
 util.indexOf = function(element, array) {};
 
-
 /**
  * @param {Object} object Объект кодирования.
  * @return {string} Кодированный в строку объект.
  */
 util.encodeJsonData = function(object) {};
 
-
 /**
  * @param {string} data Закодированный объект.
  * @return {*} Раскодированный объект.
  */
 util.decodeJsonData = function(data) {};
-
 
 /**
  * Кодирование объекта в x-www-form-urlencoded форму.
@@ -173,7 +146,6 @@ util.decodeJsonData = function(data) {};
  * @return {string} Перекодированный в строку объект.
  */
 util.encodeFormData = function(object) {};
-
 
 /**
  * Рекурсивное разбиение объекта н данные для кодирования в
@@ -185,20 +157,17 @@ util.encodeFormData = function(object) {};
  */
 util.tokenizeUrlData = function(object, opt_path) {};
 
-
 /**
  * @param {string} data Закодированный объект.
  * @return {*} Раскодированный объект.
  */
 util.decodeFormData = function(data) {};
 
-
 /**
  * @param {string} token Имя элементарного узла данных.
  * @return {!Array.<string>} Массив строк пути к узлу.
  */
 util.parseUrlPathToken = function(token) {};
-
 
 /**
  * @param {string} name Имя переменной.
@@ -207,13 +176,11 @@ util.parseUrlPathToken = function(token) {};
  */
 util.setCookie = function(name, value, opt_time) {};
 
-
 /**
  * @param {string} name Имя переменной.
  * @return {string} Значение переменной.
  */
 util.getCookie = function(name) {};
-
 
 /**
  * @param {string} name Имя переменной.
@@ -248,20 +215,16 @@ util.removeCookie = function(name) {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * @constructor
  * @param {!Object} data Исходные данные.
  */
 util.SafeObject = function(data) {};
 
-
 /**
  * @return {!Object} Исходные данные.
  */
 util.SafeObject.prototype.getCore = function() {};
-
 
 /**
  * @param {...(string|number)} var_keys Путь к значению.
@@ -269,20 +232,17 @@ util.SafeObject.prototype.getCore = function() {};
  */
 util.SafeObject.prototype.get = function(var_keys) {};
 
-
 /**
  * @param {string|number|boolean|Object} value Данные.
  * @param {...(string|number)} var_keys Путь к значению.
  */
 util.SafeObject.prototype.set = function(value, var_keys) {};
 
-
 /**
  * @param {!Array.<(string|number)>} path Путь к значению.
  * @return {string|number|boolean|Object} Данные.
  */
 util.SafeObject.prototype.getByPath = function(path) {};
-
 
 /**
  * @param {string|number|boolean|Object} value Данные.
@@ -318,7 +278,6 @@ util.SafeObject.prototype.setByPath = function(value, path) {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 /**
  * Установка движка поиска элементов с помощью CSS-селекторов.
  *
@@ -336,7 +295,6 @@ util.SafeObject.prototype.setByPath = function(value, path) {};
  */
 util.dom.setSelectorEngine = function(engine) {};
 
-
 /**
  * Поиск элементов с помощью CSS-селектора в определенном контексте.
  *
@@ -347,7 +305,6 @@ util.dom.setSelectorEngine = function(engine) {};
  * @return {!Array.<!Node>} Массив найденных элементов.
  */
 util.dom.select = function(selector, opt_context) {};
-
 
 /**
  * Поиск единственного элемента соответсующего CSS-селектору.
@@ -360,7 +317,6 @@ util.dom.select = function(selector, opt_context) {};
  */
 util.dom.selectOne = function(selector, opt_context) {};
 
-
 /**
  * Фильтрация набора элементов с условием соответствия CSS-селектору.
  *
@@ -372,7 +328,6 @@ util.dom.selectOne = function(selector, opt_context) {};
  */
 util.dom.matches = function(selector, elements) {};
 
-
 /**
  * Проверка соответствия элемента CSS-селектору.
  *
@@ -382,13 +337,6 @@ util.dom.matches = function(selector, elements) {};
  * @return {boolean} Результат проверки.
  */
 util.dom.matchesSelector = function(element, selector) {};
-
-
-/**
- * @see util.dom.setSelectorEngine
- */
-util.dom.__selectorEngine = null;
-
 
 /**
  * Оповещение слушателей о событии DOM-элемента типа <code>type</code>.
@@ -401,7 +349,6 @@ util.dom.__selectorEngine = null;
  * @return {boolean} Успех результата оповещения.
  */
 util.dom.dispatchEvent = function(element, type) {};
-
 
 /**
  * Добавление обработчика события DOM-елемента.
@@ -417,7 +364,6 @@ util.dom.dispatchEvent = function(element, type) {};
  */
 util.dom.addEventListener = function(element, type, handler) {};
 
-
 /**
  * Удаление обработчика события DOM-элемента.
  *
@@ -427,7 +373,6 @@ util.dom.addEventListener = function(element, type, handler) {};
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 util.dom.removeEventListener = function(element, type, handler) {};
-
 
 /**
  * Добавление единовременного обработчика события.
@@ -440,7 +385,6 @@ util.dom.removeEventListener = function(element, type, handler) {};
  */
 util.dom.addOneEventListener = function(element, type, handler) {};
 
-
 /**
  * Удаление единовременного обработчика события.
  *
@@ -451,7 +395,6 @@ util.dom.addOneEventListener = function(element, type, handler) {};
  * @param {!function(Event)} handler Функция-обработчик события.
  */
 util.dom.removeOneEventListener = function(element, type, handler) {};
-
 
 /**
  * Установка обработчика событий дочерних элементов выбранного DOM-элемента.
@@ -472,17 +415,6 @@ util.dom.removeOneEventListener = function(element, type, handler) {};
  */
 util.dom.addChildEventListener = function(element, selector, type, handler) {};
 
-
-/**
- * @param {!Node} element DOM-элемент, событие дочерних элементов которого
- *        нужно обрабатывать.
- * @param {string} selector CSS-селектор дочерних элементов.
- * @param {!function(Event)} handler Функция-обработчик события.
- * @return {} Созданный обработчик события.
- */
-util.dom.__createChildListener = function(element, selector, handler) {};
-
-
 /**
  * Удаление обработчика событий дочерних элементов выбранного DOM-элемента.
  *
@@ -495,56 +427,6 @@ util.dom.__createChildListener = function(element, selector, handler) {};
  */
 util.dom.removeChildEventListener = function(element, selector, type, handler) {};
 
-
-/**
- * Добавление обработчика нестандартного события в Internet Explorer.
- *
- * В качестве вспомогательного события, данный метод использует событие
- * <code>'onhelp'</code>.
- *
- * @see util.dom.__dispatchCustomIEEvent
- * @param {!Node|!Window} element DOM-елемент, событие которого нужно
- *    обрабатывать.
- * @param {string} type Тип обрабатываемого события.
- * @param {!function(Event)} handler Функция-обработчик события.
- */
-util.dom.__addCustomIEListener = function(element, type, handler) {};
-
-
-/**
- * Удаление нестандартного события в Internet Explorer.
- *
- * @see util.dom.__addCustomIEListener
- * @param {!Node|!Window} element DOM-елемент, слушатель события которого нужно
- *    удалить.
- * @param {string} type Тип удаляемого события.
- * @param {!function(Event)} handler Удаляемая функция-обработчик события.
- */
-util.dom.__removeCustomIEListener = function(element, type, handler) {};
-
-
-/**
- * Оповещение слушателей нестандартного события в Internet Explorer.
- *
- * Также как и функция <code>util.dom.__addCustomIEListener()</code> использует
- * в качестве вспомогательного событие <code>'onhelp'/code>.
- *
- * @see util.dom.__addCustomIEListener
- * @param {!Node|!Window} element DOM-елемент, событие которого нужно
- *    обрабатывать.
- * @param {!Event} event Объект события стандартной событийной модели браузера.
- * @param {string} type Тип не стандартного события.
- * @return {boolean} Успех оповещения о событии.
- */
-util.dom.__dispatchCustomIEEvent = function(element, event, type) {};
-
-
-/**
- * @type {number}
- */
-util.dom.__lastElementId = 0;
-
-
 /**
  * Кросс-браузерная обертка остановки дествия события по-умолчанию.
  *
@@ -552,14 +434,12 @@ util.dom.__lastElementId = 0;
  */
 util.dom.preventDefault = function(event) {};
 
-
 /**
  * Кросс-браузерная обертка остановки распространения события.
  *
  * @param {Event} event Объект DOM-события.
  */
 util.dom.stopPropagation = function(event) {};
-
 
 /**
  * Взятие ближайшего родителя DOM-элемента соответсвующего выбранному
@@ -574,7 +454,6 @@ util.dom.stopPropagation = function(event) {};
  */
 util.dom.getParentMatches = function(element, selector, opt_context) {};
 
-
 /**
  * Взятие ближайшего родителя DOM-элемента который имеет выбранный CSS-класс.
  *
@@ -586,7 +465,6 @@ util.dom.getParentMatches = function(element, selector, opt_context) {};
  */
 util.dom.getParentWithClass = function(element, className, opt_context) {};
 
-
 /**
  * Поиск элементов с указанным CSS-классом, в указанном контексте.
  *
@@ -596,7 +474,6 @@ util.dom.getParentWithClass = function(element, className, opt_context) {};
  */
 util.dom.getElementsByClassName = function(className, opt_element) {};
 
-
 /**
  * Проверка наличия CSS-класса элемента.
  *
@@ -605,7 +482,6 @@ util.dom.getElementsByClassName = function(className, opt_element) {};
  * @return {boolean} Результат проверки.
  */
 util.dom.hasClass = function(element, className) {};
-
 
 /**
  * Добавление CSS-класса элементу.
@@ -617,7 +493,6 @@ util.dom.hasClass = function(element, className) {};
  */
 util.dom.addClass = function(element, className) {};
 
-
 /**
  * Удаление CSS-класса у элемента.
  *
@@ -625,7 +500,6 @@ util.dom.addClass = function(element, className) {};
  * @param {string} className CSS-класс который нужно удалить.
  */
 util.dom.removeClass = function(element, className) {};
-
 
 /**
  * Установка наличия CSS-класса у DOM-элемента.
@@ -636,7 +510,6 @@ util.dom.removeClass = function(element, className) {};
  * @param {boolean} isExist Флаг наличия CSS-класса.
  */
 util.dom.setClassExist = function(element, className, isExist) {};
-
 
 /**
  * Извлечение данных DOM-элемента установленных в аттрибутах с префиксом
@@ -659,7 +532,6 @@ util.dom.setClassExist = function(element, className, isExist) {};
  * @return {!Object.<string, string>} Таблица данных элемента.
  */
 util.dom.getAttributesData = function(element, opt_prefix) {};
-
 
 /**
  * Создание экземпряра класса DocumentFragment cожержащий указанный HTML
@@ -698,12 +570,10 @@ util.dom.createFragment = function(html) {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 /**
  * @namespace
  */
 var events = {};
-
 
 /**
  * Версия библиотеки.
@@ -741,8 +611,6 @@ events.VERSION = '0.0.1';
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Класс базового события событийной модели объектов реализующих интерфейс
  * <code>events.IEventDispatcher</code>.
@@ -757,14 +625,12 @@ events.VERSION = '0.0.1';
  */
 events.Event = function(target, type, opt_isBubbling) {};
 
-
 /**
  * Возврвщение объекта, с которым произошло событие.
  *
  * @return {!events.IEventDispatcher} Объект с которым произошло событие.
  */
 events.Event.prototype.getTarget = function() {};
-
 
 /**
  * Возвращение типа события.
@@ -773,7 +639,6 @@ events.Event.prototype.getTarget = function() {};
  */
 events.Event.prototype.getType = function() {};
 
-
 /**
  * Используется ли баблинг для данного события.
  *
@@ -781,12 +646,10 @@ events.Event.prototype.getType = function() {};
  */
 events.Event.prototype.isBubbling = function() {};
 
-
 /**
  * Отмена обработки события по-умолчанию.
  */
 events.Event.prototype.preventDefault = function() {};
-
 
 /**
  * Отменена ли обработка события по-умолчанию.
@@ -794,7 +657,6 @@ events.Event.prototype.preventDefault = function() {};
  * @return {boolean} Флаг отмены обработки по-умолчанию.
  */
 events.Event.prototype.isDefaultPrevented = function() {};
-
 
 /**
  * Полная остановка обработки события.
@@ -804,7 +666,6 @@ events.Event.prototype.isDefaultPrevented = function() {};
  */
 events.Event.prototype.stopImmediatePropagation = function() {};
 
-
 /**
  * Остановлена ли полностью обработка события.
  *
@@ -812,14 +673,12 @@ events.Event.prototype.stopImmediatePropagation = function() {};
  */
 events.Event.prototype.isImmediatePropagationStopped = function() {};
 
-
 /**
  * Остановка баблинга события.
  *
  * Обработчики находящиеся выше по иерархии растпростанения вызваны не будут.
  */
 events.Event.prototype.stopPropagation = function() {};
-
 
 /**
  * Остановлен ли баблинг события.
@@ -856,8 +715,6 @@ events.Event.prototype.isPropagationStopped = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Основной интерфейс классов генерирующих события и предоставляющих возможность
  * их обработки.
@@ -867,7 +724,6 @@ events.Event.prototype.isPropagationStopped = function() {};
  * @interface
  */
 events.IEventDispatcher = function() {};
-
 
 /**
  * Оповещение слушателей о наступлении события.
@@ -881,7 +737,6 @@ events.IEventDispatcher = function() {};
  * @return {boolean} Флаг отсутствия отмены обрабтки по-умолчанию.
  */
 events.IEventDispatcher.prototype.dispatch = function(event, opt_data) {};
-
 
 /**
  * Добавление обработчика события.
@@ -901,7 +756,6 @@ events.IEventDispatcher.prototype.dispatch = function(event, opt_data) {};
 events.IEventDispatcher.prototype.addEventListener =
     function(type, listener) {};
 
-
 /**
  * Удаление слушателя события.
  *
@@ -912,14 +766,13 @@ events.IEventDispatcher.prototype.addEventListener =
 events.IEventDispatcher.prototype.removeEventListener =
     function(type, listener) {};
 
-
 /**
  * Проверка наличия обработчика события определенного типа.
  *
  * @param {string} type Тип события который, наличие обработчика которого
  *        следует определить.
  * @param {!function(events.Event, *=)} listener Функция-обработчик.
- * @return {} Результат проверки наличия обработчика.
+ * @return {boolean} Результат проверки наличия обработчика.
  */
 events.IEventDispatcher.prototype.hasEventListener =
     function(type, listener) {};
@@ -952,8 +805,6 @@ events.IEventDispatcher.prototype.hasEventListener =
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Базовая реализация интерфейса <code>events.IEventDispatcher</code>.
  *
@@ -969,25 +820,21 @@ events.IEventDispatcher.prototype.hasEventListener =
  */
 events.EventDispatcher = function(opt_propagationParent) {};
 
-
 /**
  * @inheritDoc
  */
 events.EventDispatcher.prototype.dispatch = function(event, opt_data) {};
-
 
 /**
  * @inheritDoc
  */
 events.EventDispatcher.prototype.addEventListener = function(type, listener) {};
 
-
 /**
  * @inheritDoc
  */
 events.EventDispatcher.prototype.removeEventListener =
     function(type, listener) {};
-
 
 /**
  * @inheritDoc
@@ -1022,25 +869,21 @@ events.EventDispatcher.prototype.hasEventListener = function(type, listener) {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 /**
  * @namespace
  */
 var net = {};
-
 
 /**
  * @namespace
  */
 net.factory = {};
 
-
 /**
  * @type {boolean}
  */
 net.CAN_USE_CORS = (window['XMLHttpRequest'] !== undefined) &&
     ((new XMLHttpRequest())['withCredentials'] !== undefined);
-
 
 /**
  * @param {string=} opt_hostOrUrl Хост либо адрес.
@@ -1053,7 +896,6 @@ net.CAN_USE_CORS = (window['XMLHttpRequest'] !== undefined) &&
 net.createRequest =
     function(opt_hostOrUrl, opt_isSecure, opt_port, opt_needResult) {};
 
-
 /**
  * @param {string=} opt_hostOrUrl Хост либо адрес.
  * @param {boolean=} opt_isSecure Флаг защищенности соединенияю.
@@ -1061,7 +903,6 @@ net.createRequest =
  * @return {WebSocket} Объект соединения, в том случае, если его можно создать.
  */
 net.createSocket = function(opt_hostOrUrl, opt_isSecure, opt_port) {};
-
 
 /**
  * @param {string=} opt_hostOrUrl Хост либо адрес.
@@ -1099,7 +940,6 @@ net.makeUrl = function(opt_hostOrUrl, opt_isSecure, opt_port, opt_protocol) {};
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 
 /**
  * Метод HTTP-запроса.
@@ -1139,8 +979,6 @@ net.RequestMethod = {
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * События завершения HTTP-запроса к серверу.
  *
@@ -1153,14 +991,10 @@ net.RequestMethod = {
  */
 net.RequestEvent = function(target, type, responseStatus) {};
 
-util.inherits(net.RequestEvent, events.Event);
-
-
 /**
  * @type {string}
  */
 net.RequestEvent.COMPLETE = 'complete';
-
 
 /**
  * @return {number} HTTP-статус ответа.
@@ -1195,8 +1029,6 @@ net.RequestEvent.prototype.getResponseStatus = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Абстрактный класс HTTP-запроса.
  *
@@ -1211,26 +1043,20 @@ net.RequestEvent.prototype.getResponseStatus = function() {};
  */
 net.Request = function(url) {};
 
-util.inherits(net.Request, events.EventDispatcher);
-
-
 /**
  * @return {string} Базовый адрес запроса.
  */
 net.Request.prototype.getUrl = function() {};
-
 
 /**
  * @param {!net.RequestMethod} method Тип метода запроса.
  */
 net.Request.prototype.setMethod = function(method) {};
 
-
 /**
  * @return {!net.RequestMethod} Тип метода запроса.
  */
 net.Request.prototype.getMethod = function() {};
-
 
 /**
  * Отсылка запроса.
@@ -1243,12 +1069,10 @@ net.Request.prototype.getMethod = function() {};
  */
 net.Request.prototype.send = function(data, opt_path) {};
 
-
 /**
  * Очищение очереди отправки.
  */
 net.Request.prototype.cancel = function() {};
-
 
 /**
  * Вынужденное завершение обработки запроса.
@@ -1257,14 +1081,12 @@ net.Request.prototype.cancel = function() {};
  */
 net.Request.prototype.abort = function() {};
 
-
 /**
  * Проверка возможности отсылки запроса.
  *
  * @return {boolean} Результат проверки.
  */
 net.Request.prototype._canSend = function() {};
-
 
 /**
  * Конкретная реализация отправки запроса.
@@ -1274,7 +1096,6 @@ net.Request.prototype._canSend = function() {};
  */
 net.Request.prototype._doSend = function(data, path) {};
 
-
 /**
  * Обработчка результата.
  *
@@ -1283,17 +1104,10 @@ net.Request.prototype._doSend = function(data, path) {};
  */
 net.Request.prototype._handleResult = function(status, opt_data) {};
 
-
 /**
  * Очищение результатов запроса.
  */
 net.Request.prototype._reset = function() {};
-
-
-/**
- * Отправка следующего запроса.
- */
-net.Request.prototype.__flush = function() {};
 
 /**
  * TUNA FRAMEWORK
@@ -1322,8 +1136,6 @@ net.Request.prototype.__flush = function() {};
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-
 
 /**
  * Релизация HTTP-запроса с использованием <code>XMLHttpRequest</code>.
@@ -1335,33 +1147,20 @@ net.Request.prototype.__flush = function() {};
  */
 net.XhrRequest = function(url) {};
 
-util.inherits(net.XhrRequest, net.Request);
-
-
 /**
  * @inheritDoc
  */
 net.XhrRequest.prototype._canSend = function() {};
-
 
 /**
  * @inheritDoc
  */
 net.XhrRequest.prototype._doSend = function(data, path) {};
 
-
 /**
  * Уничтожение текущего объекта запроса.
  */
 net.XhrRequest.prototype._reset = function() {};
-
-
-/**
- * Создание экземпляра объекта <code>XMLHttpRequest</code>.
- *
- * @return {XMLHttpRequest} Объект запроса.
- */
-net.XhrRequest.prototype.__createRequest = function() {};
 
 /**
  * TUNA FRAMEWORK
@@ -1391,8 +1190,6 @@ net.XhrRequest.prototype.__createRequest = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * @constructor
  * @extends {net.Request}
@@ -1400,38 +1197,25 @@ net.XhrRequest.prototype.__createRequest = function() {};
  */
 net.JsonpRequest = function(url) {};
 
-util.inherits(net.JsonpRequest, net.Request);
-
-
-/**
- * @type {number}
- */
-net.JsonpRequest.__lastId = 0;
-
-
 /**
  * @type {number}
  */
 net.JsonpRequest.ERROR_TIMEOUT = 30000;
-
 
 /**
  * @type {string}
  */
 net.JsonpRequest.CALLBACK_TABLE = '__jsonp';
 
-
 /**
  * @inheritDoc
  */
 net.JsonpRequest.prototype._canSend = function() {};
 
-
 /**
  * @inheritDoc
  */
 net.JsonpRequest.prototype._doSend = function(data, path) {};
-
 
 /**
  * @inheritDoc
@@ -1466,8 +1250,6 @@ net.JsonpRequest.prototype._reset = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * @constructor
  * @extends {net.Request}
@@ -1475,54 +1257,25 @@ net.JsonpRequest.prototype._reset = function() {};
  */
 net.FormRequest = function(url) {};
 
-util.inherits(net.FormRequest, net.Request);
-
-
-/**
- * @type {number}
- */
-net.FormRequest.__lastId = 0;
-
-
 /**
  * @type {string}
  */
 net.FormRequest.FRAME_PREFIX = 'fr_';
-
 
 /**
  * @inheritDoc
  */
 net.FormRequest.prototype._canSend = function() {};
 
-
 /**
  * @inheritDoc
  */
 net.FormRequest.prototype._doSend = function(path, opt_data) {};
 
-
 /**
  * @inheritDoc
  */
 net.FormRequest.prototype._reset = function() {};
-
-
-/**
- * Создание элемента данных формы.
- *
- * @param {string} urlToken Имя и данные разделенные знаком `=`.
- * @return {!Node} Созданный элемент формы.
- */
-net.FormRequest.prototype.__createInput = function(urlToken) {};
-
-
-/**
- * Создание фрейма для запроса.
- *
- * @return {!Node} Созданный фрейм.
- */
-net.FormRequest.prototype.__createFrame = function() {};
 
 /**
  * TUNA FRAMEWORK
@@ -1552,15 +1305,12 @@ net.FormRequest.prototype.__createFrame = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Интерфейс фабрики HTTP-запросов.
  *
  * @interface
  */
 net.factory.IRequestFactory = function() {};
-
 
 /**
  * Создание HTTP-запроса.
@@ -1600,15 +1350,12 @@ net.factory.IRequestFactory.prototype.createRequest =
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Интерфейс фабрики постоянных соединенйи с сервером.
  *
  * @interface
  */
 net.factory.ISocketFactory = function() {};
-
 
 /**
  * Создание постоянного соединения.
@@ -1645,8 +1392,6 @@ net.factory.ISocketFactory.prototype.createSocket = function() {};
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Стандартная фабрика HTTP-запросов.
  *
@@ -1657,7 +1402,6 @@ net.factory.ISocketFactory.prototype.createSocket = function() {};
  * @param {number=} opt_port Порт.
  */
 net.factory.RequestFactory = function(opt_hostOrUrl, opt_isSecure, opt_port) {};
-
 
 /**
  * @inheritDoc
@@ -1692,8 +1436,6 @@ net.factory.RequestFactory.prototype.createRequest = function(opt_needResult) {}
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 /**
  * Стандартная фабрика постоянных соединенйи с сервером.
  *
@@ -1705,9 +1447,806 @@ net.factory.RequestFactory.prototype.createRequest = function(opt_needResult) {}
  */
 net.factory.SocketFactory = function(opt_hostOrUrl, opt_isSecure, opt_port) {};
 
-
 /**
  * @inheritDoc
  */
 net.factory.SocketFactory.prototype.createSocket = function() {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @namespace
+ */
+var tt = {};
+
+/**
+ * Версия библиотеки.
+ *
+ * @type {string}
+ */
+tt.VERSION = '0.1.0';
+
+/**
+ * @namespace
+ */
+tt.rules = {};
+
+/**
+ * @namespace
+ */
+tt.data = {};
+
+/**
+ * @namespace
+ */
+tt.view = {};
+
+/**
+ * @namespace
+ */
+tt.view.helpers = {};
+
+/**
+ * @param {!Node} target Целевой узел.
+ * @param {!Object.<string, !Object>} sign Разметка шаблона.
+ * @return {!tt.Template} Объект шаблона.
+ */
+tt.createTemplate = function(target, sign) {};
+
+/**
+ * @param {!Node} target Целевой узел.
+ * @param {!Array.<!tt.TemplateRule>} rules Правила трансформации шаблона.
+ * @return {!tt.Template} Объект шаблона.
+ */
+tt.createTemplateFromRules = function(target, rules) {};
+
+/**
+ * @param {!Object.<string, !Object>} sign Разметка шаблона.
+ * @return {!Array.<!tt.TemplateRule>}  Правила трансформации шаблона.
+ */
+tt.createRules = function(sign) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Класс шаблона.
+ *
+ * @constructor
+ * @param {!Node} target Целевой элемент шаблона.
+ * @param {!Array.<!tt.TemplateUnit>} units Узлы шаблонизатора.
+ */
+tt.Template = function(target, units) {};
+
+/**
+ * @return {!Node} Целевой элемент шаблона.
+ */
+tt.Template.prototype.getTarget = function() {};
+
+/**
+ * @param {*} data Данные для отображения.
+ */
+tt.Template.prototype.processData = function(data) {};
+
+/**
+ * @param {!tt.data.DataNode} dataNode Узел данных.
+ */
+tt.Template.prototype.applyData = function(dataNode) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @param {!tt.view.ITemplateView} view Объект управления отображением.
+ * @param {!tt.data.PathEvaluator} pathEvaluator Правило отображения данных.
+ */
+tt.TemplateUnit = function(view, pathEvaluator) {};
+
+/**
+ * @param {!tt.data.DataNode} dataNode Узел данных.
+ */
+tt.TemplateUnit.prototype.applyData = function(dataNode) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Базовый класс правил элемента шаблона.
+ *
+ * @constructor
+ * @param {string} type Тип правила.
+ * @param {string} className Имя CSS-класса целевых DOM-элементов.
+ * @param {string} dataPath Путь к данным в для отображения.
+ * @param {!tt.view.helpers.ITemplateViewHelper} viewHelper Правила отображения.
+ */
+tt.TemplateRule = function(type, className, dataPath, viewHelper) {};
+
+/**
+ * @param {!Node} parent Родительский элемент отображения.
+ * @return {!Array.<!tt.TemplateUnit>} Созданные элементы трансформации.
+ */
+tt.TemplateRule.prototype.createTemplateUnits = function(parent) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Класс объекта взятия данных по выбранному пути.
+ *
+ * @constructor
+ * @param {string} path Путь к данным.
+ */
+tt.data.PathEvaluator = function(path) {};
+
+/**
+ * Выборка данных из узла по установленному пути.
+ *
+ * @param {!tt.data.DataNode} node Узел данных для выборки.
+ * @return {!tt.data.DataNode} Узел-результат выборки.
+ */
+tt.data.PathEvaluator.prototype.evaluate = function(node) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Узел парсинга объекта данных передаваемого шаблону.
+ *
+ * @constructor
+ * @param {*} value Данные узла.
+ * @param {!tt.data.DataNode=} opt_parent Родительский узел данных.
+ * @param {(number|string)=} opt_key Ключ узла данных в родительском.
+ */
+tt.data.DataNode = function(value, opt_parent, opt_key) {};
+
+/**
+ * Родительский узел данных.
+ *
+ * @return {!tt.data.DataNode} Родительский узел данных.
+ */
+tt.data.DataNode.prototype.getParent = function() {};
+
+/**
+ * Получение узла-ключа данных текущего узла.
+ *
+ * @return {!tt.data.DataNode} Узел-ключ данных текущего узла.
+ */
+tt.data.DataNode.prototype.getKey = function() {};
+
+/**
+ * @return {!tt.data.DataNode} Корневой узел данных.
+ */
+tt.data.DataNode.prototype.getRoot = function() {};
+
+/**
+ * Получение значений узла данных.
+ *
+ * @return {*} Значение узла данных.
+ */
+tt.data.DataNode.prototype.getValue = function() {};
+
+/**
+ * Создание и возвращение дочернего узда данных по ключу.
+ *
+ * @param {(number|string)} key Ключ дочернего узла.
+ * @return {!tt.data.DataNode} Новый узел данных.
+ */
+tt.data.DataNode.prototype.growChild = function(key) {};
+
+/**
+ * Создание и возвращение дочернего узда данных.
+ *
+ * @return {!Array.<!tt.data.DataNode>} Массив узлов данных.
+ */
+tt.data.DataNode.prototype.growChildren = function() {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @interface
+ */
+tt.view.helpers.ITemplateViewHelper = function() {};
+
+/**
+ * @param {!Node} element Объект отображения трансформации.
+ * @return {!tt.view.ITemplateView} Объект проведения трансформации.
+ */
+tt.view.helpers.ITemplateViewHelper.prototype.createView = function(element) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @implements {tt.view.helpers.ITemplateViewHelper}
+ */
+tt.view.helpers.SimpleViewHelper = function() {};
+
+/**
+ * @inheritDoc
+ */
+tt.view.helpers.SimpleViewHelper.prototype.createView = function(element) {};
+
+/**
+ * @param {!Node} element Элемент.
+ * @param {*} value Значение.
+ */
+tt.view.helpers.SimpleViewHelper.prototype.process =
+    function(element, value) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @extends {tt.view.helpers.SimpleViewHelper}
+ * @param {!Array.<string>} cases Список ожидаемых строковых значений.
+ * @param {!Array.<string>} caseClasses Соответсвующие значениям классы.
+ * @param {!Array.<!RegExp>} regExps Регулярные выражения.
+ * @param {!Array.<string>} regExpsClasses Соответсвующие регулярным выражениям
+ *    классы.
+ */
+tt.view.helpers.CaseViewHelper =
+    function(cases, caseClasses, regExps, regExpsClasses) {};
+
+/**
+ * @param {!Node} element Элемент.
+ * @param {*} value Значение.
+ */
+tt.view.helpers.CaseViewHelper.prototype.process = function(element, value) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @extends {tt.view.helpers.SimpleViewHelper}
+ * @param {!Array.<string>} pattern Шаблон отображения текста.
+ */
+tt.view.helpers.TextViewHelper = function(pattern) {};
+
+/**
+ * @param {!Node} element Элемент.
+ * @param {*} value Значение.
+ */
+tt.view.helpers.TextViewHelper.prototype.process = function(element, value) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @extends {tt.view.helpers.SimpleViewHelper}
+ * @param {string} name Имя аттрибута.
+ * @param {!Array.<string>} pattern Шаблон отображения текста.
+ */
+tt.view.helpers.AttributeViewHelper = function(name, pattern) {};
+
+/**
+ * @inheritDoc
+ */
+tt.view.helpers.AttributeViewHelper.prototype.process =
+    function(element, value) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @implements {tt.view.helpers.ITemplateViewHelper}
+ * @param {!Node} itemRenderer Прототип элементов списка.
+ * @param {!Array.<!tt.TemplateRule>} itemRules Шаблон элементов списка.
+ * @param {string=} opt_keyPath Путь к ключу элемента.
+ */
+tt.view.helpers.ListViewHelper =
+    function(itemRenderer, itemRules, opt_keyPath) {};
+
+/**
+ * @inheritDoc
+ */
+tt.view.helpers.ListViewHelper.prototype.createView = function(element) {};
+
+/**
+ * @param {!tt.data.DataNode} dataNode Узел данных.
+ * @return {*} Ключ.
+ */
+tt.view.helpers.ListViewHelper.prototype.evaluateKey = function(dataNode) {};
+
+/**
+ * @param {!Node} parent Список.
+ * @return {tt.Template} Созданный элемент списка.
+ */
+tt.view.helpers.ListViewHelper.prototype.createItem = function(parent) {};
+
+/**
+ * @param {!Node} parent Список.
+ * @param {!tt.Template} item Элемент списка.
+ */
+tt.view.helpers.ListViewHelper.prototype.removeItem = function(parent, item) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Объекты, классы которых реализуют данный интерфейс, предназначены для
+ * хранения состояния отображения.
+ *
+ * @interface
+ */
+tt.view.ITemplateView = function() {};
+
+/**
+ * @param {!tt.data.DataNode} dataNode Узел дерева данных.
+ */
+tt.view.ITemplateView.prototype.applyTransformation = function(dataNode) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @implements {tt.view.ITemplateView}
+ * @param {!Node} target Элемент отображения.
+ * @param {!tt.view.helpers.SimpleViewHelper} helper Помошник отображения.
+ */
+tt.view.SimpleView = function(target, helper) {};
+
+/**
+ * @inheritDoc
+ */
+tt.view.SimpleView.prototype.applyTransformation = function(dataNode) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @constructor
+ * @implements {tt.view.ITemplateView}
+ * @param {!Node} target Элемент отображения.
+ * @param {!tt.view.helpers.ListViewHelper} helper Объект поддержки
+ *    дополнительных настроек.
+ */
+tt.view.ListView = function(target, helper) {};
+
+/**
+ * @inheritDoc
+ */
+tt.view.ListView.prototype.applyTransformation = function(dataNode) {};
+
+/**
+ * TUNA FRAMEWORK
+ *
+ * Copyright (c) 2012, Sergey Kononenko
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Names of contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL SERGEY KONONENKO BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * @type {string}
+ */
+tt.view.TEXT = 'text';
+
+/**
+ * @type {string}
+ */
+tt.view.ATTR = 'attr';
+
+/**
+ * @type {string}
+ */
+tt.view.CASE = 'case';
+
+/**
+ * @type {string}
+ */
+tt.view.LIST = 'list';
+
+/**
+ *
+ * @param {string} type Тип объекта управления отображением.
+ * @param {!Object} options Данные настроек.
+ * @return {tt.view.helpers.ITemplateViewHelper} Объект настроек.
+ */
+tt.view.createViewHelper = function(type, options) {};
+
+
+
 

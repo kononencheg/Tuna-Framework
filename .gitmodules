@@ -7,3 +7,6 @@
 [submodule "deps/net"]
 	path = deps/net
 	url = git@github.com:kononencheg/Tuna-Net
+[submodule "deps/tt"]
+	path = deps/tt
+	url = git@github.com:kononencheg/Tuna-Template.git
