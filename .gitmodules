@@ -13,3 +13,6 @@
 [submodule "deps/rest"]
 	path = deps/rest
 	url = git@github.com:kononencheg/Tuna-Rest
+[submodule "deps/ui"]
+	path = deps/ui
+	url = git@github.com:kononencheg/Tuna-UI.git
