@@ -618,7 +618,7 @@ net.RequestEvent.prototype.getResponseStatus = function() {
 };
 net.Request = function(url) {
   events.EventDispatcher.call(this);
-  this.__url = url.charAt(url.length - 1) === "/" ? url : url + "/";
+  this.__url = url;
   this.__method = net.RequestMethod.GET;
   this.__sendQueue = [];
   this.__flush = util.bind(this.__flush, this)
@@ -1260,5 +1260,60 @@ tt.view.__createCaseViewHelper = function(options) {
     }
   }
   return new tt.view.helpers.CaseViewHelper(cases, caseClasses, regExps, regExpClasses)
+};
+var rest = {};
+rest.VERSION = "0.0.1";
+rest.setMethodFactory = function(factory) {
+  rest.__methodFactory = factory
+};
+rest.setRequestFactory = function(factory) {
+  rest.__requestFactory = factory
+};
+rest.createMethod = function(name) {
+  if(rest.__methodFactory !== null) {
+    var method = rest.__methodFactory.createMethod(name);
+    if(method !== null) {
+      return method
+    }
+  }
+  return new rest.Method(rest.__requestFactory, name)
+};
+rest.call = function(name, args, opt_handler) {
+  rest.createMethod(name).call(args, function(result) {
+    if(opt_handler !== undefined) {
+      opt_handler.handleResult(result)
+    }
+  })
+};
+rest.__methodFactory = null;
+rest.__requestFactory = new net.factory.RequestFactory;
+rest.IMethod = function() {
+};
+rest.IMethod.prototype.call = function(args, callback) {
+};
+rest.IResultHandler = function() {
+};
+rest.IResultHandler.prototype.handleResult = function(result) {
+};
+rest.IMethodFactory = function() {
+};
+rest.IMethodFactory.prototype.createMethod = function(name) {
+};
+rest.Method = function(requestFactory, path) {
+  this.__requestFactory = requestFactory;
+  this.__path = path
+};
+rest.Method.prototype.call = function(args, callback) {
+  var request = this.__requestFactory.createRequest();
+  function resultHandler(event, opt_data) {
+    request.removeEventListener(net.RequestEvent.COMPLETE, resultHandler);
+    if(typeof opt_data === "string") {
+      callback(opt_data)
+    }else {
+      callback("")
+    }
+  }
+  request.addEventListener(net.RequestEvent.COMPLETE, resultHandler);
+  request.send(util.encodeFormData(args), this.__path)
 };
 

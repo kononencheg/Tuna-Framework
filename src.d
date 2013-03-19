@@ -42,3 +42,9 @@ lib/tt/view/i-template-view.js
 lib/tt/view/simple-view.js
 lib/tt/view/list-view.js
 lib/tt/view/view.js
+
+lib/rest/rest.js
+lib/rest/i-method.js
+lib/rest/i-result-handler.js
+lib/rest/i-method-factory.js
+lib/rest/method.js
