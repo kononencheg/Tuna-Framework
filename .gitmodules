@@ -16,3 +16,9 @@
 [submodule "deps/ui"]
 	path = deps/ui
 	url = git@github.com:kononencheg/Tuna-UI.git
+[submodule "deps/sm"]
+	path = deps/sm
+	url = git@github.com:kononencheg/Tuna-Shared-Memory.git
+[submodule "deps/app"]
+	path = deps/app
+	url = git@github.com:kononencheg/Tuna-App.git
